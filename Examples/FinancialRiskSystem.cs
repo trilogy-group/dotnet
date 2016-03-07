@@ -33,11 +33,11 @@ namespace Structurizr.Examples
             emailSystem.Delivers(businessUser, "Sends a notification that a report is ready to", "E-mail message", InteractionStyle.Asynchronous);
 
             SoftwareSystem centralMonitoringService = model.AddSoftwareSystem(Location.Internal, "Central Monitoring Service", "The bank-wide monitoring and alerting dashboard");
-            financialRiskSystem.Uses(centralMonitoringService, "Sends critical failure alerts to", "SNMP", InteractionStyle.Asynchronous).addTags(AlertTag);
+            financialRiskSystem.Uses(centralMonitoringService, "Sends critical failure alerts to", "SNMP", InteractionStyle.Asynchronous).AddTags(AlertTag);
 
             SoftwareSystem activeDirectory = model.AddSoftwareSystem(Location.Internal, "Active Directory", "Manages users and security roles across the bank");
             financialRiskSystem.Uses(activeDirectory, "Uses for authentication and authorisation");
-            
+
             // create some views
             ViewSet viewSet = workspace.Views;
             SystemContextView contextView = viewSet.CreateContextView(financialRiskSystem);
@@ -46,19 +46,17 @@ namespace Structurizr.Examples
 
             // tag and style some elements
             Styles styles = viewSet.Configuration.Styles;
-            financialRiskSystem.addTags("Risk System");
+            financialRiskSystem.AddTags("Risk System");
 
             styles.Add(new ElementStyle(Tags.Element) { Color = "#ffffff", FontSize = 34 });
             styles.Add(new ElementStyle("Risk System") { Background = "#550000", Color = "#ffffff" });
-            styles.Add(new ElementStyle(Tags.SoftwareSystem) { Width = 650, Height = 400, Background = "#801515", Shape = "RoundedBox" });
-            styles.Add(new ElementStyle(Tags.Person) { Width = 550, Background = "#d46a6a", Shape = "Person" });
+            styles.Add(new ElementStyle(Tags.SoftwareSystem) { Width = 650, Height = 400, Background = "#801515", Shape = Shape.RoundedBox });
+            styles.Add(new ElementStyle(Tags.Person) { Width = 550, Background = "#d46a6a", Shape = Shape.Person });
 
-            /*
-            styles.AddRelationshipStyle(Tags.Relationship).Thickness(4).Dashed(false).FontSize(32).Width(400);
-            styles.AddRelationshipStyle(Tags.Synchronous).Dashed(false);
-            styles.AddRelationshipStyle(Tags.Asynchronous).Dashed(true);
-            styles.AddRelationshipStyle(AlertTag).Color("#ff0000");
-            */
+            styles.Add(new RelationshipStyle(Tags.Relationship) { Thickness = 4, Dashed = false, FontSize = 32, Width = 400 });
+            styles.Add(new RelationshipStyle(Tags.Synchronous) { Dashed = false });
+            styles.Add(new RelationshipStyle(Tags.Asynchronous) { Dashed = true });
+            styles.Add(new RelationshipStyle(AlertTag) { Color = "#ff0000" });
 
 /*
 // and upload the model to structurizr.com

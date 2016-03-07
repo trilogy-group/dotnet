@@ -101,12 +101,12 @@ namespace Structurizr.Model
                 this.interactionStyle = value;
                 if (this.interactionStyle == InteractionStyle.Synchronous)
                 {
-                    removeTag(Structurizr.Model.Tags.Asynchronous);
-                    addTags(Structurizr.Model.Tags.Synchronous);
+                    RemoveTag(Structurizr.Model.Tags.Asynchronous);
+                    AddTags(Structurizr.Model.Tags.Synchronous);
                 }
                 else {
-                    removeTag(Structurizr.Model.Tags.Synchronous);
-                    addTags(Structurizr.Model.Tags.Asynchronous);
+                    RemoveTag(Structurizr.Model.Tags.Synchronous);
+                    AddTags(Structurizr.Model.Tags.Asynchronous);
                 }
 
             }

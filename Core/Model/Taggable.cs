@@ -47,7 +47,7 @@ namespace Structurizr.Model
             }
         }
 
-        public void addTags(params string[] tags)
+        public void AddTags(params string[] tags)
         {
             if (tags == null)
             {
@@ -63,7 +63,7 @@ namespace Structurizr.Model
             }
         }
 
-        public void removeTag(string tag)
+        public void RemoveTag(string tag)
         {
             if (tag != null)
             {

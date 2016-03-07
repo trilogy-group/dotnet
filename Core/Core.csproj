@@ -54,6 +54,7 @@
     <Compile Include="Model\Tags.cs" />
     <Compile Include="View\ComponentView.cs" />
     <Compile Include="View\Configuration.cs" />
+    <Compile Include="View\Shape.cs" />
     <Compile Include="View\Styles.cs" />
     <Compile Include="Model\Container.cs" />
     <Compile Include="View\ContainerView.cs" />
