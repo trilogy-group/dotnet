@@ -1,4 +1,5 @@
 ﻿using Structurizr.Model;
+using Structurizr.View;
 
 namespace Structurizr.Examples
 {
@@ -36,47 +37,39 @@ namespace Structurizr.Examples
 
             SoftwareSystem activeDirectory = model.AddSoftwareSystem(Location.Internal, "Active Directory", "Manages users and security roles across the bank");
             financialRiskSystem.Uses(activeDirectory, "Uses for authentication and authorisation");
-
-            /*
+            
             // create some views
-            ViewSet viewSet = workspace.getViews();
-            SystemContextView contextView = viewSet.createContextView(financialRiskSystem);
-            contextView.addAllSoftwareSystems();
-            contextView.addAllPeople();
+            ViewSet viewSet = workspace.Views;
+            SystemContextView contextView = viewSet.CreateContextView(financialRiskSystem);
+            contextView.AddAllSoftwareSystems();
+            contextView.AddAllPeople();
 
             // tag and style some elements
-            Styles styles = viewSet.getConfiguration().getStyles();
+            Styles styles = viewSet.Configuration.Styles;
             financialRiskSystem.addTags("Risk System");
 
-            styles.addElementStyle(Tags.ELEMENT).color("#ffffff").fontSize(34);
-            styles.addElementStyle("Risk System").background("#550000").color("#ffffff");
-            styles.addElementStyle(Tags.SOFTWARE_SYSTEM).width(650).height(400).background("#801515").shape(Shape.RoundedBox);
-            styles.addElementStyle(Tags.PERSON).width(550).background("#d46a6a").shape(Shape.Person);
+            styles.Add(new ElementStyle(Tags.Element) { Color = "#ffffff", FontSize = 34 });
+            styles.Add(new ElementStyle("Risk System") { Background = "#550000", Color = "#ffffff" });
+            styles.Add(new ElementStyle(Tags.SoftwareSystem) { Width = 650, Height = 400, Background = "#801515", Shape = "RoundedBox" });
+            styles.Add(new ElementStyle(Tags.Person) { Width = 550, Background = "#d46a6a", Shape = "Person" });
 
-            styles.addRelationshipStyle(Tags.RELATIONSHIP).thickness(4).dashed(false).fontSize(32).width(400);
-            styles.addRelationshipStyle(Tags.SYNCHRONOUS).dashed(false);
-            styles.addRelationshipStyle(Tags.ASYNCHRONOUS).dashed(true);
-            styles.addRelationshipStyle(TAG_ALERT).color("#ff0000");
-
-            // and upload the model to structurizr.com
-            StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-            structurizrClient.mergeWorkspace(31, workspace);
+            /*
+            styles.AddRelationshipStyle(Tags.Relationship).Thickness(4).Dashed(false).FontSize(32).Width(400);
+            styles.AddRelationshipStyle(Tags.Synchronous).Dashed(false);
+            styles.AddRelationshipStyle(Tags.Asynchronous).Dashed(true);
+            styles.AddRelationshipStyle(AlertTag).Color("#ff0000");
             */
 
-            foreach (SoftwareSystem softwareSystem in model.SoftwareSystems)
-            {
-                System.Console.WriteLine(softwareSystem.ToString());
-            }
+/*
+// and upload the model to structurizr.com
+StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
+structurizrClient.mergeWorkspace(31, workspace);
+*/
 
-            foreach (Person person in model.People)
-            {
-                System.Console.WriteLine(person.ToString());
-            }
+            System.Console.WriteLine(workspace.ToJson());
 
-            foreach (Relationship relationship in model.Relationships)
-            {
-                System.Console.WriteLine(relationship.ToString());
-            }
+            string json = workspace.ToJson();
+            System.IO.File.WriteAllText(@"C:\Users\simon\Desktop\FinancialRiskSystem.txt", json);
 
             System.Console.ReadKey();
 

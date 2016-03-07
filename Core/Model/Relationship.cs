@@ -1,6 +1,8 @@
 using System;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Structurizr.Model
 {
@@ -99,12 +101,12 @@ namespace Structurizr.Model
                 this.interactionStyle = value;
                 if (this.interactionStyle == InteractionStyle.Synchronous)
                 {
-                    removeTag(Tags.Asynchronous);
-                    addTags(Tags.Synchronous);
+                    removeTag(Structurizr.Model.Tags.Asynchronous);
+                    addTags(Structurizr.Model.Tags.Synchronous);
                 }
                 else {
-                    removeTag(Tags.Synchronous);
-                    addTags(Tags.Asynchronous);
+                    removeTag(Structurizr.Model.Tags.Synchronous);
+                    addTags(Structurizr.Model.Tags.Asynchronous);
                 }
 
             }
@@ -132,6 +134,14 @@ namespace Structurizr.Model
             this.Description = description;
             this.Technology = technology;
             this.InteractionStyle = interactionStyle;
+        }
+
+        public override List<string> getRequiredTags()
+        {
+            string[] tags = {
+                Structurizr.Model.Tags.Relationship
+            };
+            return tags.ToList();
         }
 
         /// <summary>

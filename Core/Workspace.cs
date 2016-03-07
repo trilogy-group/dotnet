@@ -38,26 +38,6 @@ namespace Structurizr
             this.Views = new ViewSet(Model);        
         }
 
-          
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class Workspace {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  Thumbnail: ").Append(Thumbnail).Append("\n");
-            sb.Append("  Model: ").Append(Model).Append("\n");
-            sb.Append("  Views: ").Append(Views).Append("\n");
-            
-            sb.Append("}\n");
-            return sb.ToString();
-        }
-  
         /// <summary>
         /// Returns the JSON string presentation of the object
         /// </summary>

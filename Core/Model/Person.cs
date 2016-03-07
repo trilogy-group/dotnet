@@ -33,6 +33,15 @@ namespace Structurizr.Model
         {
         }
 
+        public override List<string> getRequiredTags()
+        {
+            string[] tags = {
+                Structurizr.Model.Tags.Element,
+                Structurizr.Model.Tags.Person
+            };
+            return tags.ToList();
+        }
+
         public bool Equals(Person person)
         {
             return this.Equals(person as Element);

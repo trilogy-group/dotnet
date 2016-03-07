@@ -79,6 +79,14 @@ namespace Structurizr.Model
             return relationship;
         }
 
+        public override List<string> getRequiredTags()
+        {
+            string[] tags = {
+                Structurizr.Model.Tags.Element,
+                Structurizr.Model.Tags.SoftwareSystem
+            };
+            return tags.ToList();
+        }
 
         /// <summary>
         /// Returns the JSON string presentation of the object

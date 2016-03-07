@@ -26,7 +26,7 @@ namespace Structurizr.View
         /// <param name="Elements">The set of elements in this views..</param>
         /// <param name="Relationships">The set of relationships in this views..</param>
 
-        public ContainerView(string Key = null, string SoftwareSystemId = null, string PaperSize = null, List<ElementInView> Elements = null, List<RelationshipInView> Relationships = null)
+        public ContainerView(string Key = null, string SoftwareSystemId = null, string PaperSize = null, List<ElementView> Elements = null, List<RelationshipView> Relationships = null)
         {
             this.Key = Key;
             this.SoftwareSystemId = SoftwareSystemId;
@@ -66,7 +66,7 @@ namespace Structurizr.View
         /// </summary>
         /// <value>The set of elements in this views.</value>
         [DataMember(Name="elements", EmitDefaultValue=false)]
-        public List<ElementInView> Elements { get; set; }
+        public List<ElementView> Elements { get; set; }
   
         
         /// <summary>
@@ -74,7 +74,7 @@ namespace Structurizr.View
         /// </summary>
         /// <value>The set of relationships in this views.</value>
         [DataMember(Name="relationships", EmitDefaultValue=false)]
-        public List<RelationshipInView> Relationships { get; set; }
+        public List<RelationshipView> Relationships { get; set; }
   
         
   

@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using Structurizr.Model;
 
 namespace Structurizr.View
 {
@@ -15,63 +16,57 @@ namespace Structurizr.View
     public class ViewSet
     {
 
-        public ViewSet(Model.Model model)
-        {
-            this.Model = model;
-        }
-
         public Model.Model Model { get; set; }
 
         /// <summary>
         /// The set of system context views.
         /// </summary>
-        /// <value>The set of system context views.</value>
-        [DataMember(Name="systemContextViews", EmitDefaultValue=false)]
+        [DataMember(Name = "systemContextViews", EmitDefaultValue = false)]
         public List<SystemContextView> SystemContextViews { get; set; }
-  
-        
+
+
         /// <summary>
         /// The set of container views.
         /// </summary>
-        /// <value>The set of container views.</value>
-        [DataMember(Name="containerViews", EmitDefaultValue=false)]
+        [DataMember(Name = "containerViews", EmitDefaultValue = false)]
         public List<ContainerView> ContainerViews { get; set; }
-  
-        
+
+
         /// <summary>
         /// The set of component views.
         /// </summary>
-        /// <value>The set of component views.</value>
-        [DataMember(Name="componentViews", EmitDefaultValue=false)]
+        [DataMember(Name = "componentViews", EmitDefaultValue = false)]
         public List<ComponentView> ComponentViews { get; set; }
-  
-        
+
+
         /// <summary>
         /// The configuration object associated with this set of views.
         /// </summary>
-        /// <value>The configuration object associated with this set of views.</value>
-        [DataMember(Name="configuration", EmitDefaultValue=false)]
+        [DataMember(Name = "configuration", EmitDefaultValue = false)]
         public Configuration Configuration { get; set; }
-  
-        
-  
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
+
+        public ViewSet(Model.Model model)
         {
-            var sb = new StringBuilder();
-            sb.Append("class Views {\n");
-            sb.Append("  SystemContextViews: ").Append(SystemContextViews).Append("\n");
-            sb.Append("  ContainerViews: ").Append(ContainerViews).Append("\n");
-            sb.Append("  ComponentViews: ").Append(ComponentViews).Append("\n");
-            sb.Append("  Configuration: ").Append(Configuration).Append("\n");
-            
-            sb.Append("}\n");
-            return sb.ToString();
+            this.Model = model;
+            this.SystemContextViews = new List<SystemContextView>();
+
+            this.Configuration = new Configuration();
         }
-  
+
+
+        public SystemContextView CreateContextView(SoftwareSystem softwareSystem)
+        {
+            return CreateContextView(softwareSystem, null);
+        }
+
+        public SystemContextView CreateContextView(SoftwareSystem softwareSystem, String description)
+        {
+            SystemContextView view = new SystemContextView(softwareSystem, description);
+            this.SystemContextViews.Add(view);
+
+            return view;
+        }
+
         /// <summary>
         /// Returns the JSON string presentation of the object
         /// </summary>

@@ -4,6 +4,8 @@ using System.Runtime.Serialization;
 
 namespace Structurizr.Model
 {
+
+    [DataContract]
     public abstract class Element : Taggable
     {
 
@@ -31,6 +33,7 @@ namespace Structurizr.Model
 
         public Model Model { get; set; }
 
+        [DataMember(Name = "relationships", EmitDefaultValue = false)]
         public HashSet<Relationship> Relationships { get; set; }
 
         public abstract string CanonicalName { get; }

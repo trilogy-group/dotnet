@@ -7,14 +7,16 @@ using System.Threading.Tasks;
 
 namespace Structurizr
 {
+
+    [DataContract]
     public abstract class AbstractWorkspace
     {
 
         /// <summary>
         /// The ID of the workspace. 
         /// </summary>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        public double? Id { get; set; }
+        [DataMember(Name = "id", EmitDefaultValue = true)]
+        public long Id { get; set; }
 
         /// <summary>
         /// The name of the workspace.
