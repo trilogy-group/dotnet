@@ -33,8 +33,8 @@ You can also change the colour of specific relationships, based upon their tag, 
 
 ```c#
 user.Relationships.ToList().ForEach(r => r.AddTags("HTTPS"));
-styles.add(new RelationshipStyle(Tags.Relationship) { Color = "#3366FF" });
-styles.add(new RelationshipStyle("HTTPS") { Color = "#33CC33", Dashed = false });
+styles.add(new RelationshipStyle(Tags.Relationship) { Color = "#3366ff" });
+styles.add(new RelationshipStyle("HTTPS") { Color = "#33cc33", Dashed = false });
 ```
 
 ![Colouring relationships based upon tag](images/styling-relationships-3.png)
