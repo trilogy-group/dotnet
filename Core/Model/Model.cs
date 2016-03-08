@@ -130,11 +130,11 @@ namespace Structurizr.Model
                 relationship.Id = idGenerator.GenerateId(relationship);
                 relationship.Source.AddRelationship(relationship);
 
-                addRelationshipToInternalStructures(relationship);
+                AddRelationshipToInternalStructures(relationship);
             }
         }
 
-        private void addRelationshipToInternalStructures(Relationship relationship)
+        private void AddRelationshipToInternalStructures(Relationship relationship)
         {
             relationshipsById.Add(relationship.Id, relationship);
             idGenerator.Found(relationship.Id);

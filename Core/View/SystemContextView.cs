@@ -1,5 +1,4 @@
 using System.Runtime.Serialization;
-using Newtonsoft.Json;
 using Structurizr.Model;
 
 namespace Structurizr.View
@@ -24,13 +23,6 @@ namespace Structurizr.View
         {
             AddAllSoftwareSystems();
             AddAllPeople();
-        }
-
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
     }

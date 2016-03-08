@@ -1,6 +1,4 @@
-using System.Text;
 using System.Runtime.Serialization;
-using Newtonsoft.Json;
 using Structurizr.View;
 
 namespace Structurizr
@@ -36,15 +34,6 @@ namespace Structurizr
         {
             this.Model = new Model.Model();
             this.Views = new ViewSet(Model);        
-        }
-
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented, new Newtonsoft.Json.Converters.StringEnumConverter());
         }
 
     }

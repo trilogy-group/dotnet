@@ -1,4 +1,5 @@
-﻿using Structurizr.Model;
+﻿using Structurizr.Client;
+using Structurizr.Model;
 using Structurizr.View;
 
 namespace Structurizr.Examples
@@ -58,19 +59,11 @@ namespace Structurizr.Examples
             styles.Add(new RelationshipStyle(Tags.Asynchronous) { Dashed = true });
             styles.Add(new RelationshipStyle(AlertTag) { Color = "#ff0000" });
 
-/*
-// and upload the model to structurizr.com
-StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-structurizrClient.mergeWorkspace(31, workspace);
-*/
-
-            System.Console.WriteLine(workspace.ToJson());
-
-            string json = workspace.ToJson();
-            System.IO.File.WriteAllText(@"C:\Users\simon\Desktop\FinancialRiskSystem.txt", json);
+            // and upload the model to structurizr.com
+            StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
+            structurizrClient.PutWorkspace(9481, workspace);
 
             System.Console.ReadKey();
-
         }
     }
 }

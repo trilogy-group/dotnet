@@ -1,9 +1,6 @@
 using System;
-using System.Linq;
-using System.Text;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Newtonsoft.Json;
 using Structurizr.Model;
 
 namespace Structurizr.View
@@ -65,15 +62,6 @@ namespace Structurizr.View
             this.SystemContextViews.Add(view);
 
             return view;
-        }
-
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
     }

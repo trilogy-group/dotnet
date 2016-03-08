@@ -1,9 +1,6 @@
 using System;
-using System.Linq;
-using System.Text;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Newtonsoft.Json;
 using Structurizr.Model;
 
 namespace Structurizr.View

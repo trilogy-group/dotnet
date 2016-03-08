@@ -88,15 +88,6 @@ namespace Structurizr.Model
             return tags.ToList();
         }
 
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
-
         public bool Equals(SoftwareSystem softwareSystem)
         {
             return this.Equals(softwareSystem as Element);

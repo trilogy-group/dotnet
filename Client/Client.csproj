@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F9C9B68E-8CC9-4404-94FD-1FF6A87AC3AA}</ProjectGuid>
+    <ProjectGuid>{634C65F7-131E-4503-A5BD-1D331A6F8B4A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Structurizr</RootNamespace>
-    <AssemblyName>StructurizrCore</AssemblyName>
+    <AssemblyName>StructurizrClient</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,13 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,39 +40,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractWorkspace.cs" />
-    <Compile Include="IO\Json\JsonWriter.cs" />
-    <Compile Include="Model\Component.cs" />
-    <Compile Include="Model\Element.cs" />
-    <Compile Include="Model\InteractionStyle.cs" />
-    <Compile Include="Model\SequentialIntegerIdGeneratorStrategy.cs" />
-    <Compile Include="Model\Taggable.cs" />
-    <Compile Include="Model\Tags.cs" />
-    <Compile Include="View\ComponentView.cs" />
-    <Compile Include="View\Configuration.cs" />
-    <Compile Include="View\Shape.cs" />
-    <Compile Include="View\Styles.cs" />
-    <Compile Include="Model\Container.cs" />
-    <Compile Include="View\ContainerView.cs" />
-    <Compile Include="View\ElementView.cs" />
-    <Compile Include="View\ElementStyle.cs" />
-    <Compile Include="Model\Location.cs" />
-    <Compile Include="Model\Model.cs" />
-    <Compile Include="Model\Person.cs" />
-    <Compile Include="Model\Relationship.cs" />
-    <Compile Include="View\RelationshipView.cs" />
-    <Compile Include="View\RelationshipStyle.cs" />
-    <Compile Include="Model\SoftwareSystem.cs" />
-    <Compile Include="View\StaticView.cs" />
-    <Compile Include="View\SystemContextView.cs" />
-    <Compile Include="View\Vertex.cs" />
-    <Compile Include="View\View.cs" />
-    <Compile Include="View\ViewSet.cs" />
-    <Compile Include="Workspace.cs" />
+    <Compile Include="Client\HashBasedMessageAuthenticationCode.cs" />
+    <Compile Include="Client\HmacAuthorizationHeader.cs" />
+    <Compile Include="Client\HmacContent.cs" />
+    <Compile Include="Client\HttpHeaders.cs" />
+    <Compile Include="Client\Md5Digest.cs" />
+    <Compile Include="Client\StructurizrClient.cs" />
+    <Compile Include="Client\StructurizrClientException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{f9c9b68e-8cc9-4404-94fd-1ff6a87ac3aa}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
