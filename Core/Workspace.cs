@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.Serialization;
 using Structurizr.View;
 
@@ -42,7 +43,6 @@ namespace Structurizr
             this.Model.Hydrate();
             this.Views.Hydrate();
         }
-
 
     }
 }
