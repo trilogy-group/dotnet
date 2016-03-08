@@ -32,7 +32,7 @@ This allows you to overwrite an existing workspace.
 structurizrClient.PutWorkspace(1234, workspace);
 ```
 
-### 3. mergeWorkspace
+### 3. MergeWorkspace
 
 This is the same as ```PutWorkspace``` except that any layout information (i.e. the location of boxes on diagrams) is preserved where possible (i.e. where diagram elements haven't been renamed).
 
