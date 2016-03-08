@@ -15,11 +15,16 @@ namespace Structurizr.Client
         public string ApiKey { get; set; }
         public string ApiSecret { get; set; }
 
+        /// <summary>the location where a copy of the workspace will be archived when it is retrieved from the server</summary>
+        public DirectoryInfo WorkspaceArchiveLocation { get; set; }
+
         public StructurizrClient(string apiKey, string apiSecret)
         {
             this.ApiKey = apiKey;
             this.ApiSecret = apiSecret;
             this.Url = "https://api.structurizr.com";
+
+            this.WorkspaceArchiveLocation = new DirectoryInfo(".");
         }
 
         public Workspace GetWorkspace(long workspaceId)
@@ -34,6 +39,7 @@ namespace Structurizr.Client
                     AddHeaders(webClient, httpMethod, path, "", "");
 
                     string response = webClient.DownloadString(this.Url + path);
+                    ArchiveWorkspace(workspaceId, response);
 
                     JsonReader jsonReader = new JsonReader();
                     StringReader stringReader = new StringReader(response);
@@ -106,6 +112,21 @@ namespace Structurizr.Client
         {
             DateTime Jan1st1970Utc = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             return (long)(DateTime.UtcNow - Jan1st1970Utc).TotalMilliseconds;
+        }
+
+        private void ArchiveWorkspace(long workspaceId, string workspaceAsJson)
+        {
+            if (WorkspaceArchiveLocation != null)
+            {
+                File.WriteAllText(CreateArchiveFileName(workspaceId), workspaceAsJson);
+            }
+        }
+
+        private string CreateArchiveFileName(long workspaceId)
+        {
+            return Path.Combine(
+                WorkspaceArchiveLocation.FullName, 
+                "structurizr-" + workspaceId + "-" + DateTime.UtcNow.ToString("yyyyMMddHHmmss") + ".json");
         }
 
     }
