@@ -15,7 +15,7 @@ However, the following characteristics of the elements can be customized:
 
 ## Tagging elements
 
-All elements within a software architecture model can have one or more tags associated with them. A tag is simply a free-format string. By default, the Java client library adds the following tags to elements.
+All elements within a software architecture model can have one or more tags associated with them. A tag is simply a free-format string. By default, the .NET client library adds the following tags to elements.
 
 Element | Tags
 ------- | ----
@@ -57,9 +57,8 @@ Subscribers to a [Structurizr paid plan](https://structurizr.com/pricing) can al
 Styles styles = workspace.Views.Configuration.Styles;
 styles.Add(new ElementStyle(Tags.Person) { Background = "#728da5", Color = "#ffffff", Shape = Shape.Person });
 styles.Add(new ElementStyle(Tags.Container) { Background = "#2a4e6e", Color = "#ffffff" });
-
 database.AddTags("Database");
-styles.Add(new ElementStyle("Database") { Shape = Shape.Cylinder});
+styles.Add(new ElementStyle("Database") { Shape = Shape.Cylinder });
 ```
 
 ![Adding some shapes](images/styling-elements-4.png)
