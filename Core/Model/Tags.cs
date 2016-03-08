@@ -1,6 +1,6 @@
 ﻿namespace Structurizr.Model
 {
-    public class Tags
+    public sealed class Tags
     {
 
         public const string Element = "Element";

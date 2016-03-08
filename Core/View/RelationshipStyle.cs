@@ -66,6 +66,10 @@ namespace Structurizr.View
         [DataMember(Name="position", EmitDefaultValue=false)]
         public int? Position { get; set; }
 
+        internal RelationshipStyle()
+        {
+        }
+
         public RelationshipStyle(string tag)
         {
             this.Tag = tag;

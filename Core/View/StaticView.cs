@@ -8,6 +8,10 @@ namespace Structurizr.View
     public abstract class StaticView : View
     {
 
+        internal StaticView() : base()
+        {
+        }
+
         internal StaticView(SoftwareSystem softwareSystem, string description) : base(softwareSystem, description)
         {
         }

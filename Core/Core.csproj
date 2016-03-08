@@ -46,7 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractWorkspace.cs" />
+    <Compile Include="IO\Json\JsonReader.cs" />
     <Compile Include="IO\Json\JsonWriter.cs" />
+    <Compile Include="IO\Json\PaperSizeJsonConverter.cs" />
     <Compile Include="Model\Component.cs" />
     <Compile Include="Model\Element.cs" />
     <Compile Include="Model\InteractionStyle.cs" />
@@ -55,6 +57,7 @@
     <Compile Include="Model\Tags.cs" />
     <Compile Include="View\ComponentView.cs" />
     <Compile Include="View\Configuration.cs" />
+    <Compile Include="View\PaperSize.cs" />
     <Compile Include="View\Shape.cs" />
     <Compile Include="View\Styles.cs" />
     <Compile Include="Model\Container.cs" />

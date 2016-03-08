@@ -29,7 +29,7 @@ namespace Structurizr.Model
             }
         }
 
-        public Person() : base()
+        internal Person()
         {
         }
 

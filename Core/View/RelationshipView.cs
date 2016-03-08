@@ -13,7 +13,7 @@ namespace Structurizr.View
     public class RelationshipView : IEquatable<RelationshipView>
     {
 
-        private Relationship Relationship { get; set; }
+        public Relationship Relationship { get; set; }
 
         private string id;
 
@@ -59,6 +59,10 @@ namespace Structurizr.View
         [DataMember(Name="vertices", EmitDefaultValue=false)]
         public List<Vertex> Vertices { get; set; }
   
+        internal RelationshipView()
+        {
+        }
+
         internal RelationshipView(Relationship relationship)
         {
             this.Relationship = relationship;
@@ -97,6 +101,14 @@ namespace Structurizr.View
             result = 31 * result + (Description != null ? Description.GetHashCode() : 0);
             result = 31 * result + (Order != null ? Order.GetHashCode() : 0);
             return result;
+        }
+
+        internal void CopyLayoutInformationFrom(RelationshipView source)
+        {
+            if (source != null)
+            {
+                this.Vertices = source.Vertices;
+            }
         }
 
     }

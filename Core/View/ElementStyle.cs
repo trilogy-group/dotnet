@@ -59,6 +59,10 @@ namespace Structurizr.View
         [DataMember(Name="shape", EmitDefaultValue=false)]
         public Shape Shape { get; set; }
   
+        internal ElementStyle()
+        {
+        }
+
         public ElementStyle(string tag)
         {
             this.Tag = tag;

@@ -15,7 +15,7 @@ namespace Structurizr
         /// <summary>
         /// The ID of the workspace. 
         /// </summary>
-        [DataMember(Name = "id", EmitDefaultValue = true)]
+        [DataMember(Name = "id", EmitDefaultValue = false)]
         public long Id { get; set; }
 
         /// <summary>

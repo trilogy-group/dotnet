@@ -42,14 +42,18 @@ namespace Structurizr.View
         /// The horizontal position of the element when rendered.
         /// </summary>
         [DataMember(Name="x", EmitDefaultValue=false)]
-        public int X { get; set; }
+        public int? X { get; set; }
   
         /// <summary>
         /// The vertical position of the element when rendered.
         /// </summary>
         [DataMember(Name="y", EmitDefaultValue=false)]
-        public int Y { get; set; }
+        public int? Y { get; set; }
   
+        internal ElementView()
+        {
+        }
+
         internal ElementView(Element element)
         {
             this.Element = element;
@@ -87,6 +91,15 @@ namespace Structurizr.View
             else
             {
                 return this.Id;
+            }
+        }
+
+        internal void CopyLayoutInformationFrom(ElementView source)
+        {
+            if (source != null)
+            {
+                this.X = source.X;
+                this.Y = source.Y;
             }
         }
 

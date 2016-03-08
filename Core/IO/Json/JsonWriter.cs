@@ -18,7 +18,8 @@ namespace Structurizr.IO.Json
         {
             String json = JsonConvert.SerializeObject(workspace,
                 IndentOutput == true ? Formatting.Indented : Formatting.None,
-                new Newtonsoft.Json.Converters.StringEnumConverter());
+                new Newtonsoft.Json.Converters.StringEnumConverter(),
+                new PaperSizeJsonConverter());
 
             writer.WriteLine(json);
         }

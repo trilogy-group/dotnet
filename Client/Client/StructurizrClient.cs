@@ -34,10 +34,10 @@ namespace Structurizr.Client
                     AddHeaders(webClient, httpMethod, path, "", "");
 
                     string response = webClient.DownloadString(this.Url + path);
-                    System.Console.WriteLine(response);
 
-                    // todo :-)
-                    return new Workspace("Name", "Description");
+                    JsonReader jsonReader = new JsonReader();
+                    StringReader stringReader = new StringReader(response);
+                    return jsonReader.Read(stringReader);
                 }
                 catch (Exception e)
                 {
@@ -48,6 +48,8 @@ namespace Structurizr.Client
 
         public void PutWorkspace(long workspaceId, Workspace workspace)
         {
+            workspace.Id = workspaceId;
+
             using (WebClient webClient = new WebClient())
             {
                 try
@@ -66,13 +68,22 @@ namespace Structurizr.Client
 
                     string response = webClient.UploadString(this.Url + path, httpMethod, workspaceAsJson);
                     System.Console.WriteLine(response);
-
                 }
                 catch (Exception e)
                 {
                     throw new StructurizrClientException("There was an error putting the workspace: " + e.Message, e);
                 }
             }
+        }
+
+        public void MergeWorkspace(long workspaceId, Workspace workspace)
+        {
+            Workspace currentWorkspace = GetWorkspace(workspaceId);
+            if (currentWorkspace != null)
+            {
+                workspace.Views.CopyLayoutInformationFrom(currentWorkspace.Views);
+            }
+            PutWorkspace(workspaceId, workspace);
         }
 
         private void AddHeaders(WebClient webClient, string httpMethod, string path, string content, string contentType)

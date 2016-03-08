@@ -12,7 +12,6 @@ namespace Structurizr.View
         /// <summary>
         /// An identifier for this view.
         /// </summary>
-        /// <value>An identifier for this view.</value>
         [DataMember(Name = "key", EmitDefaultValue = false)]
         public string Key { get; set; }
 
@@ -23,7 +22,6 @@ namespace Structurizr.View
         /// <summary>
         /// The ID of the software system this view is associated with.
         /// </summary>
-        /// <value>The ID of the software system this view is associated with.</value>
         [DataMember(Name = "softwareSystemId", EmitDefaultValue = false)]
         public string SoftwareSystemId {
             get
@@ -45,6 +43,23 @@ namespace Structurizr.View
         [DataMember(Name = "description", EmitDefaultValue = false)]
         public string Description { get; set; }
 
+        public abstract string Name { get; }
+
+        public string Title
+        {
+            get
+            {
+                if (Description != null && Description.Trim().Length > 0)
+                {
+                    return Name + " [" + Description + "]";
+                }
+                else {
+                    return Name;
+                }
+            }
+        }
+
+
         public Model.Model Model
         {
             get
@@ -56,27 +71,27 @@ namespace Structurizr.View
         /// <summary>
         /// The paper size that should be used to render this view.
         /// </summary>
-        /// <value>The paper size that should be used to render this view.</value>
         [DataMember(Name = "paperSize", EmitDefaultValue = false)]
-        public string PaperSize { get; set; }
-
+        public PaperSize PaperSize { get; set; }
 
         /// <summary>
         /// The set of elements in this views.
         /// </summary>
-        /// <value>The set of elements in this views.</value>
         [DataMember(Name = "elements", EmitDefaultValue = false)]
         public HashSet<ElementView> Elements { get; set; }
-
 
         /// <summary>
         /// The set of relationships in this views.
         /// </summary>
-        /// <value>The set of relationships in this views.</value>
         [DataMember(Name = "relationships", EmitDefaultValue = false)]
         public HashSet<RelationshipView> Relationships { get; set; }
 
-        internal View(SoftwareSystem softwareSystem, string description)
+        internal View()
+        {
+            this.PaperSize = PaperSize.A4_Portrait;
+        }
+
+        internal View(SoftwareSystem softwareSystem, string description) : this()
         {
             this.SoftwareSystem = softwareSystem;
             this.Description = description;
@@ -129,6 +144,55 @@ namespace Structurizr.View
                     }
                 }
             }
+        }
+
+        public void CopyLayoutInformationFrom(View source)
+        {
+            this.PaperSize = source.PaperSize;
+
+            foreach (ElementView sourceElementView in source.Elements)
+            {
+                ElementView destinationElementView = FindElementView(sourceElementView);
+                if (destinationElementView != null)
+                {
+                    destinationElementView.CopyLayoutInformationFrom(sourceElementView);
+                }
+            }
+
+            foreach (RelationshipView sourceRelationshipView in source.Relationships)
+            {
+                RelationshipView destinationRelationshipView = FindRelationshipView(sourceRelationshipView);
+                if (destinationRelationshipView != null)
+                {
+                    destinationRelationshipView.CopyLayoutInformationFrom(sourceRelationshipView);
+                }
+            }
+        }
+
+        private ElementView FindElementView(ElementView sourceElementView)
+        {
+            foreach (ElementView elementView in Elements)
+            {
+                if (elementView.Element.Equals(sourceElementView.Element))
+                {
+                    return elementView;
+                }
+            }
+
+            return null;
+        }
+
+        private RelationshipView FindRelationshipView(RelationshipView sourceRelationshipView)
+        {
+            foreach (RelationshipView relationshipView in Relationships)
+            {
+                if (relationshipView.Relationship.Equals(sourceRelationshipView.Relationship))
+                {
+                    return relationshipView;
+                }
+            }
+
+            return null;
         }
 
 

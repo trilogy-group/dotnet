@@ -47,6 +47,10 @@ namespace Structurizr.Model
             }
         }
 
+        internal Taggable()
+        {
+        }
+
         public void AddTags(params string[] tags)
         {
             if (tags == null)

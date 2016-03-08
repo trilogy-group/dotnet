@@ -34,7 +34,7 @@ namespace Structurizr.Model
 
         private SequentialIntegerIdGeneratorStrategy idGenerator = new SequentialIntegerIdGeneratorStrategy();
 
-        public Model()
+        internal Model()
         {
             this.People = new HashSet<Person>();
             this.SoftwareSystems = new HashSet<SoftwareSystem>();
@@ -157,6 +157,19 @@ namespace Structurizr.Model
             return null;
         }
 
+        public SoftwareSystem GetSoftwareSystemWithId(string id)
+        {
+            foreach (SoftwareSystem softwareSystem in SoftwareSystems)
+            {
+                if (softwareSystem.Id == id)
+                {
+                    return softwareSystem;
+                }
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Gets the Person instance with the specified name.
         /// </summary>
@@ -186,5 +199,75 @@ namespace Structurizr.Model
             return this.elementsById.Values.Contains(element);
         }
 
+        internal void Hydrate()
+        {
+            // add all of the elements to the model
+            foreach (Person person in People)
+            {
+                AddElementToInternalStructures(person);
+            }
+
+            foreach (SoftwareSystem softwareSystem in SoftwareSystems)
+            {
+                AddElementToInternalStructures(softwareSystem);
+                /*
+                foreach (Container container in softwareSystem.Containers)
+                {
+                    //softwareSystem.Add(container);
+                    AddElementToInternalStructures(container);
+                    container.Parent = softwareSystem;
+                    foreach (Component component in container.Components)
+                    {
+                        //container.Add(component);
+                        AddElementToInternalStructures(component);
+                        component.Parent = container;
+                    }
+                }
+                */
+            }
+
+            // now hydrate the relationships
+            foreach (Person person in People)
+            {
+                HydrateRelationships(person);
+            }
+
+            foreach (SoftwareSystem softwareSystem in SoftwareSystems)
+            {
+                HydrateRelationships(softwareSystem);
+                /*
+                foreach (Container container in softwareSystem.Containers)
+                {
+                    HydrateRelationships(container);
+                    foreach (Component component in container.Components)
+                    {
+                        HydrateRelationships(component);
+                    }
+                }
+                */
+            }
+        }
+
+        private void HydrateRelationships(Element element)
+        {
+            foreach (Relationship relationship in element.Relationships)
+            {
+                relationship.Source = GetElement(relationship.SourceId);
+                relationship.Destination = GetElement(relationship.DestinationId);
+                AddRelationshipToInternalStructures(relationship);
+            }
+        }
+
+        public Element GetElement(String id)
+        {
+            return this.elementsById[id];
+        }
+
+        public Relationship GetRelationship(String id)
+        {
+            return this.relationshipsById[id];
+        }
+
     }
+
 }

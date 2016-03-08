@@ -38,7 +38,7 @@ namespace Structurizr.Model
 
         public abstract string CanonicalName { get; }
 
-        public Element()
+        internal Element()
         {
             this.Relationships = new HashSet<Relationship>();
         }

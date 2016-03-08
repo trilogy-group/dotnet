@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.Serialization;
 using Structurizr.Model;
 
@@ -10,6 +11,18 @@ namespace Structurizr.View
     [DataContract]
     public class SystemContextView : StaticView
     {
+
+        public override string Name
+        {
+            get
+            {
+                return SoftwareSystem.Name + " - System Context";
+            }
+        }
+
+        internal SystemContextView() : base()
+        {
+        }
 
         internal SystemContextView(SoftwareSystem softwareSystem, string description) : base(softwareSystem, description)
         {

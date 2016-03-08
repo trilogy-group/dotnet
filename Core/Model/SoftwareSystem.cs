@@ -37,6 +37,10 @@ namespace Structurizr.Model
             }
         }
 
+        internal SoftwareSystem()
+        {
+        }
+
         /// <summary>
         /// Adds a unidirectional relationship between this software system and a person.
         /// </summary>

@@ -1,6 +1,8 @@
 ﻿using Structurizr.Client;
+using Structurizr.IO.Json;
 using Structurizr.Model;
 using Structurizr.View;
+using System.IO;
 
 namespace Structurizr.Examples
 {
@@ -42,6 +44,7 @@ namespace Structurizr.Examples
             // create some views
             ViewSet viewSet = workspace.Views;
             SystemContextView contextView = viewSet.CreateContextView(financialRiskSystem);
+            contextView.PaperSize = PaperSize.A5_Landscape;
             contextView.AddAllSoftwareSystems();
             contextView.AddAllPeople();
 
@@ -50,7 +53,7 @@ namespace Structurizr.Examples
             financialRiskSystem.AddTags("Risk System");
 
             styles.Add(new ElementStyle(Tags.Element) { Color = "#ffffff", FontSize = 34 });
-            styles.Add(new ElementStyle("Risk System") { Background = "#550000", Color = "#ffffff" });
+            styles.Add(new ElementStyle("Risk System") { Background = "#FACC2E", Color = "#ffffff" });
             styles.Add(new ElementStyle(Tags.SoftwareSystem) { Width = 650, Height = 400, Background = "#801515", Shape = Shape.RoundedBox });
             styles.Add(new ElementStyle(Tags.Person) { Width = 550, Background = "#d46a6a", Shape = Shape.Person });
 
@@ -59,9 +62,15 @@ namespace Structurizr.Examples
             styles.Add(new RelationshipStyle(Tags.Asynchronous) { Dashed = true });
             styles.Add(new RelationshipStyle(AlertTag) { Color = "#ff0000" });
 
+            StringWriter stringWriter = new StringWriter();
+            JsonWriter jsonWriter = new JsonWriter(true);
+            jsonWriter.Write(workspace, stringWriter);
+            string json = stringWriter.ToString();
+            //System.Console.WriteLine(json);
+
             // and upload the model to structurizr.com
             StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-            structurizrClient.PutWorkspace(9481, workspace);
+            structurizrClient.MergeWorkspace(9481, workspace);
 
             System.Console.ReadKey();
         }

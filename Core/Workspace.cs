@@ -36,5 +36,13 @@ namespace Structurizr
             this.Views = new ViewSet(Model);        
         }
 
+        public void Hydrate()
+        {
+            this.Views.Model = Model;
+            this.Model.Hydrate();
+            this.Views.Hydrate();
+        }
+
+
     }
 }
