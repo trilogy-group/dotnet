@@ -1,4 +1,4 @@
-﻿using Structurizr.Client;
+using Structurizr.Client;
 using Structurizr.Model;
 using Structurizr.View;
 
@@ -22,7 +22,7 @@ namespace Structurizr.Examples
             contextView.AddAllPeople();
 
             Styles styles = viewSet.Configuration.Styles;
-            styles.Add(new ElementStyle(Tags.SoftwareSystem) { Background = "#A4B7C9", Color = "#000000" });
+            styles.Add(new ElementStyle(Tags.SoftwareSystem) { Background = "#a4b7c9", Color = "#000000" });
             styles.Add(new ElementStyle(Tags.Person) { Background = "#728da5", Color = "#ffffff" });
 
             StructurizrClient structurizrClient = new StructurizrClient("key", "secret");

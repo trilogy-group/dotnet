@@ -65,7 +65,7 @@ Elements and relationships can be styled by specifying colours, sizes and shapes
 
 ```c#
 Styles styles = viewSet.Configuration.Styles;
-styles.Add(new ElementStyle(Tags.SoftwareSystem) { Background = "#A4B7C9", Color = "#000000" });
+styles.Add(new ElementStyle(Tags.SoftwareSystem) { Background = "#a4b7c9", Color = "#000000" });
 styles.Add(new ElementStyle(Tags.Person) { Background = "#728da5", Color = "#ffffff" });
 ```
 
