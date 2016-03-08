@@ -16,6 +16,8 @@ namespace Structurizr.View
         {
         }
 
+        public abstract void AddAllElements();
+
         /// <summary>
         /// Adds all software systems in the model to this view.
         /// </summary>
@@ -30,7 +32,7 @@ namespace Structurizr.View
         /// <summary>
         /// Adds the given SoftwareSystem to this view.
         /// </summary>
-        public void Add(SoftwareSystem softwareSystem)
+        public virtual void Add(SoftwareSystem softwareSystem)
         {
             AddElement(softwareSystem, true);
         }

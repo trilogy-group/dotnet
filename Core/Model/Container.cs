@@ -13,29 +13,27 @@ namespace Structurizr.Model
     public class Container : Element, IEquatable<Container>
     {
 
-        public SoftwareSystem Parent { get; set; }
+        public override Element Parent { get; set; }
 
         public SoftwareSystem SoftwareSystem
         {
             get
             {
-                return Parent;
+                return Parent as SoftwareSystem;
             }
         }
 
         /// <summary>
-        /// The technology associated with this container (e.g. Apache Tomcat).
+        /// The technology associated with this container (e.g. Windows Service).
         /// </summary>
-        /// <value>The technology associated with this container (e.g. Apache Tomcat).</value>
         [DataMember(Name="technology", EmitDefaultValue=false)]
         public string Technology { get; set; }
   
         /// <summary>
         /// The set of components within this container.
         /// </summary>
-        /// <value>The set of components within this container.</value>
         [DataMember(Name="components", EmitDefaultValue=false)]
-        public List<Component> Components { get; set; }
+        public HashSet<Component> Components { get; set; }
   
         public override string CanonicalName
         {
@@ -44,6 +42,77 @@ namespace Structurizr.Model
                 return Parent.CanonicalName + CanonicalNameSeparator + FormatForCanonicalName(Name);
             }
         }
+
+        internal Container()
+        {
+            this.Components = new HashSet<Component>();
+        }
+
+        public Component AddComponentOfType(string interfaceType, string implementationType, string description, string technology)
+        {
+            Component component = Model.AddComponentOfType(this, interfaceType, implementationType, description);
+            component.Technology = technology;
+
+            return component;
+        }
+
+        public Component AddComponent(string name, string description)
+        {
+            return this.AddComponent(name, description, null);
+        }
+
+        public Component AddComponent(string name, string description, string technology)
+        {
+            Component component = Model.AddComponent(this, name, description);
+            component.Technology = technology;
+
+            return component;
+        }
+
+        internal void Add(Component component)
+        {
+            if (GetComponentWithName(component.Name) == null)
+            {
+                Components.Add(component);
+            }
+        }
+
+        public Component GetComponentWithName(string name)
+        {
+            if (name == null)
+            {
+                return null;
+            }
+
+            foreach (Component component in Components)
+            {
+                if (component.Name == name)
+                {
+                    return component;
+                }
+            }
+
+            return null;
+        }
+
+        public Component getComponentOfType(string type)
+        {
+            if (type == null)
+            {
+                return null;
+            }
+
+            foreach (Component component in Components)
+            {
+                if (component.InterfaceType == type || component.ImplementationType == type)
+                {
+                    return component;
+                }
+            }
+
+            return null;
+        }
+
 
         public override List<string> getRequiredTags()
         {

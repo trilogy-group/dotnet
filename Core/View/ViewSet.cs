@@ -44,14 +44,16 @@ namespace Structurizr.View
 
         internal ViewSet()
         {
-        }
-
-        internal ViewSet(Model.Model model)
-        {
-            this.Model = model;
             this.SystemContextViews = new List<SystemContextView>();
+            this.ContainerViews = new List<ContainerView>();
+            this.ComponentViews = new List<ComponentView>();
 
             this.Configuration = new Configuration();
+        }
+
+        internal ViewSet(Model.Model model) : this()
+        {
+            this.Model = model;
         }
 
         public SystemContextView CreateContextView(SoftwareSystem softwareSystem)
@@ -67,6 +69,19 @@ namespace Structurizr.View
             return view;
         }
 
+        public ContainerView CreateContainerView(SoftwareSystem softwareSystem)
+        {
+            return CreateContainerView(softwareSystem, null);
+        }
+
+        public ContainerView CreateContainerView(SoftwareSystem softwareSystem, string description)
+        {
+            ContainerView view = new ContainerView(softwareSystem, description);
+            ContainerViews.Add(view);
+
+            return view;
+        }
+
         public void Hydrate()
         {
             foreach (SystemContextView systemContextView in SystemContextViews)
@@ -74,7 +89,6 @@ namespace Structurizr.View
                 HydrateView(systemContextView);
             }
 
-            /*
             foreach (ContainerView containerView in ContainerViews)
             {
                 HydrateView(containerView);
@@ -86,6 +100,7 @@ namespace Structurizr.View
                 componentView.Container = componentView.SoftwareSystem.GetContainerWithId(componentView.ContainerId);
             }
 
+            /*
             dynamicViews.forEach(this::hydrateView);
             */
         }
@@ -115,25 +130,25 @@ namespace Structurizr.View
                 }
             }
 
+            foreach (ContainerView sourceView in source.ContainerViews)
+            {
+                ContainerView destinationView = FindContainerView(sourceView);
+                if (destinationView != null)
+                {
+                    destinationView.CopyLayoutInformationFrom(sourceView);
+                }
+            }
+
+            foreach (ComponentView sourceView in source.ComponentViews)
+            {
+                ComponentView destinationView = FindComponentView(sourceView);
+                if (destinationView != null)
+                {
+                    destinationView.CopyLayoutInformationFrom(sourceView);
+                }
+            }
+
             /*
-            for (ContainerView sourceView : source.getContainerViews())
-            {
-                ContainerView destinationView = findContainerView(sourceView);
-                if (destinationView != null)
-                {
-                    destinationView.copyLayoutInformationFrom(sourceView);
-                }
-            }
-
-            for (ComponentView sourceView : source.getComponentViews())
-            {
-                ComponentView destinationView = findComponentView(sourceView);
-                if (destinationView != null)
-                {
-                    destinationView.copyLayoutInformationFrom(sourceView);
-                }
-            }
-
             for (DynamicView sourceView : source.getDynamicViews())
             {
                 DynamicView destinationView = findDynamicView(sourceView);
@@ -150,6 +165,32 @@ namespace Structurizr.View
             foreach (SystemContextView view in SystemContextViews)
             {
                 if (view.Title == systemContextView.Title)
+                {
+                    return view;
+                }
+            }
+
+            return null;
+        }
+
+        private ContainerView FindContainerView(ContainerView containerView)
+        {
+            foreach (ContainerView view in ContainerViews)
+            {
+                if (view.Title == containerView.Title)
+                {
+                    return view;
+                }
+            }
+
+            return null;
+        }
+
+        private ComponentView FindComponentView(ComponentView componentView)
+        {
+            foreach (ComponentView view in ComponentViews)
+            {
+                if (view.Title == componentView.Title)
                 {
                     return view;
                 }

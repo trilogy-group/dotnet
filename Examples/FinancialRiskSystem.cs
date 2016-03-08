@@ -41,19 +41,33 @@ namespace Structurizr.Examples
             SoftwareSystem activeDirectory = model.AddSoftwareSystem(Location.Internal, "Active Directory", "Manages users and security roles across the bank");
             financialRiskSystem.Uses(activeDirectory, "Uses for authentication and authorisation");
 
+            Container webApplication = financialRiskSystem.AddContainer("Web Application", "Allows users to view reports and modify risk calculation parameters", "ASP.NET MVC");
+            businessUser.Uses(webApplication, "Views reports using");
+            configurationUser.Uses(webApplication, "Modifies risk calculation parameters using");
+            webApplication.Uses(activeDirectory, "Uses for authentication and authorisation");
+
+            Container batchProcess = financialRiskSystem.AddContainer("Batch Process", "Calculates the risk", "Windows Service");
+            batchProcess.Uses(emailSystem, "Sends a notification that a report is ready to");
+            batchProcess.Uses(tradeDataSystem, "Gets trade data from");
+            batchProcess.Uses(referenceDataSystem, "Gets counterparty data from");
+            batchProcess.Uses(centralMonitoringService, "Sends critical failure alerts to", "SNMP", InteractionStyle.Asynchronous).AddTags(AlertTag);
+
             // create some views
             ViewSet viewSet = workspace.Views;
             SystemContextView contextView = viewSet.CreateContextView(financialRiskSystem);
-            contextView.PaperSize = PaperSize.A5_Landscape;
+            contextView.PaperSize = PaperSize.A4_Landscape;
             contextView.AddAllSoftwareSystems();
             contextView.AddAllPeople();
+
+            ContainerView containerView = viewSet.CreateContainerView(financialRiskSystem);
+            containerView.AddAllElements();
 
             // tag and style some elements
             Styles styles = viewSet.Configuration.Styles;
             financialRiskSystem.AddTags("Risk System");
 
             styles.Add(new ElementStyle(Tags.Element) { Color = "#ffffff", FontSize = 34 });
-            styles.Add(new ElementStyle("Risk System") { Background = "#FACC2E", Color = "#ffffff" });
+            styles.Add(new ElementStyle("Risk System") { Background = "#FACC2E", Color = "#000000" });
             styles.Add(new ElementStyle(Tags.SoftwareSystem) { Width = 650, Height = 400, Background = "#801515", Shape = Shape.RoundedBox });
             styles.Add(new ElementStyle(Tags.Person) { Width = 550, Background = "#d46a6a", Shape = Shape.Person });
 
@@ -72,7 +86,7 @@ namespace Structurizr.Examples
             StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
             structurizrClient.MergeWorkspace(9481, workspace);
 
-            System.Console.ReadKey();
+            //System.Console.ReadKey();
         }
     }
 }

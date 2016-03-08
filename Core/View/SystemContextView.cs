@@ -32,7 +32,7 @@ namespace Structurizr.View
         /// <summary>
         /// Adds all software systems and all people to this view.
         /// </summary>
-        public void AddAllElements()
+        public override void AddAllElements()
         {
             AddAllSoftwareSystems();
             AddAllPeople();

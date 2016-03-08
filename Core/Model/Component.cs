@@ -13,13 +13,13 @@ namespace Structurizr.Model
     public class Component : Element, IEquatable<Component>
     {
         
-        public Container Parent { get; set; }
+        public override Element Parent { get; set; }
 
         public Container Container
         {
             get
             {
-                return Parent;
+                return Parent as Container;
             }
         }
 

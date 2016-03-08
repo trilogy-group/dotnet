@@ -123,6 +123,60 @@ namespace Structurizr.Model
             }
         }
 
+        internal Container AddContainer(SoftwareSystem parent, string name, string description, string technology)
+        {
+            if (parent.GetContainerWithName(name) == null)
+            {
+                Container container = new Container();
+                container.Name = name;
+                container.Description = description;
+                container.Technology = technology;
+
+                container.Parent = parent;
+                parent.Add(container);
+
+                container.Id = idGenerator.GenerateId(container);
+                AddElementToInternalStructures(container);
+
+                return container;
+            }
+            else {
+                return null;
+            }
+        }
+
+        internal Component AddComponentOfType(Container parent, String interfaceType, String implementationType, String description)
+        {
+            Component component = new Component();
+            component.InterfaceType = interfaceType;
+            component.ImplementationType = implementationType;
+            component.Description = description;
+
+            component.Parent = parent;
+            parent.Add(component);
+
+            component.Id = idGenerator.GenerateId(component);
+            AddElementToInternalStructures(component);
+
+            return component;
+        }
+
+        internal Component AddComponent(Container parent, string name, string description)
+        {
+            Component component = new Component();
+            component.Name = name;
+            component.Description = description;
+
+            component.Parent = parent;
+            parent.Add(component);
+
+            component.Id = idGenerator.GenerateId(component);
+            AddElementToInternalStructures(component);
+
+            return component;
+        }
+
+
         internal void AddRelationship(Relationship relationship)
         {
             if (!relationship.Source.Has(relationship))
@@ -210,20 +264,18 @@ namespace Structurizr.Model
             foreach (SoftwareSystem softwareSystem in SoftwareSystems)
             {
                 AddElementToInternalStructures(softwareSystem);
-                /*
                 foreach (Container container in softwareSystem.Containers)
                 {
-                    //softwareSystem.Add(container);
+                    softwareSystem.Add(container);
                     AddElementToInternalStructures(container);
                     container.Parent = softwareSystem;
                     foreach (Component component in container.Components)
                     {
-                        //container.Add(component);
+                        container.Add(component);
                         AddElementToInternalStructures(component);
                         component.Parent = container;
                     }
                 }
-                */
             }
 
             // now hydrate the relationships
@@ -235,7 +287,6 @@ namespace Structurizr.Model
             foreach (SoftwareSystem softwareSystem in SoftwareSystems)
             {
                 HydrateRelationships(softwareSystem);
-                /*
                 foreach (Container container in softwareSystem.Containers)
                 {
                     HydrateRelationships(container);
@@ -244,7 +295,6 @@ namespace Structurizr.Model
                         HydrateRelationships(component);
                     }
                 }
-                */
             }
         }
 

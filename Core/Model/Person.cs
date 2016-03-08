@@ -29,6 +29,18 @@ namespace Structurizr.Model
             }
         }
 
+        public override Element Parent
+        {
+            get
+            {
+                return null;
+            }
+
+            set
+            {
+            }
+        }
+
         internal Person()
         {
         }

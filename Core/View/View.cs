@@ -100,6 +100,8 @@ namespace Structurizr.View
             this.Relationships = new HashSet<RelationshipView>();
         }
 
+
+
         internal void AddElement(Element element, bool addRelationships)
         {
             if (element != null)

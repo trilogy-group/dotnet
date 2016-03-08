@@ -38,6 +38,8 @@ namespace Structurizr.Model
 
         public abstract string CanonicalName { get; }
 
+        public abstract Element Parent { get; set; }
+
         internal Element()
         {
             this.Relationships = new HashSet<Relationship>();
@@ -62,7 +64,7 @@ namespace Structurizr.Model
         /// <param name="destination"> the target of the relationship</param>
         /// <param name="description">a description of the relationship (e.g. "uses", "gets data from", "sends data to")</param>
         /// <param name="technology">the technology details (e.g. JSON/HTTPS)</param>
-        public Relationship Uses(SoftwareSystem destination, String description, String technology)
+        public Relationship Uses(SoftwareSystem destination, string description, string technology)
         {
             Relationship relationship = new Relationship(this, destination, description, technology);
             Model.AddRelationship(relationship);
@@ -77,7 +79,90 @@ namespace Structurizr.Model
         /// <param name="description">a description of the relationship (e.g. "uses", "gets data from", "sends data to")</param>
         /// <param name="technology">the technology details (e.g. JSON/HTTPS)</param>
         /// <param name="interactionStyle">the interaction style (sync vs async)</param>
-        public Relationship Uses(SoftwareSystem destination, String description, String technology, InteractionStyle interactionStyle)
+        public Relationship Uses(SoftwareSystem destination, string description, string technology, InteractionStyle interactionStyle)
+        {
+            Relationship relationship = new Relationship(this, destination, description, technology, interactionStyle);
+            Model.AddRelationship(relationship);
+
+            return relationship;
+        }
+
+        /// <summary>
+        /// Adds a unidirectional "uses" style relationship between this element and a container.
+        /// </summary>
+        /// <param name="destination">the target of the relationship</param>
+        /// <param name="description">a description of the relationship (e.g. "uses", "gets data from", "sends data to")</param>
+        public Relationship Uses(Container destination, string description)
+        {
+            Relationship relationship = new Relationship(this, destination, description);
+            Model.AddRelationship(relationship);
+
+            return relationship;
+        }
+
+        /// <summary>
+        /// Adds a unidirectional "uses" style relationship between this element and a container.
+        /// </summary>
+        /// <param name="destination">the target of the relationship</param>
+        /// <param name="description">a description of the relationship (e.g. "uses", "gets data from", "sends data to")</param>
+        /// <param name="technology">the technology details (e.g. JSON/HTTPS)</param>
+        public Relationship Uses(Container destination, string description, string technology)
+        {
+            Relationship relationship = new Relationship(this, destination, description, technology);
+            Model.AddRelationship(relationship);
+
+            return relationship;
+        }
+
+        /// <summary>
+        /// Adds a unidirectional "uses" style relationship between this element and a container.
+        /// </summary>
+        /// <param name="destination">the target of the relationship</param>
+        /// <param name="description">a description of the relationship (e.g. "uses", "gets data from", "sends data to")</param>
+        /// <param name="technology">the technology details (e.g. JSON/HTTPS)</param>
+        public Relationship Uses(Container destination, string description, string technology, InteractionStyle interactionStyle)
+        {
+            Relationship relationship = new Relationship(this, destination, description, technology, interactionStyle);
+            Model.AddRelationship(relationship);
+
+            return relationship;
+        }
+
+        /// <summary>
+        /// Adds a unidirectional "uses" style relationship between this element and a component (within a container).
+        /// </summary>
+        /// <param name="destination">the target of the relationship</param>
+        /// <param name="description">a description of the relationship (e.g. "uses", "gets data from", "sends data to")</param>
+        public Relationship Uses(Component destination, string description)
+        {
+            Relationship relationship = new Relationship(this, destination, description);
+            Model.AddRelationship(relationship);
+
+            return relationship;
+        }
+
+        /// <summary>
+        /// Adds a unidirectional "uses" style relationship between this element and a component (within a container).
+        /// </summary>
+        /// <param name="destination">the target of the relationship</param>
+        /// <param name="description">a description of the relationship (e.g. "uses", "gets data from", "sends data to")</param>
+        /// <param name="technology">the technology details (e.g. JSON/HTTPS)</param>
+        public Relationship Uses(Component destination, string description, string technology)
+        {
+            Relationship relationship = new Relationship(this, destination, description, technology);
+            Model.AddRelationship(relationship);
+
+            return relationship;
+        }
+
+        /// <summary>
+        /// Adds a unidirectional "uses" style relationship between this element and a component (within a container).
+        /// </summary>
+        /// <param name="destination">the target of the relationship</param>
+        /// <param name="description">a description of the relationship (e.g. "uses", "gets data from", "sends data to")</param>
+        /// <param name="technology">the technology details (e.g. JSON/HTTPS)</param>
+        /// <param name="interactionStyle">the interaction style (sync vs async)</param>
+        public Relationship Uses(Component destination, string description, string technology, InteractionStyle interactionStyle)
         {
             Relationship relationship = new Relationship(this, destination, description, technology, interactionStyle);
             Model.AddRelationship(relationship);
@@ -122,11 +207,6 @@ namespace Structurizr.Model
             }
 
             return CanonicalName.Equals(element.CanonicalName);
-        }
-
-        public override int GetHashCode()
-        {
-            return CanonicalName.GetHashCode();
         }
 
     }
