@@ -12,6 +12,8 @@ namespace Structurizr.Examples
     /// This is a simple example of how to create a software architecture model using Structurizr. The model
     /// represents a sample solution for the "Financial Risk System" architecture kata, included in
     /// "The Art of Visualising Software Architecture" book (available FREE from Leanpub).
+    /// 
+    /// The live version of the diagrams can be found at https://structurizr.com/workspace/9481
     /// </summary>
     class FinancialRiskSystem
     {
