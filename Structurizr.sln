@@ -3,14 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{F9C9B68E-8CC9-4404-94FD-1FF6A87AC3AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.Core", "Core\Structurizr.Core.csproj", "{F9C9B68E-8CC9-4404-94FD-1FF6A87AC3AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples", "Examples\Examples.csproj", "{8E61CB6C-899D-4451-A321-6FCC21A7DD45}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.Examples", "Examples\Structurizr.Examples.csproj", "{8E61CB6C-899D-4451-A321-6FCC21A7DD45}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4ED0E8DB-8A5B-4DF0-9CB1-995D97A04B88}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.CoreTests", "Structurizr.CoreTests\Structurizr.CoreTests.csproj", "{FBCEBB50-2535-4568-92B0-C9ADFD97D448}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,10 @@ Global
 		{8E61CB6C-899D-4451-A321-6FCC21A7DD45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E61CB6C-899D-4451-A321-6FCC21A7DD45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E61CB6C-899D-4451-A321-6FCC21A7DD45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBCEBB50-2535-4568-92B0-C9ADFD97D448}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBCEBB50-2535-4568-92B0-C9ADFD97D448}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBCEBB50-2535-4568-92B0-C9ADFD97D448}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBCEBB50-2535-4568-92B0-C9ADFD97D448}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
