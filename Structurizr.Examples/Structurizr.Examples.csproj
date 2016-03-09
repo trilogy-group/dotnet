@@ -54,7 +54,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Structurizr.Core.csproj">
+    <ProjectReference Include="..\Structurizr.Core\Structurizr.Core.csproj">
       <Project>{f9c9b68e-8cc9-4404-94fd-1ff6a87ac3aa}</Project>
       <Name>Structurizr.Core</Name>
     </ProjectReference>

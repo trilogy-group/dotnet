@@ -53,6 +53,10 @@
     <Compile Include="Client\Md5Digest.cs" />
     <Compile Include="Client\StructurizrClient.cs" />
     <Compile Include="Client\StructurizrClientException.cs" />
+    <Compile Include="ComponentFinder\AbstractAssemblyScanningComponentFinderStrategy.cs" />
+    <Compile Include="ComponentFinder\ComponentFinder.cs" />
+    <Compile Include="ComponentFinder\ComponentFinderStrategy.cs" />
+    <Compile Include="ComponentFinder\NameSuffixComponentFinderStrategy.cs" />
     <Compile Include="IO\Json\JsonReader.cs" />
     <Compile Include="IO\Json\JsonWriter.cs" />
     <Compile Include="IO\Json\PaperSizeJsonConverter.cs" />
