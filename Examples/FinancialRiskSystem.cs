@@ -13,7 +13,7 @@ namespace Structurizr.Examples
     /// represents a sample solution for the "Financial Risk System" architecture kata, included in
     /// "The Art of Visualising Software Architecture" book (available FREE from Leanpub).
     /// 
-    /// The live version of the diagrams can be found at https://structurizr.com/workspace/9481
+    /// The live version of the diagrams can be found at https://structurizr.com/public/9481
     /// </summary>
     class FinancialRiskSystem
     {
