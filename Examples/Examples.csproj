@@ -54,10 +54,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Client\Client.csproj">
-      <Project>{634c65f7-131e-4503-a5bd-1d331a6f8b4a}</Project>
-      <Name>Client</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{f9c9b68e-8cc9-4404-94fd-1ff6a87ac3aa}</Project>
       <Name>Core</Name>

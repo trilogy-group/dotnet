@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Structurizr</RootNamespace>
-    <AssemblyName>StructurizrCore</AssemblyName>
+    <AssemblyName>Structurizr.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -46,6 +46,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractWorkspace.cs" />
+    <Compile Include="Client\HashBasedMessageAuthenticationCode.cs" />
+    <Compile Include="Client\HmacAuthorizationHeader.cs" />
+    <Compile Include="Client\HmacContent.cs" />
+    <Compile Include="Client\HttpHeaders.cs" />
+    <Compile Include="Client\Md5Digest.cs" />
+    <Compile Include="Client\StructurizrClient.cs" />
+    <Compile Include="Client\StructurizrClientException.cs" />
     <Compile Include="IO\Json\JsonReader.cs" />
     <Compile Include="IO\Json\JsonWriter.cs" />
     <Compile Include="IO\Json\PaperSizeJsonConverter.cs" />
@@ -80,6 +87,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Core.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
