@@ -45,9 +45,21 @@ namespace Structurizr.View
             }
         }
 
+        internal ComponentView() : base()
+        {
+        }
+
+        internal ComponentView(Container container, string description) : base(container.SoftwareSystem, description)
+        {
+            this.Container = container;
+        }
+
         public override void AddAllElements()
         {
-            throw new NotImplementedException();
+            AddAllSoftwareSystems();
+            AddAllPeople();
+            AddAllContainers();
+            AddAllComponents();
         }
 
         public override void Add(SoftwareSystem softwareSystem)
@@ -72,6 +84,29 @@ namespace Structurizr.View
             {
                 AddElement(container, true);
             }
+        }
+
+        public void Remove(Container container)
+        {
+            RemoveElement(container);
+        }
+
+        public void AddAllComponents()
+        {
+            foreach (Component component in Container.Components)
+            {
+                Add(component);
+            }
+        }
+
+        public void Add(Component component)
+        {
+            AddElement(component, true);
+        }
+
+        public void Remove(Component component)
+        {
+            RemoveElement(component);
         }
 
     }

@@ -38,6 +38,15 @@ namespace Structurizr.View
         }
 
         /// <summary>
+        /// Removes the given SoftwareSystem from this view.
+        /// </summary>
+        /// <param name="softwareSystem"></param>
+        public void Remove(SoftwareSystem softwareSystem)
+        {
+            RemoveElement(softwareSystem);
+        }
+
+        /// <summary>
         /// Adds all people in the model to this view.
         /// </summary>
         public void AddAllPeople()
@@ -54,6 +63,15 @@ namespace Structurizr.View
         public void Add(Person person)
         {
             AddElement(person, true);
+        }
+
+        /// <summary>
+        /// Removes the given Person from this view.
+        /// </summary>
+        /// <param name="person"></param>
+        public void Remove(Person person)
+        {
+            RemoveElement(person);
         }
 
     }

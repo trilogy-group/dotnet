@@ -100,9 +100,7 @@ namespace Structurizr.View
             this.Relationships = new HashSet<RelationshipView>();
         }
 
-
-
-        internal void AddElement(Element element, bool addRelationships)
+        protected void AddElement(Element element, bool addRelationships)
         {
             if (element != null)
             {
@@ -115,6 +113,19 @@ namespace Structurizr.View
                         AddRelationships(element);
                     }
                 }
+            }
+        }
+
+        protected void RemoveElement(Element element)
+        {
+            if (element != null)
+            {
+                ElementView elementView = new ElementView(element);
+                Elements.Remove(elementView);
+
+                Relationships.RemoveWhere(r =>
+                            r.Relationship.Source.Equals(element) ||
+                            r.Relationship.Destination.Equals(element));
             }
         }
 
@@ -145,6 +156,15 @@ namespace Structurizr.View
                         this.Relationships.Add(new RelationshipView(relationship));
                     }
                 }
+            }
+        }
+
+        public void Remove(Relationship relationship)
+        {
+            if (relationship != null)
+            {
+                RelationshipView relationshipView = new RelationshipView(relationship);
+                Relationships.Remove(relationshipView);
             }
         }
 
@@ -196,7 +216,6 @@ namespace Structurizr.View
 
             return null;
         }
-
 
     }
 }

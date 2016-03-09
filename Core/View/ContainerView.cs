@@ -59,5 +59,10 @@ namespace Structurizr.View
             AddElement(container, true);
         }
 
+        public void Remove(Container container)
+        {
+            RemoveElement(container);
+        }
+
     }
 }

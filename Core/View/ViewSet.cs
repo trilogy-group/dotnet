@@ -82,6 +82,19 @@ namespace Structurizr.View
             return view;
         }
 
+        public ComponentView CreateComponentView(Container container)
+        {
+            return CreateComponentView(container, null);
+        }
+
+        public ComponentView CreateComponentView(Container container, string description)
+        {
+            ComponentView view = new ComponentView(container, description);
+            ComponentViews.Add(view);
+
+            return view;
+        }
+
         public void Hydrate()
         {
             foreach (SystemContextView systemContextView in SystemContextViews)
