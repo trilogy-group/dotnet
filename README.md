@@ -24,12 +24,17 @@ Here is a quick overview of how to get started with "Structurizr for .NET" so th
 
 ### 1. Dependencies
 
-The "Structurizr for .NET" binaries will be published on NuGet in the near future.
+The "Structurizr for .NET" assemblies are available on NuGet as follows:
 
 Name                                          | Description
 -------------------------------------------   | ---------------------------------------------------------------------------------------------------------------------------
-StructurizrCore | The core library that can used to create models.
-StructurizrClient | The structurizr.com API client for .NET for uploading models.
+Structurizr.Core | The core library that can used to create and upload software architecture models to Structurizr.
+
+To install Structurizr.Core, use the following command in the NuGet Package Manager Console:
+
+```
+Install-Package Structurizr.Core
+```
 
 ### 2. Create a model
 
