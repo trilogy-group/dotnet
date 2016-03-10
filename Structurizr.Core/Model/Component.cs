@@ -31,17 +31,10 @@ namespace Structurizr.Model
   
         
         /// <summary>
-        /// The interface type (e.g. a fully qualified Java interface name).
+        /// The implementation type (e.g. a fully qualified interface/class name).
         /// </summary>
-        [DataMember(Name="interfaceType", EmitDefaultValue=false)]
-        public string InterfaceType { get; set; }
-  
-        
-        /// <summary>
-        /// The implementation type (e.g. a fully qualified Java class name).
-        /// </summary>
-        [DataMember(Name="implementationType", EmitDefaultValue=false)]
-        public string ImplementationType { get; set; }
+        [DataMember(Name="type", EmitDefaultValue=false)]
+        public string Type { get; set; }
   
         
         /// <summary>

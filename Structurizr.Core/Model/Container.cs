@@ -55,12 +55,12 @@ namespace Structurizr.Model
 
         public Component AddComponent(string name, string description, string technology)
         {
-            return this.AddComponent(name, null, null, description, technology);
+            return this.AddComponent(name, null, description, technology);
         }
 
-        public Component AddComponent(string name, string interfaceType, string implementationType, string description, string technology)
+        public Component AddComponent(string name, string type, string description, string technology)
         {
-            Component component = Model.AddComponent(this, name, interfaceType, implementationType, description, technology);
+            Component component = Model.AddComponent(this, name, type, description, technology);
 
             return component;
         }
@@ -91,22 +91,14 @@ namespace Structurizr.Model
             return null;
         }
 
-        public Component getComponentOfType(string type)
+        public Component GetComponentOfType(string type)
         {
             if (type == null)
             {
                 return null;
             }
 
-            foreach (Component component in Components)
-            {
-                if (component.InterfaceType == type || component.ImplementationType == type)
-                {
-                    return component;
-                }
-            }
-
-            return null;
+            return Components.Where(c => c.Type == type).FirstOrDefault();
         }
 
 

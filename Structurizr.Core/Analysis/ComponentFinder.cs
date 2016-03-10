@@ -23,15 +23,8 @@ namespace Structurizr.Analysis
             }
         }
 
-        public Component FoundComponent(string name, string interfaceType, string implementationType, string description, string technology, string sourcePath)
+        public Component FoundComponent(string name, string type, string description, string technology, string sourcePath)
         {
-            string type = interfaceType;
-            if (type == null || type.Equals(""))
-            {
-                // there is no interface type, so we'll just have to use the implementation type
-                type = implementationType;
-            }
-
             Component component = null; // = Container.GetComponentOfType(type);
             if (component != null)
             {
@@ -41,7 +34,7 @@ namespace Structurizr.Analysis
                 component = Container.GetComponentWithName(name);
                 if (component == null)
                 {
-                    component = Container.AddComponent(name, interfaceType, implementationType, description, technology);
+                    component = Container.AddComponent(name, type, description, technology);
                 }
                 else {
                     //mergeInformation(component, interfaceType, implementationType, description, technology, sourcePath);

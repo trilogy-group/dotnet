@@ -55,6 +55,7 @@
     <Compile Include="Analysis\MyApp\IRepository.cs" />
     <Compile Include="Analysis\MyApp\MyController.cs" />
     <Compile Include="Analysis\MyApp\MyRepository.cs" />
+    <Compile Include="Analysis\UnitTest1.cs" />
     <Compile Include="Client\Md5DigestTests.cs" />
     <Compile Include="Analysis\NameSuffixTypeMatcherTests.cs" />
     <Compile Include="Analysis\AssemblyScanningComponentFinderStrategyTests.cs" />

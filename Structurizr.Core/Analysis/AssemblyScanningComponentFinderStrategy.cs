@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Structurizr.Analysis
 {
@@ -37,11 +38,11 @@ namespace Structurizr.Analysis
                     {
                         if (type.IsInterface)
                         {
-                            components.Add(this.ComponentFinder.FoundComponent(type.Name, type.FullName, null, typeMatcher.GetDescription(), typeMatcher.GetTechnology(), null));
+                            components.Add(this.ComponentFinder.FoundComponent(type.Name, type.AssemblyQualifiedName, typeMatcher.GetDescription(), typeMatcher.GetTechnology(), null));
                         }
                         else
                         {
-                            components.Add(this.ComponentFinder.FoundComponent(type.Name, null, type.FullName, typeMatcher.GetDescription(), typeMatcher.GetTechnology(), null));
+                            components.Add(this.ComponentFinder.FoundComponent(type.Name, type.AssemblyQualifiedName, typeMatcher.GetDescription(), typeMatcher.GetTechnology(), null));
                         }
                     }
                 }
@@ -52,6 +53,31 @@ namespace Structurizr.Analysis
 
         public override void FindDependencies()
         {
+            foreach (Component component in ComponentFinder.Container.Components)
+            {
+                if (component.Type != null)
+                {
+                    Type type = Type.GetType(component.Type);
+                    foreach (PropertyInfo propertyInfo in type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+                    {
+                        string propertyType = propertyInfo.PropertyType.AssemblyQualifiedName;
+                        Component c = ComponentFinder.Container.GetComponentOfType(propertyType);
+                        if (c != null)
+                        {
+                            component.Uses(c, null);
+                        }
+                    }
+                    foreach (FieldInfo fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+                    {
+                        string fieldType = fieldInfo.FieldType.AssemblyQualifiedName;
+                        Component c = ComponentFinder.Container.GetComponentOfType(fieldType);
+                        if (c != null)
+                        {
+                            component.Uses(c, "");
+                        }
+                    }
+                }
+            }
         }
 
         private bool InNamespace(Type type)

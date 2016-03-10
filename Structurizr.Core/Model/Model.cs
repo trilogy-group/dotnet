@@ -147,15 +147,14 @@ namespace Structurizr.Model
 
         internal Component AddComponent(Container parent, string name, string description, string technology)
         {
-            return this.AddComponent(parent, name, null, null, description, technology);
+            return this.AddComponent(parent, name, null, description, technology);
         }
 
-        internal Component AddComponent(Container parent, string name, string interfaceType, string implementationType, string description, string technology)
+        internal Component AddComponent(Container parent, string name, string type, string description, string technology)
         {
             Component component = new Component();
             component.Name = name;
-            component.InterfaceType = interfaceType;
-            component.ImplementationType = implementationType;
+            component.Type = type;
             component.Description = description;
             component.Technology = technology;
 
