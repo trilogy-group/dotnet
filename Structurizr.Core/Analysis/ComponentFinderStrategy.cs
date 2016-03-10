@@ -1,7 +1,7 @@
 ﻿using Structurizr.Model;
 using System.Collections.Generic;
 
-namespace Structurizr.ComponentFinder
+namespace Structurizr.Analysis
 {
     public abstract class ComponentFinderStrategy
     {

@@ -145,27 +145,19 @@ namespace Structurizr.Model
             }
         }
 
-        internal Component AddComponentOfType(Container parent, String interfaceType, String implementationType, String description)
+        internal Component AddComponent(Container parent, string name, string description, string technology)
         {
-            Component component = new Component();
-            component.InterfaceType = interfaceType;
-            component.ImplementationType = implementationType;
-            component.Description = description;
-
-            component.Parent = parent;
-            parent.Add(component);
-
-            component.Id = idGenerator.GenerateId(component);
-            AddElementToInternalStructures(component);
-
-            return component;
+            return this.AddComponent(parent, name, null, null, description, technology);
         }
 
-        internal Component AddComponent(Container parent, string name, string description)
+        internal Component AddComponent(Container parent, string name, string interfaceType, string implementationType, string description, string technology)
         {
             Component component = new Component();
             component.Name = name;
+            component.InterfaceType = interfaceType;
+            component.ImplementationType = implementationType;
             component.Description = description;
+            component.Technology = technology;
 
             component.Parent = parent;
             parent.Add(component);
@@ -175,7 +167,6 @@ namespace Structurizr.Model
 
             return component;
         }
-
 
         internal void AddRelationship(Relationship relationship)
         {

@@ -1,7 +1,7 @@
 ﻿using Structurizr.Model;
 using System.Collections.Generic;
 
-namespace Structurizr.ComponentFinder
+namespace Structurizr.Analysis
 {
     public class ComponentFinder
     {
@@ -23,7 +23,7 @@ namespace Structurizr.ComponentFinder
             }
         }
 
-        public Component FoundComponent(string interfaceType, string implementationType, string description, string technology, string sourcePath)
+        public Component FoundComponent(string name, string interfaceType, string implementationType, string description, string technology, string sourcePath)
         {
             string type = interfaceType;
             if (type == null || type.Equals(""))
@@ -38,11 +38,10 @@ namespace Structurizr.ComponentFinder
                 //mergeInformation(component, interfaceType, implementationType, description, technology, sourcePath);
             }
             else {
-                string name = type.Substring(type.LastIndexOf(".") + 1);
                 component = Container.GetComponentWithName(name);
                 if (component == null)
                 {
-                    component = Container.AddComponentOfType(interfaceType, implementationType, description, technology);
+                    component = Container.AddComponent(name, interfaceType, implementationType, description, technology);
                 }
                 else {
                     //mergeInformation(component, interfaceType, implementationType, description, technology, sourcePath);

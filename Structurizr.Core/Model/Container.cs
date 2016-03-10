@@ -48,14 +48,6 @@ namespace Structurizr.Model
             this.Components = new HashSet<Component>();
         }
 
-        public Component AddComponentOfType(string interfaceType, string implementationType, string description, string technology)
-        {
-            Component component = Model.AddComponentOfType(this, interfaceType, implementationType, description);
-            component.Technology = technology;
-
-            return component;
-        }
-
         public Component AddComponent(string name, string description)
         {
             return this.AddComponent(name, description, null);
@@ -63,8 +55,12 @@ namespace Structurizr.Model
 
         public Component AddComponent(string name, string description, string technology)
         {
-            Component component = Model.AddComponent(this, name, description);
-            component.Technology = technology;
+            return this.AddComponent(name, null, null, description, technology);
+        }
+
+        public Component AddComponent(string name, string interfaceType, string implementationType, string description, string technology)
+        {
+            Component component = Model.AddComponent(this, name, interfaceType, implementationType, description, technology);
 
             return component;
         }
