@@ -20,7 +20,7 @@ __Please note:__ This is a work in progess.
  
 ## Getting started
 
-Here is a quick overview of how to get started with "Structurizr for .NET" so that you can create a software architecture model as code. You can find the code [here](https://github.com/structurizr/dotnet/blob/master/Examples/GettingStarted.cs). For more examples, please see the [Examples project](https://github.com/structurizr/dotnet/blob/master/Examples).
+Here is a quick overview of how to get started with "Structurizr for .NET" so that you can create a software architecture model as code. You can find the code [here](https://github.com/structurizr/dotnet/blob/master/Structurizr.Examples/GettingStarted.cs). For more examples, please see the [Examples project](https://github.com/structurizr/dotnet/blob/master/Structurizr.Examples).
 
 ### 1. Dependencies
 
