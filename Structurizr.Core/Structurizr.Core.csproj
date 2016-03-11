@@ -111,7 +111,7 @@
     <Compile Include="Client\Md5Digest.cs" />
     <Compile Include="Client\StructurizrClient.cs" />
     <Compile Include="Client\StructurizrClientException.cs" />
-    <Compile Include="Analysis\AssemblyScanningComponentFinderStrategy.cs" />
+    <Compile Include="Analysis\TypeBasedComponentFinderStrategy.cs" />
     <Compile Include="Analysis\ComponentFinder.cs" />
     <Compile Include="Analysis\ComponentFinderStrategy.cs" />
     <Compile Include="Analysis\ITypeMatcher.cs" />

@@ -8,15 +8,15 @@ namespace Structurizr.Analysis
 {
 
     /// <summary>
-    /// This is the base class for component finder strategies that use the standard .NET assembly
-    /// scanning facility to find components.
+    /// This is a component finder strategy that looks for components that are based upon a specific type.
+    /// It uses the standard .NET reflection facility to find components.
     /// </summary>
-    public class AssemblyScanningComponentFinderStrategy : ComponentFinderStrategy
+    public class TypeBasedComponentFinderStrategy : ComponentFinderStrategy
     {
 
         private List<ITypeMatcher> typeMatchers = new List<ITypeMatcher>();
 
-        public AssemblyScanningComponentFinderStrategy(params ITypeMatcher[] typeMatchers)
+        public TypeBasedComponentFinderStrategy(params ITypeMatcher[] typeMatchers)
         {
             this.typeMatchers.AddRange(typeMatchers);
         }

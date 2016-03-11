@@ -8,6 +8,11 @@ using System.Xml.Linq;
 
 namespace Structurizr.Analysis
 {
+
+    /// <summary>
+    /// This is a component finder that enriches existing components with the type level summary
+    /// comment (i.e. this comment). It uses Roslyn and needs access to the source code.
+    /// </summary>
     public class TypeSummaryComponentFinderStrategy : ComponentFinderStrategy
     {
 

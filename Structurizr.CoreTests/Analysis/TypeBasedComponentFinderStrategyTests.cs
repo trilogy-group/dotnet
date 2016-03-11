@@ -7,7 +7,7 @@ using System.Linq;
 namespace Structurizr.CoreTests.Analysis
 {
     [TestClass]
-    public class AssemblyScanningComponentFinderStrategyTests
+    public class TypeBasedComponentFinderStrategyTests
     {
         [TestMethod]
         public void Test_FindComponents()
@@ -18,7 +18,7 @@ namespace Structurizr.CoreTests.Analysis
             ComponentFinder componentFinder = new ComponentFinder(
                 container,
                 typeof(MyApp.MyController).Namespace,
-                new AssemblyScanningComponentFinderStrategy(
+                new TypeBasedComponentFinderStrategy(
                     new NameSuffixTypeMatcher("Controller", "", "ASP.NET MVC")
                 ));
 
