@@ -21,7 +21,7 @@ namespace Structurizr.View
         /// The placement of the diagram metadata.
         /// </summary>
         [DataMember(Name = "metadata", EmitDefaultValue = false)]
-        public string Metadata { get; set; }
+        public Metadata? Metadata { get; set; }
 
     }
 }
