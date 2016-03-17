@@ -36,14 +36,7 @@ namespace Structurizr.Analysis
                 {
                     if (typeMatcher.Matches(type))
                     {
-                        if (type.IsInterface)
-                        {
-                            components.Add(this.ComponentFinder.FoundComponent(type.Name, type.AssemblyQualifiedName, typeMatcher.GetDescription(), typeMatcher.GetTechnology(), null));
-                        }
-                        else
-                        {
-                            components.Add(this.ComponentFinder.FoundComponent(type.Name, type.AssemblyQualifiedName, typeMatcher.GetDescription(), typeMatcher.GetTechnology(), null));
-                        }
+                        components.Add(this.ComponentFinder.FoundComponent(type.Name, type.AssemblyQualifiedName, typeMatcher.GetDescription(), typeMatcher.GetTechnology(), null));
                     }
                 }
             }
