@@ -1,19 +1,20 @@
 ﻿using Newtonsoft.Json;
+using Structurizr.IO.Json;
 using System.IO;
 
-namespace Structurizr.IO.Json
+namespace Structurizr.Encryption
 {
-    public class JsonWriter
+    public class EncryptedJsonWriter
     {
 
         public bool IndentOutput { get; set; }
 
-        public JsonWriter(bool indentOutput)
+        public EncryptedJsonWriter(bool indentOutput)
         {
             this.IndentOutput = indentOutput;
         }
 
-        public void Write(Workspace workspace, StringWriter writer)
+        public void Write(EncryptedWorkspace workspace, StringWriter writer)
         {
             string json = JsonConvert.SerializeObject(workspace,
                 IndentOutput == true ? Formatting.Indented : Formatting.None,
@@ -22,6 +23,7 @@ namespace Structurizr.IO.Json
 
             writer.WriteLine(json);
         }
+
 
     }
 }

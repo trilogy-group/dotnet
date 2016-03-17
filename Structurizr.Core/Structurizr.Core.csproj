@@ -117,8 +117,12 @@
     <Compile Include="Analysis\ITypeMatcher.cs" />
     <Compile Include="Analysis\InterfaceImplementationTypeMatcher.cs" />
     <Compile Include="Analysis\NameSuffixTypeMatcher.cs" />
+    <Compile Include="Encryption\AesEncryptionStrategy.cs" />
+    <Compile Include="Encryption\EncryptedWorkspace.cs" />
+    <Compile Include="Encryption\EncryptionStrategy.cs" />
     <Compile Include="IO\Json\JsonReader.cs" />
     <Compile Include="IO\Json\JsonWriter.cs" />
+    <Compile Include="IO\Json\EncryptionStrategyJsonConverter.cs" />
     <Compile Include="IO\Json\PaperSizeJsonConverter.cs" />
     <Compile Include="Model\Component.cs" />
     <Compile Include="Model\Element.cs" />
@@ -158,6 +162,12 @@
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Encryption\EncryptedJsonWriter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Encryption\EncryptedJsonReader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

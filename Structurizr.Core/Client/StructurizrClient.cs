@@ -1,4 +1,5 @@
-﻿using Structurizr.IO.Json;
+﻿using Structurizr.Encryption;
+using Structurizr.IO.Json;
 using System;
 using System.IO;
 using System.Net;
@@ -17,6 +18,8 @@ namespace Structurizr.Client
 
         /// <summary>the location where a copy of the workspace will be archived when it is retrieved from the server</summary>
         public DirectoryInfo WorkspaceArchiveLocation { get; set; }
+
+        public EncryptionStrategy EncryptionStrategy { get; set; }
 
         public StructurizrClient(string apiKey, string apiSecret)
         {
@@ -41,9 +44,16 @@ namespace Structurizr.Client
                     string response = webClient.DownloadString(this.Url + path);
                     ArchiveWorkspace(workspaceId, response);
 
-                    JsonReader jsonReader = new JsonReader();
                     StringReader stringReader = new StringReader(response);
-                    return jsonReader.Read(stringReader);
+                    if (EncryptionStrategy == null)
+                    {
+                        return new JsonReader().Read(stringReader);
+                    }
+                    else {
+                        EncryptedWorkspace encryptedWorkspace = new EncryptedJsonReader().Read(stringReader);
+                        encryptedWorkspace.EncryptionStrategy.Passphrase = this.EncryptionStrategy.Passphrase;
+                        return encryptedWorkspace.Workspace;
+                    }
                 }
                 catch (Exception e)
                 {
@@ -62,13 +72,25 @@ namespace Structurizr.Client
                 {
                     string httpMethod = "PUT";
                     string path = WorkspacePath + workspaceId;
+                    string workspaceAsJson = "";
 
-                    JsonWriter jsonWriter = new JsonWriter(false);
-                    StringWriter stringWriter = new StringWriter();
-                    jsonWriter.Write(workspace, stringWriter);
-                    stringWriter.Flush();
-
-                    string workspaceAsJson = stringWriter.ToString();
+                    using (StringWriter stringWriter = new StringWriter())
+                    {
+                        if (EncryptionStrategy == null)
+                        {
+                            JsonWriter jsonWriter = new JsonWriter(false);
+                            jsonWriter.Write(workspace, stringWriter);
+                        }
+                        else
+                        {
+                            EncryptedWorkspace encryptedWorkspace = new EncryptedWorkspace(workspace, EncryptionStrategy);
+                            EncryptedJsonWriter jsonWriter = new EncryptedJsonWriter(false);
+                            jsonWriter.Write(encryptedWorkspace, stringWriter);
+                        }
+                        stringWriter.Flush();
+                        workspaceAsJson = stringWriter.ToString();
+                        System.Console.WriteLine(workspaceAsJson);
+                    }
 
                     AddHeaders(webClient, httpMethod, path, workspaceAsJson, "application/json");
 

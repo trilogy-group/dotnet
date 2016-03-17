@@ -33,10 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Structurizr.Examples.GettingStarted</StartupObject>
+    <StartupObject>Structurizr.Examples.ClientSideEncryptedWorkspace</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="FinancialRiskSystem.cs" />
+    <Compile Include="ClientSideEncryptedWorkspace.cs" />
     <Compile Include="GettingStarted.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

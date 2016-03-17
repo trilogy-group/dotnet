@@ -59,6 +59,7 @@
     <Compile Include="Analysis\NameSuffixTypeMatcherTests.cs" />
     <Compile Include="Analysis\TypeBasedComponentFinderStrategyTests.cs" />
     <Compile Include="Analysis\InterfaceImplementationTypeMatcherTests.cs" />
+    <Compile Include="Encryption\AesEncryptionStrategyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
