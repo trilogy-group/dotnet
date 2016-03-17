@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Structurizr.Client
@@ -12,13 +13,7 @@ namespace Structurizr.Client
             byte[] textToHash = Encoding.Default.GetBytes(content);
             byte[] result = md5.ComputeHash(textToHash);
 
-            StringBuilder buf = new StringBuilder();
-            for (int i = 0; i < result.Length; i++)
-            {
-                buf.Append(result[i].ToString("x2"));
-            }
-
-            return buf.ToString();
+            return BitConverter.ToString(result).Replace("-", "").ToLower();
         }
 
     }
