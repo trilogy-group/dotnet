@@ -136,8 +136,6 @@ namespace Structurizr.Examples
             // and upload the model to structurizr.com
             StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
             structurizrClient.MergeWorkspace(9481, workspace);
-                   
-            System.Console.ReadKey();
         }
     }
 }
