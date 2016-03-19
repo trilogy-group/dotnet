@@ -17,6 +17,7 @@ __Please note:__ This is a work in progess.
 1. [Getting started](#getting-started)
 1. [Styling elements](docs/styling-elements.md)
 1. [Styling relationships](docs/styling-relationships.md)
+1. [Client-side encryption](docs/client-side-encryption.md)
  
 ## Getting started
 
