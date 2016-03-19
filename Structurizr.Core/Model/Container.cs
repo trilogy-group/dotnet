@@ -55,7 +55,12 @@ namespace Structurizr.Model
 
         public Component AddComponent(string name, string description, string technology)
         {
-            return this.AddComponent(name, null, description, technology);
+            return this.AddComponent(name, "", description, technology);
+        }
+
+        public Component AddComponent(string name, Type type, string description, string technology)
+        {
+            return AddComponent(name, type.AssemblyQualifiedName, description, technology);
         }
 
         public Component AddComponent(string name, string type, string description, string technology)

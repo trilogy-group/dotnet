@@ -36,7 +36,12 @@ namespace Structurizr.Analysis
                 {
                     if (typeMatcher.Matches(type))
                     {
-                        components.Add(this.ComponentFinder.FoundComponent(type.Name, type.AssemblyQualifiedName, typeMatcher.GetDescription(), typeMatcher.GetTechnology(), null));
+                        Component component = ComponentFinder.Container.AddComponent(
+                            type.Name,
+                            type,
+                            typeMatcher.GetDescription(),
+                            typeMatcher.GetTechnology());
+                        components.Add(component);
                     }
                 }
             }

@@ -23,27 +23,6 @@ namespace Structurizr.Analysis
             }
         }
 
-        public Component FoundComponent(string name, string type, string description, string technology, string sourcePath)
-        {
-            Component component = null; // = Container.GetComponentOfType(type);
-            if (component != null)
-            {
-                //mergeInformation(component, interfaceType, implementationType, description, technology, sourcePath);
-            }
-            else {
-                component = Container.GetComponentWithName(name);
-                if (component == null)
-                {
-                    component = Container.AddComponent(name, type, description, technology);
-                }
-                else {
-                    //mergeInformation(component, interfaceType, implementationType, description, technology, sourcePath);
-                }
-            }
-
-            return component;
-        }
-
         public ICollection<Component> FindComponents()
         {
             List<Component> componentsFound = new List<Component>();
