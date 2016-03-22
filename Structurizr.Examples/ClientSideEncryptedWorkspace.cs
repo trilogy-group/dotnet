@@ -5,6 +5,11 @@ using Structurizr.View;
 
 namespace Structurizr.Examples
 {
+
+    /// <summary>
+    /// This is an example client-side encrypted workspace. You can see it in your web browser
+    /// at https://structurizr.com/public/41 (the passphrase is "password").
+    /// </summary>
     class ClientSideEncryptedWorkspace
     {
 
