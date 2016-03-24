@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Structurizr.Model;
 
-namespace Structurizr.View
+namespace Structurizr
 {
 
     /// <summary>
@@ -13,7 +12,7 @@ namespace Structurizr.View
     public class ViewSet
     {
 
-        public Model.Model Model { get; set; }
+        public Model Model { get; set; }
 
         /// <summary>
         /// The set of system context views.
@@ -51,7 +50,7 @@ namespace Structurizr.View
             this.Configuration = new Configuration();
         }
 
-        internal ViewSet(Model.Model model) : this()
+        internal ViewSet(Model model) : this()
         {
             this.Model = model;
         }

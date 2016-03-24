@@ -1,4 +1,4 @@
-﻿namespace Structurizr.Model
+﻿namespace Structurizr
 {
     public sealed class Tags
     {

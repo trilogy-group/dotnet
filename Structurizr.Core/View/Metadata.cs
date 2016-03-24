@@ -1,4 +1,4 @@
-﻿namespace Structurizr.View
+﻿namespace Structurizr
 {
     public enum Metadata
     {

@@ -1,7 +1,6 @@
-﻿using Structurizr.Model;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
-namespace Structurizr.View
+namespace Structurizr
 {
 
     [DataContract]

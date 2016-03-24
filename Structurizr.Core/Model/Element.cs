@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Structurizr.Model
+namespace Structurizr
 {
 
     [DataContract]

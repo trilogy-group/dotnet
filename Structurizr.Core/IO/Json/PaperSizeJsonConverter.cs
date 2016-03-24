@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Structurizr.View;
 using System;
 
 namespace Structurizr.IO.Json

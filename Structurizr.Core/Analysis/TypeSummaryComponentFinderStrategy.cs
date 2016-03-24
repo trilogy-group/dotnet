@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Structurizr.Model;
 using System;
 using Microsoft.CodeAnalysis.MSBuild;
 using Microsoft.CodeAnalysis;

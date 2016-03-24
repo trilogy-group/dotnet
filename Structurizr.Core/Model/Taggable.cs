@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace Structurizr.Model
+namespace Structurizr
 {
 
     [DataContract]

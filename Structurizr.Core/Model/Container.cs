@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Structurizr.Model
+namespace Structurizr
 {
 
     /// <summary>
@@ -110,8 +110,8 @@ namespace Structurizr.Model
         public override List<string> getRequiredTags()
         {
             string[] tags = {
-                Structurizr.Model.Tags.Element,
-                Structurizr.Model.Tags.Container
+                Structurizr.Tags.Element,
+                Structurizr.Tags.Container
             };
             return tags.ToList();
         }

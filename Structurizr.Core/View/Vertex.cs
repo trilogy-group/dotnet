@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace Structurizr.View
+namespace Structurizr
 {
 
     /// <summary>

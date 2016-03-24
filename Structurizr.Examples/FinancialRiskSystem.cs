@@ -1,7 +1,5 @@
 ﻿using Structurizr.Client;
 using Structurizr.IO.Json;
-using Structurizr.Model;
-using Structurizr.View;
 using System.IO;
 using System.Linq;
 
@@ -23,7 +21,7 @@ namespace Structurizr.Examples
         static void Main(string[] args)
         {
             Workspace workspace = new Workspace("Financial Risk System", "A simple example C4 model based upon the financial risk system architecture kata, created using Structurizr for .NET");
-            Model.Model model = workspace.Model;
+            Model model = workspace.Model;
 
             // create the basic model
             SoftwareSystem financialRiskSystem = model.AddSoftwareSystem(Location.Internal, "Financial Risk System", "Calculates the bank's exposure to risk for product X");

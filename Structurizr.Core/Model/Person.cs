@@ -1,11 +1,9 @@
 using System;
 using System.Linq;
-using System.Text;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Newtonsoft.Json;
 
-namespace Structurizr.Model
+namespace Structurizr
 {
 
     /// <summary>
@@ -48,8 +46,8 @@ namespace Structurizr.Model
         public override List<string> getRequiredTags()
         {
             string[] tags = {
-                Structurizr.Model.Tags.Element,
-                Structurizr.Model.Tags.Person
+                Structurizr.Tags.Element,
+                Structurizr.Tags.Person
             };
             return tags.ToList();
         }

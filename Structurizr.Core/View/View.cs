@@ -1,8 +1,7 @@
-﻿using Structurizr.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Structurizr.View
+namespace Structurizr
 {
 
     [DataContract]
@@ -60,7 +59,7 @@ namespace Structurizr.View
         }
 
 
-        public Model.Model Model
+        public Model Model
         {
             get
             {

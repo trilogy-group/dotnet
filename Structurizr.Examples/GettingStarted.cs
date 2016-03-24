@@ -1,6 +1,4 @@
 using Structurizr.Client;
-using Structurizr.Model;
-using Structurizr.View;
 
 namespace Structurizr.Examples
 {
@@ -10,7 +8,7 @@ namespace Structurizr.Examples
         static void Main(string[] args)
         {
             Workspace workspace = new Workspace("My model", "This is a model of my software system.");
-            Model.Model model = workspace.Model;
+            Model model = workspace.Model;
 
             Person user = model.AddPerson("User", "A user of my software system.");
             SoftwareSystem softwareSystem = model.AddSoftwareSystem("Software System", "My software system.");

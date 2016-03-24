@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Structurizr.Model
+namespace Structurizr
 {
 
     /// <summary>
@@ -101,12 +101,12 @@ namespace Structurizr.Model
                 this.interactionStyle = value;
                 if (this.interactionStyle == InteractionStyle.Synchronous)
                 {
-                    RemoveTag(Structurizr.Model.Tags.Asynchronous);
-                    AddTags(Structurizr.Model.Tags.Synchronous);
+                    RemoveTag(Structurizr.Tags.Asynchronous);
+                    AddTags(Structurizr.Tags.Synchronous);
                 }
                 else {
-                    RemoveTag(Structurizr.Model.Tags.Synchronous);
-                    AddTags(Structurizr.Model.Tags.Asynchronous);
+                    RemoveTag(Structurizr.Tags.Synchronous);
+                    AddTags(Structurizr.Tags.Asynchronous);
                 }
 
             }
@@ -139,7 +139,7 @@ namespace Structurizr.Model
         public override List<string> getRequiredTags()
         {
             string[] tags = {
-                Structurizr.Model.Tags.Relationship
+                Structurizr.Tags.Relationship
             };
             return tags.ToList();
         }

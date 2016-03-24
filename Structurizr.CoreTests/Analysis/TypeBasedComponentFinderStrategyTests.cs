@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Structurizr.Analysis;
-using Structurizr.Model;
 using System.Collections.Generic;
 using System.Linq;
 

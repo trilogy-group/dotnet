@@ -1,6 +1,4 @@
-using System;
 using System.Runtime.Serialization;
-using Structurizr.View;
 
 namespace Structurizr
 {
@@ -17,7 +15,7 @@ namespace Structurizr
         /// </summary>
         /// <value>The software architecture model.</value>
         [DataMember(Name = "model", EmitDefaultValue = false)]
-        public Model.Model Model { get; set; }
+        public Model Model { get; set; }
 
         /// <summary>
         /// The set of views onto a software architecture model.
@@ -33,7 +31,7 @@ namespace Structurizr
         /// <param name="Description">A short description of the workspace..</param>
         public Workspace(string name, string description) : base(name, description)
         {
-            this.Model = new Model.Model();
+            this.Model = new Model();
             this.Views = new ViewSet(Model);        
         }
 
