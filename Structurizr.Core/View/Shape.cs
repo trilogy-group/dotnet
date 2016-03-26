@@ -5,6 +5,7 @@
 
         Box,
         RoundedBox,
+        Ellipse,
         Cylinder,
         Person,
         Folder
