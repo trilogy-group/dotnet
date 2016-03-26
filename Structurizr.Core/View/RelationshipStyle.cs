@@ -54,10 +54,10 @@ namespace Structurizr
   
         
         /// <summary>
-        /// A flag to indicate whether the line is rendered as smooth (curved) or not.
+        /// The routing of the line.
         /// </summary>
-        [DataMember(Name="smooth", EmitDefaultValue=false)]
-        public bool? Smooth { get; set; }
+        [DataMember(Name="routing", EmitDefaultValue=false)]
+        public Routing? Routing { get; set; }
   
         
         /// <summary>

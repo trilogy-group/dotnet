@@ -134,6 +134,7 @@
     <Compile Include="View\Configuration.cs" />
     <Compile Include="View\Metadata.cs" />
     <Compile Include="View\PaperSize.cs" />
+    <Compile Include="View\Routing.cs" />
     <Compile Include="View\Shape.cs" />
     <Compile Include="View\Styles.cs" />
     <Compile Include="Model\Container.cs" />
