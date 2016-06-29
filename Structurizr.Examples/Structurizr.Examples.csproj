@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Structurizr.Examples.ClientSideEncryptedWorkspace</StartupObject>
+    <StartupObject>Structurizr.Examples.FinancialRiskSystem</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="FinancialRiskSystem.cs" />
@@ -44,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="FinancialRiskSystem\context.md" />
+    <None Include="FinancialRiskSystem\functional-overview.md" />
+    <None Include="FinancialRiskSystem\quality-attributes.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Structurizr.Core\Structurizr.Core.csproj">
@@ -53,6 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FinancialRiskSystem\functional-overview.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

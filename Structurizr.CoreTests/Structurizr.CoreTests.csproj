@@ -60,6 +60,7 @@
     <Compile Include="Analysis\NameSuffixTypeMatcherTests.cs" />
     <Compile Include="Analysis\TypeBasedComponentFinderStrategyTests.cs" />
     <Compile Include="Analysis\InterfaceImplementationTypeMatcherTests.cs" />
+    <Compile Include="Documentation\DocumentationTests.cs" />
     <Compile Include="Encryption\AesEncryptionStrategyTests.cs" />
     <Compile Include="Model\PersonTests.cs" />
     <Compile Include="Model\ComponentTests.cs" />

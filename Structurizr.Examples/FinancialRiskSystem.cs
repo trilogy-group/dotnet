@@ -125,6 +125,13 @@ namespace Structurizr.Examples
 
             businessUser.Relationships.ToList().ForEach(r => r.AddTags("HTTPS"));
 
+            Documentation documentation = workspace.Documentation;
+            FileInfo documentationRoot = new FileInfo(@"..\..\FinancialRiskSystem");
+            documentation.Add(financialRiskSystem, SectionType.Context, DocumentationFormat.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "context.md")));
+            documentation.Add(financialRiskSystem, SectionType.FunctionalOverview, DocumentationFormat.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "functional-overview.md")));
+            documentation.Add(financialRiskSystem, SectionType.QualityAttributes, DocumentationFormat.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "quality-attributes.md")));
+            documentation.AddImages(documentationRoot);
+
             StringWriter stringWriter = new StringWriter();
             JsonWriter jsonWriter = new JsonWriter(true);
             jsonWriter.Write(workspace, stringWriter);

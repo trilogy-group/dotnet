@@ -25,6 +25,12 @@ namespace Structurizr
         public ViewSet Views { get; set; }
 
         /// <summary>
+        /// The documentation associated with this workspace.
+        /// </summary>
+        [DataMember(Name = "documentation", EmitDefaultValue = false)]
+        public Documentation Documentation { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Workspace" />class.
         /// </summary>
         /// <param name="Name">The name of the workspace..</param>
@@ -32,14 +38,18 @@ namespace Structurizr
         public Workspace(string name, string description) : base(name, description)
         {
             this.Model = new Model();
-            this.Views = new ViewSet(Model);        
+            this.Views = new ViewSet(Model);
+            this.Documentation = new Documentation(Model);
         }
 
         public void Hydrate()
         {
             this.Views.Model = Model;
+            this.Documentation.Model = Model;
+
             this.Model.Hydrate();
             this.Views.Hydrate();
+            this.Documentation.Hydrate();
         }
 
     }

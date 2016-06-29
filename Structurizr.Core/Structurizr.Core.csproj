@@ -46,6 +46,11 @@
     <Compile Include="Analysis\ITypeMatcher.cs" />
     <Compile Include="Analysis\InterfaceImplementationTypeMatcher.cs" />
     <Compile Include="Analysis\NameSuffixTypeMatcher.cs" />
+    <Compile Include="Documentation\Documentation.cs" />
+    <Compile Include="Documentation\DocumentationFormat.cs" />
+    <Compile Include="Documentation\Image.cs" />
+    <Compile Include="Documentation\Section.cs" />
+    <Compile Include="Documentation\SectionType.cs" />
     <Compile Include="Encryption\AesEncryptionStrategy.cs" />
     <Compile Include="Encryption\EncryptedWorkspace.cs" />
     <Compile Include="Encryption\EncryptionStrategy.cs" />
@@ -105,8 +110,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -16,6 +16,7 @@ This GitHub repository is a .NET library to create software architecture models 
 1. [Styling elements](docs/styling-elements.md)
 1. [Styling relationships](docs/styling-relationships.md)
 1. [Client-side encryption](docs/client-side-encryption.md)
+1. [Documentation](docs/documentation.md)
  
 ## Getting started
 
