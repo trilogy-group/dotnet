@@ -20,8 +20,8 @@ namespace Structurizr.Examples
             contextView.AddAllPeople();
 
             Styles styles = viewSet.Configuration.Styles;
-            styles.Add(new ElementStyle(Tags.SoftwareSystem) { Background = "#a4b7c9", Color = "#000000" });
-            styles.Add(new ElementStyle(Tags.Person) { Background = "#728da5", Color = "#ffffff" });
+            styles.Add(new ElementStyle(Tags.SoftwareSystem) { Background = "#1168bd", Color = "#ffffff" });
+            styles.Add(new ElementStyle(Tags.Person) { Background = "#08427b", Color = "#ffffff" });
 
             StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
             structurizrClient.PutWorkspace(1234, workspace);
