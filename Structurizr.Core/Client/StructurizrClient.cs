@@ -3,6 +3,7 @@ using Structurizr.IO.Json;
 using System;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Text;
 
 namespace Structurizr.Client
@@ -124,6 +125,7 @@ namespace Structurizr.Client
             HmacContent hmacContent = new HmacContent(httpMethod, path, contentMd5, contentType, nonce);
             string authorizationHeader = new HmacAuthorizationHeader(ApiKey, hmac.Generate(hmacContent.ToString())).ToString();
 
+            webClient.Headers.Add(HttpHeaders.UserAgent, "structurizr-dotnet/" + Assembly.GetExecutingAssembly().GetName().Version.ToString());
             webClient.Headers.Add(HttpHeaders.Authorization, authorizationHeader);
             webClient.Headers.Add(HttpHeaders.Nonce, nonce);
             webClient.Headers.Add(HttpHeaders.ContentMd5, contentMd5Base64Encoded);
