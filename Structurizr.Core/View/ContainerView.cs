@@ -22,7 +22,7 @@ namespace Structurizr
         {
         }
 
-        internal ContainerView(SoftwareSystem softwareSystem, string description) : base(softwareSystem, description)
+        internal ContainerView(SoftwareSystem softwareSystem, string key, string description) : base(softwareSystem, key, description)
         {
         }
 

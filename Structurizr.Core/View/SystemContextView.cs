@@ -22,7 +22,7 @@ namespace Structurizr
         {
         }
 
-        internal SystemContextView(SoftwareSystem softwareSystem, string description) : base(softwareSystem, description)
+        internal SystemContextView(SoftwareSystem softwareSystem, string key, string description) : base(softwareSystem, key, description)
         {
             AddElement(softwareSystem, true);
         }

@@ -11,7 +11,7 @@ namespace Structurizr
         {
         }
 
-        internal StaticView(SoftwareSystem softwareSystem, string description) : base(softwareSystem, description)
+        internal StaticView(SoftwareSystem softwareSystem, string key, string description) : base(softwareSystem, key, description)
         {
         }
 

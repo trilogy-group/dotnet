@@ -59,7 +59,7 @@ With the model created, we need to create some views with which to visualise it.
 
 ```c#
 ViewSet viewSet = workspace.Views;
-SystemContextView contextView = viewSet.CreateContextView(softwareSystem);
+SystemContextView contextView = viewSet.CreateSystemContextView(softwareSystem, "context", "A simple example of a System Context diagram.");
 contextView.AddAllSoftwareSystems();
 contextView.AddAllPeople();
 ```

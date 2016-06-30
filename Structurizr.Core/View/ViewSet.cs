@@ -55,40 +55,25 @@ namespace Structurizr
             this.Model = model;
         }
 
-        public SystemContextView CreateContextView(SoftwareSystem softwareSystem)
+        public SystemContextView CreateSystemContextView(SoftwareSystem softwareSystem, String key, String description)
         {
-            return CreateContextView(softwareSystem, null);
-        }
-
-        public SystemContextView CreateContextView(SoftwareSystem softwareSystem, String description)
-        {
-            SystemContextView view = new SystemContextView(softwareSystem, description);
+            SystemContextView view = new SystemContextView(softwareSystem, key, description);
             this.SystemContextViews.Add(view);
 
             return view;
         }
 
-        public ContainerView CreateContainerView(SoftwareSystem softwareSystem)
+        public ContainerView CreateContainerView(SoftwareSystem softwareSystem, string key, string description)
         {
-            return CreateContainerView(softwareSystem, null);
-        }
-
-        public ContainerView CreateContainerView(SoftwareSystem softwareSystem, string description)
-        {
-            ContainerView view = new ContainerView(softwareSystem, description);
+            ContainerView view = new ContainerView(softwareSystem, key, description);
             ContainerViews.Add(view);
 
             return view;
         }
 
-        public ComponentView CreateComponentView(Container container)
+        public ComponentView CreateComponentView(Container container, string key, string description)
         {
-            return CreateComponentView(container, null);
-        }
-
-        public ComponentView CreateComponentView(Container container, string description)
-        {
-            ComponentView view = new ComponentView(container, description);
+            ComponentView view = new ComponentView(container, key, description);
             ComponentViews.Add(view);
 
             return view;
@@ -176,6 +161,14 @@ namespace Structurizr
         {
             foreach (SystemContextView view in SystemContextViews)
             {
+                if (view.Key == systemContextView.Key)
+                {
+                    return view;
+                }
+            }
+
+            foreach (SystemContextView view in SystemContextViews)
+            {
                 if (view.Title == systemContextView.Title)
                 {
                     return view;
@@ -189,6 +182,14 @@ namespace Structurizr
         {
             foreach (ContainerView view in ContainerViews)
             {
+                if (view.Key == containerView.Key)
+                {
+                    return view;
+                }
+            }
+
+            foreach (ContainerView view in ContainerViews)
+            {
                 if (view.Title == containerView.Title)
                 {
                     return view;
@@ -200,6 +201,14 @@ namespace Structurizr
 
         private ComponentView FindComponentView(ComponentView componentView)
         {
+            foreach (ComponentView view in ComponentViews)
+            {
+                if (view.Key == componentView.Key)
+                {
+                    return view;
+                }
+            }
+
             foreach (ComponentView view in ComponentViews)
             {
                 if (view.Title == componentView.Title)

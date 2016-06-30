@@ -47,7 +47,7 @@ namespace Structurizr
         {
         }
 
-        internal ComponentView(Container container, string description) : base(container.SoftwareSystem, description)
+        internal ComponentView(Container container, string key, string description) : base(container.SoftwareSystem,key,  description)
         {
             this.Container = container;
         }

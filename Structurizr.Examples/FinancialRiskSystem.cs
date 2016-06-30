@@ -89,16 +89,16 @@ namespace Structurizr.Examples
 
             // create some views
             ViewSet viewSet = workspace.Views;
-            SystemContextView contextView = viewSet.CreateContextView(financialRiskSystem);
+            SystemContextView contextView = viewSet.CreateSystemContextView(financialRiskSystem, "Context", "");
             contextView.PaperSize = PaperSize.A4_Landscape;
             contextView.AddAllSoftwareSystems();
             contextView.AddAllPeople();
 
-            ContainerView containerView = viewSet.CreateContainerView(financialRiskSystem);
+            ContainerView containerView = viewSet.CreateContainerView(financialRiskSystem, "Containers", "");
             contextView.PaperSize = PaperSize.A4_Landscape;
             containerView.AddAllElements();
 
-            ComponentView componentViewForBatchProcess = viewSet.CreateComponentView(batchProcess);
+            ComponentView componentViewForBatchProcess = viewSet.CreateComponentView(batchProcess, "Components", "");
             contextView.PaperSize = PaperSize.A3_Landscape;
             componentViewForBatchProcess.AddAllElements();
             componentViewForBatchProcess.Remove(configurationUser);

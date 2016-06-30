@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Structurizr
@@ -90,9 +91,17 @@ namespace Structurizr
             this.PaperSize = PaperSize.A4_Portrait;
         }
 
-        internal View(SoftwareSystem softwareSystem, string description) : this()
+        internal View(SoftwareSystem softwareSystem, string key, string description) : this()
         {
             this.SoftwareSystem = softwareSystem;
+            if (key != null && key.Trim().Length > 0)
+            {
+                this.Key = key;
+            }
+            else
+            {
+                throw new ArgumentException("A key must be specified.");
+            }
             this.Description = description;
 
             this.Elements = new HashSet<ElementView>();

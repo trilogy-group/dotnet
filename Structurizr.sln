@@ -9,7 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.Examples", "Str
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4ED0E8DB-8A5B-4DF0-9CB1-995D97A04B88}"
 	ProjectSection(SolutionItems) = preProject
+		docs\api-client.md = docs\api-client.md
+		docs\client-side-encryption.md = docs\client-side-encryption.md
+		docs\documentation.md = docs\documentation.md
 		README.md = README.md
+		docs\styling-elements.md = docs\styling-elements.md
+		docs\styling-relationships.md = docs\styling-relationships.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.CoreTests", "Structurizr.CoreTests\Structurizr.CoreTests.csproj", "{FBCEBB50-2535-4568-92B0-C9ADFD97D448}"
