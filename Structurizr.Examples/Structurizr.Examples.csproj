@@ -34,13 +34,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Structurizr.Examples.FinancialRiskSystem</StartupObject>
+    <StartupObject>Structurizr.Examples.RemoteWorkspace</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="FinancialRiskSystem.cs" />
     <Compile Include="ClientSideEncryptedWorkspace.cs" />
     <Compile Include="GettingStarted.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoteWorkspace.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

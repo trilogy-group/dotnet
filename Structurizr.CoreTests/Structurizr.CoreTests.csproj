@@ -70,6 +70,7 @@
     <Compile Include="View\ComponentViewTests.cs" />
     <Compile Include="View\ContainerViewTests.cs" />
     <Compile Include="View\SystemContextViewTests.cs" />
+    <Compile Include="WorkspaceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Structurizr.Core\Structurizr.Core.csproj">
