@@ -99,12 +99,29 @@ namespace Structurizr
 
         public void Add(Component component)
         {
-            AddElement(component, true);
+            if (component != null)
+            {
+                if (Container.Equals(component.Container))
+                {
+                    AddElement(component, true);
+                }
+            }
         }
 
         public void Remove(Component component)
         {
             RemoveElement(component);
+        }
+
+        /// <summary>
+        /// Adds people, software systems, containers and components that are directly related to the given element.
+        /// </summary>
+        public override void AddNearestNeighbours(Element element)
+        {
+            AddNearestNeighbours(element, typeof(Person));
+            AddNearestNeighbours(element, typeof(SoftwareSystem));
+            AddNearestNeighbours(element, typeof(Container));
+            AddNearestNeighbours(element, typeof(Component));
         }
 
     }

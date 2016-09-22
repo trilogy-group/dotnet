@@ -63,5 +63,15 @@ namespace Structurizr
             RemoveElement(container);
         }
 
+        /// <summary>
+        /// Adds people, software systems and containers that are directly related to the given element.
+        /// </summary>
+        public override void AddNearestNeighbours(Element element)
+        {
+            AddNearestNeighbours(element, typeof(Person));
+            AddNearestNeighbours(element, typeof(SoftwareSystem));
+            AddNearestNeighbours(element, typeof(Container));
+        }
+
     }
 }

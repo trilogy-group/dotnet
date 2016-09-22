@@ -36,5 +36,14 @@ namespace Structurizr
             AddAllPeople();
         }
 
+        /// <summary>
+        /// Adds people and software systems that are directly related to the given element.
+        /// </summary>
+        public override void AddNearestNeighbours(Element element)
+        {
+            AddNearestNeighbours(element, typeof(SoftwareSystem));
+            AddNearestNeighbours(element, typeof(Person));
+        }
+
     }
 }

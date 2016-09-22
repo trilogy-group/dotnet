@@ -1,4 +1,7 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
 
 namespace Structurizr
 {
@@ -71,6 +74,32 @@ namespace Structurizr
         public void Remove(Person person)
         {
             RemoveElement(person);
+        }
+
+        public abstract void AddNearestNeighbours(Element element);
+
+        protected void AddNearestNeighbours(Element element, Type typeOfElement)
+        {
+            if (element == null)
+            {
+                return;
+            }
+
+            AddElement(element, true);
+
+            ICollection<Relationship> relationships = Model.Relationships;
+            foreach (Relationship relationship in relationships)
+            {
+                if (relationship.Source.Equals(element) && relationship.Destination.GetType() == typeOfElement)
+                {
+                    AddElement(relationship.Destination, true);
+                }
+
+                if (relationship.Destination.Equals(element) && relationship.Source.GetType() == typeOfElement)
+                {
+                    AddElement(relationship.Source, true);
+                }
+            }
         }
 
     }
