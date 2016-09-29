@@ -9,9 +9,16 @@ namespace Structurizr.CoreTests.Client
 
         private Md5Digest md5 = new Md5Digest();
 
+        [TestMethod]
         public void Test_Generate_TreatsNullAsEmptyContent()
         {
             Assert.AreEqual(md5.Generate(""), md5.Generate(null));
+        }
+
+        [TestMethod]
+        public void Test_Generate_WorksForUTF8CharacterEncoding()
+        {
+            Assert.AreEqual("0a35e149dbbb2d10d744bf675c7744b1", md5.Generate("è"));
         }
 
         [TestMethod]

@@ -93,7 +93,7 @@ namespace Structurizr.Client
                         System.Console.WriteLine(workspaceAsJson);
                     }
 
-                    AddHeaders(webClient, httpMethod, path, workspaceAsJson, "application/json");
+                    AddHeaders(webClient, httpMethod, path, workspaceAsJson, "application/json; charset=UTF-8");
 
                     string response = webClient.UploadString(this.Url + path, httpMethod, workspaceAsJson);
                     System.Console.WriteLine(response);
@@ -117,6 +117,7 @@ namespace Structurizr.Client
 
         private void AddHeaders(WebClient webClient, string httpMethod, string path, string content, string contentType)
         {
+            webClient.Encoding = Encoding.UTF8;
             string contentMd5 = new Md5Digest().Generate(content);
             string contentMd5Base64Encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(contentMd5));
             string nonce = "" + getCurrentTimeInMilliseconds();

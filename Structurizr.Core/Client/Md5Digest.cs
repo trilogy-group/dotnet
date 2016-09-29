@@ -9,8 +9,13 @@ namespace Structurizr.Client
 
         internal string Generate(string content)
         {
+            if (content == null)
+            {
+                content = "";
+            }
+
             MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] textToHash = Encoding.Default.GetBytes(content);
+            byte[] textToHash = Encoding.UTF8.GetBytes(content);
             byte[] result = md5.ComputeHash(textToHash);
 
             return BitConverter.ToString(result).Replace("-", "").ToLower();
