@@ -22,11 +22,15 @@ namespace Structurizr.Client
 
         public EncryptionStrategy EncryptionStrategy { get; set; }
 
-        public StructurizrClient(string apiKey, string apiSecret)
+        public StructurizrClient(string apiKey, string apiSecret) : this("https://api.structurizr.com", apiKey, apiSecret)
         {
+        }
+
+        public StructurizrClient(string apiUrl, string apiKey, string apiSecret)
+        {
+            this.Url = apiUrl;
             this.ApiKey = apiKey;
             this.ApiSecret = apiSecret;
-            this.Url = "https://api.structurizr.com";
 
             this.WorkspaceArchiveLocation = new DirectoryInfo(".");
         }
