@@ -3,9 +3,9 @@
     public enum Location
     {
 
+        Unspecified,
         Internal,
-        External,
-        Unspecified
+        External
 
     }
 }

@@ -60,11 +60,16 @@ namespace Structurizr
         }
 
 
-        public Model Model
+        public virtual Model Model
         {
             get
             {
                 return this.SoftwareSystem.Model;
+            }
+
+            set
+            {
+                // do nothing
             }
         }
 
@@ -112,7 +117,7 @@ namespace Structurizr
         {
             if (element != null)
             {
-                if (SoftwareSystem.Model.Contains(element))
+                if (Model.Contains(element))
                 {
                     Elements.Add(new ElementView(element));
 

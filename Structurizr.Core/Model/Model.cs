@@ -13,6 +13,9 @@ namespace Structurizr
     public class Model
     {
 
+        [DataMember(Name = "enterprise", EmitDefaultValue = false)]
+        public Enterprise Enterprise { get; set; }
+
         [DataMember(Name = "people", EmitDefaultValue = false)]
         public HashSet<Person> People { get; set; }
 

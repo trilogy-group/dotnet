@@ -16,7 +16,7 @@ namespace Structurizr
         /// <summary>
         /// The location of this person.
         /// </summary>
-        [DataMember(Name = "location", EmitDefaultValue = false)]
+        [DataMember(Name = "location", EmitDefaultValue = true)]
         public Location Location { get; set; }
 
         public override string CanonicalName
@@ -50,6 +50,45 @@ namespace Structurizr
                 Structurizr.Tags.Person
             };
             return tags.ToList();
+        }
+
+        public Relationship Delivers(Person destination, string description)
+        {
+            throw new InvalidOperationException();
+        }
+
+        public Relationship Delivers(Person destination, string description, string technology)
+        {
+            throw new InvalidOperationException();
+        }
+
+        public Relationship Delivers(Person destination, string description, string technology, InteractionStyle interactionStyle)
+        {
+            throw new InvalidOperationException();
+        }
+
+        public Relationship InteractsWith(Person destination, string description)
+        {
+            Relationship relationship = new Relationship(this, destination, description);
+            Model.AddRelationship(relationship);
+
+            return relationship;
+        }
+
+        public Relationship InteractsWith(Person destination, string description, string technology)
+        {
+            Relationship relationship = new Relationship(this, destination, description, technology);
+            Model.AddRelationship(relationship);
+
+            return relationship;
+        }
+
+        public Relationship InteractsWith(Person destination, string description, string technology, InteractionStyle interactionStyle)
+        {
+            Relationship relationship = new Relationship(this, destination, description, technology, interactionStyle);
+            Model.AddRelationship(relationship);
+
+            return relationship;
         }
 
         public bool Equals(Person person)

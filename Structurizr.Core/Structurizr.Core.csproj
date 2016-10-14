@@ -60,6 +60,7 @@
     <Compile Include="IO\Json\PaperSizeJsonConverter.cs" />
     <Compile Include="Model\Component.cs" />
     <Compile Include="Model\Element.cs" />
+    <Compile Include="Model\Enterprise.cs" />
     <Compile Include="Model\InteractionStyle.cs" />
     <Compile Include="Model\SequentialIntegerIdGeneratorStrategy.cs" />
     <Compile Include="Model\Taggable.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="View\RelationshipStyle.cs" />
     <Compile Include="Model\SoftwareSystem.cs" />
     <Compile Include="View\StaticView.cs" />
+    <Compile Include="View\EnterpriseContextView.cs" />
     <Compile Include="View\SystemContextView.cs" />
     <Compile Include="View\Vertex.cs" />
     <Compile Include="View\View.cs" />

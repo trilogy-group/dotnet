@@ -15,18 +15,22 @@ namespace Structurizr
         public Model Model { get; set; }
 
         /// <summary>
+        /// The set of enterprise context views.
+        /// </summary>
+        [DataMember(Name = "enterpriseContextViews", EmitDefaultValue = false)]
+        public List<EnterpriseContextView> EnterpriseContextViews { get; set; }
+
+        /// <summary>
         /// The set of system context views.
         /// </summary>
         [DataMember(Name = "systemContextViews", EmitDefaultValue = false)]
         public List<SystemContextView> SystemContextViews { get; set; }
-
 
         /// <summary>
         /// The set of container views.
         /// </summary>
         [DataMember(Name = "containerViews", EmitDefaultValue = false)]
         public List<ContainerView> ContainerViews { get; set; }
-
 
         /// <summary>
         /// The set of component views.
@@ -43,6 +47,7 @@ namespace Structurizr
 
         internal ViewSet()
         {
+            this.EnterpriseContextViews = new List<EnterpriseContextView>();
             this.SystemContextViews = new List<SystemContextView>();
             this.ContainerViews = new List<ContainerView>();
             this.ComponentViews = new List<ComponentView>();
@@ -55,7 +60,22 @@ namespace Structurizr
             this.Model = model;
         }
 
-        public SystemContextView CreateSystemContextView(SoftwareSystem softwareSystem, String key, String description)
+        public EnterpriseContextView CreateEnterpriseContextView(string key, string description)
+        {
+            EnterpriseContextView view = new EnterpriseContextView(Model, key, description);
+
+            //            if (GetViewWithKey(key) != null)
+            //            {
+            //                throw new ArgumentException("A view with the key " + key + " already exists.");
+            //            }
+            //            else
+            // {
+                EnterpriseContextViews.Add(view);
+                return view;
+//            }
+        }
+
+        public SystemContextView CreateSystemContextView(SoftwareSystem softwareSystem, string key, string description)
         {
             SystemContextView view = new SystemContextView(softwareSystem, key, description);
             this.SystemContextViews.Add(view);
@@ -81,6 +101,11 @@ namespace Structurizr
 
         public void Hydrate()
         {
+            foreach (EnterpriseContextView enterpriseContextView in EnterpriseContextViews)
+            {
+                HydrateView(enterpriseContextView);
+            }
+
             foreach (SystemContextView systemContextView in SystemContextViews)
             {
                 HydrateView(systemContextView);
@@ -104,7 +129,15 @@ namespace Structurizr
 
         private void HydrateView(View view)
         {
-            view.SoftwareSystem = Model.GetSoftwareSystemWithId(view.SoftwareSystemId);
+            if (view is EnterpriseContextView)
+            {
+                EnterpriseContextView enterpriseContextView = view as EnterpriseContextView;
+                enterpriseContextView.Model = Model;
+            }
+            else
+            {
+                view.SoftwareSystem = Model.GetSoftwareSystemWithId(view.SoftwareSystemId);
+            }
 
             foreach (ElementView elementView in view.Elements)
             {
@@ -118,6 +151,15 @@ namespace Structurizr
 
         public void CopyLayoutInformationFrom(ViewSet source)
         {
+            foreach (EnterpriseContextView sourceView in source.EnterpriseContextViews)
+            {
+                EnterpriseContextView destinationView = FindEnterpriseContextView(sourceView);
+                if (destinationView != null)
+                {
+                    destinationView.CopyLayoutInformationFrom(sourceView);
+                }
+            }
+
             foreach (SystemContextView sourceView in source.SystemContextViews)
             {
                 SystemContextView destinationView = FindSystemContextView(sourceView);
@@ -155,6 +197,27 @@ namespace Structurizr
                 }
             }
             */
+        }
+
+        private EnterpriseContextView FindEnterpriseContextView(EnterpriseContextView enterpriseContextView)
+        {
+            foreach (EnterpriseContextView view in EnterpriseContextViews)
+            {
+                if (view.Key == enterpriseContextView.Key)
+                {
+                    return view;
+                }
+            }
+
+            foreach (EnterpriseContextView view in EnterpriseContextViews)
+            {
+                if (view.Title == enterpriseContextView.Title)
+                {
+                    return view;
+                }
+            }
+
+            return null;
         }
 
         private SystemContextView FindSystemContextView(SystemContextView systemContextView)
@@ -219,6 +282,7 @@ namespace Structurizr
 
             return null;
         }
+
 
     }
 }

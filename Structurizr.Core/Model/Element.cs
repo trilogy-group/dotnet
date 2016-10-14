@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace Structurizr
@@ -170,6 +171,49 @@ namespace Structurizr
             return relationship;
         }
 
+        /// <summary>
+        /// Adds a unidirectional relationship between this element and a person.
+        /// </summary>
+        /// <param name="destination">the target of the relationship</param>
+        /// <param name="description">a description of the relationship (e.g. "sends e-mail to")</param>
+        public Relationship Delivers(Person destination, string description)
+        {
+            Relationship relationship = new Relationship(this, destination, description);
+            Model.AddRelationship(relationship);
+
+            return relationship;
+        }
+
+        /// <summary>
+        /// Adds a unidirectional relationship between this element and a person.
+        /// </summary>
+        /// <param name="destination">the target of the relationship</param>
+        /// <param name="description">a description of the relationship (e.g. "sends e-mail to")</param>
+        /// <param name="technology">the technology details (e.g. JSON/HTTPS)</param>
+        public Relationship Delivers(Person destination, string description, string technology)
+        {
+            Relationship relationship = new Relationship(this, destination, description, technology);
+            Model.AddRelationship(relationship);
+
+            return relationship;
+        }
+
+        /// <summary>
+        /// Adds a unidirectional relationship between this element and a person.
+        /// </summary>
+        /// <param name="destination">the target of the relationship</param>
+        /// <param name="description">a description of the relationship (e.g. "sends e-mail to")</param>
+        /// <param name="technology">the technology details (e.g. JSON/HTTPS)</param>
+        /// <param name="interactionStyle">the interaction style (sync vs async)</param>
+        public Relationship Delivers(Person destination, string description, string technology, InteractionStyle interactionStyle)
+        {
+            Relationship relationship = new Relationship(this, destination, description, technology, interactionStyle);
+            Model.AddRelationship(relationship);
+
+            return relationship;
+        }
+
+
         internal void AddRelationship(Relationship relationship)
         {
             this.Relationships.Add(relationship);
@@ -179,6 +223,36 @@ namespace Structurizr
         {
             return Relationships.Contains(relationship);
         }
+
+        public bool HasAfferentRelationships()
+        {
+            return Model.Relationships.Where(r => r.Destination == this).Count() > 0;
+        }
+
+        public bool hasEfferentRelationshipWith(Element element)
+        {
+            return GetEfferentRelationshipWith(element) != null;
+        }
+
+        public Relationship GetEfferentRelationshipWith(Element element)
+        {
+            if (element == null)
+            {
+                return null;
+            }
+
+            foreach (Relationship relationship in Relationships)
+            {
+                if (relationship.Destination.Equals(element))
+                {
+                    return relationship;
+                }
+            }
+
+            return null;
+        }
+
+
 
         protected string FormatForCanonicalName(String name)
         {
