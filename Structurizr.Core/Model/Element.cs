@@ -6,6 +6,9 @@ using System.Runtime.Serialization;
 namespace Structurizr
 {
 
+    /// <summary>
+    /// This is the superclass for all model elements.
+    /// </summary>
     [DataContract]
     public abstract class Element : Taggable
     {
@@ -224,16 +227,31 @@ namespace Structurizr
             return Relationships.Contains(relationship);
         }
 
+        /// <summary>
+        /// Determines whether this element has afferent (incoming) relationships.
+        /// </summary>
+        /// <returns>true if this element has afferent relationships, false otherwise</returns>
         public bool HasAfferentRelationships()
         {
-            return Model.Relationships.Where(r => r.Destination == this).Count() > 0;
+            return Model.Relationships.Count(r => r.Destination == this) > 0;
         }
 
-        public bool hasEfferentRelationshipWith(Element element)
+        /// <summary>
+        /// Determines whether this element has an efferent (outgoing) relationship
+        /// with the specified element.
+        /// </summary>
+        /// <param name="element">the element to look for</param>
+        /// <returns>true if this element has an efferent relationship with the specified element, false otherwise</returns>
+        public bool HasEfferentRelationshipWith(Element element)
         {
             return GetEfferentRelationshipWith(element) != null;
         }
 
+        /// <summary>
+        /// Gets the efferent (outgoing) relationship with the specified element.
+        /// </summary>
+        /// <param name="element">the element to look for</param>
+        /// <returns>a Relationship object if an efferent relationship exists, null otherwise</returns>
         public Relationship GetEfferentRelationshipWith(Element element)
         {
             if (element == null)
@@ -251,8 +269,6 @@ namespace Structurizr
 
             return null;
         }
-
-
 
         protected string FormatForCanonicalName(String name)
         {
@@ -275,6 +291,7 @@ namespace Structurizr
             {
                 return false;
             }
+
             if (element == this)
             {
                 return true;
