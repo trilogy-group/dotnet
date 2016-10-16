@@ -3,7 +3,8 @@
     public enum DocumentationFormat
     {
 
-        Markdown
+        Markdown,
+        AsciiDoc
 
     }
 }
