@@ -58,6 +58,8 @@
     <Compile Include="IO\Json\JsonWriter.cs" />
     <Compile Include="IO\Json\EncryptionStrategyJsonConverter.cs" />
     <Compile Include="IO\Json\PaperSizeJsonConverter.cs" />
+    <Compile Include="Model\CodeElement.cs" />
+    <Compile Include="Model\CodeElementRole.cs" />
     <Compile Include="Model\Component.cs" />
     <Compile Include="Model\Element.cs" />
     <Compile Include="Model\Enterprise.cs" />

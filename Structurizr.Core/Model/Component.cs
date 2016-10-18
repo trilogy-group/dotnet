@@ -28,21 +28,23 @@ namespace Structurizr
         /// </summary>
         [DataMember(Name="technology", EmitDefaultValue=false)]
         public string Technology { get; set; }
-  
-        
+          
+        /// <summary>
+        /// The size of this component (e.g. lines of code).
+        /// </summary>
+        [DataMember(Name="size", EmitDefaultValue = true)]
+        public long Size { get; set; }
+
         /// <summary>
         /// The implementation type (e.g. a fully qualified interface/class name).
         /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        public string Type { get; set; }
-  
-        
-        /// <summary>
-        /// The source code path that reflects this component (e.g. a GitHub URL).
-        /// </summary>
-        [DataMember(Name="sourcePath", EmitDefaultValue=false)]
-        public string SourcePath { get; set; }
+        [DataMember(Name="code", EmitDefaultValue=false)]
+        public HashSet<CodeElement> Code { get; internal set; }
 
+        internal Component()
+        {
+            Code = new HashSet<CodeElement>();
+        }
 
         public override string CanonicalName
         {
@@ -59,6 +61,30 @@ namespace Structurizr
                 Structurizr.Tags.Component
             };
             return tags.ToList();
+        }
+
+        /// <summary>
+        /// Gets the type of this component (e.g. a fully qualified interface/class name.
+        /// </summary>
+        public string Type
+        {
+            get
+            {
+                CodeElement codeElement = Code.FirstOrDefault(ce => ce.Role == CodeElementRole.Primary);
+                return codeElement?.Type;
+            }
+
+            set
+            {
+                CodeElement codeElement = new CodeElement(value);
+                codeElement.Role = CodeElementRole.Primary;
+                AddSupportingType(codeElement);
+            }
+        }
+
+        internal void AddSupportingType(CodeElement codeElement)
+        {
+            Code.Add(codeElement);
         }
 
         public bool Equals(Component component)

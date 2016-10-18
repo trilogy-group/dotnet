@@ -33,26 +33,37 @@ namespace Structurizr.Analysis
             Compilation compilation = project.GetCompilationAsync().Result;
             foreach (Component component in ComponentFinder.Container.Components)
             {
-                try {
-                    string type = component.Type.Substring(0, component.Type.IndexOf(',')); // remove the assembly name from the type
-                    INamedTypeSymbol symbol = compilation.GetTypeByMetadataName(type);
-                    foreach (Microsoft.CodeAnalysis.Location location in symbol.Locations)
+                foreach (CodeElement codeElement in component.Code)
+                {
+                    try
                     {
-                        if (location.IsInSource)
+                        string type = codeElement.Type.Substring(0, component.Type.IndexOf(',')); // remove the assembly name from the type
+                        INamedTypeSymbol symbol = compilation.GetTypeByMetadataName(type);
+                        foreach (Microsoft.CodeAnalysis.Location location in symbol.Locations)
                         {
-                            component.SourcePath = location.SourceTree.FilePath;
+                            if (location.IsInSource)
+                            {
+                                codeElement.Source = location.SourceTree.FilePath;
+                                codeElement.Size += location.SourceTree.GetText().Lines.Count;
+                                component.Size += codeElement.Size;
+                            }
+                        }
+
+                        if (codeElement.Role == CodeElementRole.Primary)
+                        {
+                            string xml = symbol.GetDocumentationCommentXml();
+                            if (xml != null && xml.Trim().Length > 0)
+                            {
+                                XDocument xdoc = XDocument.Parse(xml);
+                                string comment = xdoc.Descendants("summary").First().Value.Trim();
+                                component.Description = comment;
+                            }
                         }
                     }
-                    string xml = symbol.GetDocumentationCommentXml();
-                    if (xml != null && xml.Trim().Length > 0)
+                    catch (Exception e)
                     {
-                        XDocument xdoc = XDocument.Parse(xml);
-                        String comment = xdoc.Descendants("summary").First().Value.Trim();
-                        component.Description = comment;
+                        Console.WriteLine("Could not get summary comment for " + component.Name + ": " + e.Message);
                     }
-                } catch (Exception e)
-                {
-                    Console.WriteLine("Could not get summary comment for " + component.Name + ": " + e.Message);
                 }
             }
 
