@@ -73,6 +73,7 @@
     <Compile Include="View\ContainerViewTests.cs" />
     <Compile Include="View\EnterpriseContextViewTests.cs" />
     <Compile Include="View\SystemContextViewTests.cs" />
+    <Compile Include="View\ConfigurationTests.cs" />
     <Compile Include="WorkspaceTests.cs" />
   </ItemGroup>
   <ItemGroup>
