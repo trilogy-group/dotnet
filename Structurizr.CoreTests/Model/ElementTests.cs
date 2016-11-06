@@ -128,19 +128,11 @@ namespace Structurizr.CoreTests
         }
 
         [TestMethod]
-        public void Test_SetUrl_DoesNotThrowAnException_WhenAnValidHttpUrlIsSpecified()
+        public void Test_SetUrl_DoesNotThrowAnException_WhenAValidUrlIsSpecified()
         {
             SoftwareSystem element = model.AddSoftwareSystem("Name", "Description");
             element.Url = "http://www.somedomain.com";
             Assert.AreEqual("http://www.somedomain.com", element.Url);
-        }
-
-        [TestMethod]
-        public void Test_SetUrl_DoesNotThrowAnException_WhenAnValidHttpsUrlIsSpecified()
-        {
-            SoftwareSystem element = model.AddSoftwareSystem("Name", "Description");
-            element.Url = "https://www.somedomain.com";
-            Assert.AreEqual("https://www.somedomain.com", element.Url);
         }
 
     }

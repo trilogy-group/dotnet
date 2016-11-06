@@ -37,12 +37,12 @@ namespace Structurizr
         /// The source URL of this workspace.
         /// </summary>
         [DataMember(Name = "source", EmitDefaultValue = false)]
-        private string source;
+        private string _source;
         public string Source
         {
             get
             {
-                return source;
+                return _source;
             }
 
             set
@@ -51,9 +51,39 @@ namespace Structurizr
                 {
                     Uri uri;
                     bool result = Uri.TryCreate(value, UriKind.Absolute, out uri);
-                    if (result && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps))
+                    if (result)
                     {
-                        this.source = value;
+                        this._source = value;
+                    }
+                    else
+                    {
+                        throw new ArgumentException(value + " is not a valid URL.");
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// The URL of the API where the content of this workspace can be found.
+        /// </summary>
+        [DataMember(Name = "api", EmitDefaultValue = false)]
+        private string _api;
+        public string Api
+        {
+            get
+            {
+                return _api;
+            }
+
+            set
+            {
+                if (value != null && value.Trim().Length > 0)
+                {
+                    Uri uri;
+                    bool result = Uri.TryCreate(value, UriKind.Absolute, out uri);
+                    if (result)
+                    {
+                        this._api = value;
                     }
                     else
                     {

@@ -43,17 +43,10 @@ namespace Structurizr.CoreTests
         }
 
         [TestMethod]
-        public void Test_SetUrl_DoesNotThrowAnException_WhenAnValidHttpUrlIsSpecified()
+        public void Test_SetUrl_DoesNotThrowAnException_WhenAValidUrlIsSpecified()
         {
             _codeElement.Url = "http://www.somedomain.com";
             Assert.AreEqual("http://www.somedomain.com", _codeElement.Url);
-        }
-
-        [TestMethod]
-        public void Test_SetUrl_DoesNotThrowAnException_WhenAnValidHttpsUrlIsSpecified()
-        {
-            _codeElement.Url = "https://www.somedomain.com";
-            Assert.AreEqual("https://www.somedomain.com", _codeElement.Url);
         }
 
     }

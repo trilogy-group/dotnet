@@ -40,7 +40,7 @@ namespace Structurizr
                 {
                     Uri uri;
                     bool result = Uri.TryCreate(value, UriKind.Absolute, out uri);
-                    if (result && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps))
+                    if (result)
                     {
                         this._url = value;
                     }
