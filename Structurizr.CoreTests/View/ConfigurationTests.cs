@@ -11,7 +11,7 @@ namespace Structurizr.CoreTests
         public void test_defaultView_DoesNothing_WhenPassedNull()
         {
             Configuration configuration = new Configuration();
-            configuration.SetDefaultView((View)null);
+            configuration.SetDefaultView(null);
             Assert.IsNull(configuration.DefaultView);
         }
 

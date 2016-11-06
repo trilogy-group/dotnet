@@ -75,6 +75,9 @@
     <Compile Include="View\EnterpriseContextViewTests.cs" />
     <Compile Include="View\SystemContextViewTests.cs" />
     <Compile Include="View\ConfigurationTests.cs" />
+    <Compile Include="View\SequenceCounterTests.cs" />
+    <Compile Include="View\SequenceNumberTests.cs" />
+    <Compile Include="View\DynamicViewTests.cs" />
     <Compile Include="WorkspaceTests.cs" />
   </ItemGroup>
   <ItemGroup>
