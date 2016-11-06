@@ -33,11 +33,12 @@ namespace Structurizr
         [DataMember(Name = "description", EmitDefaultValue = false)]
         public string Description { get; set; }
 
+        private string _url;
+
         /// <summary>
         /// The URL where more information about this element can be found.
         /// </summary>
         [DataMember(Name = "url", EmitDefaultValue = false)]
-        private string _url;
         public string Url
         {
             get

@@ -33,11 +33,12 @@ namespace Structurizr
         [DataMember(Name = "thumbnail", EmitDefaultValue = false)]
         public string Thumbnail { get; set; }
 
+        private string _source;
+
         /// <summary>
         /// The source URL of this workspace.
         /// </summary>
         [DataMember(Name = "source", EmitDefaultValue = false)]
-        private string _source;
         public string Source
         {
             get
@@ -63,11 +64,12 @@ namespace Structurizr
             }
         }
 
+        private string _api;
+
         /// <summary>
         /// The URL of the API where the content of this workspace can be found.
         /// </summary>
         [DataMember(Name = "api", EmitDefaultValue = false)]
-        private string _api;
         public string Api
         {
             get

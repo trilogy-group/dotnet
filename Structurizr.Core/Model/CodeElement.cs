@@ -25,8 +25,9 @@ namespace Structurizr
         [DataMember(Name = "description", EmitDefaultValue = false)]
         public string Description { get; set; }
 
-        [DataMember(Name = "url", EmitDefaultValue = false)]
         private string _url;
+
+        [DataMember(Name = "url", EmitDefaultValue = false)]
         public string Url
         {
             get
