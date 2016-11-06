@@ -21,19 +21,47 @@ namespace Structurizr
         [DataMember(Name = "id", EmitDefaultValue = false)]
         public string Id { get; set; }
 
-
         /// <summary>
         /// The name of this element.
         /// </summary>
         [DataMember(Name = "name", EmitDefaultValue = false)]
         public string Name { get; set; }
 
-
         /// <summary>
         /// A short description of this element.
         /// </summary>
         [DataMember(Name = "description", EmitDefaultValue = false)]
         public string Description { get; set; }
+
+        /// <summary>
+        /// The URL where more information about this element can be found.
+        /// </summary>
+        [DataMember(Name = "url", EmitDefaultValue = false)]
+        private string _url;
+        public string Url
+        {
+            get
+            {
+                return _url;
+            }
+
+            set
+            {
+                if (value != null && value.Trim().Length > 0)
+                {
+                    Uri uri;
+                    bool result = Uri.TryCreate(value, UriKind.Absolute, out uri);
+                    if (result && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps))
+                    {
+                        this._url = value;
+                    }
+                    else
+                    {
+                        throw new ArgumentException(value + " is not a valid URL.");
+                    }
+                }
+            }
+        }
 
         public Model Model { get; set; }
 
