@@ -109,15 +109,20 @@ namespace Structurizr
                 return;
             }
 
-            // if the scope of this dynamic is a software system, we only want containers inside that software system
+            // if the scope of this dynamic is a software system, we only want:
+            // - containers inside that software system
+            // - other software systems
             if (Element is SoftwareSystem) {
                 if (e.Equals(Element))
                 {
                     throw new ArgumentException(e.Name + " is already the scope of this view and cannot be added to it.");
                 }
-                if (!e.Parent.Equals(Element))
+                if (e is Container && !e.Parent.Equals(Element))
                 {
                     throw new ArgumentException("Only containers that reside inside " + Element.Name + " can be added to this view.");
+                }
+                if (e is Component) {
+                    throw new ArgumentException("Components can't be added to a dynamic view when the scope is a software system.");
                 }
             }
 

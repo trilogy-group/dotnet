@@ -63,7 +63,7 @@ namespace Structurizr.CoreTests
             }
             catch (Exception e)
             {
-                Assert.AreEqual("Only containers that reside inside Software System A can be added to this view.", e.Message);
+                Assert.AreEqual("Components can't be added to a dynamic view when the scope is a software system.", e.Message);
             }
         }
 
@@ -163,6 +163,15 @@ namespace Structurizr.CoreTests
         {
             DynamicView dynamicView = workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
             dynamicView.Add(relationship);
+            Assert.AreEqual(2, dynamicView.Elements.Count);
+        }
+
+        [TestMethod]
+        public void Test_Add_AddsTheSourceAndDestinationElements_WhenARelationshipBetweenThemExistsAndTheDestinationIsAnExternalSoftwareSystem()
+        {
+            DynamicView dynamicView = workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
+            containerA2.Uses(softwareSystemB, "", "");
+            dynamicView.Add(containerA2, softwareSystemB);
             Assert.AreEqual(2, dynamicView.Elements.Count);
         }
 
