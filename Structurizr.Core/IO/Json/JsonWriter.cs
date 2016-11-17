@@ -20,7 +20,7 @@ namespace Structurizr.IO.Json
                 new Newtonsoft.Json.Converters.StringEnumConverter(),
                 new PaperSizeJsonConverter());
 
-            writer.WriteLine(json);
+            writer.Write(json);
         }
 
     }
