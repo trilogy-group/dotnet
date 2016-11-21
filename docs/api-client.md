@@ -26,18 +26,9 @@ By default, a copy of the workspace (as JSON) is archived to the current working
 
 ### 2. PutWorkspace
 
-This allows you to overwrite an existing workspace.
+This allows you to overwrite an existing workspace.   If the ```MergeFromRemote``` property (on the ```StructurizrClient``` instance) is set to ```true``` (this is the default), any layout information (i.e. the location of boxes on diagrams) is preserved where possible (i.e. where diagram elements haven't been renamed).
 
 ```c#
 structurizrClient.PutWorkspace(1234, workspace);
 ```
 
-### 3. MergeWorkspace
-
-This is the same as ```PutWorkspace``` except that any layout information (i.e. the location of boxes on diagrams) is preserved where possible (i.e. where diagram elements haven't been renamed).
-
-```c#
-structurizrClient.MergeWorkspace(1234, workspace);
-```
-
-Under the covers, this operation calls ```GetWorkspace``` followed by ```PutWorkspace```. If the merge doesn't work as expected, you still have the previous version of the workspace (as JSON) in the archive location.

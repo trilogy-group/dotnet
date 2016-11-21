@@ -22,6 +22,8 @@ namespace Structurizr.Client
 
         public EncryptionStrategy EncryptionStrategy { get; set; }
 
+        public bool MergeFromRemote { get; set; }
+
         public StructurizrClient(string apiKey, string apiSecret) : this("https://api.structurizr.com", apiKey, apiSecret)
         {
         }
@@ -33,6 +35,7 @@ namespace Structurizr.Client
             this.ApiSecret = apiSecret;
 
             this.WorkspaceArchiveLocation = new DirectoryInfo(".");
+            this.MergeFromRemote = true;
         }
 
         public Workspace GetWorkspace(long workspaceId)
@@ -69,6 +72,25 @@ namespace Structurizr.Client
 
         public void PutWorkspace(long workspaceId, Workspace workspace)
         {
+            if (workspace == null)
+            {
+                throw new ArgumentException("A workspace must be supplied");
+            }
+            else if (workspaceId <= 0)
+            {
+                throw new ArgumentException("The workspace ID must be set");
+            }
+
+            if (MergeFromRemote)
+            {
+                Workspace remoteWorkspace = GetWorkspace(workspaceId);
+                if (remoteWorkspace != null)
+                {
+                    workspace.Views.CopyLayoutInformationFrom(remoteWorkspace.Views);
+                    workspace.Views.Configuration.CopyConfigurationFrom(remoteWorkspace.Views.Configuration);
+                }
+            }
+
             workspace.Id = workspaceId;
 
             using (WebClient webClient = new WebClient())
@@ -107,17 +129,6 @@ namespace Structurizr.Client
                     throw new StructurizrClientException("There was an error putting the workspace: " + e.Message, e);
                 }
             }
-        }
-
-        public void MergeWorkspace(long workspaceId, Workspace workspace)
-        {
-            Workspace remoteWorkspace = GetWorkspace(workspaceId);
-            if (remoteWorkspace != null)
-            {
-                workspace.Views.CopyLayoutInformationFrom(remoteWorkspace.Views);
-                workspace.Views.Configuration.CopyConfigurationFrom(remoteWorkspace.Views.Configuration);
-            }
-            PutWorkspace(workspaceId, workspace);
         }
 
         private void AddHeaders(WebClient webClient, string httpMethod, string path, string content, string contentType)

@@ -71,7 +71,7 @@ namespace Structurizr.Examples
             styles.Add(new ElementStyle(InternalSoftwareSystemTag) { Background = "#B60037" });
 
             StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-            structurizrClient.MergeWorkspace(14471, workspace);
+            structurizrClient.PutWorkspace(14471, workspace);
         }
 
     }

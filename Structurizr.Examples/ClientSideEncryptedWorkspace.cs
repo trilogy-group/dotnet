@@ -31,7 +31,7 @@ namespace Structurizr.Examples
 
             StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
             structurizrClient.EncryptionStrategy = new AesEncryptionStrategy("password");
-            structurizrClient.MergeWorkspace(41, workspace);
+            structurizrClient.PutWorkspace(41, workspace);
         }
 
     }
