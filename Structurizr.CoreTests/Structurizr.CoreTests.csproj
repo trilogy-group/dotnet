@@ -73,11 +73,13 @@
     <Compile Include="View\ComponentViewTests.cs" />
     <Compile Include="View\ContainerViewTests.cs" />
     <Compile Include="View\EnterpriseContextViewTests.cs" />
+    <Compile Include="View\ElementStyleTests.cs" />
     <Compile Include="View\SystemContextViewTests.cs" />
     <Compile Include="View\ConfigurationTests.cs" />
     <Compile Include="View\SequenceCounterTests.cs" />
     <Compile Include="View\SequenceNumberTests.cs" />
     <Compile Include="View\DynamicViewTests.cs" />
+    <Compile Include="View\RelationshipStyleTests.cs" />
     <Compile Include="WorkspaceTests.cs" />
   </ItemGroup>
   <ItemGroup>

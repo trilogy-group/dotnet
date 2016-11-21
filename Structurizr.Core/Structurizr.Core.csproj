@@ -76,6 +76,7 @@
     <Compile Include="View\Routing.cs" />
     <Compile Include="View\SequenceCounter.cs" />
     <Compile Include="View\SequenceNumber.cs" />
+    <Compile Include="View\Border.cs" />
     <Compile Include="View\Shape.cs" />
     <Compile Include="View\Styles.cs" />
     <Compile Include="Model\Container.cs" />
