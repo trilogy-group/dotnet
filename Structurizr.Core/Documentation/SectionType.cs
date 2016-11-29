@@ -17,6 +17,7 @@
         Deployment,
         DevelopmentEnvironment,
         OperationAndSupport,
+        Usage,
         DecisionLog
 
     }
