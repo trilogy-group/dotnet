@@ -55,17 +55,17 @@ namespace Structurizr
 
         public Component AddComponent(string name, string description, string technology)
         {
-            return this.AddComponent(name, "", description, technology);
+            return this.AddComponent(name, string.Empty, description, technology, null);
         }
 
         public Component AddComponent(string name, Type type, string description, string technology)
         {
-            return AddComponent(name, type.AssemblyQualifiedName, description, technology);
+            return AddComponent(name, type.AssemblyQualifiedName, description, technology, type);
         }
 
-        public Component AddComponent(string name, string type, string description, string technology)
+        public Component AddComponent(string name, string type, string description, string technology, Type typeObj)
         {
-            Component component = Model.AddComponent(this, name, type, description, technology);
+            Component component = Model.AddComponent(this, name, type, description, technology, typeObj);
 
             return component;
         }

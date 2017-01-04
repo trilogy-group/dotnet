@@ -41,6 +41,8 @@ namespace Structurizr
         [DataMember(Name="code", EmitDefaultValue=false)]
         public HashSet<CodeElement> Code { get; internal set; }
 
+        public Type TypeObject { get; set; }
+
         internal Component()
         {
             Code = new HashSet<CodeElement>();

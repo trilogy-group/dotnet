@@ -52,9 +52,10 @@ namespace Structurizr.Analysis
         {
             foreach (Component component in ComponentFinder.Container.Components)
             {
-                if (component.Type != null)
+                if (!string.IsNullOrEmpty(component.Type))
                 {
-                    Type type = Type.GetType(component.Type);
+                    Type type = component.TypeObject ?? Type.GetType(component.Type);
+
                     foreach (PropertyInfo propertyInfo in type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
                     {
                         string propertyType = propertyInfo.PropertyType.AssemblyQualifiedName;
