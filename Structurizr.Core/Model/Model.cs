@@ -148,17 +148,34 @@ namespace Structurizr
 
         internal Component AddComponent(Container parent, string name, string description, string technology)
         {
-            return this.AddComponent(parent, name, null, description, technology, null);
+            return this.AddComponent(parent, name, null, null, description, technology);
         }
 
-        internal Component AddComponent(Container parent, string name, string type, string description, string technology, Type typeObj)
+        internal Component AddComponent(Container parent, string name, string type, string description, string technology)
+        {
+            return this.AddComponent(parent, name, type, null, description, technology);
+        }
+
+        internal Component AddComponent(Container parent, string name, Type type, string description, string technology)
+        {
+            if (type != null)
+            {
+                return this.AddComponent(parent, name, type.AssemblyQualifiedName, type, description, technology);
+            }
+            else
+            {
+                return this.AddComponent(parent, name, description, technology);
+            }
+        }
+
+        internal Component AddComponent(Container parent, string name, string type, Type typeObj, string description, string technology)
         {
             Component component = new Component();
             component.Name = name;
             component.Type = type;
+            component.TypeObject = typeObj;
             component.Description = description;
             component.Technology = technology;
-            component.TypeObject = typeObj;
 
             component.Parent = parent;
             parent.Add(component);

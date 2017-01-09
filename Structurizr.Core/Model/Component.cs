@@ -41,6 +41,9 @@ namespace Structurizr
         [DataMember(Name="code", EmitDefaultValue=false)]
         public HashSet<CodeElement> Code { get; internal set; }
 
+        /// <summary>
+        /// The Type object that corresponds to the type of the component.
+        /// </summary>
         public Type TypeObject { get; set; }
 
         internal Component()
@@ -66,7 +69,7 @@ namespace Structurizr
         }
 
         /// <summary>
-        /// Gets the type of this component (e.g. a fully qualified interface/class name.
+        /// Gets the type of this component (e.g. a fully qualified interface/class name).
         /// </summary>
         public string Type
         {
