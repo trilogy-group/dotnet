@@ -13,10 +13,10 @@ namespace Structurizr.IO.Json
             this.IndentOutput = indentOutput;
         }
 
-        public void Write(Workspace workspace, StringWriter writer)
+        public void Write(Workspace workspace, TextWriter writer)
         {
             string json = JsonConvert.SerializeObject(workspace,
-                IndentOutput == true ? Formatting.Indented : Formatting.None,
+                IndentOutput ? Formatting.Indented : Formatting.None,
                 new Newtonsoft.Json.Converters.StringEnumConverter(),
                 new PaperSizeJsonConverter());
 
