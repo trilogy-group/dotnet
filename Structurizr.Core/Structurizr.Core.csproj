@@ -103,8 +103,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Core.nuspec" />
     <None Include="packages.config" />
+    <None Include="Structurizr.Core.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Encryption\EncryptedJsonWriter.cs" />
