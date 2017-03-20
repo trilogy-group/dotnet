@@ -72,6 +72,7 @@
     <Compile Include="Model\RelationshipTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\UrlTests.cs" />
+    <Compile Include="View\BrandingTests.cs" />
     <Compile Include="View\ColorPairTests.cs" />
     <Compile Include="View\ColorTests.cs" />
     <Compile Include="View\ComponentViewTests.cs" />

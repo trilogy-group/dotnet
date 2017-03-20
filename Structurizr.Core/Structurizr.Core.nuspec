@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/structurizr/dotnet</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Enhanced the element style, added workspace utilities and the PlantUML writer.</releaseNotes>
+    <releaseNotes>Added support for the corporate branding feature.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags></tags>
   </metadata>

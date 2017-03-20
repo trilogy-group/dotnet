@@ -8,7 +8,7 @@ namespace Structurizr
     {
 
         [DataMember(Name = "name", EmitDefaultValue = false)]
-        public string Name { get; private set; }
+        public string Name { get; internal set; }
 
         [DataMember(Name = "content", EmitDefaultValue = false)]
         public string Content { get; private set; }

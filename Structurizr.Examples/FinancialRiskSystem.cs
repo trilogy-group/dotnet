@@ -1,5 +1,7 @@
-﻿using Structurizr.Client;
+﻿using System;
+using Structurizr.Client;
 using System.IO;
+using Structurizr.Util;
 
 namespace Structurizr.Examples
 {
@@ -130,16 +132,16 @@ namespace Structurizr.Examples
             // add some example corporate branding
             Branding branding = viewSet.Configuration.Branding;
             branding.Font = new Font("Trebuchet MS");
-            branding.Color1 = new ColorPair("#550000", "#ffffff");
-            branding.Color2 = new ColorPair("#801515", "#ffffff");
-            branding.Color3 = new ColorPair("#d46a6a", "#ffffff");
-            branding.Color4 = new ColorPair("#d46a6a", "#ffffff");
-            branding.Color5 = new ColorPair("#d46a6a", "#ffffff");
-            //branding.Logo = ImageUtils.getImageAsDataUri(new File(documentationRoot, "codingthearchitecture.png")));
+            branding.Color1 = new ColorPair("#510d51", "#ffffff");
+            branding.Color2 = new ColorPair("#62256e", "#ffffff");
+            branding.Color3 = new ColorPair("#a46ba4", "#ffffff");
+            branding.Color4 = new ColorPair("#c9a1c9", "#ffffff");
+            branding.Color5 = new ColorPair("#c9a1c9", "#ffffff");
+            branding.Logo = ImageUtils.GetImageAsDataUri(new FileInfo(Path.Combine(documentationRoot.FullName, "codingthearchitecture.png")));
 
             // and upload the model to structurizr.com
-            StructurizrClient structurizrClient = new StructurizrClient("bf150bab-90f8-4f84-af00-7c392cd2ba59", "2fc98357-a487-4adb-8281-fe4f68ec460d");
-            structurizrClient.PutWorkspace(29301, workspace);
+            StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
+            structurizrClient.PutWorkspace(9481, workspace);
         }
     }
 }

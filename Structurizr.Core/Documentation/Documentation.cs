@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
+using Structurizr.Util;
 
 namespace Structurizr
 {
@@ -95,19 +96,39 @@ namespace Structurizr
         {
             foreach (string fileName in Directory.EnumerateFiles(directory.FullName, "*.png", SearchOption.TopDirectoryOnly))
             {
-                AddImage(new FileInfo(fileName));
+                Image image = AddImage(new FileInfo(fileName));
+
+                if (!String.IsNullOrEmpty(root))
+                {
+                    image.Name = root + image.Name;
+                }
             }
             foreach (string fileName in Directory.EnumerateFiles(directory.FullName, "*.jpg", SearchOption.TopDirectoryOnly))
             {
-                AddImage(new FileInfo(fileName));
+                Image image = AddImage(new FileInfo(fileName));
+
+                if (!String.IsNullOrEmpty(root))
+                {
+                    image.Name = root + image.Name;
+                }
             }
             foreach (string fileName in Directory.EnumerateFiles(directory.FullName, "*.jpeg", SearchOption.TopDirectoryOnly))
             {
-                AddImage(new FileInfo(fileName));
+                Image image = AddImage(new FileInfo(fileName));
+
+                if (!String.IsNullOrEmpty(root))
+                {
+                    image.Name = root + image.Name;
+                }
             }
             foreach (string fileName in Directory.EnumerateFiles(directory.FullName, "*.gif", SearchOption.TopDirectoryOnly))
             {
-                AddImage(new FileInfo(fileName));
+                Image image = AddImage(new FileInfo(fileName));
+
+                if (!string.IsNullOrEmpty(root))
+                {
+                    image.Name = root + image.Name;
+                }
             }
 
             foreach (string directoryName in Directory.EnumerateDirectories(directory.FullName))
@@ -116,7 +137,7 @@ namespace Structurizr
             }
         }
 
-        public void AddImage(FileInfo file)
+        public Image AddImage(FileInfo file)
         {
             if (file == null)
             {
@@ -140,23 +161,13 @@ namespace Structurizr
                 throw new ArgumentException(file.FullName + " is not a supported image file.");
             }
 
-            string contentType = file.FullName.Substring(file.FullName.LastIndexOf(".")+1).ToLower();
-            if (contentType.Equals("jpg"))
-            {
-                contentType = "jpeg";
-            }
+            string contentType = ImageUtils.GetContentType(file);
+            string base64String = ImageUtils.GetImageAsBase64(file);
 
-            using (System.Drawing.Image image = System.Drawing.Image.FromFile(file.FullName))
-            {
-                using (MemoryStream m = new MemoryStream())
-                {
-                    image.Save(m, image.RawFormat);
-                    byte[] imageBytes = m.ToArray();
-                    string base64String = Convert.ToBase64String(imageBytes);
+            Image image = new Image(file.Name, base64String, contentType);
+            Images.Add(image);
 
-                    Images.Add(new Image(file.Name, base64String, "image/" + contentType));
-                }
-            }
+            return image;
         }
 
     }

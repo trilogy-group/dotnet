@@ -69,6 +69,7 @@
     <Compile Include="Model\SequentialIntegerIdGeneratorStrategy.cs" />
     <Compile Include="Model\Taggable.cs" />
     <Compile Include="Model\Tags.cs" />
+    <Compile Include="Util\ImageUtils.cs" />
     <Compile Include="Util\Url.cs" />
     <Compile Include="Util\WorkspaceUtils.cs" />
     <Compile Include="View\Branding.cs" />

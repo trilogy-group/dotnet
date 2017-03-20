@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="FinancialRiskSystem\context.adoc" />
     <None Include="FinancialRiskSystem\context.md" />
     <None Include="FinancialRiskSystem\functional-overview.md" />
     <None Include="FinancialRiskSystem\quality-attributes.md" />
@@ -97,9 +98,6 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="FinancialRiskSystem\functional-overview.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
