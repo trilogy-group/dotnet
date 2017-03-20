@@ -50,10 +50,8 @@ namespace Structurizr
             {
                 if (value != null && value.Trim().Length > 0)
                 {
-                    Uri uri;
-                    bool result = Uri.TryCreate(value, UriKind.Absolute, out uri);
-                    if (result)
-                    {
+                    if (Util.Url.IsUrl(value))
+                    { 
                         this._url = value;
                     }
                     else

@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Structurizr.Examples.ContosoUniversity</StartupObject>
+    <StartupObject>Structurizr.Examples.FinancialRiskSystem</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ContosoUniversity.cs" />

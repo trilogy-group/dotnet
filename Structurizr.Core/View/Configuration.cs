@@ -13,10 +13,14 @@ namespace Structurizr
         internal Configuration()
         {
             this.Styles = new Styles();
+            this.Branding = new Branding();
         }
-        
-        [DataMember(Name="styles", EmitDefaultValue=false)]
+
+        [DataMember(Name = "styles", EmitDefaultValue = false)]
         public Styles Styles { get; set; }
+
+        [DataMember(Name = "branding", EmitDefaultValue = false)]
+        public Branding Branding { get; set; }
 
         [DataMember(Name = "defaultView", EmitDefaultValue = false)]
         public string DefaultView { get; private set; }

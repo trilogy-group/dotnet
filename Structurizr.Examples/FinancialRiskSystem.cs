@@ -6,8 +6,7 @@ namespace Structurizr.Examples
 
     /// <summary>
     /// This is a simple example of how to create a software architecture model using Structurizr. The model
-    /// represents a sample solution for the "Financial Risk System" architecture kata, included in
-    /// "The Art of Visualising Software Architecture" book (available FREE from Leanpub).
+    /// represents a sample solution for the "Financial Risk System" architecture kata.
     /// 
     /// The live version of the diagrams can be found at https://structurizr.com/public/9481
     /// </summary>
@@ -128,9 +127,19 @@ namespace Structurizr.Examples
             documentation.Add(financialRiskSystem, SectionType.QualityAttributes, DocumentationFormat.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "quality-attributes.md")));
             documentation.AddImages(documentationRoot);
 
+            // add some example corporate branding
+            Branding branding = viewSet.Configuration.Branding;
+            branding.Font = new Font("Trebuchet MS");
+            branding.Color1 = new ColorPair("#550000", "#ffffff");
+            branding.Color2 = new ColorPair("#801515", "#ffffff");
+            branding.Color3 = new ColorPair("#d46a6a", "#ffffff");
+            branding.Color4 = new ColorPair("#d46a6a", "#ffffff");
+            branding.Color5 = new ColorPair("#d46a6a", "#ffffff");
+            //branding.Logo = ImageUtils.getImageAsDataUri(new File(documentationRoot, "codingthearchitecture.png")));
+
             // and upload the model to structurizr.com
-            StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-            structurizrClient.PutWorkspace(9481, workspace);
+            StructurizrClient structurizrClient = new StructurizrClient("bf150bab-90f8-4f84-af00-7c392cd2ba59", "2fc98357-a487-4adb-8281-fe4f68ec460d");
+            structurizrClient.PutWorkspace(29301, workspace);
         }
     }
 }
