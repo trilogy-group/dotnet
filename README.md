@@ -83,7 +83,7 @@ StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
 structurizrClient.PutWorkspace(1234, workspace);
 ```
 
-> In order to upload your model to Structurizr using the web API, you'll need to [sign up](https://structurizr.com/signup) to get your own API key and secret.
+> In order to upload your model to Structurizr using the web API, you'll need to [sign up](https://structurizr.com/signup) and create your own workspace. See [Workspaces](https://structurizr.com/help/workspaces) for information about finding your workspace ID, API key and secret.
 
 The result is a diagram like this (once you've dragged the boxes around).
 
