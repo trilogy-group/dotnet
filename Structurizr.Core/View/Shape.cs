@@ -9,6 +9,7 @@
         Ellipse,
         Hexagon,
         Cylinder,
+        Pipe,
         Person,
         Folder
 
