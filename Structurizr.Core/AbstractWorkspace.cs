@@ -27,6 +27,12 @@ namespace Structurizr
         public string Description { get; set; }
 
         /// <summary>
+        /// The version of the workspace.
+        /// </summary>
+        [DataMember(Name = "version", EmitDefaultValue = false)]
+        public string Version { get; set; }
+
+        /// <summary>
         /// The thumbnail associated with the workspace; a Base64 encoded PNG file as a Data URI (data:image/png;base64).
         /// </summary>
         /// <value>The thumbnail associated with the workspace; a Base64 encoded PNG file as a Data URI (data:image/png;base64).</value>

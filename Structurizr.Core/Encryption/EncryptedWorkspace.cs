@@ -62,6 +62,7 @@ namespace Structurizr.Encryption
             this.Id = workspace.Id;
             this.Name = workspace.Name;
             this.Description = workspace.Description;
+            this.Version = workspace.Version;
             this.Thumbnail = workspace.Thumbnail;
 
             this.Plaintext = stringWriter.ToString();
