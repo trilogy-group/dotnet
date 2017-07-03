@@ -35,7 +35,8 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
 
 ## Table of contents
 
-1. [Getting started](#getting-started)
+1. [Getting started](docs/getting-started)
+1. [Basic concepts](docs/basic-concepts.md)
 1. [Styling elements](docs/styling-elements.md)
 1. [Styling relationships](docs/styling-relationships.md)
 1. [Client-side encryption](docs/client-side-encryption.md)
