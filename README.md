@@ -7,7 +7,7 @@ This GitHub repository is a collection of tooling to help you visualise, documen
 1. [Structurizr](https://structurizr.com): a web-based software as a service and on-premises product to render software architecture diagrams and supplementary Markdown/AsciiDoc documentation.
 1. [PlantUML](docs/plantuml.md): a tool to create UML diagrams using a simple textual domain specific language.
 
-As an example, the following Java code can be used to create a software architecture model that describes a user using a software system.
+As an example, the following C# code can be used to create a software architecture model that describes a user using a software system.
 
 ```c#
 Workspace workspace = new Workspace("Getting Started", "This is a model of my software system.");
