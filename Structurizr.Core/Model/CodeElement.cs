@@ -13,20 +13,35 @@ namespace Structurizr
     public class CodeElement : IEquatable<CodeElement>
     {
 
+        /// <summary>
+        /// The role of the code element ... Primary or Supporting.
+        /// </summary>
         [DataMember(Name = "role", EmitDefaultValue = true)]
-        public CodeElementRole Role { get; set; }
+        public CodeElementRole Role { get; internal set; }
 
+        /// <summary>
+        /// The name of the code element ... typically the simple class/interface name.
+        /// </summary>
         [DataMember(Name = "name", EmitDefaultValue = false)]
-        public string Name { get; set; }
+        public readonly string Name;
 
+        /// <summary>
+        /// The name of the code element ... typically the simple class/interface name.
+        /// </summary>
         [DataMember(Name = "type", EmitDefaultValue = false)]
         public readonly string Type;
 
+        /// <summary>
+        /// The fully qualified type of the code element.
+        /// </summary>
         [DataMember(Name = "description", EmitDefaultValue = false)]
         public string Description { get; set; }
 
         private string _url;
 
+        /// <summary>
+        /// A URL; e.g. a reference to the code element in source code control.
+        /// </summary>
         [DataMember(Name = "url", EmitDefaultValue = false)]
         public string Url
         {
@@ -53,9 +68,27 @@ namespace Structurizr
             }
         }
 
+        /// <summary>
+        /// The programming language used to create the code element.
+        /// </summary>
         [DataMember(Name = "language", EmitDefaultValue = false)]
         public string Language { get; set; }
 
+        /// <summary>
+        /// The category of code element; e.g. class, interface, etc.
+        /// </summary>
+        [DataMember(Name = "category", EmitDefaultValue = false)]
+        public string Category { get; set; }
+
+        /// <summary>
+        /// The visibility of the code element; e.g. public, package, private.
+        /// </summary>
+        [DataMember(Name = "visibility", EmitDefaultValue = false)]
+        public string Visibility { get; set; }
+
+        /// <summary>
+        /// The size of the code element; e.g. the number of lines.
+        /// </summary>
         [DataMember(Name = "size", EmitDefaultValue = true)]
         public long Size { get; set; }
 
@@ -64,6 +97,10 @@ namespace Structurizr
         {
         }
 
+        /// <summary>
+        /// Creates a CodeElement based upon the fully qualified name provided.
+        /// </summary>
+        /// <param name="fullyQualifiedTypeName">A fully qualified type name</param>
         public CodeElement(string fullyQualifiedTypeName)
         {
             if (fullyQualifiedTypeName == null || fullyQualifiedTypeName.Trim().Length == 0)

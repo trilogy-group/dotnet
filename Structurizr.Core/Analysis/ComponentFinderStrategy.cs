@@ -2,14 +2,31 @@
 
 namespace Structurizr.Analysis
 {
-    public abstract class ComponentFinderStrategy
+
+    /// <summary>
+    /// The interface that all component finder strategies must implement.
+    /// </summary>
+    public interface ComponentFinderStrategy
     {
 
-        public ComponentFinder ComponentFinder { get; internal set; }
+        /// <summary>
+        /// A reference to the parent ComponentFinder.
+        /// </summary>
+        ComponentFinder ComponentFinder {set; }
 
-        public abstract ICollection<Component> FindComponents();
+        /// <summary>
+        /// Finds components.
+        /// </summary>
+        IEnumerable<Component> FindComponents();
 
-        public abstract void FindDependencies();
+        /// <summary>
+        /// Called after all component finder strategies belonging to the
+        /// same component finder have found components.This can be used
+        /// to supplement the component with more information, such as
+        /// dependencies.
+        /// </summary>
+        void PostFindComponents();
 
     }
+
 }

@@ -54,6 +54,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AbstractTestBase.cs" />
+    <Compile Include="Analysis\ComponentFinderTests.cs" />
     <Compile Include="Analysis\MyApp\IRepository.cs" />
     <Compile Include="Analysis\MyApp\MyController.cs" />
     <Compile Include="Analysis\MyApp\MyRepository.cs" />

@@ -39,16 +39,11 @@ namespace Structurizr
         /// The implementation type (e.g. a fully qualified interface/class name).
         /// </summary>
         [DataMember(Name="code", EmitDefaultValue=false)]
-        public HashSet<CodeElement> Code { get; internal set; }
-
-        /// <summary>
-        /// The Type object that corresponds to the type of the component.
-        /// </summary>
-        public Type TypeObject { get; set; }
+        public HashSet<CodeElement> CodeElements { get; internal set; }
 
         internal Component()
         {
-            Code = new HashSet<CodeElement>();
+            CodeElements = new HashSet<CodeElement>();
         }
 
         public override string CanonicalName
@@ -75,7 +70,7 @@ namespace Structurizr
         {
             get
             {
-                CodeElement codeElement = Code.FirstOrDefault(ce => ce.Role == CodeElementRole.Primary);
+                CodeElement codeElement = CodeElements.FirstOrDefault(ce => ce.Role == CodeElementRole.Primary);
                 return codeElement?.Type;
             }
 
@@ -83,16 +78,21 @@ namespace Structurizr
             {
                 if (value != null && value.Trim().Length > 0)
                 {
+                    CodeElements.RemoveWhere(ce => ce.Role == CodeElementRole.Primary);
                     CodeElement codeElement = new CodeElement(value);
                     codeElement.Role = CodeElementRole.Primary;
-                    AddSupportingType(codeElement);
+                    CodeElements.Add(codeElement);
                 }
             }
         }
 
-        internal void AddSupportingType(CodeElement codeElement)
+        internal CodeElement AddSupportingType(string type)
         {
-            Code.Add(codeElement);
+            CodeElement codeElement = new CodeElement(type);
+            codeElement.Role = CodeElementRole.Supporting;
+            CodeElements.Add(codeElement);
+
+            return codeElement;
         }
 
         public bool Equals(Component component)

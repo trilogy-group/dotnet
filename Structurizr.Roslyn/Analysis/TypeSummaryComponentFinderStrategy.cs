@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.CodeAnalysis.MSBuild;
 using Microsoft.CodeAnalysis;
 using System.Linq;
@@ -15,6 +15,18 @@ namespace Structurizr.Analysis
     public class TypeSummaryComponentFinderStrategy : ComponentFinderStrategy
     {
 
+        private ComponentFinder _componentFinder;
+        public ComponentFinder ComponentFinder
+        {
+            get { return _componentFinder; }
+            set
+            {
+                _componentFinder = value;
+            }
+        }
+
+        private HashSet<Component> _components = new HashSet<Component>();
+
         public string PathToSolution { get; set; }
         public string ProjectName { get; set; }
 
@@ -24,7 +36,7 @@ namespace Structurizr.Analysis
             this.ProjectName = projectName;
         }
 
-        public override ICollection<Component> FindComponents()
+        public IEnumerable<Component> FindComponents()
         {
             MSBuildWorkspace msWorkspace = MSBuildWorkspace.Create();
 
@@ -33,7 +45,7 @@ namespace Structurizr.Analysis
             Compilation compilation = project.GetCompilationAsync().Result;
             foreach (Component component in ComponentFinder.Container.Components)
             {
-                foreach (CodeElement codeElement in component.Code)
+                foreach (CodeElement codeElement in component.CodeElements)
                 {
                     try
                     {
@@ -67,11 +79,12 @@ namespace Structurizr.Analysis
                 }
             }
 
-            return new List<Component>();
+            return new HashSet<Component>();
         }
 
-        public override void FindDependencies()
+        public void PostFindComponents()
         {
+            // do nothing
         }
 
     }

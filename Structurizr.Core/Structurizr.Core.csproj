@@ -33,6 +33,11 @@
   <ItemGroup>
     <Compile Include="AbstractWorkspace.cs" />
     <Compile Include="Analysis\ExtendsClassMatcher.cs" />
+    <Compile Include="Analysis\SupportingTypes\ReferencedTypesSupportingTypesStrategy.cs" />
+    <Compile Include="Analysis\SupportingTypes\SupportingTypesStrategy.cs" />
+    <Compile Include="Analysis\TypeRepository.cs" />
+    <Compile Include="Analysis\ReflectionTypeRepository.cs" />
+    <Compile Include="Analysis\TypeUtils.cs" />
     <Compile Include="Client\HashBasedMessageAuthenticationCode.cs" />
     <Compile Include="Client\HmacAuthorizationHeader.cs" />
     <Compile Include="Client\HmacContent.cs" />
@@ -40,7 +45,7 @@
     <Compile Include="Client\Md5Digest.cs" />
     <Compile Include="Client\StructurizrClient.cs" />
     <Compile Include="Client\StructurizrClientException.cs" />
-    <Compile Include="Analysis\TypeBasedComponentFinderStrategy.cs" />
+    <Compile Include="Analysis\TypeMatcherComponentFinderStrategy.cs" />
     <Compile Include="Analysis\ComponentFinder.cs" />
     <Compile Include="Analysis\ComponentFinderStrategy.cs" />
     <Compile Include="Analysis\ITypeMatcher.cs" />

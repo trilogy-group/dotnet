@@ -8,6 +8,13 @@ namespace Structurizr.Examples
 {
     class ContosoUniversity
     {
+
+        private const string ContosoUniversityAssemblyLocation = @"C:\Users\simon\ContosoUniversity\ContosoUniversity\bin\ContosoUniversity.dll";
+
+        private const long WorkspaceId = 9581;
+        private const string ApiKey = "";
+        private const string ApiSecret = "";
+
         static void Main(string[] args)
         {
             Workspace workspace = new Workspace("Contoso University", "A software architecture model of the Contoso University sample project.");
@@ -27,17 +34,20 @@ namespace Structurizr.Examples
             universityStaff.Uses(webApplication, "Uses", "HTTPS");
             webApplication.Uses(database, "Reads from and writes to");
 
-            Assembly.LoadFrom("C:\\Users\\simon\\ContosoUniversity\\ContosoUniversity\\bin\\ContosoUniversity.dll");
+            Assembly.LoadFrom(ContosoUniversityAssemblyLocation);
+
+            TypeMatcherComponentFinderStrategy typeMatcherComponentFinderStrategy = new TypeMatcherComponentFinderStrategy(
+                new InterfaceImplementationTypeMatcher(typeof(System.Web.Mvc.IController), null,
+                    "ASP.NET MVC Controller"),
+                new ExtendsClassTypeMatcher(typeof(System.Data.Entity.DbContext), null, "Entity Framework DbContext")
+            );
+            typeMatcherComponentFinderStrategy.AddSupportingTypesStrategy(new ReferencedTypesSupportingTypesStrategy(false));
 
             ComponentFinder componentFinder = new ComponentFinder(
                 webApplication,
                 "ContosoUniversity",
-                //typeof(ContosoUniversity.MvcApplication).Namespace, // doing this typeof forces the ContosoUniversity assembly to be loaded
-                new TypeBasedComponentFinderStrategy(
-                    new InterfaceImplementationTypeMatcher(typeof(System.Web.Mvc.IController), null, "ASP.NET MVC Controller"),
-                    new ExtendsClassTypeMatcher(typeof(System.Data.Entity.DbContext), null, "Entity Framework DbContext")
-                )
-            //new TypeSummaryComponentFinderStrategy(@"C:\Users\simon\ContosoUniversity\ContosoUniversity.sln", "ContosoUniversity")
+                typeMatcherComponentFinderStrategy
+                //new TypeSummaryComponentFinderStrategy(@"C:\Users\simon\ContosoUniversity\ContosoUniversity.sln", "ContosoUniversity")
             );
             componentFinder.FindComponents();
 
@@ -50,7 +60,7 @@ namespace Structurizr.Examples
             // link the components to the source code
             foreach (Component component in webApplication.Components)
             {
-                foreach (CodeElement codeElement in component.Code)
+                foreach (CodeElement codeElement in component.CodeElements)
                 {
                     if (codeElement.Url != null)
                     {
@@ -88,8 +98,10 @@ namespace Structurizr.Examples
             styles.Add(new ElementStyle("Database") { Shape = Shape.Cylinder });
             styles.Add(new ElementStyle(Tags.Component) { Background = "#407f7f", Color = "#ffffff" });
 
-            StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-            structurizrClient.PutWorkspace(5651, workspace);
+            StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
+            structurizrClient.PutWorkspace(WorkspaceId, workspace);
+
+            Console.ReadLine();
         }
 
     }

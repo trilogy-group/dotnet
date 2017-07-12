@@ -173,7 +173,6 @@ namespace Structurizr
             Component component = new Component();
             component.Name = name;
             component.Type = type;
-            component.TypeObject = typeObj;
             component.Description = description;
             component.Technology = technology;
 

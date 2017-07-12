@@ -17,7 +17,7 @@ namespace Structurizr.CoreTests.Analysis
             ComponentFinder componentFinder = new ComponentFinder(
                 container,
                 typeof(MyApp.MyController).Namespace,
-                new TypeBasedComponentFinderStrategy(
+                new TypeMatcherComponentFinderStrategy(
                     new NameSuffixTypeMatcher("Controller", "", "ASP.NET MVC")
                 ));
 
