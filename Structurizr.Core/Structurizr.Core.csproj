@@ -37,7 +37,6 @@
     <Compile Include="Analysis\SupportingTypes\SupportingTypesStrategy.cs" />
     <Compile Include="Analysis\TypeRepository.cs" />
     <Compile Include="Analysis\ReflectionTypeRepository.cs" />
-    <Compile Include="Analysis\TypeUtils.cs" />
     <Compile Include="Client\HashBasedMessageAuthenticationCode.cs" />
     <Compile Include="Client\HmacAuthorizationHeader.cs" />
     <Compile Include="Client\HmacContent.cs" />

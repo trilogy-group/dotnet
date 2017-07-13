@@ -17,11 +17,6 @@ namespace Structurizr.Analysis
             set
             {
                 _componentFinder = value;
-                _typeRepository = new ReflectionTypeRepository(_componentFinder.Namespace, _componentFinder.Exclusions);
-                foreach (SupportingTypesStrategy strategy in _supportingTypesStrategies)
-                {
-                    strategy.TypeRepository = _typeRepository;
-                }
             }
         }
 
@@ -34,6 +29,15 @@ namespace Structurizr.Analysis
         public TypeMatcherComponentFinderStrategy(params ITypeMatcher[] typeMatchers)
         {
             this._typeMatchers.AddRange(typeMatchers);
+        }
+
+        public void BeforeFindComponents()
+        {
+            _typeRepository = new ReflectionTypeRepository(_componentFinder.Namespace, _componentFinder.Exclusions);
+            foreach (SupportingTypesStrategy strategy in _supportingTypesStrategies)
+            {
+                strategy.TypeRepository = _typeRepository;
+            }
         }
 
         public IEnumerable<Component> FindComponents()
@@ -57,7 +61,7 @@ namespace Structurizr.Analysis
             return _componentsFound;
         }
 
-        public void PostFindComponents()
+        public void AfterFindComponents()
         {
             // before finding dependencies, let's find the types that are used to implement each component
             foreach (Component component in _componentsFound)

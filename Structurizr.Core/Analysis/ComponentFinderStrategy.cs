@@ -15,17 +15,23 @@ namespace Structurizr.Analysis
         ComponentFinder ComponentFinder {set; }
 
         /// <summary>
+        /// Called before all component finder strategies belonging to the
+        /// same component finder are asked to find components.
+        /// </summary>
+        void BeforeFindComponents();
+
+        /// <summary>
         /// Finds components.
         /// </summary>
         IEnumerable<Component> FindComponents();
 
         /// <summary>
         /// Called after all component finder strategies belonging to the
-        /// same component finder have found components.This can be used
+        /// same component finder have found components. This can be used
         /// to supplement the component with more information, such as
         /// dependencies.
         /// </summary>
-        void PostFindComponents();
+        void AfterFindComponents();
 
     }
 

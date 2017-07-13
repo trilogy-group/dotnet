@@ -36,6 +36,10 @@ namespace Structurizr.Analysis
             this.ProjectName = projectName;
         }
 
+        public void BeforeFindComponents()
+        {
+        }
+
         public IEnumerable<Component> FindComponents()
         {
             MSBuildWorkspace msWorkspace = MSBuildWorkspace.Create();
@@ -82,9 +86,8 @@ namespace Structurizr.Analysis
             return new HashSet<Component>();
         }
 
-        public void PostFindComponents()
+        public void AfterFindComponents()
         {
-            // do nothing
         }
 
     }

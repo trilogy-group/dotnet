@@ -74,13 +74,18 @@ namespace Structurizr.Analysis
         {
             List<Component> componentsFound = new List<Component>();
 
+            foreach (ComponentFinderStrategy componentFinderStrategy in _componentFinderStrategies)
+            {
+                componentFinderStrategy.BeforeFindComponents();
+            }
+
             foreach (ComponentFinderStrategy componentFinderStrategy in _componentFinderStrategies) {
                 componentsFound.AddRange(componentFinderStrategy.FindComponents());
             }
 
             foreach (ComponentFinderStrategy componentFinderStrategy in _componentFinderStrategies)
             {
-                componentFinderStrategy.PostFindComponents();
+                componentFinderStrategy.AfterFindComponents();
             }
 
             return componentsFound;
