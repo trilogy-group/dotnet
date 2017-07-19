@@ -80,8 +80,8 @@ namespace Structurizr.Core.Tests
             Assert.Equal(softwareSystem.Id, section.ElementId);
             Assert.Equal(SectionType.FunctionalOverview, section.Type);
             Assert.Equal(DocumentationFormat.Markdown, section.Format);
-            Assert.Equal("## Heading\n" +
-                    "\n" +
+            Assert.Equal("## Heading" + Environment.NewLine +
+                    Environment.NewLine +
                     "Here is a paragraph.", section.Content);
 
             Assert.Equal(2, documentation.Sections.Count);
@@ -169,8 +169,8 @@ namespace Structurizr.Core.Tests
             Assert.Equal(container.Id, section.ElementId);
             Assert.Equal(SectionType.Components, section.Type);
             Assert.Equal(DocumentationFormat.Markdown, section.Format);
-            Assert.Equal("## Heading\n" +
-                    "\n" +
+            Assert.Equal("## Heading" + Environment.NewLine +
+                    Environment.NewLine +
                     "Here is a paragraph.", section.Content);
 
             Assert.Equal(2, documentation.Sections.Count);
