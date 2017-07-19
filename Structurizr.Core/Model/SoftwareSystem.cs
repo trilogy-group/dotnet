@@ -52,48 +52,6 @@ namespace Structurizr
         }
 
         /// <summary>
-        /// Adds a unidirectional relationship between this software system and a person.
-        /// </summary>
-        /// <param name="destination">the target of the relationship</param>
-        /// <param name="description">a description of the relationship (e.g. "sends e-mail to")</param>
-        public Relationship Delivers(Person destination, string description)
-        {
-            Relationship relationship = new Relationship(this, destination, description);
-            Model.AddRelationship(relationship);
-
-            return relationship;
-        }
-
-        /// <summary>
-        /// Adds a unidirectional relationship between this software system and a person.
-        /// </summary>
-        /// <param name="destination">the target of the relationship</param>
-        /// <param name="description">a description of the relationship (e.g. "sends e-mail to")</param>
-        /// <param name="technology">the technology details (e.g. JSON/HTTPS)</param>
-        public Relationship Delivers(Person destination, string description, string technology)
-        {
-            Relationship relationship = new Relationship(this, destination, description, technology);
-            Model.AddRelationship(relationship);
-
-            return relationship;
-        }
-
-        /// <summary>
-        /// Adds a unidirectional relationship between this software system and a person.
-        /// </summary>
-        /// <param name="destination">the target of the relationship</param>
-        /// <param name="description">a description of the relationship (e.g. "sends e-mail to")</param>
-        /// <param name="technology">the technology details (e.g. JSON/HTTPS)</param>
-        /// <param name="interactionStyle">the interaction style (sync vs async)</param>
-        public Relationship Delivers(Person destination, string description, string technology, InteractionStyle interactionStyle)
-        {
-            Relationship relationship = new Relationship(this, destination, description, technology, interactionStyle);
-            Model.AddRelationship(relationship);
-
-            return relationship;
-        }
-
-        /// <summary>
         /// Adds a container with the specified name, description and technology
         /// (unless one exists with the same name already).
         /// </summary>
