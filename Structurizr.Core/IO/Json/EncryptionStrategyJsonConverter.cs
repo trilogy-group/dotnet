@@ -17,14 +17,14 @@ namespace Structurizr.IO.Json
         {
             JObject item = JObject.Load(reader);
             string type = item["type"].Value<string>();
-//            if (type == "aes")
-//            {
-//                return item.ToObject<AesEncryptionStrategy>();
-//            }
-//            else
-//            {
+            if (type == "aes")
+            {
+                return item.ToObject<AesEncryptionStrategy>();
+            }
+            else
+            {
                 throw new NotSupportedException("The encryption strategy type of " + type + " is not supported");
-//            }
+            }
         }
 
         public override void WriteJson(Newtonsoft.Json.JsonWriter writer, object value, JsonSerializer serializer)

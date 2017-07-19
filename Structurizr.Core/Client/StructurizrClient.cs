@@ -61,7 +61,8 @@ namespace Structurizr.Client
                 {
                     return new JsonReader().Read(stringReader);
                 }
-                else {
+                else
+                {
                     EncryptedWorkspace encryptedWorkspace = new EncryptedJsonReader().Read(stringReader);
                     encryptedWorkspace.EncryptionStrategy.Passphrase = this.EncryptionStrategy.Passphrase;
                     return encryptedWorkspace.Workspace;
