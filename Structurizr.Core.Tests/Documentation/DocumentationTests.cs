@@ -73,7 +73,7 @@ namespace Structurizr.Core.Tests
         {
             documentation.Add(softwareSystem, SectionType.Context, DocumentationFormat.Markdown, "Some Markdown content");
 
-            FileInfo file = new FileInfo(@"Documentation\example.md");
+            FileInfo file = new FileInfo("Documentation" + Path.DirectorySeparatorChar + "example.md");
             Section section = documentation.Add(softwareSystem, SectionType.FunctionalOverview, DocumentationFormat.Markdown, file);
 
             Assert.Same(softwareSystem, section.Element);
@@ -96,7 +96,7 @@ namespace Structurizr.Core.Tests
 
             try
             {
-                FileInfo file = new FileInfo(@"Documentation\example.md");
+                FileInfo file = new FileInfo("Documentation" + Path.DirectorySeparatorChar + "example.md");
                 documentation.Add(softwareSystem, SectionType.Context, DocumentationFormat.Markdown, file);
                 throw new TestFailedException();
             }
@@ -162,7 +162,7 @@ namespace Structurizr.Core.Tests
         {
             documentation.Add(softwareSystem, SectionType.Context, DocumentationFormat.Markdown, "Some Markdown content");
 
-            FileInfo file = new FileInfo(@"Documentation\example.md");
+            FileInfo file = new FileInfo("Documentation" + Path.DirectorySeparatorChar + "example.md");
             Section section = documentation.Add(container, DocumentationFormat.Markdown, file);
 
             Assert.Same(container, section.Element);
@@ -180,7 +180,7 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_AddFromFileForContainer_ThrowsAnException_WhenThatSectionAlreadyExists()
         {
-            FileInfo file = new FileInfo(@"Documentation\example.md");
+            FileInfo file = new FileInfo("Documentation" + Path.DirectorySeparatorChar + "example.md");
             documentation.Add(container, DocumentationFormat.Markdown, file);
             Assert.Equal(1, documentation.Sections.Count);
 
@@ -342,7 +342,7 @@ namespace Structurizr.Core.Tests
             }
             catch (ArgumentException ae)
             {
-                Assert.True(ae.Message.EndsWith("\\Documentation is not a file."));
+                Assert.True(ae.Message.EndsWith("Documentation is not a file."));
             }
         }
 
@@ -351,11 +351,11 @@ namespace Structurizr.Core.Tests
         {
             try
             {
-                documentation.AddImage(new FileInfo(@"Documentation\some-other-image.png"));
+                documentation.AddImage(new FileInfo("Documentation" + Path.DirectorySeparatorChar + "some-other-image.png"));
             }
             catch (ArgumentException ae)
             {
-                Assert.True(ae.Message.EndsWith(@"\Documentation\some-other-image.png does not exist."));
+                Assert.True(ae.Message.EndsWith("Documentation" + Path.DirectorySeparatorChar + "some-other-image.png does not exist."));
             }
         }
 
@@ -364,11 +364,11 @@ namespace Structurizr.Core.Tests
         {
             try
             {
-                documentation.AddImage(new FileInfo(@"Documentation\example.md"));
+                documentation.AddImage(new FileInfo("Documentation" + Path.DirectorySeparatorChar + "example.md"));
             }
             catch (ArgumentException ae)
             {
-                Assert.True(ae.Message.EndsWith(@"\Documentation\example.md is not a supported image file."));
+                Assert.True(ae.Message.EndsWith("Documentation" + Path.DirectorySeparatorChar + "example.md is not a supported image file."));
             }
         }
 
