@@ -16,7 +16,7 @@ namespace Structurizr.Examples
         private const string ApiKey = "key";
         private const string ApiSecret = "secret";
 
-        static void Main(string[] args)
+        static void Main()
         {
             Workspace workspace = new Workspace("Getting Started", "This is a model of my software system.");
             Model model = workspace.Model;
