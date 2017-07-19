@@ -20,11 +20,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurizr.Core", "Structu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurizr.Core.Tests", "Structurizr.Core.Tests\Structurizr.Core.Tests.csproj", "{349666B0-A760-4F3D-9D10-BE5E90C4A5E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.Examples", "Structurizr.Examples\Structurizr.Examples.csproj", "{9BE0761B-F666-4691-9CF7-15CF6E911E17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurizr.Examples", "Structurizr.Examples\Structurizr.Examples.csproj", "{9BE0761B-F666-4691-9CF7-15CF6E911E17}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.Reflection", "Structurizr.Reflection\Structurizr.Reflection.csproj", "{05E515A6-209B-4771-8C6C-3A50646DF1F9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.Roslyn", "Structurizr.Roslyn\Structurizr.Roslyn.csproj", "{B8276441-7DC2-4229-AEAF-CB6598D7DC73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.Reflection.Examples", "Structurizr.Reflection.Examples\Structurizr.Reflection.Examples.csproj", "{7608B23C-2ACA-4C00-9186-F304137FABB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +54,10 @@ Global
 		{B8276441-7DC2-4229-AEAF-CB6598D7DC73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8276441-7DC2-4229-AEAF-CB6598D7DC73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8276441-7DC2-4229-AEAF-CB6598D7DC73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7608B23C-2ACA-4C00-9186-F304137FABB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7608B23C-2ACA-4C00-9186-F304137FABB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7608B23C-2ACA-4C00-9186-F304137FABB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7608B23C-2ACA-4C00-9186-F304137FABB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
