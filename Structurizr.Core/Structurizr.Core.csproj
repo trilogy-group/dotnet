@@ -1,147 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F9C9B68E-8CC9-4404-94FD-1FF6A87AC3AA}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Structurizr</RootNamespace>
-    <AssemblyName>Structurizr.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFrameworks>netstandard1.3;net45</TargetFrameworks>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Compile Include="AbstractWorkspace.cs" />
-    <Compile Include="Analysis\ExtendsClassMatcher.cs" />
-    <Compile Include="Analysis\SupportingTypes\ReferencedTypesSupportingTypesStrategy.cs" />
-    <Compile Include="Analysis\SupportingTypes\SupportingTypesStrategy.cs" />
-    <Compile Include="Analysis\TypeRepository.cs" />
-    <Compile Include="Analysis\ReflectionTypeRepository.cs" />
-    <Compile Include="Client\HashBasedMessageAuthenticationCode.cs" />
-    <Compile Include="Client\HmacAuthorizationHeader.cs" />
-    <Compile Include="Client\HmacContent.cs" />
-    <Compile Include="Client\HttpHeaders.cs" />
-    <Compile Include="Client\Md5Digest.cs" />
-    <Compile Include="Client\StructurizrClient.cs" />
-    <Compile Include="Client\StructurizrClientException.cs" />
-    <Compile Include="Analysis\TypeMatcherComponentFinderStrategy.cs" />
-    <Compile Include="Analysis\ComponentFinder.cs" />
-    <Compile Include="Analysis\ComponentFinderStrategy.cs" />
-    <Compile Include="Analysis\ITypeMatcher.cs" />
-    <Compile Include="Analysis\InterfaceImplementationTypeMatcher.cs" />
-    <Compile Include="Analysis\NameSuffixTypeMatcher.cs" />
-    <Compile Include="Documentation\Documentation.cs" />
-    <Compile Include="Documentation\DocumentationFormat.cs" />
-    <Compile Include="Documentation\Image.cs" />
-    <Compile Include="Documentation\Section.cs" />
-    <Compile Include="Documentation\SectionType.cs" />
-    <Compile Include="Encryption\AesEncryptionStrategy.cs" />
-    <Compile Include="Encryption\EncryptedWorkspace.cs" />
-    <Compile Include="Encryption\EncryptionStrategy.cs" />
-    <Compile Include="IO\Json\JsonReader.cs" />
-    <Compile Include="IO\Json\JsonWriter.cs" />
-    <Compile Include="IO\Json\EncryptionStrategyJsonConverter.cs" />
-    <Compile Include="IO\Json\PaperSizeJsonConverter.cs" />
-    <Compile Include="IO\PlantUML\PlantUMLWriter.cs" />
-    <Compile Include="IO\IWorkspaceWriter.cs" />
-    <Compile Include="Model\CodeElement.cs" />
-    <Compile Include="Model\CodeElementRole.cs" />
-    <Compile Include="Model\Component.cs" />
-    <Compile Include="Model\Element.cs" />
-    <Compile Include="Model\Enterprise.cs" />
-    <Compile Include="Model\InteractionStyle.cs" />
-    <Compile Include="Model\SequentialIntegerIdGeneratorStrategy.cs" />
-    <Compile Include="Model\Taggable.cs" />
-    <Compile Include="Model\Tags.cs" />
-    <Compile Include="Util\ImageUtils.cs" />
-    <Compile Include="Util\Url.cs" />
-    <Compile Include="Util\WorkspaceUtils.cs" />
-    <Compile Include="View\Branding.cs" />
-    <Compile Include="View\Color.cs" />
-    <Compile Include="View\ColorPair.cs" />
-    <Compile Include="View\DynamicView.cs" />
-    <Compile Include="View\ComponentView.cs" />
-    <Compile Include="View\Configuration.cs" />
-    <Compile Include="View\Font.cs" />
-    <Compile Include="View\Metadata.cs" />
-    <Compile Include="View\PaperSize.cs" />
-    <Compile Include="View\ParallelSequenceCounter.cs" />
-    <Compile Include="View\Routing.cs" />
-    <Compile Include="View\SequenceCounter.cs" />
-    <Compile Include="View\SequenceNumber.cs" />
-    <Compile Include="View\Border.cs" />
-    <Compile Include="View\Shape.cs" />
-    <Compile Include="View\Styles.cs" />
-    <Compile Include="Model\Container.cs" />
-    <Compile Include="View\ContainerView.cs" />
-    <Compile Include="View\ElementView.cs" />
-    <Compile Include="View\ElementStyle.cs" />
-    <Compile Include="Model\Location.cs" />
-    <Compile Include="Model\Model.cs" />
-    <Compile Include="Model\Person.cs" />
-    <Compile Include="Model\Relationship.cs" />
-    <Compile Include="View\RelationshipView.cs" />
-    <Compile Include="View\RelationshipStyle.cs" />
-    <Compile Include="Model\SoftwareSystem.cs" />
-    <Compile Include="View\StaticView.cs" />
-    <Compile Include="View\EnterpriseContextView.cs" />
-    <Compile Include="View\SystemContextView.cs" />
-    <Compile Include="View\Vertex.cs" />
-    <Compile Include="View\View.cs" />
-    <Compile Include="View\ViewSet.cs" />
-    <Compile Include="Workspace.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="System.Net.Http" Version="4.3.2" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="Structurizr.Core.nuspec" />
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <PackageReference Include="System.Net.Http">
+      <Version>4.3.2</Version>
+    </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Encryption\EncryptedJsonWriter.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Encryption\EncryptedJsonReader.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Runtime.Serialization" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

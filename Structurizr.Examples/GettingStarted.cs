@@ -26,7 +26,7 @@ namespace Structurizr.Examples
             user.Uses(softwareSystem, "Uses");
 
             ViewSet viewSet = workspace.Views;
-            SystemContextView contextView = viewSet.CreateSystemContextView(softwareSystem, "context", "An example of a System Context diagram.");
+            SystemContextView contextView = viewSet.CreateSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
             contextView.AddAllSoftwareSystems();
             contextView.AddAllPeople();
 

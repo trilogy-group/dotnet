@@ -3,7 +3,7 @@ using Structurizr.IO.Json;
 using System;
 using System.IO;
 using System.Net;
-using System.Reflection;
+using System.Net.Http;
 using System.Text;
 
 namespace Structurizr.Client
@@ -40,32 +40,31 @@ namespace Structurizr.Client
 
         public Workspace GetWorkspace(long workspaceId)
         {
-            using (WebClient webClient = new WebClient())
+            using (HttpClient httpClient = new HttpClient())
             {
-                try
-                { 
-                    string httpMethod = "GET";
-                    string path = WorkspacePath + workspaceId;
+                string httpMethod = "GET";
+                string path = WorkspacePath + workspaceId;
 
-                    AddHeaders(webClient, httpMethod, path, "", "");
+                AddHeaders(httpClient, httpMethod, new Uri(Url + path).AbsolutePath, "", "");
 
-                    string response = webClient.DownloadString(this.Url + path);
-                    ArchiveWorkspace(workspaceId, response);
-
-                    StringReader stringReader = new StringReader(response);
-                    if (EncryptionStrategy == null)
-                    {
-                        return new JsonReader().Read(stringReader);
-                    }
-                    else {
-                        EncryptedWorkspace encryptedWorkspace = new EncryptedJsonReader().Read(stringReader);
-                        encryptedWorkspace.EncryptionStrategy.Passphrase = this.EncryptionStrategy.Passphrase;
-                        return encryptedWorkspace.Workspace;
-                    }
-                }
-                catch (Exception e)
+                var responseMessage = httpClient.GetAsync(Url + path);
+                if (responseMessage.Result.StatusCode != HttpStatusCode.OK)
                 {
-                    throw new StructurizrClientException("There was an error getting the workspace: " + e.Message, e);
+                    throw new StructurizrClientException(responseMessage.Result.Content.ReadAsStringAsync().Result);
+                }
+
+                string response = responseMessage.Result.Content.ReadAsStringAsync().Result;
+                ArchiveWorkspace(workspaceId, response);
+
+                StringReader stringReader = new StringReader(response);
+                if (EncryptionStrategy == null)
+                {
+                    return new JsonReader().Read(stringReader);
+                }
+                else {
+                    EncryptedWorkspace encryptedWorkspace = new EncryptedJsonReader().Read(stringReader);
+                    encryptedWorkspace.EncryptionStrategy.Passphrase = this.EncryptionStrategy.Passphrase;
+                    return encryptedWorkspace.Workspace;
                 }
             }
         }
@@ -93,7 +92,7 @@ namespace Structurizr.Client
 
             workspace.Id = workspaceId;
 
-            using (WebClient webClient = new WebClient())
+            using (HttpClient httpClient = new HttpClient())
             {
                 try
                 {
@@ -119,10 +118,16 @@ namespace Structurizr.Client
                         System.Console.WriteLine(workspaceAsJson);
                     }
 
-                    AddHeaders(webClient, httpMethod, path, workspaceAsJson, "application/json; charset=UTF-8");
+                    AddHeaders(httpClient, httpMethod, new Uri(Url + path).AbsolutePath, workspaceAsJson, "application/json; charset=UTF-8");
 
-                    string response = webClient.UploadString(this.Url + path, httpMethod, workspaceAsJson);
-                    System.Console.WriteLine(response);
+                    HttpContent content = new StringContent(workspaceAsJson, Encoding.UTF8, "application/json");
+                    content.Headers.ContentType.CharSet = "UTF-8";
+                    string contentMd5 = new Md5Digest().Generate(workspaceAsJson);
+                    string contentMd5Base64Encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(contentMd5));
+                    content.Headers.ContentMD5 = Encoding.UTF8.GetBytes(contentMd5);
+                    var response = httpClient.PutAsync(this.Url + path, content);
+                    string responseContent = response.Result.Content.ReadAsStringAsync().Result;
+                    System.Console.WriteLine(responseContent);
                 }
                 catch (Exception e)
                 {
@@ -131,22 +136,18 @@ namespace Structurizr.Client
             }
         }
 
-        private void AddHeaders(WebClient webClient, string httpMethod, string path, string content, string contentType)
+        private void AddHeaders(HttpClient httpClient, string httpMethod, string path, string content, string contentType)
         {
-            webClient.Encoding = Encoding.UTF8;
             string contentMd5 = new Md5Digest().Generate(content);
-            string contentMd5Base64Encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(contentMd5));
             string nonce = "" + getCurrentTimeInMilliseconds();
 
             HashBasedMessageAuthenticationCode hmac = new HashBasedMessageAuthenticationCode(ApiSecret);
             HmacContent hmacContent = new HmacContent(httpMethod, path, contentMd5, contentType, nonce);
             string authorizationHeader = new HmacAuthorizationHeader(ApiKey, hmac.Generate(hmacContent.ToString())).ToString();
 
-            webClient.Headers.Add(HttpHeaders.UserAgent, "structurizr-dotnet/" + Assembly.GetExecutingAssembly().GetName().Version.ToString());
-            webClient.Headers.Add(HttpHeaders.Authorization, authorizationHeader);
-            webClient.Headers.Add(HttpHeaders.Nonce, nonce);
-            webClient.Headers.Add(HttpHeaders.ContentMd5, contentMd5Base64Encoded);
-            webClient.Headers.Add(HttpHeaders.ContentType, contentType);
+            httpClient.DefaultRequestHeaders.Add(HttpHeaders.UserAgent, "structurizr-dotnet");
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation(HttpHeaders.Authorization, authorizationHeader);
+            httpClient.DefaultRequestHeaders.Add(HttpHeaders.Nonce, nonce);
         }
 
         private long getCurrentTimeInMilliseconds()

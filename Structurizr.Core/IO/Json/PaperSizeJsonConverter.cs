@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Reflection;
 
 namespace Structurizr.IO.Json
 {
@@ -7,7 +8,7 @@ namespace Structurizr.IO.Json
     {
         public override bool CanConvert(Type objectType)
         {
-            return typeof(PaperSize).IsAssignableFrom(objectType);
+            return typeof(PaperSize).GetTypeInfo().IsAssignableFrom(objectType.GetTypeInfo());
         }
 
         public override object ReadJson(Newtonsoft.Json.JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)

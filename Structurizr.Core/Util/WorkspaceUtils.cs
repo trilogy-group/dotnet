@@ -43,7 +43,7 @@ namespace Structurizr
                 throw new ArgumentException("The path to a JSON file must be specified.");
             }
 
-            using (StreamWriter writer = new StreamWriter(file.FullName))
+            using (StreamWriter writer = new StreamWriter(new FileStream(file.FullName, FileMode.Create)))
             {
                 new JsonWriter(true).Write(workspace, writer);
             }

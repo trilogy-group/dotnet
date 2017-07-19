@@ -1,23 +1,28 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.Core", "Structurizr.Core\Structurizr.Core.csproj", "{F9C9B68E-8CC9-4404-94FD-1FF6A87AC3AA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.Examples", "Structurizr.Examples\Structurizr.Examples.csproj", "{8E61CB6C-899D-4451-A321-6FCC21A7DD45}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4ED0E8DB-8A5B-4DF0-9CB1-995D97A04B88}"
 	ProjectSection(SolutionItems) = preProject
 		docs\api-client.md = docs\api-client.md
+		docs\basic-concepts.md = docs\basic-concepts.md
+		docs\binaries.md = docs\binaries.md
 		docs\client-side-encryption.md = docs\client-side-encryption.md
 		docs\documentation.md = docs\documentation.md
+		docs\getting-started.md = docs\getting-started.md
 		README.md = README.md
 		docs\styling-elements.md = docs\styling-elements.md
 		docs\styling-relationships.md = docs\styling-relationships.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.CoreTests", "Structurizr.CoreTests\Structurizr.CoreTests.csproj", "{FBCEBB50-2535-4568-92B0-C9ADFD97D448}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurizr.Core", "Structurizr.Core\Structurizr.Core.csproj", "{2F8E45CF-19B0-4B49-B7C7-5A3F25A993BD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurizr.Core.Tests", "Structurizr.Core.Tests\Structurizr.Core.Tests.csproj", "{349666B0-A760-4F3D-9D10-BE5E90C4A5E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.Examples", "Structurizr.Examples\Structurizr.Examples.csproj", "{9BE0761B-F666-4691-9CF7-15CF6E911E17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.Reflection", "Structurizr.Reflection\Structurizr.Reflection.csproj", "{05E515A6-209B-4771-8C6C-3A50646DF1F9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.Roslyn", "Structurizr.Roslyn\Structurizr.Roslyn.csproj", "{B8276441-7DC2-4229-AEAF-CB6598D7DC73}"
 EndProject
@@ -27,18 +32,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F9C9B68E-8CC9-4404-94FD-1FF6A87AC3AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9C9B68E-8CC9-4404-94FD-1FF6A87AC3AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9C9B68E-8CC9-4404-94FD-1FF6A87AC3AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9C9B68E-8CC9-4404-94FD-1FF6A87AC3AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8E61CB6C-899D-4451-A321-6FCC21A7DD45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8E61CB6C-899D-4451-A321-6FCC21A7DD45}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E61CB6C-899D-4451-A321-6FCC21A7DD45}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E61CB6C-899D-4451-A321-6FCC21A7DD45}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FBCEBB50-2535-4568-92B0-C9ADFD97D448}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FBCEBB50-2535-4568-92B0-C9ADFD97D448}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FBCEBB50-2535-4568-92B0-C9ADFD97D448}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FBCEBB50-2535-4568-92B0-C9ADFD97D448}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F8E45CF-19B0-4B49-B7C7-5A3F25A993BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F8E45CF-19B0-4B49-B7C7-5A3F25A993BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F8E45CF-19B0-4B49-B7C7-5A3F25A993BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F8E45CF-19B0-4B49-B7C7-5A3F25A993BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{349666B0-A760-4F3D-9D10-BE5E90C4A5E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{349666B0-A760-4F3D-9D10-BE5E90C4A5E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{349666B0-A760-4F3D-9D10-BE5E90C4A5E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{349666B0-A760-4F3D-9D10-BE5E90C4A5E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BE0761B-F666-4691-9CF7-15CF6E911E17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BE0761B-F666-4691-9CF7-15CF6E911E17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BE0761B-F666-4691-9CF7-15CF6E911E17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BE0761B-F666-4691-9CF7-15CF6E911E17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05E515A6-209B-4771-8C6C-3A50646DF1F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05E515A6-209B-4771-8C6C-3A50646DF1F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05E515A6-209B-4771-8C6C-3A50646DF1F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05E515A6-209B-4771-8C6C-3A50646DF1F9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B8276441-7DC2-4229-AEAF-CB6598D7DC73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B8276441-7DC2-4229-AEAF-CB6598D7DC73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8276441-7DC2-4229-AEAF-CB6598D7DC73}.Release|Any CPU.ActiveCfg = Release|Any CPU

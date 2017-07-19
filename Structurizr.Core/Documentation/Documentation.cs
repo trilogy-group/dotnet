@@ -24,9 +24,13 @@ namespace Structurizr
             this.Images = new HashSet<Image>();
         }
 
-        internal Documentation(Model model) : this()
+        public Documentation(Workspace workspace) : this()
         {
-            this.Model = model;
+            if (workspace != null)
+            {
+                workspace.Documentation = this;
+                this.Model = workspace.Model;
+            }
         }
 
         public void Hydrate()

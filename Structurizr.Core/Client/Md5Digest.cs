@@ -14,7 +14,7 @@ namespace Structurizr.Client
                 content = "";
             }
 
-            MD5 md5 = new MD5CryptoServiceProvider();
+            MD5 md5 = MD5.Create();
             byte[] textToHash = Encoding.UTF8.GetBytes(content);
             byte[] result = md5.ComputeHash(textToHash);
 

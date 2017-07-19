@@ -102,12 +102,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Structurizr.Core\Structurizr.Core.csproj">
-      <Project>{f9c9b68e-8cc9-4404-94fd-1ff6a87ac3aa}</Project>
-      <Name>Structurizr.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -116,6 +110,12 @@
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Structurizr.Core\Structurizr.Core.csproj">
+      <Project>{2f8e45cf-19b0-4b49-b7c7-5a3f25a993bd}</Project>
+      <Name>Structurizr.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

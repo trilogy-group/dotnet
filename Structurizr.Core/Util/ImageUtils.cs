@@ -11,45 +11,46 @@ namespace Structurizr.Util
 
         public static string GetContentType(FileInfo file)
         {
-            string contentType = file.FullName.Substring(file.FullName.LastIndexOf(".") + 1).ToLower();
-            if (contentType.Equals("jpg"))
+            if (file == null)
             {
-                contentType = "jpeg";
+                throw new ArgumentException("A file must be specified.");
+            }
+            else if (Directory.Exists(file.FullName))
+            {
+                throw new ArgumentException(file.FullName + " is not a file.");
+            }
+            else if (!file.Exists)
+            {
+                throw new ArgumentException(file.FullName + " does not exist.");
             }
 
-            return "image/" + contentType;
+            string fileExtension = file.FullName.Substring(file.FullName.LastIndexOf(".") + 1).ToLower();
+            if (fileExtension.Equals("jpg"))
+            {
+                fileExtension = "jpeg";
+            }
+
+            if (fileExtension == "png" || fileExtension == "jpeg" || fileExtension == "gif")
+            {
+                return "image/" + fileExtension;
+            }
+            else
+            {
+                throw new ArgumentException(file.FullName + " is not a supported image file.");
+            }
         }
 
         public static string GetImageAsBase64(FileInfo file)
         {
-            using (System.Drawing.Image image = System.Drawing.Image.FromFile(file.FullName))
-            {
-                using (MemoryStream m = new MemoryStream())
-                {
-                    image.Save(m, image.RawFormat);
-                    byte[] imageBytes = m.ToArray();
-                    return Convert.ToBase64String(imageBytes);
-                }
-            }
+            String contentType = GetContentType(file); // this does the file checks
+            byte[] imageArray = File.ReadAllBytes(file.FullName);
+            return Convert.ToBase64String(imageArray);
         }
 
         public static string GetImageAsDataUri(FileInfo file)
         {
-            if (file == null)
-            {
-                throw new ArgumentException("File must not be null.");
-            }
-            else if (Directory.Exists(file.FullName))
-            {
-                throw new ArgumentException("The file " + file.FullName + " does not exist.");
-            }
-            else if (!File.Exists(file.FullName))
-            {
-                throw new ArgumentException(file.FullName + " is not a file.");
-            }
-
-            String contentType = ImageUtils.GetContentType(file);
-            String base64Content = ImageUtils.GetImageAsBase64(file);
+            String contentType = GetContentType(file);
+            String base64Content = GetImageAsBase64(file);
 
             return "data:" + contentType + ";base64," + base64Content;
         }

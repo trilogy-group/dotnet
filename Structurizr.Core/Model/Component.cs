@@ -86,7 +86,7 @@ namespace Structurizr
             }
         }
 
-        internal CodeElement AddSupportingType(string type)
+        public CodeElement AddSupportingType(string type)
         {
             CodeElement codeElement = new CodeElement(type);
             codeElement.Role = CodeElementRole.Supporting;
