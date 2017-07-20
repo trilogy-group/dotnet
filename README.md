@@ -35,11 +35,24 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
 
 ## Table of contents
 
-1. [Getting started](docs/getting-started.md)
-1. [Basic concepts](docs/basic-concepts.md)
-1. [Binaries](docs/binaries.md)
-1. [API Client](docs/api-client.md)
-1. [Styling elements](docs/styling-elements.md)
-1. [Styling relationships](docs/styling-relationships.md)
-1. [Client-side encryption](docs/client-side-encryption.md)
-1. [Documentation](docs/documentation.md)
+* Introduction
+    * [Getting started](docs/getting-started.md)
+    * [About Structurizr and how it compares to other tooling](https://structurizr.com/help/about)
+    * [Basic concepts](https://structurizr.com/help/concepts) (workspaces, models, views and documentation)
+    * [C4 model](https://structurizr.com/help/c4)
+    * [Binaries](docs/binaries.md)
+    * [API Client](docs/api-client.md)
+* Diagrams
+    * [Styling elements](docs/styling-elements.md)
+    * [Styling relationships](docs/styling-relationships.md)
+* Documentation
+    * [Documentation overview](docs/documentation.md)
+    * [Structurizr](docs/documentation-structurizr.md)
+* Other
+    * [Client-side encryption](docs/client-side-encryption.md)
+* Related projects
+    * [structurizr-java](https://github.com/structurizr/java): Structurizr for Java
+    * [cat-boot-structurizr](https://github.com/Catalysts/cat-boot/tree/master/cat-boot-structurizr): A way to apply dependency management to help modularise Structurizr code.
+    * [java-starter](https://github.com/structurizr/java-starter): A simple starting point for using Structurizr for Java
+    * [structurizr-groovy](https://github.com/tidyjava/structurizr-groovy): An initial version of a Groovy wrapper around Structurizr for Java.
+    
