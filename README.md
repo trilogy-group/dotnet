@@ -43,6 +43,11 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [Binaries](docs/binaries.md)
     * [API Client](docs/api-client.md)
 * Diagrams
+    * [System Context diagram](docs/system-context-diagram.md)
+    * [Container diagram](docs/container-diagram.md)
+    * [Component diagram](docs/component-diagram.md)
+    * [Dynamic diagram](docs/dynamic-diagram.md)
+    * [Enterprise Context diagram](docs/enterprise-context-diagram.md)
     * [Styling elements](docs/styling-elements.md)
     * [Styling relationships](docs/styling-relationships.md)
 * Documentation

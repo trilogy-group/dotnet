@@ -238,3 +238,6 @@ _Pvt_Extensions
 
 # Rider project files
 .idea
+
+# Structurizr JSON files
+Structurizr.Examples/*.json

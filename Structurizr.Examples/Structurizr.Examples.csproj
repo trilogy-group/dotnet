@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp1.1</TargetFramework>
-    <StartupObject>Structurizr.Examples.StructurizrDocumentationExample</StartupObject>
+    <StartupObject>Structurizr.Examples.BigBankPlc</StartupObject>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Structurizr.Core\Structurizr.Core.csproj" />
   </ItemGroup>
-
   <ItemGroup>
+    <None Update="structurizr-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Documentation\arc42\asciidoc\01-introduction-and-goals.adoc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -255,5 +255,4 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
 </Project>
