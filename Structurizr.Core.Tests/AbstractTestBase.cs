@@ -3,15 +3,15 @@
     public abstract class AbstractTestBase
     {
 
-        protected Workspace workspace;
-        protected Model model;
-        protected ViewSet views;
+        protected Workspace Workspace;
+        protected Model Model;
+        protected ViewSet Views;
 
         public AbstractTestBase()
         {
-            workspace = new Workspace("Name", "Description");
-            model = workspace.Model;
-            views = workspace.Views;
+            Workspace = new Workspace("Name", "Description");
+            Model = Workspace.Model;
+            Views = Workspace.Views;
         }
 
     }

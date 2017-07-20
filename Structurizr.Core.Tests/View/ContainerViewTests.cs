@@ -12,8 +12,8 @@ namespace Structurizr.Core.Tests
 
         public ContainerViewTests()
         {
-            softwareSystem = model.AddSoftwareSystem("The System", "Description");
-            view = workspace.Views.CreateContainerView(softwareSystem, "containers", "Description");
+            softwareSystem = Model.AddSoftwareSystem("The System", "Description");
+            view = Workspace.Views.CreateContainerView(softwareSystem, "containers", "Description");
         }
 
         [Fact]
@@ -24,7 +24,7 @@ namespace Structurizr.Core.Tests
             Assert.Equal(0, view.Elements.Count);
             Assert.Same(softwareSystem, view.SoftwareSystem);
             Assert.Equal(softwareSystem.Id, view.SoftwareSystemId);
-            Assert.Same(model, view.Model);
+            Assert.Same(Model, view.Model);
         }
 
         [Fact]
@@ -38,8 +38,8 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_AddAllSoftwareSystems_AddsAllSoftwareSystems_WhenThereAreSomeSoftwareSystemsInTheModel()
         {
-            SoftwareSystem softwareSystemA = model.AddSoftwareSystem(Location.External, "System A", "Description");
-            SoftwareSystem softwareSystemB = model.AddSoftwareSystem(Location.External, "System B", "Description");
+            SoftwareSystem softwareSystemA = Model.AddSoftwareSystem(Location.External, "System A", "Description");
+            SoftwareSystem softwareSystemB = Model.AddSoftwareSystem(Location.External, "System B", "Description");
 
             view.AddAllSoftwareSystems();
 
@@ -59,8 +59,8 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_AddAllPeople_AddsAllPeople_WhenThereAreSomePeopleInTheModel()
         {
-            Person userA = model.AddPerson(Location.External, "User A", "Description");
-            Person userB = model.AddPerson(Location.External, "User B", "Description");
+            Person userA = Model.AddPerson(Location.External, "User A", "Description");
+            Person userB = Model.AddPerson(Location.External, "User B", "Description");
 
             view.AddAllPeople();
 
@@ -80,10 +80,10 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_AddAllElements_AddsAllSoftwareSystemsAndPeopleAndContainers_WhenThereAreSomeSoftwareSystemsAndPeopleAndContainersInTheModel()
         {
-            SoftwareSystem softwareSystemA = model.AddSoftwareSystem(Location.External, "System A", "Description");
-            SoftwareSystem softwareSystemB = model.AddSoftwareSystem(Location.External, "System B", "Description");
-            Person userA = model.AddPerson(Location.External, "User A", "Description");
-            Person userB = model.AddPerson(Location.External, "User B", "Description");
+            SoftwareSystem softwareSystemA = Model.AddSoftwareSystem(Location.External, "System A", "Description");
+            SoftwareSystem softwareSystemB = Model.AddSoftwareSystem(Location.External, "System B", "Description");
+            Person userA = Model.AddPerson(Location.External, "User A", "Description");
+            Person userB = Model.AddPerson(Location.External, "User B", "Description");
             Container webApplication = softwareSystem.AddContainer("Web Application", "Does something", "Apache Tomcat");
             Container database = softwareSystem.AddContainer("Database", "Does something", "MySQL");
 
@@ -138,10 +138,10 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_AddNearestNeighbours_AddsNearestNeighbours_WhenThereAreSomeNearestNeighbours()
         {
-            SoftwareSystem softwareSystemA = model.AddSoftwareSystem("System A", "Description");
-            SoftwareSystem softwareSystemB = model.AddSoftwareSystem("System B", "Description");
-            Person userA = model.AddPerson("User A", "Description");
-            Person userB = model.AddPerson("User B", "Description");
+            SoftwareSystem softwareSystemA = Model.AddSoftwareSystem("System A", "Description");
+            SoftwareSystem softwareSystemB = Model.AddSoftwareSystem("System B", "Description");
+            Person userA = Model.AddPerson("User A", "Description");
+            Person userB = Model.AddPerson("User B", "Description");
 
             // userA -> systemA -> system -> systemB -> userB
             userA.Uses(softwareSystemA, "");

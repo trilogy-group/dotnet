@@ -9,9 +9,9 @@ namespace Structurizr.Core.Tests.View
         [Fact]
         public void Test_Construction()
         {
-            SoftwareSystem softwareSystem = model.AddSoftwareSystem("Name", "Description");
-            SystemContextView systemContextView = views.CreateSystemContextView(softwareSystem, "SystemContext", "Description");
-            FilteredView filteredView = views.CreateFilteredView(
+            SoftwareSystem softwareSystem = Model.AddSoftwareSystem("Name", "Description");
+            SystemContextView systemContextView = Views.CreateSystemContextView(softwareSystem, "SystemContext", "Description");
+            FilteredView filteredView = Views.CreateFilteredView(
                 systemContextView,
                 "CurrentStateSystemContext",
                 "The system context as-is.",

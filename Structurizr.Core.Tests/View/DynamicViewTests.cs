@@ -24,8 +24,8 @@ namespace Structurizr.Core.Tests
 
         public DynamicViewTests()
         {
-            person = model.AddPerson("Person", "");
-            softwareSystemA = model.AddSoftwareSystem("Software System A", "");
+            person = Model.AddPerson("Person", "");
+            softwareSystemA = Model.AddSoftwareSystem("Software System A", "");
             containerA1 = softwareSystemA.AddContainer("Container A1", "", "");
             componentA1 = containerA1.AddComponent("Component A1", "");
             containerA2 = softwareSystemA.AddContainer("Container A2", "", "");
@@ -33,7 +33,7 @@ namespace Structurizr.Core.Tests
             containerA3 = softwareSystemA.AddContainer("Container A3", "", "");
             relationship = containerA1.Uses(containerA2, "uses");
 
-            softwareSystemB = model.AddSoftwareSystem("Software System B", "");
+            softwareSystemB = Model.AddSoftwareSystem("Software System B", "");
             containerB1 = softwareSystemB.AddContainer("Container B1", "", "");
         }
 
@@ -42,7 +42,7 @@ namespace Structurizr.Core.Tests
         {
             try
             {
-                DynamicView dynamicView = workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
+                DynamicView dynamicView = Workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
                 dynamicView.Add(containerB1, containerA1);
                 throw new TestFailedException();
             }
@@ -57,7 +57,7 @@ namespace Structurizr.Core.Tests
         {
             try
             {
-                DynamicView dynamicView = workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
+                DynamicView dynamicView = Workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
                 dynamicView.Add(componentA1, containerA1);
                 throw new TestFailedException();
             }
@@ -72,7 +72,7 @@ namespace Structurizr.Core.Tests
         {
             try
             {
-                DynamicView dynamicView = workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
+                DynamicView dynamicView = Workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
                 dynamicView.Add(softwareSystemA, containerA1);
                 throw new TestFailedException();
             }
@@ -87,7 +87,7 @@ namespace Structurizr.Core.Tests
         {
             try
             {
-                DynamicView dynamicView = workspace.Views.CreateDynamicView(containerA1, "key", "Description");
+                DynamicView dynamicView = Workspace.Views.CreateDynamicView(containerA1, "key", "Description");
                 dynamicView.Add(containerA1, containerA2);
                 throw new TestFailedException();
             }
@@ -102,7 +102,7 @@ namespace Structurizr.Core.Tests
         {
             try
             {
-                DynamicView dynamicView = workspace.Views.CreateDynamicView(containerA1, "key", "Description");
+                DynamicView dynamicView = Workspace.Views.CreateDynamicView(containerA1, "key", "Description");
                 dynamicView.Add(softwareSystemA, containerA2);
                 throw new TestFailedException();
             }
@@ -117,7 +117,7 @@ namespace Structurizr.Core.Tests
         {
             try
             {
-                DynamicView dynamicView = workspace.Views.CreateDynamicView(containerA1, "key", "Description");
+                DynamicView dynamicView = Workspace.Views.CreateDynamicView(containerA1, "key", "Description");
                 dynamicView.Add(containerB1, containerA2);
                 throw new TestFailedException();
             }
@@ -132,7 +132,7 @@ namespace Structurizr.Core.Tests
         {
             try
             {
-                DynamicView dynamicView = workspace.Views.CreateDynamicView(containerA1, "key", "Description");
+                DynamicView dynamicView = Workspace.Views.CreateDynamicView(containerA1, "key", "Description");
                 dynamicView.Add(componentA2, containerA2);
                 throw new TestFailedException();
             }
@@ -145,7 +145,7 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_Add_AddsTheSourceAndDestinationElements_WhenARelationshipBetweenThemExists()
         {
-            DynamicView dynamicView = workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
+            DynamicView dynamicView = Workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
             dynamicView.Add(containerA1, containerA2);
             Assert.Equal(2, dynamicView.Elements.Count);
         }
@@ -153,7 +153,7 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_Add_ThrowsAnException_WhenThereIsNoRelationshipBetweenTheSourceAndDestinationElements()
         {
-            DynamicView dynamicView = workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
+            DynamicView dynamicView = Workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
             Assert.Throws<ArgumentException>(() =>
                 dynamicView.Add(containerA1, containerA3)
             );
@@ -162,7 +162,7 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_AddRelationshipDirectly()
         {
-            DynamicView dynamicView = workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
+            DynamicView dynamicView = Workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
             dynamicView.Add(relationship);
             Assert.Equal(2, dynamicView.Elements.Count);
         }
@@ -170,7 +170,7 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_Add_AddsTheSourceAndDestinationElements_WhenARelationshipBetweenThemExistsAndTheDestinationIsAnExternalSoftwareSystem()
         {
-            DynamicView dynamicView = workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
+            DynamicView dynamicView = Workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
             containerA2.Uses(softwareSystemB, "", "");
             dynamicView.Add(containerA2, softwareSystemB);
             Assert.Equal(2, dynamicView.Elements.Count);
@@ -179,10 +179,10 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_NormalSequence()
         {
-            workspace = new Workspace("Name", "Description");
-            model = workspace.Model;
+            Workspace = new Workspace("Name", "Description");
+            Model = Workspace.Model;
 
-            SoftwareSystem softwareSystem = model.AddSoftwareSystem("Software System", "Description");
+            SoftwareSystem softwareSystem = Model.AddSoftwareSystem("Software System", "Description");
             Container container1 = softwareSystem.AddContainer("Container 1", "Description", "Technology");
             Container container2 = softwareSystem.AddContainer("Container 2", "Description", "Technology");
             Container container3 = softwareSystem.AddContainer("Container 3", "Description", "Technology");
@@ -190,7 +190,7 @@ namespace Structurizr.Core.Tests
             container1.Uses(container2, "Uses");
             container1.Uses(container3, "Uses");
 
-            DynamicView view = workspace.Views.CreateDynamicView(softwareSystem, "key", "Description");
+            DynamicView view = Workspace.Views.CreateDynamicView(softwareSystem, "key", "Description");
 
             view.Add(container1, container2);
             view.Add(container1, container3);
@@ -202,10 +202,10 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_ParallelSequence()
         {
-            workspace = new Workspace("Name", "Description");
-            model = workspace.Model;
-            SoftwareSystem softwareSystem = model.AddSoftwareSystem("Name", "Description");
-            Person user = model.AddPerson("User", "Description");
+            Workspace = new Workspace("Name", "Description");
+            Model = Workspace.Model;
+            SoftwareSystem softwareSystem = Model.AddSoftwareSystem("Name", "Description");
+            Person user = Model.AddPerson("User", "Description");
             Container microservice1 = softwareSystem.AddContainer("Microservice 1", "", "");
             Container database1 = softwareSystem.AddContainer("Database 1", "", "");
             Container microservice2 = softwareSystem.AddContainer("Microservice 2", "", "");
@@ -227,7 +227,7 @@ namespace Structurizr.Core.Tests
             microservice2.Uses(database2, "Stores data in");
             microservice3.Uses(database3, "Stores data in");
 
-            DynamicView view = workspace.Views.CreateDynamicView(softwareSystem, "key", "Description");
+            DynamicView view = Workspace.Views.CreateDynamicView(softwareSystem, "key", "Description");
 
             view.Add(user, "1", microservice1);
             view.Add(microservice1, "2", database1);

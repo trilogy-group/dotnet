@@ -60,7 +60,6 @@ namespace Structurizr
             }
         }
 
-
         public virtual Model Model
         {
             get

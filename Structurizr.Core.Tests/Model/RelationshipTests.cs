@@ -10,8 +10,8 @@ namespace Structurizr.Core.Tests
 
         public RelationshipTests()
         {
-            _softwareSystem1 = model.AddSoftwareSystem("1", "Description");
-            _softwareSystem2 = model.AddSoftwareSystem("2", "Description");
+            _softwareSystem1 = Model.AddSoftwareSystem("1", "Description");
+            _softwareSystem2 = Model.AddSoftwareSystem("2", "Description");
         }
 
         [Fact]

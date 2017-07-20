@@ -12,7 +12,7 @@ namespace Structurizr.Core.Tests
 
         public EnterpriseContextViewTests()
         {
-            view = workspace.Views.CreateEnterpriseContextView("context", "Description");
+            view = Workspace.Views.CreateEnterpriseContextView("context", "Description");
         }
 
         [Fact]
@@ -20,7 +20,7 @@ namespace Structurizr.Core.Tests
         {
             Assert.Equal("Enterprise Context", view.Name);
             Assert.Equal(0, view.Elements.Count);
-            Assert.Same(model, view.Model);
+            Assert.Same(Model, view.Model);
         }
 
         [Fact]
@@ -32,7 +32,7 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_GetName_WhenAnEnterpriseIsSpecified()
         {
-            model.Enterprise = new Enterprise("Widgets Limited");
+            Model.Enterprise = new Enterprise("Widgets Limited");
             Assert.Equal("Enterprise Context for Widgets Limited", view.Name);
         }
 
@@ -40,7 +40,7 @@ namespace Structurizr.Core.Tests
         public void Test_GetName_WhenAnEmptyEnterpriseNameIsSpecified()
         {
             Assert.Throws<ArgumentException>(() =>
-                model.Enterprise = new Enterprise("")
+                Model.Enterprise = new Enterprise("")
             );
         }
 
@@ -48,7 +48,7 @@ namespace Structurizr.Core.Tests
         public void Test_GetName_WhenANullEnterpriseNameIsSpecified()
         {
             Assert.Throws<ArgumentException>(() =>
-                model.Enterprise = new Enterprise(null)
+                Model.Enterprise = new Enterprise(null)
             );
         }
 
@@ -62,8 +62,8 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_AddAllSoftwareSystems_AddsAllSoftwareSystems_WhenThereAreSomeSoftwareSystemsInTheModel()
         {
-            SoftwareSystem softwareSystemA = model.AddSoftwareSystem(Location.External, "System A", "Description");
-            SoftwareSystem softwareSystemB = model.AddSoftwareSystem(Location.External, "System B", "Description");
+            SoftwareSystem softwareSystemA = Model.AddSoftwareSystem(Location.External, "System A", "Description");
+            SoftwareSystem softwareSystemB = Model.AddSoftwareSystem(Location.External, "System B", "Description");
 
             view.AddAllSoftwareSystems();
 
@@ -82,8 +82,8 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_AddAllPeople_AddsAllPeople_WhenThereAreSomePeopleInTheModel()
         {
-            Person userA = model.AddPerson("User A", "Description");
-            Person userB = model.AddPerson("User B", "Description");
+            Person userA = Model.AddPerson("User A", "Description");
+            Person userB = Model.AddPerson("User B", "Description");
 
             view.AddAllPeople();
 
@@ -102,8 +102,8 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_AddAllElements_AddsAllSoftwareSystemsAndPeople_WhenThereAreSomeSoftwareSystemsAndPeopleInTheModel()
         {
-            SoftwareSystem softwareSystem = model.AddSoftwareSystem("Software System", "Description");
-            Person person = model.AddPerson("Person", "Description");
+            SoftwareSystem softwareSystem = Model.AddSoftwareSystem("Software System", "Description");
+            Person person = Model.AddPerson("Person", "Description");
 
             view.AddAllElements();
 

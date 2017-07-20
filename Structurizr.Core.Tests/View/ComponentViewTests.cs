@@ -13,7 +13,7 @@ namespace Structurizr.Core.Tests
 
         public ComponentViewTests()
         {
-            softwareSystem = model.AddSoftwareSystem(Location.Internal, "The System", "Description");
+            softwareSystem = Model.AddSoftwareSystem(Location.Internal, "The System", "Description");
             webApplication = softwareSystem.AddContainer("Web Application", "Does something", "Apache Tomcat");
             view = new ComponentView(webApplication, "Key", "Some description");
         }
@@ -27,7 +27,7 @@ namespace Structurizr.Core.Tests
             Assert.Same(softwareSystem, view.SoftwareSystem);
             Assert.Equal(softwareSystem.Id, view.SoftwareSystemId);
             Assert.Equal(webApplication.Id, view.ContainerId);
-            Assert.Same(model, view.Model);
+            Assert.Same(Model, view.Model);
         }
 
         [Fact]
@@ -41,8 +41,8 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_AddAllSoftwareSystems_AddsAllSoftwareSystems_WhenThereAreSomeSoftwareSystemsInTheModel()
         {
-            SoftwareSystem softwareSystemA = model.AddSoftwareSystem(Location.External, "System A", "Description");
-            SoftwareSystem softwareSystemB = model.AddSoftwareSystem(Location.External, "System B", "Description");
+            SoftwareSystem softwareSystemA = Model.AddSoftwareSystem(Location.External, "System A", "Description");
+            SoftwareSystem softwareSystemB = Model.AddSoftwareSystem(Location.External, "System B", "Description");
 
             view.AddAllSoftwareSystems();
 
@@ -62,8 +62,8 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_AddAllPeople_AddsAllPeople_WhenThereAreSomePeopleInTheModel()
         {
-            Person userA = model.AddPerson(Location.External, "User A", "Description");
-            Person userB = model.AddPerson(Location.External, "User B", "Description");
+            Person userA = Model.AddPerson(Location.External, "User A", "Description");
+            Person userB = Model.AddPerson(Location.External, "User B", "Description");
 
             view.AddAllPeople();
 
@@ -83,10 +83,10 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_AddAllElements_AddsAllSoftwareSystemsAndPeopleAndContainersAndComponents_WhenThereAreSomeSoftwareSystemsAndPeopleAndContainersAndComponentsInTheModel()
         {
-            SoftwareSystem softwareSystemA = model.AddSoftwareSystem(Location.External, "System A", "Description");
-            SoftwareSystem softwareSystemB = model.AddSoftwareSystem(Location.External, "System B", "Description");
-            Person userA = model.AddPerson(Location.External, "User A", "Description");
-            Person userB = model.AddPerson(Location.External, "User B", "Description");
+            SoftwareSystem softwareSystemA = Model.AddSoftwareSystem(Location.External, "System A", "Description");
+            SoftwareSystem softwareSystemB = Model.AddSoftwareSystem(Location.External, "System B", "Description");
+            Person userA = Model.AddPerson(Location.External, "User A", "Description");
+            Person userB = Model.AddPerson(Location.External, "User B", "Description");
             Container database = softwareSystem.AddContainer("Database", "Does something", "MySQL");
             Component componentA = webApplication.AddComponent("Component A", "Does something", "Java");
             Component componentB = webApplication.AddComponent("Component B", "Does something", "Java");
@@ -245,7 +245,7 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_Add_DoesNothing_WhenTheSpecifiedComponentIsInADifferentContainer()
         {
-            SoftwareSystem softwareSystemA = model.AddSoftwareSystem("System A", "Description");
+            SoftwareSystem softwareSystemA = Model.AddSoftwareSystem("System A", "Description");
 
             Container containerA1 = softwareSystemA.AddContainer("Container A1", "Description", "Tec");
             Component componentA1_1 = containerA1.AddComponent("Component A1-1", "Description");
@@ -339,10 +339,10 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_AddNearestNeighbours_AddsNearestNeighbours_WhenThereAreSomeNearestNeighbours()
         {
-            SoftwareSystem softwareSystemA = model.AddSoftwareSystem("System A", "Description");
-            SoftwareSystem softwareSystemB = model.AddSoftwareSystem("System B", "Description");
-            Person userA = model.AddPerson("User A", "Description");
-            Person userB = model.AddPerson("User B", "Description");
+            SoftwareSystem softwareSystemA = Model.AddSoftwareSystem("System A", "Description");
+            SoftwareSystem softwareSystemB = Model.AddSoftwareSystem("System B", "Description");
+            Person userA = Model.AddPerson("User A", "Description");
+            Person userB = Model.AddPerson("User B", "Description");
 
             // userA -> systemA -> system -> systemB -> userB
             userA.Uses(softwareSystemA, "");
