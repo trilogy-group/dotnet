@@ -47,9 +47,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Structurizr.Core\Structurizr.Core.csproj">
       <Project>{2f8e45cf-19b0-4b49-b7c7-5a3f25a993bd}</Project>
       <Name>Structurizr.Core</Name>
