@@ -46,6 +46,12 @@ namespace Structurizr
         public List<DynamicView> DynamicViews { get; set; }
 
         /// <summary>
+        /// The set of filtered views.
+        /// </summary>
+        [DataMember(Name = "filteredViews", EmitDefaultValue = false)]
+        public List<FilteredView> FilteredViews { get; set; }
+
+        /// <summary>
         /// The configuration object associated with this set of views.
         /// </summary>
         [DataMember(Name = "configuration", EmitDefaultValue = false)]
@@ -58,6 +64,7 @@ namespace Structurizr
             this.ContainerViews = new List<ContainerView>();
             this.ComponentViews = new List<ComponentView>();
             this.DynamicViews = new List<DynamicView>();
+            this.FilteredViews = new List<FilteredView>();
 
             this.Configuration = new Configuration();
         }
@@ -69,75 +76,50 @@ namespace Structurizr
 
         public EnterpriseContextView CreateEnterpriseContextView(string key, string description)
         {
-            if (GetViewWithKey(key) != null)
-            {
-                throw new ArgumentException("A view with the key " + key + " already exists.");
-            }
-            else
-            {
-                EnterpriseContextView view = new EnterpriseContextView(Model, key, description);
-                EnterpriseContextViews.Add(view);
-                return view;
-            }
+            AssertThatTheViewKeyIsUnique(key);
+
+            EnterpriseContextView view = new EnterpriseContextView(Model, key, description);
+            EnterpriseContextViews.Add(view);
+            return view;
         }
 
         public SystemContextView CreateSystemContextView(SoftwareSystem softwareSystem, string key, string description)
         {
-            if (GetViewWithKey(key) != null)
-            {
-                throw new ArgumentException("A view with the key " + key + " already exists.");
-            }
-            else
-            {
-                SystemContextView view = new SystemContextView(softwareSystem, key, description);
-                this.SystemContextViews.Add(view);
+            AssertThatTheViewKeyIsUnique(key);
 
-                return view;
-            }
+            SystemContextView view = new SystemContextView(softwareSystem, key, description);
+            this.SystemContextViews.Add(view);
+
+            return view;
         }
 
         public ContainerView CreateContainerView(SoftwareSystem softwareSystem, string key, string description)
         {
-            if (GetViewWithKey(key) != null)
-            {
-                throw new ArgumentException("A view with the key " + key + " already exists.");
-            }
-            else
-            {
-                ContainerView view = new ContainerView(softwareSystem, key, description);
-                ContainerViews.Add(view);
+            AssertThatTheViewKeyIsUnique(key);
 
-                return view;
-            }
+            ContainerView view = new ContainerView(softwareSystem, key, description);
+            ContainerViews.Add(view);
+
+            return view;
         }
 
         public ComponentView CreateComponentView(Container container, string key, string description)
         {
-            if (GetViewWithKey(key) != null)
-            {
-                throw new ArgumentException("A view with the key " + key + " already exists.");
-            }
-            else
-            {
-                ComponentView view = new ComponentView(container, key, description);
-                ComponentViews.Add(view);
+            AssertThatTheViewKeyIsUnique(key);
 
-                return view;
-            }
+            ComponentView view = new ComponentView(container, key, description);
+            ComponentViews.Add(view);
+
+            return view;
         }
 
         public DynamicView CreateDynamicView(string key, string description)
         {
-            if (GetViewWithKey(key) != null)
-            {
-                throw new ArgumentException("A view with the key " + key + " already exists.");
-            }
-            else
-            {
-                DynamicView view = new DynamicView(Model, key, description);
-                DynamicViews.Add(view);
-                return view;
-            }
+            AssertThatTheViewKeyIsUnique(key);
+
+            DynamicView view = new DynamicView(Model, key, description);
+            DynamicViews.Add(view);
+            return view;
         }
 
         public DynamicView CreateDynamicView(SoftwareSystem softwareSystem, string key, string description)
@@ -146,17 +128,11 @@ namespace Structurizr
             {
                 throw new ArgumentException("Software system must not be null.");
             }
+            AssertThatTheViewKeyIsUnique(key);
 
-            if (GetViewWithKey(key) != null)
-            {
-                throw new ArgumentException("A view with the key " + key + " already exists.");
-            }
-            else
-            {
-                DynamicView view = new DynamicView(softwareSystem, key, description);
-                DynamicViews.Add(view);
-                return view;
-            }
+            DynamicView view = new DynamicView(softwareSystem, key, description);
+            DynamicViews.Add(view);
+            return view;
         }
 
         public DynamicView CreateDynamicView(Container container, string key, string description)
@@ -165,19 +141,40 @@ namespace Structurizr
             {
                 throw new ArgumentException("Container must not be null.");
             }
+            AssertThatTheViewKeyIsUnique(key);
 
-            if (GetViewWithKey(key) != null)
+            DynamicView view = new DynamicView(container, key, description);
+            DynamicViews.Add(view);
+            return view;
+        }
+        
+        /// <summary>
+        /// Creates a FilteredView on top of an existing static view. 
+        /// </summary>
+        /// <param name="view">the static view to base the FilteredView upon</param>
+        /// <param name="key">the key for the filtered view (must be unique)</param>
+        /// <param name="description">a description of the filtered view</param>
+        /// <param name="mode">whether to Include or Exclude elements/relationships based upon their tag</param>
+        /// <param name="tags">the tags to include or exclude</param>
+        /// <returns></returns>
+        public FilteredView CreateFilteredView(StaticView view, string key, string description, FilterMode mode, params string[] tags)
+        {
+            AssertThatTheViewKeyIsUnique(key);
+
+            FilteredView filteredView = new FilteredView(view, key, description, mode, tags);
+            FilteredViews.Add(filteredView);
+            
+            return filteredView;
+        }
+
+        private void AssertThatTheViewKeyIsUnique(string key)
+        {
+            if (GetViewWithKey(key) != null || GetFilteredViewWithKey(key) != null)
             {
                 throw new ArgumentException("A view with the key " + key + " already exists.");
             }
-            else
-            {
-                DynamicView view = new DynamicView(container, key, description);
-                DynamicViews.Add(view);
-                return view;
-            }
         }
-
+        
         public void Hydrate()
         {
             foreach (EnterpriseContextView view in EnterpriseContextViews)
@@ -208,6 +205,11 @@ namespace Structurizr
             {
                 view.Model = Model;
                 HydrateView(view);
+            }
+            
+            foreach (FilteredView filteredView in FilteredViews)
+            {
+                filteredView.View = GetViewWithKey(filteredView.BaseViewKey);
             }
         }
 
@@ -301,6 +303,11 @@ namespace Structurizr
         /// </summary>
         public View GetViewWithKey(string key)
         {
+            if (key == null)
+            {
+                throw new ArgumentException("A key must be specified.");
+            }
+            
             foreach (EnterpriseContextView view in EnterpriseContextViews)
             {
                 if (view.Key.Equals(key))
@@ -344,6 +351,23 @@ namespace Structurizr
             return null;
         }
 
+        public FilteredView GetFilteredViewWithKey(string key)
+        {
+            if (key == null)
+            {
+                throw new ArgumentException("A key must be specified.");
+            }
+
+            foreach (FilteredView view in FilteredViews)
+            {
+                if (view.Key.Equals(key))
+                {
+                    return view;
+                }
+            }
+
+            return null;
+        }
 
     }
 }
