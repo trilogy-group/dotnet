@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Newtonsoft.Json;
+using System.IO;
 
 namespace Structurizr
 {
@@ -29,7 +30,16 @@ namespace Structurizr
     /// </summary>
     public class StructurizrDocumentation : Documentation
     {
-    
+
+        public override string Type
+        {
+            get
+            {
+                return "structurizr";
+            }
+        }
+
+        [JsonConstructor]
         internal StructurizrDocumentation() {
         }
 

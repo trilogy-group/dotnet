@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Structurizr.IO.Json
@@ -8,10 +9,17 @@ namespace Structurizr.IO.Json
 
         public Workspace Read(StringReader reader)
         {
-            Workspace workspace = JsonConvert.DeserializeObject<Workspace>(
-                reader.ReadToEnd(),
-                new Newtonsoft.Json.Converters.StringEnumConverter(),
-                new PaperSizeJsonConverter());
+            JsonSerializerSettings settings = new JsonSerializerSettings()
+            {
+                ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
+                Converters = new List<JsonConverter> {
+                    new Newtonsoft.Json.Converters.StringEnumConverter(),
+                    new DocumentationJsonConverter(),
+                    new PaperSizeJsonConverter()
+                }
+            };
+
+            Workspace workspace = JsonConvert.DeserializeObject<Workspace>(reader.ReadToEnd(), settings);
             workspace.Hydrate();
 
             return workspace;

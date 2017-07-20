@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using Structurizr.Util;
+using Newtonsoft.Json;
 
 namespace Structurizr
 {
@@ -26,12 +27,16 @@ namespace Structurizr
         
         public Model Model { get; set; }
 
+        [DataMember(Name = "type", EmitDefaultValue = false)]
+        public abstract string Type { get; }
+
         [DataMember(Name = "sections", EmitDefaultValue = false)]
         public HashSet<Section> Sections { get; private set; }
 
         [DataMember(Name = "images", EmitDefaultValue = false)]
         public HashSet<Image> Images { get; private set; }
 
+        [JsonConstructor]
         internal Documentation()
         {
             Sections = new HashSet<Section>();
@@ -86,8 +91,6 @@ namespace Structurizr
                 if (File.Exists(file.FullName))
                 {
                     string contentInFile = File.ReadAllText(file.FullName, Encoding.UTF8);
-                    Console.WriteLine(file.FullName);
-                    Console.WriteLine(contentInFile);
                     content.Append(contentInFile);
                 }
                 else if (Directory.Exists(file.FullName))
