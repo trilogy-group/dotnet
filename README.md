@@ -53,6 +53,7 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
 * Documentation
     * [Documentation overview](docs/documentation.md)
     * [Structurizr](docs/documentation-structurizr.md)
+    * [arc42](docs/documentation-arc42.md)
     * [Viewpoints and Perspectives](docs/documentation-viewpoints-and-perspectives.md)
 * Other
     * [Client-side encryption](docs/client-side-encryption.md)

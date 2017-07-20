@@ -24,13 +24,11 @@ namespace Structurizr.IO.Json
             }
             else if (type == "arc42")
             {
-                // todo
-                return item.ToObject<StructurizrDocumentation>();
+                return item.ToObject<Arc42Documentation>();
             }
             else if (type == "viewpoints-and-perspectives")
             {
-                // todo
-                return item.ToObject<StructurizrDocumentation>();
+                return item.ToObject<ViewpointsAndPerspectivesDocumentation>();
             }
             else
             {
