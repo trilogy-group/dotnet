@@ -10,7 +10,7 @@ namespace Structurizr
     /// A container (something that can execute code or host data).
     /// </summary>
     [DataContract]
-    public class Container : Element, IEquatable<Container>
+    public sealed class Container : Element, IEquatable<Container>
     {
 
         public override Element Parent { get; set; }

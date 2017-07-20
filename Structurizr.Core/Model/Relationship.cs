@@ -11,7 +11,7 @@ namespace Structurizr
     /// A relationship between two elements.
     /// </summary>
     [DataContract]
-    public class Relationship : Taggable, IEquatable<Relationship>
+    public sealed class Relationship : Taggable, IEquatable<Relationship>
     {
 
         /// <summary>

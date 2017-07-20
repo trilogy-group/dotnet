@@ -7,7 +7,7 @@ namespace Structurizr
     /// A definition of an element style.
     /// </summary>
     [DataContract]
-    public class ElementStyle
+    public sealed class ElementStyle
     {
         
         /// <summary>

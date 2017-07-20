@@ -8,7 +8,7 @@ namespace Structurizr
     /// The styles associated with this set of views.
     /// </summary>
     [DataContract]
-    public class Styles
+    public sealed class Styles
     {
 
         /// <summary>

@@ -7,7 +7,7 @@ namespace Structurizr
     /// A container view.
     /// </summary>
     [DataContract]
-    public class ContainerView : StaticView
+    public sealed class ContainerView : StaticView
     {
 
         public override string Name

@@ -7,7 +7,7 @@ namespace Structurizr
     /// A definition of a relationship style.
     /// </summary>
     [DataContract]
-    public class RelationshipStyle
+    public sealed class RelationshipStyle
     {
         
         /// <summary>

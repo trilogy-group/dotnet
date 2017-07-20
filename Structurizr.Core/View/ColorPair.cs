@@ -5,7 +5,7 @@ namespace Structurizr
 {
 
     [DataContract]
-    public class ColorPair
+    public sealed class ColorPair
     {
 
         private string _background;

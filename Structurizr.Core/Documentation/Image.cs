@@ -4,7 +4,7 @@ namespace Structurizr.Documentation
 {
 
     [DataContract]
-    public class Image
+    public sealed class Image
     {
 
         [DataMember(Name = "name", EmitDefaultValue = false)]

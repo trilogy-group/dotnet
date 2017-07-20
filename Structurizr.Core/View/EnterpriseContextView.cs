@@ -9,7 +9,7 @@ namespace Structurizr
     /// The permitted elements in this view are software systems and people.
     /// </summary>
     [DataContract]
-    public class EnterpriseContextView : StaticView
+    public sealed class EnterpriseContextView : StaticView
     {
 
         public override string Name

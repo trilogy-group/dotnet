@@ -8,7 +8,7 @@ namespace Structurizr
 {
 
     [DataContract]
-    public class Font
+    public sealed class Font
     {
 
         private string _url;

@@ -10,7 +10,7 @@ namespace Structurizr
     /// The set of views onto a software architecture model.
     /// </summary>
     [DataContract]
-    public class ViewSet
+    public sealed class ViewSet
     {
 
         public Model Model { get; set; }

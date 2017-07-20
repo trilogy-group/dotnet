@@ -7,7 +7,7 @@ namespace Structurizr
     /// The configuration associated with a set of views.
     /// </summary>
     [DataContract]
-    public class Configuration
+    public sealed class Configuration
     {
 
         internal Configuration()

@@ -10,7 +10,7 @@ namespace Structurizr
     /// A software architecture model.
     /// </summary>
     [DataContract]
-    public class Model
+    public sealed class Model
     {
 
         [DataMember(Name = "enterprise", EmitDefaultValue = false)]

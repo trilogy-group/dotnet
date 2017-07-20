@@ -10,7 +10,7 @@ namespace Structurizr
     /// that is part of the implementation of a component.
     /// </summary>
     [DataContract]
-    public class CodeElement : IEquatable<CodeElement>
+    public sealed class CodeElement : IEquatable<CodeElement>
     {
 
         /// <summary>

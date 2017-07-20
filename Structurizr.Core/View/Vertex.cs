@@ -7,7 +7,7 @@ namespace Structurizr
     /// The X, Y coordinate of a bend in a line.
     /// </summary>
     [DataContract]
-    public class Vertex
+    public sealed class Vertex
     {
 
         internal Vertex()

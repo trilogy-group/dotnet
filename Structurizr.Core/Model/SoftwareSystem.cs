@@ -10,7 +10,7 @@ namespace Structurizr
     /// A software system.
     /// </summary>
     [DataContract]
-    public class SoftwareSystem : Element, IEquatable<SoftwareSystem>
+    public sealed class SoftwareSystem : Element, IEquatable<SoftwareSystem>
     {
 
         /// <summary>

@@ -6,7 +6,7 @@ namespace Structurizr
 {
 
     [DataContract]
-    public class Branding
+    public sealed class Branding
     {
 
         [DataMember(Name = "font", EmitDefaultValue = false)]

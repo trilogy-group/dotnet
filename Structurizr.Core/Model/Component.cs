@@ -10,7 +10,7 @@ namespace Structurizr
     /// A component (a grouping of related functionality behind an interface that runs inside a container).
     /// </summary>
     [DataContract]
-    public class Component : Element, IEquatable<Component>
+    public sealed class Component : Element, IEquatable<Component>
     {
         
         public override Element Parent { get; set; }

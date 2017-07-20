@@ -8,10 +8,10 @@ namespace Structurizr
     /// A dynamic view, used to describe behaviour between static elements at runtime.
     /// </summary>
     [DataContract]
-    public class DynamicView : View
+    public sealed class DynamicView : View
     {
 
-        public sealed override Model Model { get; set; }
+        public override Model Model { get; set; }
 
         public override string Name
         {

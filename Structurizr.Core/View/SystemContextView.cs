@@ -7,7 +7,7 @@ namespace Structurizr
     /// A system context view.
     /// </summary>
     [DataContract]
-    public class SystemContextView : StaticView
+    public sealed class SystemContextView : StaticView
     {
 
         public override string Name

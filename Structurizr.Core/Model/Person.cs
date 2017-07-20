@@ -10,7 +10,7 @@ namespace Structurizr
     /// A person who uses a software system.
     /// </summary>
     [DataContract]
-    public class Person : Element, IEquatable<Person>
+    public sealed class Person : Element, IEquatable<Person>
     {
 
         /// <summary>

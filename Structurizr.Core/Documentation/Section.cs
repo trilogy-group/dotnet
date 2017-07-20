@@ -4,7 +4,7 @@ namespace Structurizr.Documentation
 {
 
     [DataContract]
-    public class Section
+    public sealed class Section
     {
 
         public Element Element { get; internal set; }

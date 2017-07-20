@@ -5,7 +5,7 @@ namespace Structurizr
 {
 
     [DataContract]
-    public class Enterprise
+    public sealed class Enterprise
     {
 
         /// <summary>
