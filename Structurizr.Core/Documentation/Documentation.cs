@@ -58,7 +58,10 @@ namespace Structurizr.Documentation
         {
             foreach (Section section in Sections)
             {
-                section.Element = Model.GetElement(section.ElementId);
+                if (!String.IsNullOrEmpty(section.ElementId))
+                {
+                    section.Element = Model.GetElement(section.ElementId);
+                }
             }
 
         }
