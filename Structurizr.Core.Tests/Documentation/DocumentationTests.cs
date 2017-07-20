@@ -1,7 +1,7 @@
-﻿using Xunit;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
+using Xunit;
 
 namespace Structurizr.Core.Tests
 {
@@ -13,17 +13,16 @@ namespace Structurizr.Core.Tests
         private const string JpegAsBase64 = "/9j/4AAQSkZJRgABAQAASABIAAD/4QCMRXhpZgAATU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAACCgAwAEAAAAAQAAABoAAAAA/+0AOFBob3Rvc2hvcCAzLjAAOEJJTQQEAAAAAAAAOEJJTQQlAAAAAAAQ1B2M2Y8AsgTpgAmY7PhCfv/AABEIABoAIAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2wBDAAICAgICAgMCAgMEAwMDBAUEBAQEBQcFBQUFBQcIBwcHBwcHCAgICAgICAgKCgoKCgoLCwsLCw0NDQ0NDQ0NDQ3/2wBDAQICAgMDAwYDAwYNCQcJDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ3/3QAEAAL/2gAMAwEAAhEDEQA/APxy8ZeMvEvj/wAS6j4w8X6jcanquqXEt1c3NzK8rFpXZyAXZtqJuwiDCqoAA9bVn8PfHGoW0d5Z6LcPDMoeNi0SblPIIV5AwB9wK4i55tph/wBM3/8AQTX65fAjwhonjDxOtlr0H2m0tNONx5BJVZHBRFDYIJUZJx3OK/YeFshwuPjWliJSjGmov3bdb90+x+V8SZ3icFKjGhFSlUb+K/S3Zrufmh/wq74h/wDQCuP+/kH/AMdq7o0nxN+D3iDTPG+mLf6Bf6ddwzWt7DNtxLG4cIxhkOVfbhkf5XUkV+8v/Cnvhh/0Ldj/AN8N/wDFV+fX7bPgzQfB2keT4ftxa216lncGBSSiSJdohKZJIDAjjoD06162M4Yyz6rVnSnPmjGUlfls7K9nZJnnYXiLMfrNKNSMOWUknbmuru11d+Z//9D8SryCeJJ7eSNllVZEKMNrB1ypGDjBDAgjsRg1+pfwR+J/h/whrEHiG4kF3p97YfZ3a3dGkTdsZWClhnBXDL159q+ff299D0Xw/wDtSeNbHQdPtdNtmuzO0NpCkEZlmZ2kcqgUbnblm6k8mvjdrS0k+d4Y2ZupKAk/jiv1HIOJv7Np1JSpc6qpXV7Wtd72ffsfnWe8OfX6sFGpyum207Xve3S67H78f8NL/DD/AJ63v/gOP/i6+Ff2wPiTo3xHsIk0JXwDZ2lrE+0zzt9pWR2EaFiB0AHUn3IB/O/7DY/8+8X/AHwv+FfZX7BHhzw9rP7UXgqy1fS7K+txeLMIrm3jmj82FkaN9rqRuRuVOMg8iuzFcbUpYarSp4ezlGSu53tdWenKuhzYbhCpHEU51K91GSdlG17O615n1P/Z";
         private const string GifAsBase64 = "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";
 
+        private Workspace workspace;
         private SoftwareSystem softwareSystem;
-        private Container container;
-        private Documentation documentation;
+        private StructurizrDocumentation documentation;
 
         public DocumentationTests()
         {
-            Workspace workspace = new Workspace("Name", "Description");
+            workspace = new Workspace("Name", "Description");
             Model model = workspace.Model;
             softwareSystem = model.AddSoftwareSystem("Name", "Description");
-            container = softwareSystem.AddContainer("Name", "Description", "Technology");
-            documentation = workspace.Documentation;
+            documentation = new StructurizrDocumentation(workspace);
         }
 
         [Fact]
@@ -31,33 +30,19 @@ namespace Structurizr.Core.Tests
         {
             Assert.Equal(0, documentation.Sections.Count);
             Assert.Equal(0, documentation.Images.Count);
-        }
-
-        [Fact]
-        public void Test_AddWithContentForSoftwareSystem_AddsASectionWithTheSpecifiedContent_WhenThatSectionDoesNotExist()
-        {
-            documentation.Add(softwareSystem, SectionType.Context, DocumentationFormat.Markdown, "Some Markdown content");
-            Section section = documentation.Add(softwareSystem, SectionType.FunctionalOverview, DocumentationFormat.Markdown, "Some more Markdown content");
-
-            Assert.Same(softwareSystem, section.Element);
-            Assert.Equal(softwareSystem.Id, section.ElementId);
-            Assert.Equal(SectionType.FunctionalOverview, section.Type);
-            Assert.Equal(DocumentationFormat.Markdown, section.Format);
-            Assert.Equal("Some more Markdown content", section.Content);
-
-            Assert.Equal(2, documentation.Sections.Count);
-            Assert.True(documentation.Sections.Contains(section));
+            Assert.True(documentation.IsEmpty());
+            Assert.Same(workspace.Model, documentation.Model);
         }
 
         [Fact]
         public void Test_AddWithContentForSoftwareSystem_ThrowsAnException_WhenThatSectionAlreadyExists()
         {
-            documentation.Add(softwareSystem, SectionType.Context, DocumentationFormat.Markdown, "Some Markdown content");
+            documentation.AddContextSection(softwareSystem, DocumentationFormat.Markdown, "Some Markdown content");
             Assert.Equal(1, documentation.Sections.Count);
 
             try
             {
-                documentation.Add(softwareSystem, SectionType.Context, DocumentationFormat.Markdown, "Some Markdown content");
+                documentation.AddContextSection(softwareSystem, DocumentationFormat.Markdown, "Some Markdown content");
                 throw new TestFailedException();
             }
             catch (ArgumentException ae)
@@ -69,147 +54,22 @@ namespace Structurizr.Core.Tests
         }
 
         [Fact]
-        public void Test_AddFromFileForSoftwareSystem_AddsASectionWithTheSpecifiedContent_WhenThatSectionDoesNotExist()
-        {
-            documentation.Add(softwareSystem, SectionType.Context, DocumentationFormat.Markdown, "Some Markdown content");
-
-            FileInfo file = new FileInfo("Documentation" + Path.DirectorySeparatorChar + "example.md");
-            Section section = documentation.Add(softwareSystem, SectionType.FunctionalOverview, DocumentationFormat.Markdown, file);
-
-            Assert.Same(softwareSystem, section.Element);
-            Assert.Equal(softwareSystem.Id, section.ElementId);
-            Assert.Equal(SectionType.FunctionalOverview, section.Type);
-            Assert.Equal(DocumentationFormat.Markdown, section.Format);
-            Assert.Equal("## Heading" + Environment.NewLine +
-                    Environment.NewLine +
-                    "Here is a paragraph.", section.Content);
-
-            Assert.Equal(2, documentation.Sections.Count);
-            Assert.True(documentation.Sections.Contains(section));
-        }
-
-        [Fact]
-        public void Test_AddFromFileForSoftwareSystem_ThrowsAnException_WhenThatSectionAlreadyExists()
-        {
-            documentation.Add(softwareSystem, SectionType.Context, DocumentationFormat.Markdown, "Some Markdown content");
-            Assert.Equal(1, documentation.Sections.Count);
-
-            try
-            {
-                FileInfo file = new FileInfo("Documentation" + Path.DirectorySeparatorChar + "example.md");
-                documentation.Add(softwareSystem, SectionType.Context, DocumentationFormat.Markdown, file);
+        public void Test_Construction_ThrowsAnException_WhenANullWorkspaceIsSpecified() {
+            try {
+                new StructurizrDocumentation(null);
                 throw new TestFailedException();
-            }
-            catch (ArgumentException ae)
-            {
-                // this is the expected exception
-                Assert.Equal("A section of type Context for Name already exists.", ae.Message);
-                Assert.Equal(1, documentation.Sections.Count);
+            } catch (ArgumentException e) {
+                Assert.Equal("A workspace must be specified.", e.Message);
             }
         }
-
-        [Fact]
-        public void Test_AddWithContentForSoftwareSystem_ThrowsAnException_WhenAContainerIsNotSpecifiedForTheComponentType()
-        {
-            try
-            {
-                documentation.Add(softwareSystem, SectionType.Components, DocumentationFormat.Markdown, "Some Markdown content");
-                throw new TestFailedException();
-            }
-            catch (ArgumentException ae)
-            {
-                Assert.Equal("Sections of type Components must be related to a container rather than a software system.", ae.Message);
-            }
-        }
-
-        [Fact]
-        public void Test_AddWithContentForContainer_AddsASectionWithTheSpecifiedContent_WhenThatSectionDoesNotExist()
-        {
-            documentation.Add(softwareSystem, SectionType.Context, DocumentationFormat.Markdown, "Some Markdown content");
-            Section section = documentation.Add(container, DocumentationFormat.Markdown, "Some more Markdown content");
-
-            Assert.Same(container, section.Element);
-            Assert.Equal(container.Id, section.ElementId);
-            Assert.Equal(SectionType.Components, section.Type);
-            Assert.Equal(DocumentationFormat.Markdown, section.Format);
-            Assert.Equal("Some more Markdown content", section.Content);
-
-            Assert.Equal(2, documentation.Sections.Count);
-            Assert.True(documentation.Sections.Contains(section));
-        }
-
-        [Fact]
-        public void Test_AddWithContentForContainer_ThrowsAnException_WhenThatSectionAlreadyExists()
-        {
-            documentation.Add(container, DocumentationFormat.Markdown, "Some Markdown content");
-            Assert.Equal(1, documentation.Sections.Count);
-
-            try
-            {
-                documentation.Add(container, DocumentationFormat.Markdown, "Some Markdown content");
-                throw new TestFailedException();
-            }
-            catch (ArgumentException ae)
-            {
-                // this is the expected exception
-                Assert.Equal("A section of type Components for Name already exists.", ae.Message);
-                Assert.Equal(1, documentation.Sections.Count);
-            }
-        }
-
-        [Fact]
-        public void Test_AddFromFileForContainer_AddsASectionWithTheSpecifiedContent_WhenThatSectionDoesNotExist()
-        {
-            documentation.Add(softwareSystem, SectionType.Context, DocumentationFormat.Markdown, "Some Markdown content");
-
-            FileInfo file = new FileInfo("Documentation" + Path.DirectorySeparatorChar + "example.md");
-            Section section = documentation.Add(container, DocumentationFormat.Markdown, file);
-
-            Assert.Same(container, section.Element);
-            Assert.Equal(container.Id, section.ElementId);
-            Assert.Equal(SectionType.Components, section.Type);
-            Assert.Equal(DocumentationFormat.Markdown, section.Format);
-            Assert.Equal("## Heading" + Environment.NewLine +
-                    Environment.NewLine +
-                    "Here is a paragraph.", section.Content);
-
-            Assert.Equal(2, documentation.Sections.Count);
-            Assert.True(documentation.Sections.Contains(section));
-        }
-
-        [Fact]
-        public void Test_AddFromFileForContainer_ThrowsAnException_WhenThatSectionAlreadyExists()
-        {
-            FileInfo file = new FileInfo("Documentation" + Path.DirectorySeparatorChar + "example.md");
-            documentation.Add(container, DocumentationFormat.Markdown, file);
-            Assert.Equal(1, documentation.Sections.Count);
-
-            try
-            {
-                documentation.Add(container, DocumentationFormat.Markdown, file);
-                throw new TestFailedException();
-            }
-            catch (ArgumentException ae)
-            {
-                // this is the expected exception
-                Assert.Equal("A section of type Components for Name already exists.", ae.Message);
-                Assert.Equal(1, documentation.Sections.Count);
-            }
-        }
-
-        [Fact]
-        public void Test_AddImages_DoesNothing_WhenThereAreNoImageFilesInTheSpecifiedDirectory()
-        {
-            FileInfo file = new FileInfo(@"Documentation\noimages");
-            Assert.Equal(0, documentation.Images.Count);
-        }
-
+        
         [Fact]
         public void Test_AddImages_ThrowsAnException_WhenTheSpecifiedDirectoryIsNull()
         {
             try
             {
                 documentation.AddImages(null);
+                throw new TestFailedException();
             }
             catch (ArgumentException ae)
             {
@@ -218,15 +78,25 @@ namespace Structurizr.Core.Tests
         }
 
         [Fact]
+        public void Test_AddImages_DoesNothing_WhenThereAreNoImageFilesInTheSpecifiedDirectory()
+        {
+            DirectoryInfo directory = new DirectoryInfo("Documentation" + Path.DirectorySeparatorChar + "noimages");
+            documentation.AddImages(directory);
+            Assert.Equal(0, documentation.Images.Count);
+        }
+
+        [Fact]
         public void Test_AddImages_ThrowsAnException_WhenTheSpecifiedDirectoryIsNotADirectory()
         {
             try
             {
-                FileInfo file = new FileInfo(@"Documentation\example.md");
+                DirectoryInfo directory = new DirectoryInfo("Documentation" + Path.DirectorySeparatorChar + "example.md");
+                documentation.AddImages(directory);
+                throw new TestFailedException();
             }
             catch (ArgumentException ae)
             {
-                Assert.True(ae.Message.EndsWith("/structurizr-core/test/unit/com/structurizr/documentation/example.md is not a directory."));
+                Assert.True(ae.Message.EndsWith("example.md is not a directory."));
             }
         }
 
@@ -235,11 +105,13 @@ namespace Structurizr.Core.Tests
         {
             try
             {
-                FileInfo file = new FileInfo(@"Documentation\foo");
+                DirectoryInfo directory = new DirectoryInfo("Documentation" + Path.DirectorySeparatorChar + "foo");
+                documentation.AddImages(directory);
+                throw new TestFailedException();
             }
             catch (ArgumentException ae)
             {
-                Assert.True(ae.Message.EndsWith("\\Documentation\\blah does not exist."));
+                Assert.True(ae.Message.EndsWith("foo does not exist."));
             }
         }
 
@@ -247,8 +119,8 @@ namespace Structurizr.Core.Tests
         public void Test_AddImages_AddsAllImagesFromTheSpecifiedDirectory_WhenThereAreImageFilesInTheSpecifiedDirectory()
         {
             Assert.Equal(0, documentation.Images.Count);
-            FileInfo file = new FileInfo("Documentation" + Path.DirectorySeparatorChar + "images");
-            documentation.AddImages(file);
+            DirectoryInfo directory = new DirectoryInfo("Documentation" + Path.DirectorySeparatorChar + "images");
+            documentation.AddImages(directory);
             Assert.Equal(4, documentation.Images.Count);
 
             Image png = documentation.Images.Where(i => i.Name.Equals("image.png")).First();
@@ -272,7 +144,7 @@ namespace Structurizr.Core.Tests
         public void Test_AddImages_AddsAllImagesFromTheSpecifiedDirectory_WhenThereAreImageFilesInTheSpecifiedDirectoryAndSubDirectories()
         {
             Assert.Equal(0, documentation.Images.Count);
-            documentation.AddImages(new FileInfo("Documentation"));
+            documentation.AddImages(new DirectoryInfo("Documentation"));
             Assert.Equal(8, documentation.Images.Count);
 
             Image pngInDirectory = documentation.Images.Where(i => i.Name.Equals("image.png")).First();
@@ -326,10 +198,11 @@ namespace Structurizr.Core.Tests
             try
             {
                 documentation.AddImage(null);
+                throw new TestFailedException();
             }
             catch (ArgumentException ae)
             {
-                Assert.Equal("File must not be null.", ae.Message);
+                Assert.Equal("A file must be specified.", ae.Message);
             }
         }
 
@@ -347,7 +220,7 @@ namespace Structurizr.Core.Tests
         }
 
         [Fact]
-        public void test_addImage_ThrowsAnException_WhenTheSpecifiedFileDoesNotExist()
+        public void Test_AddImage_ThrowsAnException_WhenTheSpecifiedFileDoesNotExist()
         {
             try
             {
@@ -360,7 +233,7 @@ namespace Structurizr.Core.Tests
         }
 
         [Fact]
-        public void test_addImage_ThrowsAnException_WhenTheSpecifiedFileIsNotAnImage()
+        public void Test_AddImage_ThrowsAnException_WhenTheSpecifiedFileIsNotAnImage()
         {
             try
             {
@@ -369,6 +242,83 @@ namespace Structurizr.Core.Tests
             catch (ArgumentException ae)
             {
                 Assert.True(ae.Message.EndsWith("Documentation" + Path.DirectorySeparatorChar + "example.md is not a supported image file."));
+            }
+        }
+        
+        [Fact]
+        public void Test_ReadFiles_ThrowsAnException_WhenPassedAFileThatDoesNotExist() {
+            try
+            {
+                documentation.AddContextSection(softwareSystem, DocumentationFormat.Markdown, new FileInfo("foo.txt"));
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.True(ae.Message.EndsWith("foo.txt does not exist."));
+            }
+        }
+
+        [Fact]
+        public void Test_ReadFiles_ThrowsAnException_WhenPassedANullFile()
+        {
+            try
+            {
+                documentation.AddContextSection(softwareSystem, DocumentationFormat.Markdown, (FileInfo)null);
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("One or more files must be specified.", ae.Message);
+            }
+        }
+
+        [Fact]
+        public void Test_ReadFiles_ThrowsAnException_WhenPassedAnEmptyArray()
+        {
+            try
+            {
+                documentation.AddContextSection(softwareSystem, DocumentationFormat.Markdown, new FileInfo[]{});
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("One or more files must be specified.", ae.Message);
+            }
+        }
+
+        [Fact]
+        public void Test_ReadFiles_AddsAllFiles_WhenPassedADirectory()
+        {
+            Section section = documentation.AddContextSection(softwareSystem, DocumentationFormat.Markdown, new FileInfo("Documentation" + Path.DirectorySeparatorChar + "markdown"));
+            Assert.Equal("File 1" + Environment.NewLine +
+                    "File 2", section.Content);
+        }
+
+        [Fact]
+        public void Test_AddCustomSection_AddsASectionWithAGroupOf1_WhenAGroupLessThan1IsSpecified()
+        {
+            Section section = documentation.AddCustomSection(softwareSystem, "Custom Section", 0, DocumentationFormat.Markdown, "Custom content");
+            Assert.Equal(1, section.Group);
+        }
+
+        [Fact]
+        public void Test_AddCustomSection_AddsASectionWithAGroupOf5_WhenAGroupMoreThan5IsSpecified() {
+            Section section = documentation.AddCustomSection(softwareSystem, "Custom Section", 6, DocumentationFormat.Markdown, "Custom content");
+            Assert.Equal(5, section.Group);
+        }
+
+        [Fact]
+        public void Test_AddCustomSection_ThrowsAnException_WhenThatSectionAlreadyExists() {
+            documentation.AddCustomSection("Enterprise Context", 1, DocumentationFormat.Markdown, "");
+            Assert.Equal(1, documentation.Sections.Count);
+    
+            try {
+                documentation.AddCustomSection("Enterprise Context", 1, DocumentationFormat.Markdown, "");
+                throw new TestFailedException();
+            } catch (ArgumentException ae) {
+                // this is the expected exception
+                Assert.Equal("A section of type Enterprise Context already exists.", ae.Message);
+                Assert.Equal(1, documentation.Sections.Count);
             }
         }
 

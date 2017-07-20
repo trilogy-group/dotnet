@@ -36,22 +36,29 @@ namespace Structurizr
         }
 
         [DataMember(Name = "type", EmitDefaultValue = true)]
-        public SectionType Type { get; private set; }
+        public string SectionType { get; internal set; }
 
+        [DataMember(Name = "group", EmitDefaultValue = true)]
+        public int Group { get; internal set; }
+        
+        [DataMember(Name = "order", EmitDefaultValue = true)]
+        public int Order { get; internal set; }
+        
         [DataMember(Name = "format", EmitDefaultValue = true)]
-        public DocumentationFormat Format { get; private set; }
+        public DocumentationFormat Format { get; internal set; }
 
         [DataMember(Name = "content", EmitDefaultValue = false)]
-        public string Content { get; private set; }
+        public string Content { get; internal set; }
 
         internal Section() { }
 
-        internal Section(Element element, SectionType type, DocumentationFormat format, string content)
-        {
-            this.Element = element;
-            this.Type = type;
-            this.Format = format;
-            this.Content = content;
+        internal Section(Element element, string type, int order, int group, DocumentationFormat format, string content) {
+            Element = element;
+            SectionType = type;
+            Order = order;
+            Group = group;
+            Format = format;
+            Content = content;
         }
 
         public override bool Equals(object obj)
@@ -61,22 +68,30 @@ namespace Structurizr
 
         public bool Equals(Section section)
         {
-            if (section == null)
-            {
-                return false;
-            }
             if (section == this)
             {
                 return true;
             }
 
-            return ElementId.Equals(section.ElementId) && Type == section.Type;
+            if (section == null)
+            {
+                return false;
+            }
+            
+            if (ElementId != null)
+            {
+                return ElementId.Equals(section.ElementId) && SectionType == section.SectionType;
+            }
+            else
+            {
+                return SectionType == section.SectionType;
+            }
         }
 
         public override int GetHashCode()
         {
-            int result = ElementId.GetHashCode();
-            result = 31 * result + Type.GetHashCode();
+            int result = ElementId != null ? ElementId.GetHashCode() : 0;
+            result = 31 * result + SectionType.GetHashCode();
             return result;
         }
 

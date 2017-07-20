@@ -39,7 +39,7 @@ namespace Structurizr
         {
             this.Model = new Model();
             this.Views = new ViewSet(Model);
-            this.Documentation = new Documentation(this);
+            this.Documentation = new StructurizrDocumentation(this);
         }
 
         public void Hydrate()
