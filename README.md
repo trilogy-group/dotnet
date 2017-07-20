@@ -57,6 +57,7 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [Viewpoints and Perspectives](docs/documentation-viewpoints-and-perspectives.md)
 * Other
     * [Client-side encryption](docs/client-side-encryption.md)
+    * [Corporate branding](docs/corporate-branding.md)
 * Related projects
     * [structurizr-java](https://github.com/structurizr/java): Structurizr for Java
     * [cat-boot-structurizr](https://github.com/Catalysts/cat-boot/tree/master/cat-boot-structurizr): A way to apply dependency management to help modularise Structurizr code.
