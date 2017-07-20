@@ -1,6 +1,6 @@
 # Styling elements
 
-By default, all model elements are rendered as grey boxes as shown in the example diagram below.
+By default, all model elements are rendered as grey boxes, as illustrated by the example diagram below.
 
 ![Default styling](images/styling-elements-1.png)
 
@@ -11,11 +11,13 @@ However, the following characteristics of the elements can be customized:
 - Background colour (HTML hex value)
 - Text colour (HTML hex value)
 - Font size (pixels)
-- Shape (Box, rounded box, cylinder, folder, person - [Structurizr paid plans only](https://structurizr.com/pricing))
+- Shape (see the [Shape](https://github.com/structurizr/dotnet/blob/master/Structurizr.Core/View/Shape.cs) enum)
+- Border (Solid or Dashed; see the [Border](https://github.com/structurizr/dotnet/blob/master/Structurizr.Core/View/Border.cs) enum)
+- Opacity (an integer between 0 and 100)
 
 ## Tagging elements
 
-All elements within a software architecture model can have one or more tags associated with them. A tag is simply a free-format string. By default, the .NET client library adds the following tags to elements.
+All elements within a software architecture model can have one or more tags associated with them. A tag is simply a free-format string. By default, the Java client library adds the following tags to elements.
 
 Element | Tags
 ------- | ----
@@ -24,25 +26,25 @@ Person | "Element", "Person"
 Container | "Element", "Container"
 Component | "Element", "Component"
 
-All of these tags are defined as constants in the [Tags](https://github.com/structurizr/dotnet/blob/master/Core/Model/Tags.cs) class. You can add your own custom tags to elements using the ```AddTags()``` method on the element.
+All of these tags are defined as constants in the [Tags](https://github.com/structurizr/dotnet/blob/master/Structurizr.Core/Model/Tags.cs) class. As we'll see shortly, you can also add your own custom tags to elements using the ```AddTags()``` method on the element.
 
 ## Colour
 
-To style an element, simply create an [ElementStyle](https://github.com/structurizr/dotnet/blob/master/Core/View/ElementStyle.cs) for a particular tag and specify the characteristics that you would like to change. For example, you can change the colour of all elements as follows.
+To style an element, simply create an [ElementStyle](https://github.com/structurizr/dotnet/blob/master/Structurizr.Core/View/ElementStyle.cs) for a particular tag and specify the characteristics that you would like to change. For example, you can change the colour of all elements as follows.
 
 ```c#
 Styles styles = workspace.Views.Configuration.Styles;
-styles.Add(new ElementStyle(Tags.SoftwareSystem) { Background = "#a4b7c9", Color = "#000000" });
+styles.Add(new ElementStyle(Tags.Element) { Background = "#438dd5", Color = "#ffffff" });
 ```
 
-![Colouring all elements](images/styling-elements-2.png)
+ ![Colouring all elements](images/styling-elements-2.png)
  
 You can also change the colour of specific elements, for example based upon their type, as follows.
 
 ```c#
-Styles styles = workspace.Views.Configuration.Styles;
-styles.Add(new ElementStyle(Tags.Person) { Background = "#728da5", Color = "#ffffff" });
-styles.Add(new ElementStyle(Tags.Container) { Background = "#2a4e6e", Color = "#ffffff" });
+styles.Add(new ElementStyle(Tags.Element) { Color = "#ffffff" });
+styles.Add(new ElementStyle(Tags.Person) { Background = "#08427b" });
+styles.Add(new ElementStyle(Tags.Container) { Background = "#438dd5" });
 ```
 
 ![Colouring elements based upon type](images/styling-elements-3.png)
@@ -51,12 +53,12 @@ styles.Add(new ElementStyle(Tags.Container) { Background = "#2a4e6e", Color = "#
 
 ## Shapes
 
-Subscribers to a [Structurizr paid plan](https://structurizr.com/pricing) can also style elements using different shapes as follows.
+You can also style elements using different shapes as follows.
 
 ```c#
-Styles styles = workspace.Views.Configuration.Styles;
-styles.Add(new ElementStyle(Tags.Person) { Background = "#728da5", Color = "#ffffff", Shape = Shape.Person });
-styles.Add(new ElementStyle(Tags.Container) { Background = "#2a4e6e", Color = "#ffffff" });
+styles.Add(new ElementStyle(Tags.Element) { Color = "#ffffff" });
+styles.Add(new ElementStyle(Tags.Person) { Background = "#08427b" , Shape = Shape.Person });
+styles.Add(new ElementStyle(Tags.Container) { Background = "#438dd5" });
 database.AddTags("Database");
 styles.Add(new ElementStyle("Database") { Shape = Shape.Cylinder });
 ```
@@ -65,8 +67,14 @@ styles.Add(new ElementStyle("Database") { Shape = Shape.Cylinder });
 
 As with CSS, styles cascade according to the order in which they are added. In the example above, the database element is coloured using the "Container" style, the shape of which is overriden by the "Database" style.
 
+The set of available shapes is as follows:
+
+![The shapes available in Structurizr](images/styling-elements-5.png)
+
 ## Diagram key
 
-[Structurizr](https://structurizr.com) will automatically add all element styles to a diagram key.
+Structurizr will automatically add all element styles to a diagram key, showing you which styles are associated with which tags.
 
-![The diagram key](images/styling-elements-5.png)
+![The diagram key](images/styling-elements-6.png)
+
+You can find the code for this example at [StylingElements.cs](https://github.com/structurizr/dotnet/blob/master/Structurizr.Examples/StylingElements.cs) and the live example workspace at [https://structurizr.com/share/36111](https://structurizr.com/share/36111).
