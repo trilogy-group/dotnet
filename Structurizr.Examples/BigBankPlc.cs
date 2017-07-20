@@ -16,9 +16,9 @@ namespace Structurizr.Examples
     public class BigBankPlc
     {
         
-        private const long WorkspaceId = 36711;
-        private const string ApiKey = "62fd36b9-f43e-4cef-a91e-b4ac5c448d7c";
-        private const string ApiSecret = "ac56a0ac-e289-4451-aee4-f13489b93b1e";
+        private const long WorkspaceId = 36141;
+        private const string ApiKey = "key";
+        private const string ApiSecret = "secret";
 
         private const string DatabaseTag = "Database";
 
