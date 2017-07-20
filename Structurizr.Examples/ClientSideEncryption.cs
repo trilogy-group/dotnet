@@ -1,4 +1,4 @@
-﻿using Structurizr.Client;
+﻿using Structurizr.Api;
 using Structurizr.Encryption;
 
 namespace Structurizr.Examples

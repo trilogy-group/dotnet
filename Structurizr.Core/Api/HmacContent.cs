@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Structurizr.Client
+namespace Structurizr.Api
 {
     internal class HmacContent
     {

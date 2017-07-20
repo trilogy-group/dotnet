@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Structurizr.Client
+namespace Structurizr.Api
 {
     internal class Md5Digest
     {

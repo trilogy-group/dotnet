@@ -1,4 +1,4 @@
-﻿namespace Structurizr.Client
+﻿namespace Structurizr.Api
 {
     internal class HttpHeaders
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Structurizr.Client
+namespace Structurizr.Api
 {
     public class StructurizrClientException : Exception
     {

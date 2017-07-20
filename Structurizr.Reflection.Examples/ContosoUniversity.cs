@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Reflection;
 using Structurizr.Analysis;
-using Structurizr.Client;
+using Structurizr.Api;
 using System.IO;
 
 namespace Structurizr.Examples

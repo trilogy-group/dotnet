@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 
-namespace Structurizr.Client
+namespace Structurizr.Api
 {
     public class StructurizrClient
     {
