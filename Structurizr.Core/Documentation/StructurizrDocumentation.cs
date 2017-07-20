@@ -31,16 +31,11 @@ namespace Structurizr.Documentation
     public class StructurizrDocumentation : Documentation
     {
 
-        public override string Type
-        {
-            get
-            {
-                return "structurizr";
-            }
-        }
+        public override string Type => "structurizr";
 
         [JsonConstructor]
-        internal StructurizrDocumentation() {
+        internal StructurizrDocumentation()
+        {
         }
 
         public StructurizrDocumentation(Workspace workspace) : base(workspace)
@@ -54,7 +49,8 @@ namespace Structurizr.Documentation
         /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddContextSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files) {
+        public Section AddContextSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        {
             return AddContextSection(softwareSystem, format, ReadFiles(files));
         }
 
@@ -77,7 +73,8 @@ namespace Structurizr.Documentation
         /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddFunctionalOverviewSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files) {
+        public Section AddFunctionalOverviewSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        {
             return AddFunctionalOverviewSection(softwareSystem, format, ReadFiles(files));
         }
 
@@ -100,7 +97,8 @@ namespace Structurizr.Documentation
         /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddQualityAttributesSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files) {
+        public Section AddQualityAttributesSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        {
             return AddQualityAttributesSection(softwareSystem, format, ReadFiles(files));
         }
 
@@ -123,7 +121,8 @@ namespace Structurizr.Documentation
         /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddConstraintsSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files) {
+        public Section AddConstraintsSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        {
             return AddConstraintsSection(softwareSystem, format, ReadFiles(files));
         }
 
@@ -146,7 +145,8 @@ namespace Structurizr.Documentation
         /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddPrinciplesSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files) {
+        public Section AddPrinciplesSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        {
             return AddPrinciplesSection(softwareSystem, format, ReadFiles(files));
         }
 
@@ -169,7 +169,8 @@ namespace Structurizr.Documentation
         /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddSoftwareArchitectureSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files) {
+        public Section AddSoftwareArchitectureSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        {
             return AddSoftwareArchitectureSection(softwareSystem, format, ReadFiles(files));
         }
 
@@ -192,7 +193,8 @@ namespace Structurizr.Documentation
         /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddContainersSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files) {
+        public Section AddContainersSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        {
             return AddContainersSection(softwareSystem, format, ReadFiles(files));
         }
 
@@ -215,7 +217,8 @@ namespace Structurizr.Documentation
         /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddComponentsSection(Container container, Format format, params FileSystemInfo[] files) {
+        public Section AddComponentsSection(Container container, Format format, params FileSystemInfo[] files)
+        {
             return AddComponentsSection(container, format, ReadFiles(files));
         }
 
@@ -238,7 +241,8 @@ namespace Structurizr.Documentation
         /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddCodeSection(Component component, Format format, params FileSystemInfo[] files) {
+        public Section AddCodeSection(Component component, Format format, params FileSystemInfo[] files)
+        {
             return AddCodeSection(component, format, ReadFiles(files));
         }
 
@@ -261,7 +265,8 @@ namespace Structurizr.Documentation
         /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddDataSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files) {
+        public Section AddDataSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        {
             return AddDataSection(softwareSystem, format, ReadFiles(files));
         }
 
@@ -284,7 +289,8 @@ namespace Structurizr.Documentation
         /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddInfrastructureArchitectureSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files) {
+        public Section AddInfrastructureArchitectureSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        {
             return AddInfrastructureArchitectureSection(softwareSystem, format, ReadFiles(files));
         }
 
@@ -307,7 +313,8 @@ namespace Structurizr.Documentation
         /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddDeploymentSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files) {
+        public Section AddDeploymentSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        {
             return AddDeploymentSection(softwareSystem, format, ReadFiles(files));
         }
 
@@ -330,7 +337,8 @@ namespace Structurizr.Documentation
         /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddDevelopmentEnvironmentSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files) {
+        public Section AddDevelopmentEnvironmentSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        {
             return AddDevelopmentEnvironmentSection(softwareSystem, format, ReadFiles(files));
         }
 
@@ -353,7 +361,8 @@ namespace Structurizr.Documentation
         /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddOperationAndSupportSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files) {
+        public Section AddOperationAndSupportSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        {
             return AddOperationAndSupportSection(softwareSystem, format, ReadFiles(files));
         }
 
@@ -376,7 +385,8 @@ namespace Structurizr.Documentation
         /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddDecisionLogSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files) {
+        public Section AddDecisionLogSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        {
             return AddDecisionLogSection(softwareSystem, format, ReadFiles(files));
         }
 

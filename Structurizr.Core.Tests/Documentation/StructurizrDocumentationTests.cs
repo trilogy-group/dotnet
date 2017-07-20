@@ -27,14 +27,16 @@ namespace Structurizr.Core.Tests.Documentation
         }
     
         [Fact]
-        public void test_construction() {
+        public void Test_Construction()
+        {
             Assert.True(documentation.Sections.Count == 0);
             Assert.True(documentation.Images.Count == 0);
             Assert.True(documentation.IsEmpty());
         }
     
         [Fact]
-        public void test_addAllSectionsWithContentAsstrings() {
+        public void Test_AddAllSectionsWithContentAsstrings()
+        {
             Section section;
     
             section = documentation.AddContextSection(softwareSystem, Format.Markdown, "Context section");
@@ -90,7 +92,8 @@ namespace Structurizr.Core.Tests.Documentation
         }
     
         [Fact]
-        public void test_addAllSectionsWithContentFromFiles() {
+        public void Test_AddAllSectionsWithContentFromFiles()
+        {
             Section section;
             DirectoryInfo root = new DirectoryInfo("Documentation" + Path.DirectorySeparatorChar + "structurizr");
     
@@ -147,20 +150,23 @@ namespace Structurizr.Core.Tests.Documentation
         }
     
         [Fact]
-        public void test_addCustomSectionWithContentAsAstring() {
+        public void Test_AddCustomSectionWithContentAsAstring()
+        {
             Section section = documentation.AddCustomSection(softwareSystem, "Custom Section", 3, Format.Markdown, "Custom content");
             AssertSection(softwareSystem, "Custom Section", 3, Format.Markdown, "Custom content", 1, section, documentation);
         }
     
         [Fact]
-        public void test_addCustomSectionFromAFile() {
+        public void Test_AddCustomSectionFromAFile()
+        {
             DirectoryInfo root = new DirectoryInfo("Documentation" + Path.DirectorySeparatorChar + "structurizr");
     
             Section section = documentation.AddCustomSection(softwareSystem, "Custom Section", 3, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "context.md")));
             AssertSection(softwareSystem, "Custom Section", 3, Format.Markdown, "Context section", 1, section, documentation);
         }
     
-        private void AssertSection(Element element, string type, int group, Format format, string content, int order, Section section, StructurizrDocumentation documentation) {
+        private void AssertSection(Element element, string type, int group, Format format, string content, int order, Section section, StructurizrDocumentation documentation)
+        {
             Assert.True(documentation.Sections.Contains(section));
             Assert.Equal(element, section.Element);
             Assert.Equal(element.Id, section.ElementId);
