@@ -1,4 +1,5 @@
 using System.Runtime.Serialization;
+using Structurizr.Documentation;
 
 namespace Structurizr
 {
@@ -28,7 +29,7 @@ namespace Structurizr
         /// The documentation associated with this workspace.
         /// </summary>
         [DataMember(Name = "documentation", EmitDefaultValue = false)]
-        public Documentation Documentation { get; set; }
+        public Documentation.Documentation Documentation { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Workspace" />class.

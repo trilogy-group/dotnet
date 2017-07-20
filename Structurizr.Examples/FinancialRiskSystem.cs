@@ -1,5 +1,6 @@
 ﻿using Structurizr.Api;
 using System.IO;
+using Structurizr.Documentation;
 
 namespace Structurizr.Examples
 {
@@ -75,9 +76,9 @@ namespace Structurizr.Examples
 
             StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
             DirectoryInfo documentationRoot = new DirectoryInfo("FinancialRiskSystem");
-            documentation.AddContextSection(financialRiskSystem, DocumentationFormat.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "context.adoc")));
-            documentation.AddFunctionalOverviewSection(financialRiskSystem, DocumentationFormat.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "functional-overview.md")));
-            documentation.AddQualityAttributesSection(financialRiskSystem, DocumentationFormat.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "quality-attributes.md")));
+            documentation.AddContextSection(financialRiskSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "context.adoc")));
+            documentation.AddFunctionalOverviewSection(financialRiskSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "functional-overview.md")));
+            documentation.AddQualityAttributesSection(financialRiskSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "quality-attributes.md")));
             documentation.AddImages(documentationRoot);
 
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Structurizr
+namespace Structurizr.Documentation
 {
 
     [DataContract]

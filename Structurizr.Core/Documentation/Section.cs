@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Structurizr
+namespace Structurizr.Documentation
 {
 
     [DataContract]
@@ -45,14 +45,14 @@ namespace Structurizr
         public int Order { get; internal set; }
         
         [DataMember(Name = "format", EmitDefaultValue = true)]
-        public DocumentationFormat Format { get; internal set; }
+        public Format Format { get; internal set; }
 
         [DataMember(Name = "content", EmitDefaultValue = false)]
         public string Content { get; internal set; }
 
         internal Section() { }
 
-        internal Section(Element element, string type, int order, int group, DocumentationFormat format, string content) {
+        internal Section(Element element, string type, int order, int group, Format format, string content) {
             Element = element;
             SectionType = type;
             Order = order;

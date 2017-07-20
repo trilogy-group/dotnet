@@ -6,7 +6,7 @@ using System.Text;
 using Structurizr.Util;
 using Newtonsoft.Json;
 
-namespace Structurizr
+namespace Structurizr.Documentation
 {
 
     /// <summary>
@@ -113,7 +113,7 @@ namespace Structurizr
         /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddCustomSection(string name, int group, DocumentationFormat format, params FileInfo[] files)
+        public Section AddCustomSection(string name, int group, Format format, params FileInfo[] files)
         {
             return AddCustomSection(name, group, format, ReadFiles(files));
         }
@@ -126,7 +126,7 @@ namespace Structurizr
         /// <param name="format">the format of the documentation content</param>
         /// <param name="content">a string containing the documentation content</param>
         /// <returns>a documentation section</returns>
-        public Section AddCustomSection(string name, int group, DocumentationFormat format, string content)
+        public Section AddCustomSection(string name, int group, Format format, string content)
         {
             return AddSection(null, name, group, format, content);
         }
@@ -140,7 +140,7 @@ namespace Structurizr
         /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddCustomSection(SoftwareSystem softwareSystem, string name, int group, DocumentationFormat format, params FileInfo[] files)
+        public Section AddCustomSection(SoftwareSystem softwareSystem, string name, int group, Format format, params FileInfo[] files)
         {
             return AddCustomSection(softwareSystem, name, group, format, ReadFiles(files));
         }
@@ -164,12 +164,12 @@ namespace Structurizr
         /// <param name="format">the format of the documentation content</param>
         /// <param name="content">a string containing the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddCustomSection(SoftwareSystem softwareSystem, string name, int group, DocumentationFormat format, String content)
+        public Section AddCustomSection(SoftwareSystem softwareSystem, string name, int group, Format format, String content)
         {
             return AddSection(softwareSystem, name, group, format, content);
         }
     
-        protected Section AddSection(Element element, string type, int group, DocumentationFormat format, string content)
+        protected Section AddSection(Element element, string type, int group, Format format, string content)
         {
             if (group < 1)
             {

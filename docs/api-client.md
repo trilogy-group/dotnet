@@ -1,6 +1,6 @@
 # API client
 
-This page provides a quick overview of how to use the API client.
+The Structurizr for .NET library includes a client for the [Structurizr web API](https://api.structurizr.com), which allows you to get and put workspaces using JSON over HTTPS. This page provides a quick overview of how to use the API client.
 
 ## Configuration
 

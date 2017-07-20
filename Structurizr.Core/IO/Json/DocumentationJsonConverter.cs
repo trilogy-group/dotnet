@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using Structurizr.Encryption;
 using System;
 using System.Reflection;
+using Structurizr.Documentation;
 
 namespace Structurizr.IO.Json
 {
@@ -10,7 +11,7 @@ namespace Structurizr.IO.Json
     {
         public override bool CanConvert(Type objectType)
         {
-            return typeof(Documentation).GetTypeInfo().IsAssignableFrom(objectType.GetTypeInfo());
+            return typeof(Documentation.Documentation).GetTypeInfo().IsAssignableFrom(objectType.GetTypeInfo());
         }
 
         public override object ReadJson(Newtonsoft.Json.JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
