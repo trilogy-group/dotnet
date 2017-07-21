@@ -59,9 +59,7 @@ namespace Structurizr.IO.PlantUML
         {
             try
             {
-                writer.WriteLine("@startuml");
-
-                writer.WriteLine("title " + view.Name);
+                WriteHeader(view, writer);
 
                 view.Elements
                     .Select(ev => ev.Element)
@@ -93,8 +91,7 @@ namespace Structurizr.IO.PlantUML
 
                 Write(view.Relationships, writer);
 
-                writer.WriteLine("@enduml");
-                writer.WriteLine("");
+                WriteFooter(writer);
             }
             catch (IOException e)
             {
@@ -106,9 +103,7 @@ namespace Structurizr.IO.PlantUML
         {
             try
             {
-                writer.WriteLine("@startuml");
-
-                writer.WriteLine("title " + view.Name);
+                WriteHeader(view, writer);
 
                 view.Elements
                     .Select(ev => ev.Element)
@@ -129,9 +124,7 @@ namespace Structurizr.IO.PlantUML
         {
             try
             {
-                writer.WriteLine("@startuml");
-
-                writer.WriteLine("title " + view.Name);
+                WriteHeader(view, writer);
 
                 view.Elements
                     .Select(ev => ev.Element)
@@ -151,8 +144,7 @@ namespace Structurizr.IO.PlantUML
 
                 Write(view.Relationships, writer);
 
-                writer.WriteLine("@enduml");
-                writer.WriteLine("");
+                WriteFooter(writer);
             }
             catch (IOException e)
             {
@@ -164,9 +156,7 @@ namespace Structurizr.IO.PlantUML
         {
             try
             {
-                writer.WriteLine("@startuml");
-
-                writer.WriteLine("title " + view.Name);
+                WriteHeader(view, writer);
 
                 view.Elements
                     .Select(ev => ev.Element)
@@ -186,8 +176,7 @@ namespace Structurizr.IO.PlantUML
 
                 Write(view.Relationships, writer);
 
-                writer.WriteLine("@enduml");
-                writer.WriteLine("");
+                WriteFooter(writer);
             }
             catch (IOException e)
             {
@@ -199,29 +188,25 @@ namespace Structurizr.IO.PlantUML
         {
             try
             {
-                writer.WriteLine("@startuml");
-
-                writer.WriteLine("title " + view.Name);
+                WriteHeader(view, writer);
 
                 view.Elements
                     .Select(ev => ev.Element)
-                    .Where(e => e is Person)
                     .OrderBy(e => e.Name).ToList()
-                    .ForEach(e => writer.WriteLine("actor " + NameOf(e)));
+                    .ForEach(e => Write(e, writer, false));
 
                 view.Relationships
                     .OrderBy(rv => rv.Order).ToList()
                     .ForEach(r =>
                         writer.WriteLine(
                                 String.Format("{0} -> {1} : {2}",
-                                        NameOf(r.Relationship.Source),
-                                        NameOf(r.Relationship.Destination),
+                                        r.Relationship.Source.Id,
+                                        r.Relationship.Destination.Id,
                                         HasValue(r.Description) ? r.Description : HasValue(r.Relationship.Description) ? r.Relationship.Description : ""
                                 )
                         ));
 
-                writer.WriteLine("@enduml");
-                writer.WriteLine("");
+                WriteFooter(writer);
             }
             catch (IOException e)
             {
@@ -233,23 +218,15 @@ namespace Structurizr.IO.PlantUML
         {
             try
             {
-                if (element is Person) {
-                    writer.WriteLine(
-                            String.Format("{0}actor {1}",
-                                    indent ? "  " : "",
-                                    NameOf(element)
-                            )
-                    );
-                } else {
-                    writer.WriteLine(
-                            String.Format("{0}[{1}] <<{2}>> as {3}",
-                                    indent ? "  " : "",
-                                    element.Name,
-                                    TypeOf(element),
-                                    NameOf(element)
-                            )
-                    );
-                }
+                writer.WriteLine(
+                        String.Format("{0}{1} \"{2}\" <<{3}>> as {4}",
+                                indent ? "  " : "",
+                                element is Person ? "actor" : "component",
+                                element.Name,
+                                TypeOf(element),
+                                element.Id
+                        )
+                );
             }
             catch (IOException e)
             {
@@ -271,8 +248,8 @@ namespace Structurizr.IO.PlantUML
             {
                 writer.WriteLine(
                         String.Format("{0} ..> {1} {2}{3}",
-                                NameOf(relationship.Source),
-                                NameOf(relationship.Destination),
+                                relationship.Source.Id,
+                                relationship.Destination.Id,
                                 HasValue(relationship.Description) ? ": " + relationship.Description : "",
                                 HasValue(relationship.Technology) ? " <<" + relationship.Technology + ">>" : ""
                         )
@@ -316,6 +293,28 @@ namespace Structurizr.IO.PlantUML
         private bool HasValue(string s)
         {
             return s != null && s.Trim().Length > 0;
+        }
+
+        private void WriteHeader(View view, TextWriter writer)
+        {
+            writer.Write("@startuml");
+            writer.Write(Environment.NewLine);
+
+            writer.Write("title " + view.Name);
+            writer.Write(Environment.NewLine);
+    
+            if (!String.IsNullOrEmpty(view.Description))
+            {
+                writer.Write("caption " + view.Description);
+                writer.Write(Environment.NewLine);
+            }
+        }
+
+        private void WriteFooter(TextWriter writer)
+        {
+            writer.Write("@enduml");
+            writer.Write(Environment.NewLine);
+            writer.Write(Environment.NewLine);
         }
 
     }

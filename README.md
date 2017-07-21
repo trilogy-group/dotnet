@@ -56,6 +56,8 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [Structurizr](docs/documentation-structurizr.md)
     * [arc42](docs/documentation-arc42.md)
     * [Viewpoints and Perspectives](docs/documentation-viewpoints-and-perspectives.md)
+* Exporting and visualising with other tools
+    * [PlantUML](docs/plantuml.md)
 * Other
     * [Client-side encryption](docs/client-side-encryption.md)
     * [Corporate branding](docs/corporate-branding.md)
