@@ -10,7 +10,7 @@ namespace Structurizr
     /// A person who uses a software system.
     /// </summary>
     [DataContract]
-    public sealed class Person : Element, IEquatable<Person>
+    public sealed class Person : StaticStructureElement, IEquatable<Person>
     {
 
         /// <summary>
@@ -45,11 +45,11 @@ namespace Structurizr
 
         public override List<string> getRequiredTags()
         {
-            string[] tags = {
+            return new List<string>
+            {
                 Structurizr.Tags.Element,
                 Structurizr.Tags.Person
             };
-            return tags.ToList();
         }
 
         public new Relationship Delivers(Person destination, string description)
@@ -69,26 +69,17 @@ namespace Structurizr
 
         public Relationship InteractsWith(Person destination, string description)
         {
-            Relationship relationship = new Relationship(this, destination, description);
-            Model.AddRelationship(relationship);
-
-            return relationship;
+            return Model.AddRelationship(this, destination, description);
         }
 
         public Relationship InteractsWith(Person destination, string description, string technology)
         {
-            Relationship relationship = new Relationship(this, destination, description, technology);
-            Model.AddRelationship(relationship);
-
-            return relationship;
+            return Model.AddRelationship(this, destination, description, technology);
         }
 
         public Relationship InteractsWith(Person destination, string description, string technology, InteractionStyle interactionStyle)
         {
-            Relationship relationship = new Relationship(this, destination, description, technology, interactionStyle);
-            Model.AddRelationship(relationship);
-
-            return relationship;
+            return Model.AddRelationship(this, destination, description, technology, interactionStyle);
         }
 
         public bool Equals(Person person)

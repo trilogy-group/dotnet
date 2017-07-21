@@ -10,7 +10,7 @@ namespace Structurizr
     /// A software system.
     /// </summary>
     [DataContract]
-    public sealed class SoftwareSystem : Element, IEquatable<SoftwareSystem>
+    public sealed class SoftwareSystem : StaticStructureElement, IEquatable<SoftwareSystem>
     {
 
         /// <summary>
@@ -102,11 +102,11 @@ namespace Structurizr
 
         public override List<string> getRequiredTags()
         {
-            string[] tags = {
+            return new List<string>
+            {
                 Structurizr.Tags.Element,
                 Structurizr.Tags.SoftwareSystem
             };
-            return tags.ToList();
         }
 
         public bool Equals(SoftwareSystem softwareSystem)

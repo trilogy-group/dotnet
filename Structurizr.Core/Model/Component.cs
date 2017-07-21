@@ -10,7 +10,7 @@ namespace Structurizr
     /// A component (a grouping of related functionality behind an interface that runs inside a container).
     /// </summary>
     [DataContract]
-    public sealed class Component : Element, IEquatable<Component>
+    public sealed class Component : StaticStructureElement, IEquatable<Component>
     {
         
         public override Element Parent { get; set; }
@@ -56,11 +56,11 @@ namespace Structurizr
 
         public override List<string> getRequiredTags()
         {
-            string[] tags = {
+            return new List<string>
+            {
                 Structurizr.Tags.Element,
                 Structurizr.Tags.Component
             };
-            return tags.ToList();
         }
 
         /// <summary>

@@ -14,5 +14,7 @@
         public const string Synchronous = "Synchronous";
         public const string Asynchronous = "Asynchronous";
 
+        public const string ContainerInstance = "Container Instance";
+        
     }
 }

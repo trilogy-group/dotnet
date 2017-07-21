@@ -12,7 +12,7 @@ namespace Structurizr
         private List<string> tags = new List<string>();
 
         [DataMember(Name = "tags", EmitDefaultValue = false)]
-        public string Tags
+        public virtual string Tags
         {
             get
             {

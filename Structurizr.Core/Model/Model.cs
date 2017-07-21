@@ -22,14 +22,14 @@ namespace Structurizr
         [DataMember(Name = "softwareSystems", EmitDefaultValue = false)]
         public HashSet<SoftwareSystem> SoftwareSystems { get; }
 
-        private Dictionary<string, Element> elementsById = new Dictionary<string, Element>();
-        private Dictionary<string, Relationship> relationshipsById = new Dictionary<string, Relationship>();
+        private readonly Dictionary<string, Element> _elementsById = new Dictionary<string, Element>();
+        private readonly Dictionary<string, Relationship> _relationshipsById = new Dictionary<string, Relationship>();
 
         public ICollection<Relationship> Relationships
         {
             get
             {
-                return this.relationshipsById.Values;
+                return _relationshipsById.Values;
             }
         }
 
@@ -37,8 +37,8 @@ namespace Structurizr
 
         internal Model()
         {
-            this.People = new HashSet<Person>();
-            this.SoftwareSystems = new HashSet<SoftwareSystem>();
+            People = new HashSet<Person>();
+            SoftwareSystems = new HashSet<SoftwareSystem>();
         }
 
         /// <summary>
@@ -145,26 +145,62 @@ namespace Structurizr
                 return null;
             }
         }
+        
+        internal ContainerInstance AddContainerInstance(Container container) {
+            if (container == null) {
+                throw new ArgumentException("A container must be specified.");
+            }
+
+            long instanceNumber = GetElements().Count(e => e is ContainerInstance && ((ContainerInstance)e).Container.Equals(container));
+            instanceNumber++;
+            ContainerInstance containerInstance = new ContainerInstance(container, (int)instanceNumber);
+            containerInstance.Id = idGenerator.GenerateId(containerInstance);
+
+            // find all ContainerInstance objects
+            IEnumerable<ContainerInstance> containerInstances = GetElements().OfType<ContainerInstance>();
+
+            // and replicate the container-container relationships
+            foreach (ContainerInstance ci in containerInstances)
+            {
+                Container c = ci.Container;
+
+                foreach (Relationship relationship in container.Relationships) {
+                    if (relationship.Destination.Equals(c)) {
+                        AddRelationship(containerInstance, ci, relationship.Description, relationship.Technology, relationship.InteractionStyle);
+                    }
+                }
+
+                foreach (Relationship relationship in c.Relationships) {
+                    if (relationship.Destination.Equals(container)) {
+                        AddRelationship(ci, containerInstance, relationship.Description, relationship.Technology, relationship.InteractionStyle);
+                    }
+                }
+            }
+
+            AddElementToInternalStructures(containerInstance);
+
+            return containerInstance;
+        }
 
         internal Component AddComponent(Container parent, string name, string description, string technology)
         {
-            return this.AddComponent(parent, name, null, null, description, technology);
+            return AddComponent(parent, name, null, null, description, technology);
         }
 
         internal Component AddComponent(Container parent, string name, string type, string description, string technology)
         {
-            return this.AddComponent(parent, name, type, null, description, technology);
+            return AddComponent(parent, name, type, null, description, technology);
         }
 
         internal Component AddComponent(Container parent, string name, Type type, string description, string technology)
         {
             if (type != null)
             {
-                return this.AddComponent(parent, name, type.AssemblyQualifiedName, type, description, technology);
+                return AddComponent(parent, name, type.AssemblyQualifiedName, type, description, technology);
             }
             else
             {
-                return this.AddComponent(parent, name, description, technology);
+                return AddComponent(parent, name, description, technology);
             }
         }
 
@@ -185,7 +221,24 @@ namespace Structurizr
             return component;
         }
 
-        internal void AddRelationship(Relationship relationship)
+        internal Relationship AddRelationship(Element source, Element destination, String description) {
+            return AddRelationship(source, destination, description, null);
+        }
+
+        internal Relationship AddRelationship(Element source, Element destination, String description, String technology) {
+            return AddRelationship(source, destination, description, technology, InteractionStyle.Synchronous);
+        }
+
+        internal Relationship AddRelationship(Element source, Element destination, String description, String technology, InteractionStyle interactionStyle) {
+            Relationship relationship = new Relationship(source, destination, description, technology, interactionStyle);
+            if (AddRelationship(relationship)) {
+                return relationship;
+            }
+            
+            return null;
+        }
+
+        private bool AddRelationship(Relationship relationship)
         {
             if (!relationship.Source.Has(relationship))
             {
@@ -193,12 +246,15 @@ namespace Structurizr
                 relationship.Source.AddRelationship(relationship);
 
                 AddRelationshipToInternalStructures(relationship);
+                return true;
             }
+
+            return false;
         }
 
         private void AddRelationshipToInternalStructures(Relationship relationship)
         {
-            relationshipsById.Add(relationship.Id, relationship);
+            _relationshipsById.Add(relationship.Id, relationship);
             idGenerator.Found(relationship.Id);
         }
 
@@ -251,14 +307,14 @@ namespace Structurizr
 
         private void AddElementToInternalStructures(Element element)
         {
-            elementsById.Add(element.Id, element);
+            _elementsById.Add(element.Id, element);
             element.Model = this;
             idGenerator.Found(element.Id);
         }
 
         public bool Contains(Element element)
         {
-            return this.elementsById.Values.Contains(element);
+            return _elementsById.Values.Contains(element);
         }
 
         internal void Hydrate()
@@ -318,12 +374,17 @@ namespace Structurizr
 
         public Element GetElement(String id)
         {
-            return this.elementsById[id];
+            return _elementsById[id];
+        }
+
+        public IEnumerable<Element> GetElements()
+        {
+            return _elementsById.Values;
         }
 
         public Relationship GetRelationship(String id)
         {
-            return this.relationshipsById[id];
+            return _relationshipsById[id];
         }
 
     }

@@ -10,7 +10,7 @@ namespace Structurizr
     /// A container (something that can execute code or host data).
     /// </summary>
     [DataContract]
-    public sealed class Container : Element, IEquatable<Container>
+    public sealed class Container : StaticStructureElement, IEquatable<Container>
     {
 
         public override Element Parent { get; set; }
@@ -107,11 +107,11 @@ namespace Structurizr
 
         public override List<string> getRequiredTags()
         {
-            string[] tags = {
+            return new List<string>
+            {
                 Structurizr.Tags.Element,
                 Structurizr.Tags.Container
             };
-            return tags.ToList();
         }
 
         public bool Equals(Container container)
