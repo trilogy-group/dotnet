@@ -7,7 +7,7 @@ Structurizr for .NET also includes a simple exporter that can create diagram def
 - Container
 - Component
 - Dynamic
-- Deployment (coming soon)
+- Deployment
 
 Simply create your software architecture model and views as usual, and use the [PlantUMLWriter](https://github.com/structurizr/dotnet/blob/master/Structurizr.Core/IO/PlantUML/PlantUMLWriter.cs) class to export the views. [For example](https://github.com/structurizr/dotnet/blob/master/Structurizr.Examples/PlantUML.cs):
 

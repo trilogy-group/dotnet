@@ -62,6 +62,7 @@ namespace Structurizr
             };
         }
 
+        [DataMember(Name = "tags", EmitDefaultValue = false)]
         public override string Tags
         {
             get { return Container.Tags + "," + base.Tags; }

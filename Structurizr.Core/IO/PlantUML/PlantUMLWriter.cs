@@ -19,57 +19,37 @@ namespace Structurizr.IO.PlantUML
 
         public void Write(Workspace workspace, TextWriter writer)
         {
-            if (workspace != null && writer != null) {
-                workspace.Views.EnterpriseContextViews.ForEach(v => Write(v, writer));
-                workspace.Views.SystemContextViews.ForEach(v => Write(v, writer));
-                workspace.Views.ContainerViews.ForEach(v => Write(v, writer));
-                workspace.Views.ComponentViews.ForEach(v => Write(v, writer));
-                workspace.Views.DynamicViews.ForEach(v => Write(v, writer));
-            }
-        }
-
-        public void Write(View view, TextWriter writer)
-        {
-            if (view != null && writer != null)
+            if (workspace != null && writer != null)
             {
-                if (view is EnterpriseContextView)
-                {
-                    Write((EnterpriseContextView) view, writer);
-                }
-                else if (view is SystemContextView)
-                {
-                    Write((SystemContextView) view, writer);
-                }
-                else if (view is ContainerView)
-                {
-                    Write((ContainerView)view, writer);
-                }
-                else if (view is ComponentView)
-                {
-                    Write((ComponentView)view, writer);
-                }
-                else if (view is DynamicView)
-                {
-                    Write((DynamicView)view, writer);
-                }
+                workspace.Views.EnterpriseContextViews.ToList().ForEach(v => Write(v, writer));
+                workspace.Views.SystemContextViews.ToList().ForEach(v => Write(v, writer));
+                workspace.Views.ContainerViews.ToList().ForEach(v => Write(v, writer));
+                workspace.Views.ComponentViews.ToList().ForEach(v => Write(v, writer));
+                workspace.Views.DynamicViews.ToList().ForEach(v => Write(v as DynamicView, writer));
+                workspace.Views.DeploymentViews.ToList().ForEach(v => Write(v as DeploymentView, writer));
             }
         }
 
-        private void Write(EnterpriseContextView view, TextWriter writer)
+        public void Write(EnterpriseContextView view, TextWriter writer)
         {
+            if (view == null)
+            {
+                throw new ArgumentException("An enterprise context view must be specified.");    
+            }
+            
             try
             {
                 WriteHeader(view, writer);
 
                 view.Elements
                     .Select(ev => ev.Element)
-                    .Where(e => e is Person && ((Person)e).Location == Location.External)
+                    .Where(e => e is Person && ((Person) e).Location == Location.External)
                     .OrderBy(e => e.Name).ToList()
                     .ForEach(e => Write(e, writer, false));
 
                 view.Elements
                     .Select(ev => ev.Element)
-                    .Where(e => e is SoftwareSystem && ((SoftwareSystem)e).Location == Location.External)
+                    .Where(e => e is SoftwareSystem && ((SoftwareSystem) e).Location == Location.External)
                     .OrderBy(e => e.Name).ToList()
                     .ForEach(e => Write(e, writer, false));
 
@@ -77,17 +57,17 @@ namespace Structurizr.IO.PlantUML
 
                 view.Elements
                     .Select(ev => ev.Element)
-                    .Where(e => e is Person && ((Person)e).Location == Location.Internal)
+                    .Where(e => e is Person && ((Person) e).Location == Location.Internal)
                     .OrderBy(e => e.Name).ToList()
                     .ForEach(e => Write(e, writer, true));
 
                 view.Elements
                     .Select(ev => ev.Element)
-                    .Where(e => e is SoftwareSystem && ((SoftwareSystem)e).Location == Location.Internal)
+                    .Where(e => e is SoftwareSystem && ((SoftwareSystem) e).Location == Location.Internal)
                     .OrderBy(e => e.Name).ToList()
                     .ForEach(e => Write(e, writer, true));
 
-                    writer.WriteLine("}");
+                writer.WriteLine("}");
 
                 Write(view.Relationships, writer);
 
@@ -99,8 +79,13 @@ namespace Structurizr.IO.PlantUML
             }
         }
 
-        private void Write(SystemContextView view, TextWriter writer)
+        public void Write(SystemContextView view, TextWriter writer)
         {
+            if (view == null)
+            {
+                throw new ArgumentException("A system context view must be specified.");    
+            }
+            
             try
             {
                 WriteHeader(view, writer);
@@ -120,8 +105,13 @@ namespace Structurizr.IO.PlantUML
             }
         }
 
-        private void Write(ContainerView view, TextWriter writer)
+        public void Write(ContainerView view, TextWriter writer)
         {
+            if (view == null)
+            {
+                throw new ArgumentException("A container view must be specified.");    
+            }
+            
             try
             {
                 WriteHeader(view, writer);
@@ -152,8 +142,13 @@ namespace Structurizr.IO.PlantUML
             }
         }
 
-        private void Write(ComponentView view, TextWriter writer)
+        public void Write(ComponentView view, TextWriter writer)
         {
+            if (view == null)
+            {
+                throw new ArgumentException("A component view must be specified.");    
+            }
+            
             try
             {
                 WriteHeader(view, writer);
@@ -184,8 +179,13 @@ namespace Structurizr.IO.PlantUML
             }
         }
 
-        private void Write(DynamicView view, TextWriter writer)
+        public void Write(DynamicView view, TextWriter writer)
         {
+            if (view == null)
+            {
+                throw new ArgumentException("A dynamic view must be specified.");    
+            }
+            
             try
             {
                 WriteHeader(view, writer);
@@ -199,11 +199,15 @@ namespace Structurizr.IO.PlantUML
                     .OrderBy(rv => rv.Order).ToList()
                     .ForEach(r =>
                         writer.WriteLine(
-                                String.Format("{0} -> {1} : {2}",
-                                        r.Relationship.Source.Id,
-                                        r.Relationship.Destination.Id,
-                                        HasValue(r.Description) ? r.Description : HasValue(r.Relationship.Description) ? r.Relationship.Description : ""
-                                )
+                            String.Format("{0} -> {1} : {2}",
+                                r.Relationship.Source.Id,
+                                r.Relationship.Destination.Id,
+                                HasValue(r.Description)
+                                    ? r.Description
+                                    : HasValue(r.Relationship.Description)
+                                        ? r.Relationship.Description
+                                        : ""
+                            )
                         ));
 
                 WriteFooter(writer);
@@ -214,18 +218,98 @@ namespace Structurizr.IO.PlantUML
             }
         }
 
+        public void Write(DeploymentView view, TextWriter writer)
+        {
+            if (view == null)
+            {
+                throw new ArgumentException("A deployment view must be specified.");    
+            }
+            
+            try
+            {
+                WriteHeader(view, writer);
+
+                view.Elements
+                    .Where(ev => ev.Element is DeploymentNode && ev.Element.Parent == null)
+                    .Select(ev => ev.Element as DeploymentNode)
+                    .OrderBy(e => e.Name).ToList()
+                    .ForEach(e => Write(e, writer, 0));
+
+                Write(view.Relationships, writer);
+
+                WriteFooter(writer);
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+
+        private void Write(DeploymentNode deploymentNode, TextWriter writer, int indent)
+        {
+            writer.Write(
+                String.Format("{0}node \"{1}\" <<{2}>> as {3} {{",
+                    CalculateIndent(indent),
+                    deploymentNode.Name + (deploymentNode.Instances > 1 ? " (x" + deploymentNode.Instances + ")" : ""),
+                    TypeOf(deploymentNode),
+                    deploymentNode.Id
+                )
+            );
+
+            writer.Write(Environment.NewLine);
+
+            foreach (DeploymentNode child in deploymentNode.Children) {
+                Write(child, writer, indent + 1);
+            }
+
+            foreach (ContainerInstance containerInstance in deploymentNode.ContainerInstances) {
+                Write(containerInstance, writer, indent + 1);
+            }
+
+            writer.Write(
+                String.Format("{0}}}", CalculateIndent(indent))
+            );
+            writer.Write(Environment.NewLine);
+        }
+
+        private void Write(ContainerInstance containerInstance, TextWriter writer, int indent)
+        {
+            writer.Write(
+                String.Format("{0}artifact \"{1}\" <<{2}>> as {3}",
+                    CalculateIndent(indent),
+                    containerInstance.Container.Name,
+                    TypeOf(containerInstance),
+                    containerInstance.Id
+                )
+            );
+
+            writer.Write(Environment.NewLine);
+        }
+
+        private string CalculateIndent(int indent)
+        {
+            StringBuilder buf = new StringBuilder();
+
+            for (int i = 0; i < indent; i++)
+            {
+                buf.Append("  ");
+            }
+
+            return buf.ToString();
+        }
+
         private void Write(Element element, TextWriter writer, bool indent)
         {
             try
             {
                 writer.WriteLine(
-                        String.Format("{0}{1} \"{2}\" <<{3}>> as {4}",
-                                indent ? "  " : "",
-                                element is Person ? "actor" : "component",
-                                element.Name,
-                                TypeOf(element),
-                                element.Id
-                        )
+                    String.Format("{0}{1} \"{2}\" <<{3}>> as {4}",
+                        indent ? "  " : "",
+                        element is Person ? "actor" : "component",
+                        element.Name,
+                        TypeOf(element),
+                        element.Id
+                    )
                 );
             }
             catch (IOException e)
@@ -237,9 +321,9 @@ namespace Structurizr.IO.PlantUML
         private void Write(HashSet<RelationshipView> relationships, TextWriter writer)
         {
             relationships
-                    .Select(rv => rv.Relationship)
-                    .OrderBy(r => r.Source.Name + r.Destination.Name).ToList()
-                    .ForEach(r => Write(r, writer));
+                .Select(rv => rv.Relationship)
+                .OrderBy(r => r.Source.Name + r.Destination.Name).ToList()
+                .ForEach(r => Write(r, writer));
         }
 
         private void Write(Relationship relationship, TextWriter writer)
@@ -247,12 +331,12 @@ namespace Structurizr.IO.PlantUML
             try
             {
                 writer.WriteLine(
-                        String.Format("{0} ..> {1} {2}{3}",
-                                relationship.Source.Id,
-                                relationship.Destination.Id,
-                                HasValue(relationship.Description) ? ": " + relationship.Description : "",
-                                HasValue(relationship.Technology) ? " <<" + relationship.Technology + ">>" : ""
-                        )
+                    String.Format("{0} ..> {1} {2}{3}",
+                        relationship.Source.Id,
+                        relationship.Destination.Id,
+                        HasValue(relationship.Description) ? ": " + relationship.Description : "",
+                        HasValue(relationship.Technology) ? " <<" + relationship.Technology + ">>" : ""
+                    )
                 );
             }
             catch (IOException e)
@@ -271,23 +355,49 @@ namespace Structurizr.IO.PlantUML
             if (s != null)
             {
                 return s.Replace(" ", "")
-                        .Replace("-", "");
+                    .Replace("-", "");
             }
-            else {
+            else
+            {
                 return "";
             }
         }
 
         private string TypeOf(Element e)
         {
-            if (e is SoftwareSystem) {
-                return "Software System";
-            } else if (e is Component) {
-                Component component = (Component)e;
-                return HasValue(component.Technology) ? component.Technology : "Component";
-            } else {
-                return e.GetType().Name;
+            if (e is Person)
+            {
+                return "Person";
             }
+
+            if (e is SoftwareSystem)
+            {
+                return "Software System";
+            }
+
+            if (e is Container)
+            {
+                return "Container";
+            }
+
+            if (e is Component)
+            {
+                Component component = (Component) e;
+                return HasValue(component.Technology) ? component.Technology : "Component";
+            }
+
+            if (e is DeploymentNode)
+            {
+                DeploymentNode deploymentNode = (DeploymentNode) e;
+                return HasValue(deploymentNode.Technology) ? deploymentNode.Technology : "Deployment Node";
+            }
+
+            if (e is ContainerInstance)
+            {
+                return "Container";
+            }
+
+            return "";
         }
 
         private bool HasValue(string s)

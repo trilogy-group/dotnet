@@ -10,30 +10,31 @@ As an example, a Deployment diagram for the live environment of a simplified, fi
 
 ![An example Deployment diagram](images/deployment-diagram-1.png)
 
-With Structurizr for Java, you can create this diagram with code like the following:
+With Structurizr for .NET, you can create this diagram with code like the following:
 
-```java
-DeploymentNode liveWebServer = model.addDeploymentNode("bigbank-web***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 8, MapUtils.create("Location=London"));
-liveWebServer.addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"))
-    .add(webApplication);
+```c#
+DeploymentNode liveWebServer = model.AddDeploymentNode("bigbank-web***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 8, DictionaryUtils.Create("Location=London"));
+liveWebServer.AddDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, DictionaryUtils.Create("Xmx=512M", "Xms=1024M", "Java Version=8"))
+    .Add(webApplication);
+    
+DeploymentNode primaryDatabaseServer = model.AddDeploymentNode("bigbank-db01", "The primary database server.", "Ubuntu 16.04 LTS", 1, DictionaryUtils.Create("Location=London"))
+    .AddDeploymentNode("Oracle - Primary", "The primary, live database server.", "Oracle 12c");
+primaryDatabaseServer.Add(database);
+    
+DeploymentNode secondaryDatabaseServer = model.AddDeploymentNode("bigbank-db02", "The secondary database server.", "Ubuntu 16.04 LTS", 1, DictionaryUtils.Create("Location=Reading"))
+    .AddDeploymentNode("Oracle - Secondary", "A secondary, standby database server, used for failover purposes only.", "Oracle 12c");
+ContainerInstance secondaryDatabase = secondaryDatabaseServer.Add(database);
 
-DeploymentNode primaryDatabaseServer = model.addDeploymentNode("bigbank-db01", "The primary database server.", "Ubuntu 16.04 LTS", 1, MapUtils.create("Location=London"))
-    .addDeploymentNode("Oracle - Primary", "The primary, live database server.", "Oracle 12c");
-primaryDatabaseServer.add(database);
 
-DeploymentNode secondaryDatabaseServer = model.addDeploymentNode("bigbank-db02", "The secondary database server.", "Ubuntu 16.04 LTS", 1, MapUtils.create("Location=Reading"))
-    .addDeploymentNode("Oracle - Secondary", "A secondary, standby database server, used for failover purposes only.", "Oracle 12c");
-ContainerInstance secondaryDatabase = secondaryDatabaseServer.add(database);
+model.Relationships.Where(r => r.Destination.Equals(secondaryDatabase)).ToList().ForEach(r => r.AddTags("Failover"));
+Relationship dataReplicationRelationship = primaryDatabaseServer.Uses(secondaryDatabaseServer, "Replicates data to", "");
+secondaryDatabase.AddTags("Failover");
 
-model.getRelationships().stream().filter(r -> r.getDestination().equals(secondaryDatabase)).forEach(r -> r.addTags("Failover"));
-Relationship dataReplicationRelationship = primaryDatabaseServer.uses(secondaryDatabaseServer, "Replicates data to", "");
-secondaryDatabase.addTags("Failover");
-
-DeploymentView liveDeploymentView = views.createDeploymentView(internetBankingSystem, "LiveDeployment", "An example live deployment scenario for the Internet Banking System.");
-liveDeploymentView.add(liveWebServer);
-liveDeploymentView.add(primaryDatabaseServer);
-liveDeploymentView.add(secondaryDatabaseServer);
-liveDeploymentView.add(dataReplicationRelationship);
+DeploymentView liveDeploymentView = views.CreateDeploymentView(internetBankingSystem, "LiveDeployment", "An example live deployment scenario for the Internet Banking System.");
+liveDeploymentView.Add(liveWebServer);
+liveDeploymentView.Add(primaryDatabaseServer);
+liveDeploymentView.Add(secondaryDatabaseServer);
+liveDeploymentView.Add(dataReplicationRelationship);
 ```
 
-See [BigBankPlc.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/BigBankPlc.java) for the full code, and [https://structurizr.com/share/36141#LiveDeployment](https://structurizr.com/share/36141#LiveDeployment) for the diagram.
+See [BigBankPlc.cs](https://github.com/structurizr/dotnet/blob/master/Structurizr.Examples/BigBankPlc.cs) for the full code, and [https://structurizr.com/share/36141#LiveDeployment](https://structurizr.com/share/36141#LiveDeployment) for the diagram.

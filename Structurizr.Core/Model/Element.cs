@@ -33,6 +33,21 @@ namespace Structurizr
         [DataMember(Name = "description", EmitDefaultValue = false)]
         public string Description { get; set; }
 
+        private Dictionary<string, string> _properties = new Dictionary<string, string>();
+
+        /// <summary>
+        /// The collection of name-value property pairs associated with this element, as a Dictionary.
+        /// </summary>
+        [DataMember(Name = "properties", EmitDefaultValue = false)]
+        public Dictionary<string, string> Properties
+        {
+            get
+            {
+                return new Dictionary<string, string>(_properties);
+            }
+            internal set { _properties = value; }
+        }
+        
         private string _url;
 
         /// <summary>
@@ -73,12 +88,12 @@ namespace Structurizr
 
         internal Element()
         {
-            this.Relationships = new HashSet<Relationship>();
+            Relationships = new HashSet<Relationship>();
         }
 
         internal void AddRelationship(Relationship relationship)
         {
-            this.Relationships.Add(relationship);
+            Relationships.Add(relationship);
         }
 
         public bool Has(Relationship relationship)
@@ -132,6 +147,24 @@ namespace Structurizr
         protected string FormatForCanonicalName(String name)
         {
             return name.Replace(CanonicalNameSeparator, "");
+        }
+
+        /// <summary>
+        /// Adds a name-value pair property to this element. 
+        /// </summary>
+        /// <param name="name">the name of the property</param>
+        /// <param name="value">the value of the property</param>
+        /// <exception cref="IllegalArgumentException"></exception>
+        public void AddProperty(string name, string value) {
+            if (String.IsNullOrEmpty(name)) {
+                throw new ArgumentException("A property name must be specified.");
+            }
+
+            if (String.IsNullOrEmpty(value)) {
+                throw new ArgumentException("A property value must be specified.");
+            }
+
+            Properties[name] = value;
         }
 
         public override string ToString()

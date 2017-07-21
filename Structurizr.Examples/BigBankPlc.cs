@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using Structurizr.Api;
+using Structurizr.Core.Util;
 using Structurizr.Documentation;
 using Structurizr.Util;
 
@@ -22,7 +23,7 @@ namespace Structurizr.Examples
 
         private const string DatabaseTag = "Database";
 
-        private static Workspace create(bool usePaidFeatures)
+        private static Workspace Create(bool usePaidFeatures)
         {
             Workspace workspace = new Workspace("Big Bank plc", "This is an example workspace to illustrate the key features of Structurizr, based around a fictional online banking system.");
             Model model = workspace.Model;
@@ -71,31 +72,30 @@ namespace Structurizr.Examples
             mainframeBankingSystemFacade.Uses(mainframeBankingSystem, "Uses", "XML/HTTPS");
     
             // deployment nodes and container instances
-// todo            
-//            DeploymentNode developerLaptop = model.AddDeploymentNode("Developer Laptop", "A developer laptop.", "Windows 7 or 10");
-//            developerLaptop.AddDeploymentNode("Docker Container - Web Server", "A Docker container.", "Docker")
-//                .AddDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, MapUtils.Create("Xmx=512M", "Xms=1024M", "Java Version=8"))
-//                .Add(webApplication);
-//    
-//            developerLaptop.AddDeploymentNode("Docker Container - Database Server", "A Docker container.", "Docker")
-//                .AddDeploymentNode("Database Server", "A development database.", "Oracle 12c")
-//                .Add(database);
-//    
-//            DeploymentNode liveWebServer = model.AddDeploymentNode("bigbank-web***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 8, MapUtils.Create("Location=London"));
-//            liveWebServer.AddDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, MapUtils.Create("Xmx=512M", "Xms=1024M", "Java Version=8"))
-//                    .Add(webApplication);
-//    
-//            DeploymentNode primaryDatabaseServer = model.AddDeploymentNode("bigbank-db01", "The primary database server.", "Ubuntu 16.04 LTS", 1, MapUtils.Create("Location=London"))
-//                    .AddDeploymentNode("Oracle - Primary", "The primary, live database server.", "Oracle 12c");
-//            primaryDatabaseServer.Add(database);
-//    
-//            DeploymentNode secondaryDatabaseServer = model.AddDeploymentNode("bigbank-db02", "The secondary database server.", "Ubuntu 16.04 LTS", 1, MapUtils.Create("Location=Reading"))
-//                    .AddDeploymentNode("Oracle - Secondary", "A secondary, standby database server, used for failover purposes only.", "Oracle 12c");
-//            ContainerInstance secondaryDatabase = secondaryDatabaseServer.Add(database);
-//    
-//            model.getRelationships().stream().filter(r -> r.getDestination().equals(secondaryDatabase)).forEach(r -> r.AddTags("Failover"));
-//            Relationship dataReplicationRelationship = primaryDatabaseServer.Uses(secondaryDatabaseServer, "Replicates data to", "");
-//            secondaryDatabase.AddTags("Failover");
+            DeploymentNode developerLaptop = model.AddDeploymentNode("Developer Laptop", "A developer laptop.", "Windows 7 or 10");
+            developerLaptop.AddDeploymentNode("Docker Container - Web Server", "A Docker container.", "Docker")
+                .AddDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, DictionaryUtils.Create("Xmx=512M", "Xms=1024M", "Java Version=8"))
+                .Add(webApplication);
+    
+            developerLaptop.AddDeploymentNode("Docker Container - Database Server", "A Docker container.", "Docker")
+                .AddDeploymentNode("Database Server", "A development database.", "Oracle 12c")
+                .Add(database);
+    
+            DeploymentNode liveWebServer = model.AddDeploymentNode("bigbank-web***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 8, DictionaryUtils.Create("Location=London"));
+            liveWebServer.AddDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, DictionaryUtils.Create("Xmx=512M", "Xms=1024M", "Java Version=8"))
+                    .Add(webApplication);
+    
+            DeploymentNode primaryDatabaseServer = model.AddDeploymentNode("bigbank-db01", "The primary database server.", "Ubuntu 16.04 LTS", 1, DictionaryUtils.Create("Location=London"))
+                    .AddDeploymentNode("Oracle - Primary", "The primary, live database server.", "Oracle 12c");
+            primaryDatabaseServer.Add(database);
+    
+            DeploymentNode secondaryDatabaseServer = model.AddDeploymentNode("bigbank-db02", "The secondary database server.", "Ubuntu 16.04 LTS", 1, DictionaryUtils.Create("Location=Reading"))
+                    .AddDeploymentNode("Oracle - Secondary", "A secondary, standby database server, used for failover purposes only.", "Oracle 12c");
+            ContainerInstance secondaryDatabase = secondaryDatabaseServer.Add(database);
+    
+            model.Relationships.Where(r => r.Destination.Equals(secondaryDatabase)).ToList().ForEach(r => r.AddTags("Failover"));
+            Relationship dataReplicationRelationship = primaryDatabaseServer.Uses(secondaryDatabaseServer, "Replicates data to", "");
+            secondaryDatabase.AddTags("Failover");
     
             // views/diagrams
             EnterpriseContextView enterpriseContextView = views.CreateEnterpriseContextView("EnterpriseContext", "The system context diagram for the Internet Banking System.");
@@ -128,17 +128,16 @@ namespace Structurizr.Examples
                 dynamicView.Add(securityComponent, "select * from users u where username = ?", database);
                 dynamicView.PaperSize = PaperSize.A5_Landscape;
     
-// todo                
-//                DeploymentView developmentDeploymentView = views.CreateDeploymentView(internetBankingSystem, "DevelopmentDeployment", "An example development deployment scenario for the Internet Banking System.");
-//                developmentDeploymentView.Add(developerLaptop);
-//                developmentDeploymentView.setPaperSize(PaperSize.A5_Landscape);
-//    
-//                DeploymentView liveDeploymentView = views.CreateDeploymentView(internetBankingSystem, "LiveDeployment", "An example live deployment scenario for the Internet Banking System.");
-//                liveDeploymentView.Add(liveWebServer);
-//                liveDeploymentView.Add(primaryDatabaseServer);
-//                liveDeploymentView.Add(secondaryDatabaseServer);
-//                liveDeploymentView.Add(dataReplicationRelationship);
-//                liveDeploymentView.setPaperSize(PaperSize.A5_Landscape);
+                DeploymentView developmentDeploymentView = views.CreateDeploymentView(internetBankingSystem, "DevelopmentDeployment", "An example development deployment scenario for the Internet Banking System.");
+                developmentDeploymentView.Add(developerLaptop);
+                developmentDeploymentView.PaperSize = PaperSize.A5_Landscape;
+    
+                DeploymentView liveDeploymentView = views.CreateDeploymentView(internetBankingSystem, "LiveDeployment", "An example live deployment scenario for the Internet Banking System.");
+                liveDeploymentView.Add(liveWebServer);
+                liveDeploymentView.Add(primaryDatabaseServer);
+                liveDeploymentView.Add(secondaryDatabaseServer);
+                liveDeploymentView.Add(dataReplicationRelationship);
+                liveDeploymentView.PaperSize = PaperSize.A5_Landscape;
     
                 Branding branding = views.Configuration.Branding;
                 branding.Logo = ImageUtils.GetImageAsDataUri(new FileInfo("structurizr-logo.png"));
@@ -188,7 +187,7 @@ namespace Structurizr.Examples
         static void Main()
         {
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
-            structurizrClient.PutWorkspace(WorkspaceId, create(true));
+            structurizrClient.PutWorkspace(WorkspaceId, Create(true));
         }
         
     }

@@ -19,37 +19,43 @@ namespace Structurizr
         /// The set of enterprise context views.
         /// </summary>
         [DataMember(Name = "enterpriseContextViews", EmitDefaultValue = false)]
-        public List<EnterpriseContextView> EnterpriseContextViews { get; set; }
+        public ICollection<EnterpriseContextView> EnterpriseContextViews { get; set; }
 
         /// <summary>
         /// The set of system context views.
         /// </summary>
         [DataMember(Name = "systemContextViews", EmitDefaultValue = false)]
-        public List<SystemContextView> SystemContextViews { get; set; }
+        public ISet<SystemContextView> SystemContextViews { get; set; }
 
         /// <summary>
         /// The set of container views.
         /// </summary>
         [DataMember(Name = "containerViews", EmitDefaultValue = false)]
-        public List<ContainerView> ContainerViews { get; set; }
+        public ISet<ContainerView> ContainerViews { get; set; }
 
         /// <summary>
         /// The set of component views.
         /// </summary>
         [DataMember(Name = "componentViews", EmitDefaultValue = false)]
-        public List<ComponentView> ComponentViews { get; set; }
+        public ISet<ComponentView> ComponentViews { get; set; }
 
         /// <summary>
         /// The set of dynamic views.
         /// </summary>
         [DataMember(Name = "dynamicViews", EmitDefaultValue = false)]
-        public List<DynamicView> DynamicViews { get; set; }
+        public ISet<DynamicView> DynamicViews { get; set; }
+
+        /// <summary>
+        /// The set of deployment views.
+        /// </summary>
+        [DataMember(Name = "deploymentViews", EmitDefaultValue = false)]
+        public ISet<DeploymentView> DeploymentViews { get; set; }
 
         /// <summary>
         /// The set of filtered views.
         /// </summary>
         [DataMember(Name = "filteredViews", EmitDefaultValue = false)]
-        public List<FilteredView> FilteredViews { get; set; }
+        public ISet<FilteredView> FilteredViews { get; set; }
 
         /// <summary>
         /// The configuration object associated with this set of views.
@@ -59,19 +65,20 @@ namespace Structurizr
 
         internal ViewSet()
         {
-            this.EnterpriseContextViews = new List<EnterpriseContextView>();
-            this.SystemContextViews = new List<SystemContextView>();
-            this.ContainerViews = new List<ContainerView>();
-            this.ComponentViews = new List<ComponentView>();
-            this.DynamicViews = new List<DynamicView>();
-            this.FilteredViews = new List<FilteredView>();
+            EnterpriseContextViews = new HashSet<EnterpriseContextView>();
+            SystemContextViews = new HashSet<SystemContextView>();
+            ContainerViews = new HashSet<ContainerView>();
+            ComponentViews = new HashSet<ComponentView>();
+            DynamicViews = new HashSet<DynamicView>();
+            DeploymentViews = new HashSet<DeploymentView>();
+            FilteredViews = new HashSet<FilteredView>();
 
-            this.Configuration = new Configuration();
+            Configuration = new Configuration();
         }
 
         internal ViewSet(Model model) : this()
         {
-            this.Model = model;
+            Model = model;
         }
 
         public EnterpriseContextView CreateEnterpriseContextView(string key, string description)
@@ -88,7 +95,7 @@ namespace Structurizr
             AssertThatTheViewKeyIsUnique(key);
 
             SystemContextView view = new SystemContextView(softwareSystem, key, description);
-            this.SystemContextViews.Add(view);
+            SystemContextViews.Add(view);
 
             return view;
         }
@@ -124,10 +131,7 @@ namespace Structurizr
 
         public DynamicView CreateDynamicView(SoftwareSystem softwareSystem, string key, string description)
         {
-            if (softwareSystem == null)
-            {
-                throw new ArgumentException("Software system must not be null.");
-            }
+            AssertThatTheSoftwareSystemIsNotNull(softwareSystem);
             AssertThatTheViewKeyIsUnique(key);
 
             DynamicView view = new DynamicView(softwareSystem, key, description);
@@ -137,10 +141,7 @@ namespace Structurizr
 
         public DynamicView CreateDynamicView(Container container, string key, string description)
         {
-            if (container == null)
-            {
-                throw new ArgumentException("Container must not be null.");
-            }
+            AssertThatTheContainerIsNotNull(container);
             AssertThatTheViewKeyIsUnique(key);
 
             DynamicView view = new DynamicView(container, key, description);
@@ -148,6 +149,35 @@ namespace Structurizr
             return view;
         }
         
+        /// <summary>
+        /// Creates a deployment view.
+        /// </summary>
+        /// <returns>a DeploymentView object</returns>
+        public DeploymentView CreateDeploymentView(String key, String description) {
+            AssertThatTheViewKeyIsUnique(key);
+
+            DeploymentView view = new DeploymentView(Model, key, description);
+            DeploymentViews.Add(view);
+            return view;
+        }
+
+        /// <summary>
+        /// Creates a deployment view, where the scope of the view is the specified software system.
+        /// </summary>
+        /// <param name="softwareSystem">the SoftwareSystem object representing the scope of the view</param>
+        /// <param name="key">the key for the deployment view (must be unique)</param>
+        /// <param name="description">a description of the  view</param>
+        /// <returns>a DeploymentView object</returns>
+        public DeploymentView CreateDeploymentView(SoftwareSystem softwareSystem, String key, String description) {
+            AssertThatTheSoftwareSystemIsNotNull(softwareSystem);
+            AssertThatTheViewKeyIsUnique(key);
+
+            DeploymentView view = new DeploymentView(softwareSystem, key, description);
+            DeploymentViews.Add(view);
+            return view;
+        }
+
+
         /// <summary>
         /// Creates a FilteredView on top of an existing static view. 
         /// </summary>
@@ -175,6 +205,22 @@ namespace Structurizr
             }
         }
         
+        private void AssertThatTheSoftwareSystemIsNotNull(SoftwareSystem softwareSystem)
+        {
+            if (softwareSystem == null)
+            {
+                throw new ArgumentException("Software system must not be null.");
+            }
+        }
+
+        private void AssertThatTheContainerIsNotNull(Container container)
+        {
+            if (container == null)
+            {
+                throw new ArgumentException("Container must not be null.");
+            }
+        }
+
         public void Hydrate()
         {
             foreach (EnterpriseContextView view in EnterpriseContextViews)
@@ -203,6 +249,16 @@ namespace Structurizr
 
             foreach (DynamicView view in DynamicViews)
             {
+                view.Model = Model;
+                HydrateView(view);
+            }
+            
+            foreach (DeploymentView view in DeploymentViews)
+            {
+                if (!String.IsNullOrEmpty(view.SoftwareSystemId))
+                {
+                    view.SoftwareSystem = Model.GetSoftwareSystemWithId(view.SoftwareSystemId);
+                }
                 view.Model = Model;
                 HydrateView(view);
             }
@@ -271,6 +327,15 @@ namespace Structurizr
                     destinationView.CopyLayoutInformationFrom(sourceView);
                 }
             }
+            
+            foreach (DeploymentView sourceView in source.DeploymentViews)
+            {
+                DeploymentView destinationView = FindDeploymentView(sourceView);
+                if (destinationView != null)
+                {
+                    destinationView.CopyLayoutInformationFrom(sourceView);
+                }
+            }
         }
 
         private EnterpriseContextView FindEnterpriseContextView(EnterpriseContextView enterpriseContextView)
@@ -296,6 +361,11 @@ namespace Structurizr
         private DynamicView FindDynamicView(DynamicView dynamicView)
         {
             return DynamicViews.FirstOrDefault(view => view.Key == dynamicView.Key);
+        }
+
+        private DeploymentView FindDeploymentView(DeploymentView deploymentView)
+        {
+            return DeploymentViews.FirstOrDefault(view => view.Key == deploymentView.Key);
         }
 
         /// <summary>
@@ -341,6 +411,14 @@ namespace Structurizr
             }
 
             foreach (DynamicView view in DynamicViews)
+            {
+                if (view.Key.Equals(key))
+                {
+                    return view;
+                }
+            }
+
+            foreach (DeploymentView view in DeploymentViews)
             {
                 if (view.Key.Equals(key))
                 {

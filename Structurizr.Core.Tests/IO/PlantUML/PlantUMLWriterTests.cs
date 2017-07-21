@@ -30,16 +30,6 @@ namespace Structurizr.Core.Tests.IO.PlantUML
         }
 
         [Fact]
-        public void Test_WriteView_DoesNotThrowAnExceptionWhenPassedNullParameters()
-        {
-            PopulateWorkspace();
-
-            _plantUMLWriter.Write((Structurizr.View)null, null);
-            _plantUMLWriter.Write(_workspace.Views.EnterpriseContextViews.First(), null);
-            _plantUMLWriter.Write((Structurizr.View)null, _stringWriter);
-        }
-
-        [Fact]
         public void test_writeWorkspace()
         {
             PopulateWorkspace();
@@ -109,21 +99,21 @@ namespace Structurizr.Core.Tests.IO.PlantUML
                     "12 -> 14 : Uses" + Environment.NewLine +
                     "14 -> 8 : select * from something" + Environment.NewLine +
                     "@enduml" + Environment.NewLine +
-//                    "" + Environment.NewLine +
-//                    "@startuml" + Environment.NewLine +
-//                    "title Software System - Deployment" + Environment.NewLine +
-//                    "node \"Database Server\" <<Ubuntu 12.04 LTS>> as 23 {" + Environment.NewLine +
-//                    "  node \"MySQL\" <<MySQL 5.5.x>> as 24 {" + Environment.NewLine +
-//                    "    artifact \"Database\" <<Container>> as 25" + Environment.NewLine +
-//                    "  }" + Environment.NewLine +
-//                    "}" + Environment.NewLine +
-//                    "node \"Web Server\" <<Ubuntu 12.04 LTS>> as 20 {" + Environment.NewLine +
-//                    "  node \"Apache Tomcat\" <<Apache Tomcat 8.x>> as 21 {" + Environment.NewLine +
-//                    "    artifact \"Web Application\" <<Container>> as 22" + Environment.NewLine +
-//                    "  }" + Environment.NewLine +
-//                    "}" + Environment.NewLine +
-//                    "22 ..> 25 : Reads from and writes to <<JDBC>>" + Environment.NewLine +
-//                    "@enduml" + Environment.NewLine +
+                    "" + Environment.NewLine +
+                    "@startuml" + Environment.NewLine +
+                    "title Software System - Deployment" + Environment.NewLine +
+                    "node \"Database Server\" <<Ubuntu 12.04 LTS>> as 23 {" + Environment.NewLine +
+                    "  node \"MySQL\" <<MySQL 5.5.x>> as 24 {" + Environment.NewLine +
+                    "    artifact \"Database\" <<Container>> as 25" + Environment.NewLine +
+                    "  }" + Environment.NewLine +
+                    "}" + Environment.NewLine +
+                    "node \"Web Server\" <<Ubuntu 12.04 LTS>> as 20 {" + Environment.NewLine +
+                    "  node \"Apache Tomcat\" <<Apache Tomcat 8.x>> as 21 {" + Environment.NewLine +
+                    "    artifact \"Web Application\" <<Container>> as 22" + Environment.NewLine +
+                    "  }" + Environment.NewLine +
+                    "}" + Environment.NewLine +
+                    "22 ..> 25 : Reads from and writes to <<JDBC>>" + Environment.NewLine +
+                    "@enduml" + Environment.NewLine +
                     Environment.NewLine, _stringWriter.ToString());
         }
     
@@ -243,31 +233,30 @@ namespace Structurizr.Core.Tests.IO.PlantUML
                     Environment.NewLine, _stringWriter.ToString());
         }
  
-        // todo
-//        [Fact]
-//        public void test_writeDeploymentView()
-//        {
-//            PopulateWorkspace();
-//    
-//            DeploymentView deploymentView = _workspace.Views.DeploymentViews.First();
-//            _plantUMLWriter.Write(deploymentView, _stringWriter);
-//    
-//            Assert.Equal("@startuml" + Environment.NewLine +
-//                    "title Software System - Deployment" + Environment.NewLine +
-//                    "node \"Database Server\" <<Ubuntu 12.04 LTS>> as 23 {" + Environment.NewLine +
-//                    "  node \"MySQL\" <<MySQL 5.5.x>> as 24 {" + Environment.NewLine +
-//                    "    artifact \"Database\" <<Container>> as 25" + Environment.NewLine +
-//                    "  }" + Environment.NewLine +
-//                    "}" + Environment.NewLine +
-//                    "node \"Web Server\" <<Ubuntu 12.04 LTS>> as 20 {" + Environment.NewLine +
-//                    "  node \"Apache Tomcat\" <<Apache Tomcat 8.x>> as 21 {" + Environment.NewLine +
-//                    "    artifact \"Web Application\" <<Container>> as 22" + Environment.NewLine +
-//                    "  }" + Environment.NewLine +
-//                    "}" + Environment.NewLine +
-//                    "22 ..> 25 : Reads from and writes to <<JDBC>>" + Environment.NewLine +
-//                    "@enduml" + Environment.NewLine +
-//                    Environment.NewLine, _stringWriter.ToString());
-//        }
+        [Fact]
+        public void test_writeDeploymentView()
+        {
+            PopulateWorkspace();
+    
+            DeploymentView deploymentView = _workspace.Views.DeploymentViews.First();
+            _plantUMLWriter.Write(deploymentView, _stringWriter);
+    
+            Assert.Equal("@startuml" + Environment.NewLine +
+                    "title Software System - Deployment" + Environment.NewLine +
+                    "node \"Database Server\" <<Ubuntu 12.04 LTS>> as 23 {" + Environment.NewLine +
+                    "  node \"MySQL\" <<MySQL 5.5.x>> as 24 {" + Environment.NewLine +
+                    "    artifact \"Database\" <<Container>> as 25" + Environment.NewLine +
+                    "  }" + Environment.NewLine +
+                    "}" + Environment.NewLine +
+                    "node \"Web Server\" <<Ubuntu 12.04 LTS>> as 20 {" + Environment.NewLine +
+                    "  node \"Apache Tomcat\" <<Apache Tomcat 8.x>> as 21 {" + Environment.NewLine +
+                    "    artifact \"Web Application\" <<Container>> as 22" + Environment.NewLine +
+                    "  }" + Environment.NewLine +
+                    "}" + Environment.NewLine +
+                    "22 ..> 25 : Reads from and writes to <<JDBC>>" + Environment.NewLine +
+                    "@enduml" + Environment.NewLine +
+                    Environment.NewLine, _stringWriter.ToString());
+        }
     
         private void PopulateWorkspace()
         {
@@ -298,13 +287,12 @@ namespace Structurizr.Core.Tests.IO.PlantUML
             repository.Uses(database, "Reads from and writes to", "JDBC");
             emailComponent.Uses(emailSystem, "Sends e-mails using", "SMTP");
 
-            // todo
-//            DeploymentNode webServer = model.AddDeploymentNode("Web Server", "A server hosted at AWS EC2.", "Ubuntu 12.04 LTS");
-//            webServer.AddDeploymentNode("Apache Tomcat", "The live web server", "Apache Tomcat 8.x")
-//                    .Add(webApplication);
-//            DeploymentNode databaseServer = model.AddDeploymentNode("Database Server", "A server hosted at AWS EC2.", "Ubuntu 12.04 LTS");
-//            databaseServer.AddDeploymentNode("MySQL", "The live database server", "MySQL 5.5.x")
-//                    .Add(database);
+            DeploymentNode webServer = model.AddDeploymentNode("Web Server", "A server hosted at AWS EC2.", "Ubuntu 12.04 LTS");
+            webServer.AddDeploymentNode("Apache Tomcat", "The live web server", "Apache Tomcat 8.x")
+                    .Add(webApplication);
+            DeploymentNode databaseServer = model.AddDeploymentNode("Database Server", "A server hosted at AWS EC2.", "Ubuntu 12.04 LTS");
+            databaseServer.AddDeploymentNode("MySQL", "The live database server", "MySQL 5.5.x")
+                    .Add(database);
     
             EnterpriseContextView
                 enterpriseContextView = views.CreateEnterpriseContextView("enterpriseContext", "");
@@ -324,9 +312,8 @@ namespace Structurizr.Core.Tests.IO.PlantUML
             dynamicView.Add(controller, repository);
             dynamicView.Add(repository, "select * from something", database);
 
-            // todo
-//            DeploymentView deploymentView = views.CreateDeploymentView(softwareSystem, "deployment", "");
-//            deploymentView.AddAllDeploymentNodes();
+            DeploymentView deploymentView = views.CreateDeploymentView(softwareSystem, "deployment", "");
+            deploymentView.AddAllDeploymentNodes();
         }
 
     }

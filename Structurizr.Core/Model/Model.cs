@@ -22,6 +22,9 @@ namespace Structurizr
         [DataMember(Name = "softwareSystems", EmitDefaultValue = false)]
         public HashSet<SoftwareSystem> SoftwareSystems { get; }
 
+        [DataMember(Name = "deploymentNodes", EmitDefaultValue = false)]
+        public HashSet<DeploymentNode> DeploymentNodes { get; }
+
         private readonly Dictionary<string, Element> _elementsById = new Dictionary<string, Element>();
         private readonly Dictionary<string, Relationship> _relationshipsById = new Dictionary<string, Relationship>();
 
@@ -33,12 +36,13 @@ namespace Structurizr
             }
         }
 
-        private SequentialIntegerIdGeneratorStrategy idGenerator = new SequentialIntegerIdGeneratorStrategy();
+        private readonly SequentialIntegerIdGeneratorStrategy _idGenerator = new SequentialIntegerIdGeneratorStrategy();
 
         internal Model()
         {
             People = new HashSet<Person>();
             SoftwareSystems = new HashSet<SoftwareSystem>();
+            DeploymentNodes = new HashSet<DeploymentNode>();
         }
 
         /// <summary>
@@ -72,7 +76,7 @@ namespace Structurizr
 
                 SoftwareSystems.Add(softwareSystem);
 
-                softwareSystem.Id = idGenerator.GenerateId(softwareSystem);
+                softwareSystem.Id = _idGenerator.GenerateId(softwareSystem);
                 AddElementToInternalStructures(softwareSystem);
 
                 return softwareSystem;
@@ -114,7 +118,7 @@ namespace Structurizr
 
                 People.Add(person);
 
-                person.Id = idGenerator.GenerateId(person);
+                person.Id = _idGenerator.GenerateId(person);
                 AddElementToInternalStructures(person);
 
                 return person;
@@ -136,7 +140,7 @@ namespace Structurizr
                 container.Parent = parent;
                 parent.Add(container);
 
-                container.Id = idGenerator.GenerateId(container);
+                container.Id = _idGenerator.GenerateId(container);
                 AddElementToInternalStructures(container);
 
                 return container;
@@ -154,7 +158,7 @@ namespace Structurizr
             long instanceNumber = GetElements().Count(e => e is ContainerInstance && ((ContainerInstance)e).Container.Equals(container));
             instanceNumber++;
             ContainerInstance containerInstance = new ContainerInstance(container, (int)instanceNumber);
-            containerInstance.Id = idGenerator.GenerateId(containerInstance);
+            containerInstance.Id = _idGenerator.GenerateId(containerInstance);
 
             // find all ContainerInstance objects
             IEnumerable<ContainerInstance> containerInstances = GetElements().OfType<ContainerInstance>();
@@ -215,21 +219,71 @@ namespace Structurizr
             component.Parent = parent;
             parent.Add(component);
 
-            component.Id = idGenerator.GenerateId(component);
+            component.Id = _idGenerator.GenerateId(component);
             AddElementToInternalStructures(component);
 
             return component;
         }
 
-        internal Relationship AddRelationship(Element source, Element destination, String description) {
+        public DeploymentNode AddDeploymentNode(string name, string description, string technology) {
+            return AddDeploymentNode(name, description, technology, 1);
+        }
+
+        public DeploymentNode AddDeploymentNode(string name, string description, string technology, int instances) {
+            return AddDeploymentNode(name, description, technology, instances, null);
+        }
+
+        public DeploymentNode AddDeploymentNode(string name, string description, string technology, int instances, Dictionary<string,string> properties) {
+            return AddDeploymentNode(null, name, description, technology, instances, properties);
+        }
+
+        internal DeploymentNode AddDeploymentNode(DeploymentNode parent, string name, string description, string technology, int instances, Dictionary<string,string> properties) {
+            if ((parent == null && GetDeploymentNodeWithName(name) == null) || (parent != null && parent.GetDeploymentNodeWithName(name) == null)) {
+                DeploymentNode deploymentNode = new DeploymentNode
+                {
+                    Name = name,
+                    Description = description,
+                    Technology = technology,
+                    Parent = parent,
+                    Instances = instances
+                };
+                
+                if (properties != null) {
+                    deploymentNode.Properties = properties;
+                }
+
+                if (parent == null) {
+                    DeploymentNodes.Add(deploymentNode);
+                }
+
+                deploymentNode.Id = _idGenerator.GenerateId(deploymentNode);
+                AddElementToInternalStructures(deploymentNode);
+
+                return deploymentNode;
+            } else {
+                throw new ArgumentException("A deployment node named '" + name + "' already exists.");
+            }
+        }
+        
+        /// <summary>
+        /// Gets the DeploymentNode with the specified name.
+        /// </summary>
+        /// <param name="name">the name of the deployment node</param>
+        /// <returns>the DeploymentNode instance with the specified name (or null if it doesn't exist)</returns>
+        public DeploymentNode GetDeploymentNodeWithName(string name)
+        {
+            return DeploymentNodes.FirstOrDefault(dn => dn.Name.Equals(name));
+        }
+
+        internal Relationship AddRelationship(Element source, Element destination, string description) {
             return AddRelationship(source, destination, description, null);
         }
 
-        internal Relationship AddRelationship(Element source, Element destination, String description, String technology) {
+        internal Relationship AddRelationship(Element source, Element destination, string description, string technology) {
             return AddRelationship(source, destination, description, technology, InteractionStyle.Synchronous);
         }
 
-        internal Relationship AddRelationship(Element source, Element destination, String description, String technology, InteractionStyle interactionStyle) {
+        internal Relationship AddRelationship(Element source, Element destination, string description, string technology, InteractionStyle interactionStyle) {
             Relationship relationship = new Relationship(source, destination, description, technology, interactionStyle);
             if (AddRelationship(relationship)) {
                 return relationship;
@@ -242,7 +296,7 @@ namespace Structurizr
         {
             if (!relationship.Source.Has(relationship))
             {
-                relationship.Id = idGenerator.GenerateId(relationship);
+                relationship.Id = _idGenerator.GenerateId(relationship);
                 relationship.Source.AddRelationship(relationship);
 
                 AddRelationshipToInternalStructures(relationship);
@@ -255,7 +309,7 @@ namespace Structurizr
         private void AddRelationshipToInternalStructures(Relationship relationship)
         {
             _relationshipsById.Add(relationship.Id, relationship);
-            idGenerator.Found(relationship.Id);
+            _idGenerator.Found(relationship.Id);
         }
 
         /// <summary>
@@ -309,7 +363,7 @@ namespace Structurizr
         {
             _elementsById.Add(element.Id, element);
             element.Model = this;
-            idGenerator.Found(element.Id);
+            _idGenerator.Found(element.Id);
         }
 
         public bool Contains(Element element)
@@ -319,6 +373,7 @@ namespace Structurizr
 
         internal void Hydrate()
         {
+            
             // add all of the elements to the model
             foreach (Person person in People)
             {
@@ -342,6 +397,8 @@ namespace Structurizr
                 }
             }
 
+            DeploymentNodes.ToList().ForEach(dn => HydrateDeploymentNode(dn, null));
+
             // now hydrate the relationships
             foreach (Person person in People)
             {
@@ -360,6 +417,29 @@ namespace Structurizr
                     }
                 }
             }
+            
+            DeploymentNodes.ToList().ForEach(HydrateDeploymentNodeRelationships);
+        }
+
+        private void HydrateDeploymentNode(DeploymentNode deploymentNode, DeploymentNode parent)
+        {
+            deploymentNode.Parent = parent;
+            AddElementToInternalStructures(deploymentNode);
+
+            deploymentNode.Children.ToList().ForEach(child => HydrateDeploymentNode(child, deploymentNode));
+
+            foreach (ContainerInstance containerInstance in deploymentNode.ContainerInstances)
+            {
+                containerInstance.Container = (Container)GetElement(containerInstance.ContainerId);
+                AddElementToInternalStructures(containerInstance);
+            }
+        }
+        
+        private void HydrateDeploymentNodeRelationships(DeploymentNode deploymentNode)
+        {
+            HydrateRelationships(deploymentNode);
+            deploymentNode.Children.ToList().ForEach(HydrateDeploymentNodeRelationships);
+            deploymentNode.ContainerInstances.ToList().ForEach(HydrateRelationships);
         }
 
         private void HydrateRelationships(Element element)
@@ -372,7 +452,7 @@ namespace Structurizr
             }
         }
 
-        public Element GetElement(String id)
+        public Element GetElement(string id)
         {
             return _elementsById[id];
         }
@@ -382,7 +462,7 @@ namespace Structurizr
             return _elementsById.Values;
         }
 
-        public Relationship GetRelationship(String id)
+        public Relationship GetRelationship(string id)
         {
             return _relationshipsById[id];
         }
