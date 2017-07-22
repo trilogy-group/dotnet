@@ -22,6 +22,9 @@ namespace Structurizr
 
         private DeploymentNode _parent;
 
+        /// <summary>
+        /// The parent DeploymentNode, or null if there is no parent.
+        /// </summary>
         public override Element Parent
         {
             get { return _parent; }
@@ -34,11 +37,17 @@ namespace Structurizr
         [DataMember(Name = "instances", EmitDefaultValue = false)]
         public int Instances { get; set; }
         
+        /// <summary>
+        /// The set of child deployment nodes.
+        /// </summary>
         [DataMember(Name = "children", EmitDefaultValue = false)]
-        public HashSet<DeploymentNode> Children { get; internal set; }
+        public ISet<DeploymentNode> Children { get; internal set; }
 
+        /// <summary>
+        /// The set of container instances associated with this deployment node.
+        /// </summary>
         [DataMember(Name = "containerInstances", EmitDefaultValue = false)]
-        public HashSet<ContainerInstance> ContainerInstances { get; internal set; }
+        public ISet<ContainerInstance> ContainerInstances { get; internal set; }
 
         internal DeploymentNode()
         {
@@ -94,14 +103,38 @@ namespace Structurizr
             return containerInstance;
         }
 
+        /// <summary>
+        /// Adds a child deployment node.
+        /// </summary>
+        /// <param name="name">the name of the deployment node</param>
+        /// <param name="description">a short description</param>
+        /// <param name="technology">the technology</param>
+        /// <returns></returns>
         public DeploymentNode AddDeploymentNode(string name, string description, string technology) {
             return AddDeploymentNode(name, description, technology, 1);
         }
     
+        /// <summary>
+        /// Adds a child deployment node.
+        /// </summary>
+        /// <param name="name">the name of the deployment node</param>
+        /// <param name="description">a short description</param>
+        /// <param name="technology">the technology</param>
+        /// <param name="instances">the number of  instances</param>
+        /// <returns></returns>
         public DeploymentNode AddDeploymentNode(string name, string description, string technology, int instances) {
             return AddDeploymentNode(name, description, technology, instances, null);
         }
     
+        /// <summary>
+        /// Adds a child deployment node.
+        /// </summary>
+        /// <param name="name">the name of the deployment node</param>
+        /// <param name="description">a short description</param>
+        /// <param name="technology">the technology</param>
+        /// <param name="instances">the number of  instances</param>
+        /// <param name="properties">a Dictionary (string,string) describing name=value properties</param>
+        /// <returns></returns>
         public DeploymentNode AddDeploymentNode(string name, string description, string technology, int instances, Dictionary<string,string> properties) {
             DeploymentNode deploymentNode = Model.AddDeploymentNode(this, name, description, technology, instances, properties);
             if (deploymentNode != null) {
@@ -118,19 +151,24 @@ namespace Structurizr
         /// <returns>the DeploymentNode instance with the specified name (or null if it doesn't exist)</returns>
         public DeploymentNode GetDeploymentNodeWithName(string name)
         {
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("A name must be specified.");
+            }
+
             return Children.FirstOrDefault(dn => dn.Name.Equals(name));
         }
 
+        /// <summary>
+        /// Adds a relationship between this and another deployment node.
+        /// </summary>
+        /// <param name="destination">the destination DeploymentNode</param>
+        /// <param name="description">a short description of the relationship</param>
+        /// <param name="technology">the technology</param>
+        /// <returns>a Relationship object</returns>
         public Relationship Uses(DeploymentNode destination, string description, string technology)
         {
-            if (destination != null)
-            {
-                return Model.AddRelationship(this, destination, description, technology);
-            }
-            else
-            {
-                throw new ArgumentException("The destination of a relationship must be specified.");
-            }
+            return Model.AddRelationship(this, destination, description, technology);
         }
 
     }

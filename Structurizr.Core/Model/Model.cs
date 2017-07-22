@@ -284,6 +284,11 @@ namespace Structurizr
         }
 
         internal Relationship AddRelationship(Element source, Element destination, string description, string technology, InteractionStyle interactionStyle) {
+            if (destination == null)
+            {
+                throw new ArgumentException("The destination must be specified.");
+            }
+            
             Relationship relationship = new Relationship(source, destination, description, technology, interactionStyle);
             if (AddRelationship(relationship)) {
                 return relationship;
