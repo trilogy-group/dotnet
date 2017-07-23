@@ -1,56 +1,58 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Structurizr.Documentation;
 using Xunit;
 
 namespace Structurizr.Core.Tests.Documentation
 {
-    public class ViewpointsAndPerspectivesDocumentationTests
+    public class ViewpointsAndPerspectivesDocumentationTests : AbstractTestBase
     {
 
-        private SoftwareSystem softwareSystem;
-        private ViewpointsAndPerspectivesDocumentation documentation;
+        private SoftwareSystem _softwareSystem;
+        private ViewpointsAndPerspectivesDocumentation _template;
 
         public ViewpointsAndPerspectivesDocumentationTests()
         {
-            Workspace workspace = new Workspace("Name", "Description");
-            softwareSystem = workspace.Model.AddSoftwareSystem("Name", "Description");
+            _softwareSystem = Model.AddSoftwareSystem("Name", "Description");
     
-            documentation = new ViewpointsAndPerspectivesDocumentation(workspace);
+            _template = new ViewpointsAndPerspectivesDocumentation(Workspace);
         }
 
         [Fact]
-        public void Test_Construction()
-        {
-            Assert.True(documentation.Sections.Count == 0);
-            Assert.True(documentation.Images.Count == 0);
-            Assert.True(documentation.IsEmpty());
+        public void Test_Construction_ThrowsAnException_WhenANullWorkspaceIsSpecified() {
+            try {
+                new StructurizrDocumentationTemplate(null);
+                throw new TestFailedException();
+            } catch (ArgumentException ae) {
+                Assert.Equal("A workspace must be specified.", ae.Message);
+            }
         }
-
+    
         [Fact]
         public void Test_AddAllSectionsWithContentAsStrings()
         {
             Section section;
     
-            section = documentation.AddIntroductionSection(softwareSystem, Format.Markdown, "Section 1");
-            AssertSection(softwareSystem, "Introduction", Format.Markdown, "Section 1", 1, section, documentation);
+            section = _template.AddIntroductionSection(_softwareSystem, Format.Markdown, "Section 1");
+            AssertSection(_softwareSystem, "Introduction", Format.Markdown, "Section 1", 1, section);
     
-            section = documentation.AddGlossarySection(softwareSystem, Format.Markdown, "Section 2");
-            AssertSection(softwareSystem, "Glossary", Format.Markdown, "Section 2", 2, section, documentation);
+            section = _template.AddGlossarySection(_softwareSystem, Format.Markdown, "Section 2");
+            AssertSection(_softwareSystem, "Glossary", Format.Markdown, "Section 2", 2, section);
     
-            section = documentation.AddSystemStakeholdersAndRequirementsSection(softwareSystem, Format.Markdown, "Section 3");
-            AssertSection(softwareSystem, "System Stakeholders and Requirements", Format.Markdown, "Section 3", 3, section, documentation);
+            section = _template.AddSystemStakeholdersAndRequirementsSection(_softwareSystem, Format.Markdown, "Section 3");
+            AssertSection(_softwareSystem, "System Stakeholders and Requirements", Format.Markdown, "Section 3", 3, section);
     
-            section = documentation.AddArchitecturalForcesSection(softwareSystem, Format.Markdown, "Section 4");
-            AssertSection(softwareSystem, "Architectural Forces", Format.Markdown, "Section 4", 4, section, documentation);
+            section = _template.AddArchitecturalForcesSection(_softwareSystem, Format.Markdown, "Section 4");
+            AssertSection(_softwareSystem, "Architectural Forces", Format.Markdown, "Section 4", 4, section);
     
-            section = documentation.AddArchitecturalViewsSection(softwareSystem, Format.Markdown, "Section 5");
-            AssertSection(softwareSystem, "Architectural Views", Format.Markdown, "Section 5", 5, section, documentation);
+            section = _template.AddArchitecturalViewsSection(_softwareSystem, Format.Markdown, "Section 5");
+            AssertSection(_softwareSystem, "Architectural Views", Format.Markdown, "Section 5", 5, section);
     
-            section = documentation.AddSystemQualitiesSection(softwareSystem, Format.Markdown, "Section 6");
-            AssertSection(softwareSystem, "System Qualities", Format.Markdown, "Section 6", 6, section, documentation);
+            section = _template.AddSystemQualitiesSection(_softwareSystem, Format.Markdown, "Section 6");
+            AssertSection(_softwareSystem, "System Qualities", Format.Markdown, "Section 6", 6, section);
     
-            section = documentation.AddAppendicesSection(softwareSystem, Format.Markdown, "Section 7");
-            AssertSection(softwareSystem, "Appendices", Format.Markdown, "Section 7", 7, section, documentation);
+            section = _template.AddAppendicesSection(_softwareSystem, Format.Markdown, "Section 7");
+            AssertSection(_softwareSystem, "Appendices", Format.Markdown, "Section 7", 7, section);
         }
     
         [Fact]
@@ -59,31 +61,31 @@ namespace Structurizr.Core.Tests.Documentation
             Section section;
             DirectoryInfo root = new DirectoryInfo("Documentation" + Path.DirectorySeparatorChar + "viewpointsandperspectives");
     
-            section = documentation.AddIntroductionSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "01-introduction.md")));
-            AssertSection(softwareSystem, "Introduction", Format.Markdown, "Section 1", 1, section, documentation);
+            section = _template.AddIntroductionSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "01-introduction.md")));
+            AssertSection(_softwareSystem, "Introduction", Format.Markdown, "Section 1", 1, section);
     
-            section = documentation.AddGlossarySection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "02-glossary.md")));
-            AssertSection(softwareSystem, "Glossary", Format.Markdown, "Section 2", 2, section, documentation);
+            section = _template.AddGlossarySection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "02-glossary.md")));
+            AssertSection(_softwareSystem, "Glossary", Format.Markdown, "Section 2", 2, section);
     
-            section = documentation.AddSystemStakeholdersAndRequirementsSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "03-system-stakeholders-and-requirements.md")));
-            AssertSection(softwareSystem, "System Stakeholders and Requirements", Format.Markdown, "Section 3", 3, section, documentation);
+            section = _template.AddSystemStakeholdersAndRequirementsSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "03-system-stakeholders-and-requirements.md")));
+            AssertSection(_softwareSystem, "System Stakeholders and Requirements", Format.Markdown, "Section 3", 3, section);
     
-            section = documentation.AddArchitecturalForcesSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "04-architectural-forces.md")));
-            AssertSection(softwareSystem, "Architectural Forces", Format.Markdown, "Section 4", 4, section, documentation);
+            section = _template.AddArchitecturalForcesSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "04-architectural-forces.md")));
+            AssertSection(_softwareSystem, "Architectural Forces", Format.Markdown, "Section 4", 4, section);
     
-            section = documentation.AddArchitecturalViewsSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "05-architectural-views.md")));
-            AssertSection(softwareSystem, "Architectural Views", Format.Markdown, "Section 5", 5, section, documentation);
+            section = _template.AddArchitecturalViewsSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "05-architectural-views.md")));
+            AssertSection(_softwareSystem, "Architectural Views", Format.Markdown, "Section 5", 5, section);
     
-            section = documentation.AddSystemQualitiesSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "06-system-qualities.md")));
-            AssertSection(softwareSystem, "System Qualities", Format.Markdown, "Section 6", 6, section, documentation);
+            section = _template.AddSystemQualitiesSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "06-system-qualities.md")));
+            AssertSection(_softwareSystem, "System Qualities", Format.Markdown, "Section 6", 6, section);
     
-            section = documentation.AddAppendicesSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "07-appendices.md")));
-            AssertSection(softwareSystem, "Appendices", Format.Markdown, "Section 7", 7, section, documentation);
+            section = _template.AddAppendicesSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "07-appendices.md")));
+            AssertSection(_softwareSystem, "Appendices", Format.Markdown, "Section 7", 7, section);
         }
     
-        private void AssertSection(Element element, string type, Format format, string content, int order, Section section, ViewpointsAndPerspectivesDocumentation documentation)
+        private void AssertSection(Element element, string type, Format format, string content, int order, Section section)
         {
-            Assert.True(documentation.Sections.Contains(section));
+            Assert.True(Workspace.Documentation.Sections.Contains(section));
             Assert.Equal(element, section.Element);
             Assert.Equal(element.Id, section.ElementId);
             Assert.Equal(type, section.SectionType);

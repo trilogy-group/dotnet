@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using Newtonsoft.Json;
 
 namespace Structurizr.Documentation
 {
@@ -23,17 +22,10 @@ namespace Structurizr.Documentation
     /// The number in parentheses () represents the grouping, which is simply used to colour code
     /// section navigation buttons when rendered.
     /// </summary>
-    public class Arc42Documentation : Documentation
+    public class Arc42DocumentationTemplate : DocumentationTemplate
     {
         
-        public override string Type => "arc42";
-
-        [JsonConstructor]
-        internal Arc42Documentation()
-        {
-        }
-
-        public Arc42Documentation(Workspace workspace) : base(workspace)
+        public Arc42DocumentationTemplate(Workspace workspace) : base(workspace)
         {
         }
         

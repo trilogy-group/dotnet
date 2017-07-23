@@ -16,10 +16,10 @@ The documentation is broken up into a number of sections, as defined by the temp
 
 ## Custom sections
 
-You can add custom sections using the ```AddCustomSection``` method on the [Documentation](https://github.com/structurizr/dotnet/blob/master/Structurizr.Core/Documentation/Documentation.cs) class, by specifying the section name (a string) and group (an integer, 1-5; this is used for colour coding section navigation buttons):
+You can add custom sections using the ```AddCustomSection``` method on the [DocumentationTemplate](https://github.com/structurizr/dotnet/blob/master/Structurizr.Core/Documentation/DocumentationTemplate.cs) class, by specifying the section name (a string) and group (an integer, 1-5; this is used for colour coding section navigation buttons):
 
 ```c#
-documentation.AddCustomSection(softwareSystem, "My custom section", 3, Format.Markdown, ...);
+template.AddCustomSection(softwareSystem, "My custom section", 3, Format.Markdown, ...);
 ```
 
 ## Images
@@ -28,10 +28,10 @@ Images can be included using the regular Markdown/AsciiDoc syntax.
 
 ![Including images](images/documentation-2.png)
 
-For this to work, the image files must be hosted externally (e.g. on your own web server, ideally accessible via HTTPS) or uploaded with your workspace using the ```AddImages()``` or ```AddImage()``` methods on the [Documentation](https://github.com/structurizr/dotnet/blob/master/Structurizr.Core/Documentation/Documentation.cs) class.
+For this to work, the image files must be hosted externally (e.g. on your own web server, ideally accessible via HTTPS) or uploaded with your workspace using the ```AddImages()``` or ```AddImage()``` methods on the [DocumentationTemplate](https://github.com/structurizr/dotnet/blob/master/Structurizr.Core/Documentation/DocumentationTemplate.cs) class.
 
 ```c#
-documentation.AddImages(new DirectoryInfo("..."));
+template.AddImages(new DirectoryInfo("..."));
 ```
 
 See [functional-overview.md](https://raw.githubusercontent.com/structurizr/dotnet/master/Structurizr.Examples/FinancialRiskSystem/functional-overview.md) and [FinancialRiskSystem](https://github.com/structurizr/dotnet/blob/master/Structurizr.Examples/FinancialRiskSystem.cs) for an example.

@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using Newtonsoft.Json;
 
 namespace Structurizr.Documentation
 {
@@ -22,16 +21,9 @@ namespace Structurizr.Documentation
     /// The number in parentheses () represents the grouping, which is simply used to colour code
     /// section navigation buttons when rendered.
     /// </summary>
-    public class ViewpointsAndPerspectivesDocumentation : Documentation
+    public class ViewpointsAndPerspectivesDocumentation : DocumentationTemplate
     {
         
-        public override string Type => "viewpoints-and-perspectives";
-
-        [JsonConstructor]
-        internal ViewpointsAndPerspectivesDocumentation()
-        {
-        }
-
         public ViewpointsAndPerspectivesDocumentation(Workspace workspace) : base(workspace)
         {
         }

@@ -37,12 +37,12 @@ namespace Structurizr.Examples
             Styles styles = views.Configuration.Styles;
             styles.Add(new ElementStyle(Tags.Person) { Shape = Shape.Person });
     
-            StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
-            documentation.AddContextSection(softwareSystem, Format.Markdown, "Here is some context about the software system...\n\n![](embed:SystemContext)");
-            documentation.AddQualityAttributesSection(softwareSystem, Format.Markdown, "Here is some information about the quality attributes...");
-            documentation.AddSoftwareArchitectureSection(softwareSystem, Format.Markdown, "Here is some information about the software architecture...");
-            documentation.AddOperationAndSupportSection(softwareSystem, Format.Markdown, "Here is some information about how to operate and support the software...");
-            documentation.AddDecisionLogSection(softwareSystem, Format.Markdown, "Here is some information about the decisions made...");
+            StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
+            template.AddContextSection(softwareSystem, Format.Markdown, "Here is some context about the software system...\n\n![](embed:SystemContext)");
+            template.AddQualityAttributesSection(softwareSystem, Format.Markdown, "Here is some information about the quality attributes...");
+            template.AddSoftwareArchitectureSection(softwareSystem, Format.Markdown, "Here is some information about the software architecture...");
+            template.AddOperationAndSupportSection(softwareSystem, Format.Markdown, "Here is some information about how to operate and support the software...");
+            template.AddDecisionLogSection(softwareSystem, Format.Markdown, "Here is some information about the decisions made...");
     
             Branding branding = views.Configuration.Branding;
             branding.Color1 = new ColorPair("#02172c", "#ffffff");

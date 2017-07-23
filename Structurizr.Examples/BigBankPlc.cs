@@ -156,28 +156,28 @@ namespace Structurizr.Examples
     
             // documentation
             // - usually the documentation would be included from separate Markdown/AsciiDoc files, but this is just an example
-            StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
-            documentation.AddContextSection(internetBankingSystem, Format.Markdown,
+            StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
+            template.AddContextSection(internetBankingSystem, Format.Markdown,
                     "Here is some context about the Internet Banking System...\n" +
                     "![](embed:EnterpriseContext)\n" +
                     "![](embed:SystemContext)\n" +
                     "### Internet Banking System\n...\n" +
                     "### Mainframe Banking System\n...\n");
-            documentation.AddContainersSection(internetBankingSystem, Format.Markdown,
+            template.AddContainersSection(internetBankingSystem, Format.Markdown,
                     "Here is some information about the containers within the Internet Banking System...\n" +
                     "![](embed:Containers)\n" +
                     "### Web Application\n...\n" +
                     "### Database\n...\n");
-            documentation.AddComponentsSection(webApplication, Format.Markdown,
+            template.AddComponentsSection(webApplication, Format.Markdown,
                     "Here is some information about the Web Application...\n" +
                     "![](embed:Components)\n" +
                     "### Sign in process\n" +
                     "Here is some information about the Sign In Controller, including how the sign in process works...\n" +
                     "![](embed:SignIn)");
-            documentation.AddDevelopmentEnvironmentSection(internetBankingSystem, Format.AsciiDoc,
+            template.AddDevelopmentEnvironmentSection(internetBankingSystem, Format.AsciiDoc,
                     "Here is some information about how to set up a development environment for the Internet Banking System...\n" +
                     "image::embed:DevelopmentDeployment[]");
-            documentation.AddDeploymentSection(internetBankingSystem, Format.AsciiDoc,
+            template.AddDeploymentSection(internetBankingSystem, Format.AsciiDoc,
                     "Here is some information about the live deployment environment for the Internet Banking System...\n" +
                     "image::embed:LiveDeployment[]");
     

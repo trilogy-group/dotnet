@@ -74,12 +74,12 @@ namespace Structurizr.Examples
             styles.Add(new ElementStyle("Future State") { Opacity = 30, Border = Border.Dashed });
             styles.Add(new RelationshipStyle("Future State") { Opacity = 30, Dashed = true });
 
-            StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
+            StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
             DirectoryInfo documentationRoot = new DirectoryInfo("FinancialRiskSystem");
-            documentation.AddContextSection(financialRiskSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "context.adoc")));
-            documentation.AddFunctionalOverviewSection(financialRiskSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "functional-overview.md")));
-            documentation.AddQualityAttributesSection(financialRiskSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "quality-attributes.md")));
-            documentation.AddImages(documentationRoot);
+            template.AddContextSection(financialRiskSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "context.adoc")));
+            template.AddFunctionalOverviewSection(financialRiskSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "functional-overview.md")));
+            template.AddQualityAttributesSection(financialRiskSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "quality-attributes.md")));
+            template.AddImages(documentationRoot);
 
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
             structurizrClient.PutWorkspace(WorkspaceId, workspace);

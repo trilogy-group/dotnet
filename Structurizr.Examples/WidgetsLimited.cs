@@ -67,10 +67,10 @@ namespace Structurizr.Examples
             dynamicView.Add(customer, customerServiceUser);
             dynamicView.Add(customerServiceUser, ecommerceSystem);
     
-            StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
-            documentation.AddCustomSection("Enterprise Context", 1, Format.Markdown, "Here is some information about the Widgets Limited enterprise context... ![](embed:EnterpriseContext)");
-            documentation.AddContextSection(ecommerceSystem, Format.Markdown, "This is the context section for the E-commerce System... ![](embed:EcommerceSystemContext)");
-            documentation.AddContextSection(fulfilmentSystem, Format.Markdown, "This is the context section for the Fulfilment System... ![](embed:FulfilmentSystemContext)");
+            StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
+            template.AddCustomSection("Enterprise Context", 1, Format.Markdown, "Here is some information about the Widgets Limited enterprise context... ![](embed:EnterpriseContext)");
+            template.AddContextSection(ecommerceSystem, Format.Markdown, "This is the context section for the E-commerce System... ![](embed:EcommerceSystemContext)");
+            template.AddContextSection(fulfilmentSystem, Format.Markdown, "This is the context section for the Fulfilment System... ![](embed:FulfilmentSystemContext)");
 
             styles.Add(new ElementStyle(Tags.SoftwareSystem) { Shape = Shape.RoundedBox });
             styles.Add(new ElementStyle(Tags.Person) { Shape = Shape.Person });

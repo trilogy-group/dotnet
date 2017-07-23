@@ -14,7 +14,6 @@ namespace Structurizr.IO.Json
                 ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
                 Converters = new List<JsonConverter> {
                     new Newtonsoft.Json.Converters.StringEnumConverter(),
-                    new DocumentationJsonConverter(),
                     new PaperSizeJsonConverter()
                 }
             };

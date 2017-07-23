@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.IO;
+﻿using System.IO;
 
 namespace Structurizr.Documentation
 {
@@ -28,17 +27,10 @@ namespace Structurizr.Documentation
     /// The number in parentheses () represents the grouping, which is simply used to colour code
     /// section navigation buttons when rendered.
     /// </summary>
-    public class StructurizrDocumentation : Documentation
+    public class StructurizrDocumentationTemplate : DocumentationTemplate
     {
 
-        public override string Type => "structurizr";
-
-        [JsonConstructor]
-        internal StructurizrDocumentation()
-        {
-        }
-
-        public StructurizrDocumentation(Workspace workspace) : base(workspace)
+        public StructurizrDocumentationTemplate(Workspace workspace) : base(workspace)
         {
         }
 

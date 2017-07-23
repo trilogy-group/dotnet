@@ -37,37 +37,37 @@ namespace Structurizr.Examples
             Styles styles = views.Configuration.Styles;
             styles.Add(new ElementStyle(Tags.Person) { Shape = Shape.Person });
 
-            StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
+            StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
 
             // this is the Markdown version
             DirectoryInfo documentationRoot = new DirectoryInfo("Documentation" + Path.DirectorySeparatorChar + "structurizr" + Path.DirectorySeparatorChar + "markdown");
-            documentation.AddContextSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "01-context.md")));
-            documentation.AddFunctionalOverviewSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "02-functional-overview.md")));
-            documentation.AddQualityAttributesSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "03-quality-attributes.md")));
-            documentation.AddConstraintsSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "04-constraints.md")));
-            documentation.AddPrinciplesSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "05-principles.md")));
-            documentation.AddSoftwareArchitectureSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "06-software-architecture.md")));
-            documentation.AddDataSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "07-data.md")));
-            documentation.AddInfrastructureArchitectureSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "08-infrastructure-architecture.md")));
-            documentation.AddDeploymentSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "09-deployment.md")));
-            documentation.AddDevelopmentEnvironmentSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "10-development-environment.md")));
-            documentation.AddOperationAndSupportSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "11-operation-and-support.md")));
-            documentation.AddDecisionLogSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "12-decision-log.md")));
+            template.AddContextSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "01-context.md")));
+            template.AddFunctionalOverviewSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "02-functional-overview.md")));
+            template.AddQualityAttributesSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "03-quality-attributes.md")));
+            template.AddConstraintsSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "04-constraints.md")));
+            template.AddPrinciplesSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "05-principles.md")));
+            template.AddSoftwareArchitectureSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "06-software-architecture.md")));
+            template.AddDataSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "07-data.md")));
+            template.AddInfrastructureArchitectureSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "08-infrastructure-architecture.md")));
+            template.AddDeploymentSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "09-deployment.md")));
+            template.AddDevelopmentEnvironmentSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "10-development-environment.md")));
+            template.AddOperationAndSupportSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "11-operation-and-support.md")));
+            template.AddDecisionLogSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "12-decision-log.md")));
 
             // this is the AsciiDoc version
 //            DirectoryInfo documentationRoot = new DirectoryInfo("Documentation" + Path.DirectorySeparatorChar + "structurizr" + Path.DirectorySeparatorChar + "asciidoc");
-//            documentation.AddContextSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "01-context.adoc")));
-//            documentation.AddFunctionalOverviewSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "02-functional-overview.adoc")));
-//            documentation.AddQualityAttributesSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "03-quality-attributes.adoc")));
-//            documentation.AddConstraintsSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "04-constraints.adoc")));
-//            documentation.AddPrinciplesSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "05-principles.adoc")));
-//            documentation.AddSoftwareArchitectureSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "06-software-architecture.adoc")));
-//            documentation.AddDataSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "07-data.adoc")));
-//            documentation.AddInfrastructureArchitectureSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "08-infrastructure-architecture.adoc")));
-//            documentation.AddDeploymentSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "09-deployment.adoc")));
-//            documentation.AddDevelopmentEnvironmentSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "10-development-environment.adoc")));
-//            documentation.AddOperationAndSupportSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "11-operation-and-support.adoc")));
-//            documentation.AddDecisionLogSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "12-decision-log.adoc")));
+//            template.AddContextSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "01-context.adoc")));
+//            template.AddFunctionalOverviewSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "02-functional-overview.adoc")));
+//            template.AddQualityAttributesSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "03-quality-attributes.adoc")));
+//            template.AddConstraintsSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "04-constraints.adoc")));
+//            template.AddPrinciplesSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "05-principles.adoc")));
+//            template.AddSoftwareArchitectureSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "06-software-architecture.adoc")));
+//            template.AddDataSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "07-data.adoc")));
+//            template.AddInfrastructureArchitectureSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "08-infrastructure-architecture.adoc")));
+//            template.AddDeploymentSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "09-deployment.adoc")));
+//            template.AddDevelopmentEnvironmentSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "10-development-environment.adoc")));
+//            template.AddOperationAndSupportSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "11-operation-and-support.adoc")));
+//            template.AddDecisionLogSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "12-decision-log.adoc")));
 
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
             structurizrClient.PutWorkspace(WorkspaceId, workspace);
