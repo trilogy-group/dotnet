@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Structurizr.Documentation;
@@ -120,24 +121,29 @@ namespace Structurizr.Core.Tests.Documentation
         {
             Assert.Equal(0, _documentation.Images.Count);
             DirectoryInfo directory = new DirectoryInfo("Documentation" + Path.DirectorySeparatorChar + "images");
-            _template.AddImages(directory);
+            IEnumerable<Image> images = _template.AddImages(directory);
             Assert.Equal(4, _documentation.Images.Count);
+            Assert.Equal(4, images.Count());
 
             Image png = _documentation.Images.Where(i => i.Name.Equals("image.png")).First();
             Assert.Equal("image/png", png.Type);
             Assert.Equal(PngAsBase64, png.Content);
+            Assert.True(images.Contains(png));
 
             Image jpg = _documentation.Images.Where(i => i.Name.Equals("image.jpg")).First();
             Assert.Equal("image/jpeg", jpg.Type);
             Assert.Equal(JpegAsBase64, jpg.Content);
+            Assert.True(images.Contains(jpg));
 
             Image jpeg = _documentation.Images.Where(i => i.Name.Equals("image.jpeg")).First();
             Assert.Equal("image/jpeg", jpeg.Type);
             Assert.Equal(JpegAsBase64, jpeg.Content);
+            Assert.True(images.Contains(jpeg));
 
             Image gif = _documentation.Images.Where(i => i.Name.Equals("image.gif")).First();
             Assert.Equal("image/gif", gif.Type);
             Assert.Equal(GifAsBase64, gif.Content);
+            Assert.True(images.Contains(gif));
         }
 
         [Fact]

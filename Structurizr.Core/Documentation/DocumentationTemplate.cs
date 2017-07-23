@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Structurizr.Util;
@@ -18,7 +19,7 @@ namespace Structurizr.Documentation
         protected const int Group4 = 4;
         protected const int Group5 = 5;
         
-        private Documentation _documentation;
+        private readonly Documentation _documentation;
 
         /// <summary>
         /// Creates a new documentation template for the given workspace.
@@ -147,7 +148,7 @@ namespace Structurizr.Documentation
         /// Adds png/jpg/jpeg/gif images in the given directory to the workspace.
         /// </summary>
         /// <param name="directory">a DirectoryInfo representing the directory containing image files</param>
-        public void AddImages(DirectoryInfo directory)
+        public IEnumerable<Image> AddImages(DirectoryInfo directory)
         {
             if (directory == null)
             {
@@ -161,7 +162,7 @@ namespace Structurizr.Documentation
             
             if (Directory.Exists(directory.FullName))
             {
-                AddImagesFromPath("", directory);
+                return AddImagesFromPath("", directory);
             }
             else
             {
@@ -169,21 +170,27 @@ namespace Structurizr.Documentation
             }
         }
 
-        private void AddImagesFromPath(string root, DirectoryInfo directory)
+        private IEnumerable<Image> AddImagesFromPath(string root, DirectoryInfo directory)
         {
-            AddImagesFromPath(root, directory, "*.png");
-            AddImagesFromPath(root, directory, "*.jpg");
-            AddImagesFromPath(root, directory, "*.jpeg");
-            AddImagesFromPath(root, directory, "*.gif");
+            List<Image> images = new List<Image>();
+            
+            images.AddRange(AddImagesFromPath(root, directory, "*.png"));
+            images.AddRange(AddImagesFromPath(root, directory, "*.jpg"));
+            images.AddRange(AddImagesFromPath(root, directory, "*.jpeg"));
+            images.AddRange(AddImagesFromPath(root, directory, "*.gif"));
 
             foreach (string directoryName in Directory.EnumerateDirectories(directory.FullName))
             {
-                AddImagesFromPath(new FileInfo(directoryName).Name + "/", new DirectoryInfo(directoryName));
+                images.AddRange(AddImagesFromPath(new FileInfo(directoryName).Name + "/", new DirectoryInfo(directoryName)));
             }
+
+            return images;
         }
 
-        private void AddImagesFromPath(string root, DirectoryInfo directory, string fileExtension)
+        private IEnumerable<Image> AddImagesFromPath(string root, DirectoryInfo directory, string fileExtension)
         {
+            List<Image> images = new List<Image>();
+
             foreach (string fileName in Directory.EnumerateFiles(directory.FullName, fileExtension, SearchOption.TopDirectoryOnly))
             {
                 Image image = AddImage(new FileInfo(fileName));
@@ -192,7 +199,11 @@ namespace Structurizr.Documentation
                 {
                     image.Name = root + image.Name;
                 }
+                
+                images.Add(image);
             }
+
+            return images;
         }
 
         /// <summary>
