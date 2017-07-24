@@ -155,7 +155,7 @@
     <None Update="Documentation\viewpointsandperspectives\06-system-qualities.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Documentation\viewpointsandperspectives\07-appendices.md">
+    <None Update="Documentation\viewpointsandperspectives\07-appendices.adoc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Util\readme.txt">

@@ -77,40 +77,40 @@ namespace Structurizr.Core.Tests.Documentation
             Section section;
             DirectoryInfo root = new DirectoryInfo("Documentation" + Path.DirectorySeparatorChar + "arc42");
     
-            section = _template.AddIntroductionAndGoalsSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "introduction-and-goals.md")));
+            section = _template.AddIntroductionAndGoalsSection(softwareSystem, new FileInfo(Path.Combine(root.FullName, "introduction-and-goals.md")));
             AssertSection(softwareSystem, "Introduction and Goals", Format.Markdown, "Section 1", 1, section);
     
-            section = _template.AddConstraintsSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "constraints.md")));
+            section = _template.AddConstraintsSection(softwareSystem, new FileInfo(Path.Combine(root.FullName, "constraints.md")));
             AssertSection(softwareSystem, "Constraints", Format.Markdown, "Section 2", 2, section);
     
-            section = _template.AddContextAndScopeSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "context-and-scope.md")));
+            section = _template.AddContextAndScopeSection(softwareSystem, new FileInfo(Path.Combine(root.FullName, "context-and-scope.md")));
             AssertSection(softwareSystem, "Context and Scope", Format.Markdown, "Section 3", 3, section);
     
-            section = _template.AddSolutionStrategySection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "solution-strategy.md")));
+            section = _template.AddSolutionStrategySection(softwareSystem, new FileInfo(Path.Combine(root.FullName, "solution-strategy.md")));
             AssertSection(softwareSystem, "Solution Strategy", Format.Markdown, "Section 4", 4, section);
     
-            section = _template.AddBuildingBlockViewSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "building-block-view.md")));
+            section = _template.AddBuildingBlockViewSection(softwareSystem, new FileInfo(Path.Combine(root.FullName, "building-block-view.md")));
             AssertSection(softwareSystem, "Building Block View", Format.Markdown, "Section 5", 5, section);
     
-            section = _template.AddRuntimeViewSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "runtime-view.md")));
+            section = _template.AddRuntimeViewSection(softwareSystem, new FileInfo(Path.Combine(root.FullName, "runtime-view.md")));
             AssertSection(softwareSystem, "Runtime View", Format.Markdown, "Section 6", 6, section);
     
-            section = _template.AddDeploymentViewSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "deployment-view.md")));
+            section = _template.AddDeploymentViewSection(softwareSystem, new FileInfo(Path.Combine(root.FullName, "deployment-view.md")));
             AssertSection(softwareSystem, "Deployment View", Format.Markdown, "Section 7", 7, section);
     
-            section = _template.AddCrosscuttingConceptsSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "crosscutting-concepts.md")));
+            section = _template.AddCrosscuttingConceptsSection(softwareSystem, new FileInfo(Path.Combine(root.FullName, "crosscutting-concepts.md")));
             AssertSection(softwareSystem, "Crosscutting Concepts", Format.Markdown, "Section 8", 8, section);
     
-            section = _template.AddArchitecturalDecisionsSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "architectural-decisions.md")));
+            section = _template.AddArchitecturalDecisionsSection(softwareSystem, new FileInfo(Path.Combine(root.FullName, "architectural-decisions.md")));
             AssertSection(softwareSystem, "Architectural Decisions", Format.Markdown, "Section 9", 9, section);
     
-            section = _template.AddQualityRequirementsSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "quality-requirements.md")));
+            section = _template.AddQualityRequirementsSection(softwareSystem, new FileInfo(Path.Combine(root.FullName, "quality-requirements.md")));
             AssertSection(softwareSystem, "Quality Requirements", Format.Markdown, "Section 10", 10, section);
     
-            section = _template.AddRisksAndTechnicalDebtSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "risks-and-technical-debt.md")));
+            section = _template.AddRisksAndTechnicalDebtSection(softwareSystem, new FileInfo(Path.Combine(root.FullName, "risks-and-technical-debt.md")));
             AssertSection(softwareSystem, "Risks and Technical Debt", Format.Markdown, "Section 11", 11, section);
     
-            section = _template.AddGlossarySection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "glossary.md")));
+            section = _template.AddGlossarySection(softwareSystem, new FileInfo(Path.Combine(root.FullName, "glossary.md")));
             AssertSection(softwareSystem, "Glossary", Format.Markdown, "Section 12", 12, section);
         }
 

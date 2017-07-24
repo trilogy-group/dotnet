@@ -255,7 +255,7 @@ namespace Structurizr.Core.Tests.Documentation
         public void Test_ReadFiles_ThrowsAnException_WhenPassedAFileThatDoesNotExist() {
             try
             {
-                _template.AddContextSection(_softwareSystem, Format.Markdown, new FileInfo("foo.txt"));
+                _template.AddContextSection(_softwareSystem, new FileInfo("foo.txt"));
                 throw new TestFailedException();
             }
             catch (ArgumentException ae)
@@ -269,7 +269,7 @@ namespace Structurizr.Core.Tests.Documentation
         {
             try
             {
-                _template.AddContextSection(_softwareSystem, Format.Markdown, (FileInfo)null);
+                _template.AddContextSection(_softwareSystem, (FileInfo)null);
                 throw new TestFailedException();
             }
             catch (ArgumentException ae)
@@ -283,7 +283,7 @@ namespace Structurizr.Core.Tests.Documentation
         {
             try
             {
-                _template.AddContextSection(_softwareSystem, Format.Markdown, new FileInfo[]{});
+                _template.AddContextSection(_softwareSystem, new FileInfo[]{});
                 throw new TestFailedException();
             }
             catch (ArgumentException ae)
@@ -295,7 +295,7 @@ namespace Structurizr.Core.Tests.Documentation
         [Fact]
         public void Test_ReadFiles_AddsAllFiles_WhenPassedADirectory()
         {
-            Section section = _template.AddContextSection(_softwareSystem, Format.Markdown, new FileInfo("Documentation" + Path.DirectorySeparatorChar + "markdown"));
+            Section section = _template.AddContextSection(_softwareSystem, new FileInfo("Documentation" + Path.DirectorySeparatorChar + "markdown"));
             Assert.Equal("File 1" + Environment.NewLine +
                     "File 2", section.Content);
         }
@@ -303,29 +303,14 @@ namespace Structurizr.Core.Tests.Documentation
         [Fact]
         public void Test_AddCustomSection_AddsASectionWithAGroupOf1_WhenAGroupLessThan1IsSpecified()
         {
-            Section section = _template.AddCustomSection(_softwareSystem, "Custom Section", 0, Format.Markdown, "Custom content");
+            Section section = _template.AddSection(_softwareSystem, "Custom Section", 0, Format.Markdown, "Custom content");
             Assert.Equal(1, section.Group);
         }
 
         [Fact]
         public void Test_AddCustomSection_AddsASectionWithAGroupOf5_WhenAGroupMoreThan5IsSpecified() {
-            Section section = _template.AddCustomSection(_softwareSystem, "Custom Section", 6, Format.Markdown, "Custom content");
+            Section section = _template.AddSection(_softwareSystem, "Custom Section", 6, Format.Markdown, "Custom content");
             Assert.Equal(5, section.Group);
-        }
-
-        [Fact]
-        public void Test_AddCustomSection_ThrowsAnException_WhenThatSectionAlreadyExists() {
-            _template.AddCustomSection("Enterprise Context", 1, Format.Markdown, "");
-            Assert.Equal(1, _documentation.Sections.Count);
-    
-            try {
-                _template.AddCustomSection("Enterprise Context", 1, Format.Markdown, "");
-                throw new TestFailedException();
-            } catch (ArgumentException ae) {
-                // this is the expected exception
-                Assert.Equal("A section of type Enterprise Context already exists.", ae.Message);
-                Assert.Equal(1, _documentation.Sections.Count);
-            }
         }
 
     }

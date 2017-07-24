@@ -16,10 +16,10 @@ The documentation is broken up into a number of sections, as defined by the temp
 
 ## Custom sections
 
-You can add custom sections using the ```AddCustomSection``` method on the [DocumentationTemplate](https://github.com/structurizr/dotnet/blob/master/Structurizr.Core/Documentation/DocumentationTemplate.cs) class, by specifying the section name (a string) and group (an integer, 1-5; this is used for colour coding section navigation buttons):
+You can add custom sections using the ```AddSection``` method on the [DocumentationTemplate](https://github.com/structurizr/dotnet/blob/master/Structurizr.Core/Documentation/DocumentationTemplate.cs) class, by specifying the section name (a string) and group (an integer, 1-5; this is used for colour coding section navigation buttons):
 
 ```c#
-template.AddCustomSection(softwareSystem, "My custom section", 3, Format.Markdown, ...);
+template.AddSection(softwareSystem, "My custom section", 3, Format.Markdown, ...);
 ```
 
 ## Images

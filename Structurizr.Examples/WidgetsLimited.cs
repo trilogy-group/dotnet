@@ -68,7 +68,7 @@ namespace Structurizr.Examples
             dynamicView.Add(customerServiceUser, ecommerceSystem);
     
             StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
-            template.AddCustomSection("Enterprise Context", 1, Format.Markdown, "Here is some information about the Widgets Limited enterprise context... ![](embed:EnterpriseContext)");
+            template.AddSection("Enterprise Context", 1, Format.Markdown, "Here is some information about the Widgets Limited enterprise context... ![](embed:EnterpriseContext)");
             template.AddContextSection(ecommerceSystem, Format.Markdown, "This is the context section for the E-commerce System... ![](embed:EcommerceSystemContext)");
             template.AddContextSection(fulfilmentSystem, Format.Markdown, "This is the context section for the Fulfilment System... ![](embed:FulfilmentSystemContext)");
 

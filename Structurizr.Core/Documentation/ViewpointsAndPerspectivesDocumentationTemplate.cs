@@ -32,12 +32,11 @@ namespace Structurizr.Documentation
         /// Adds an "Introduction" section relating to a SoftwareSystem from a file.
         /// </summary>
         /// <param name="softwareSystem">the SoftwareSystem the documentation relates to</param>
-        /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddIntroductionSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        public Section AddIntroductionSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddIntroductionSection(softwareSystem, format, ReadFiles(files));
+            return AddSection(softwareSystem, "Introduction", Group1, files);
         }
 
         /// <summary>
@@ -56,12 +55,11 @@ namespace Structurizr.Documentation
         /// Adds a "Glossary" section relating to a SoftwareSystem from a file.
         /// </summary>
         /// <param name="softwareSystem">the SoftwareSystem the documentation relates to</param>
-        /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddGlossarySection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        public Section AddGlossarySection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddGlossarySection(softwareSystem, format, ReadFiles(files));
+            return AddSection(softwareSystem, "Glossary", Group1, files);
         }
 
         /// <summary>
@@ -80,12 +78,11 @@ namespace Structurizr.Documentation
         /// Adds a "System Stakeholders and Requirements" section relating to a SoftwareSystem from a file.
         /// </summary>
         /// <param name="softwareSystem">the SoftwareSystem the documentation relates to</param>
-        /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddSystemStakeholdersAndRequirementsSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        public Section AddSystemStakeholdersAndRequirementsSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddSystemStakeholdersAndRequirementsSection(softwareSystem, format, ReadFiles(files));
+            return AddSection(softwareSystem, "System Stakeholders and Requirements", Group2, files);
         }
 
         /// <summary>
@@ -104,12 +101,11 @@ namespace Structurizr.Documentation
         /// Adds an "Architectural Forces" section relating to a SoftwareSystem from a file.
         /// </summary>
         /// <param name="softwareSystem">the SoftwareSystem the documentation relates to</param>
-        /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddArchitecturalForcesSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        public Section AddArchitecturalForcesSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddArchitecturalForcesSection(softwareSystem, format, ReadFiles(files));
+            return AddSection(softwareSystem, "Architectural Forces", Group2, files);
         }
 
         /// <summary>
@@ -128,12 +124,11 @@ namespace Structurizr.Documentation
         /// Adds an "Architectural Views" section relating to a SoftwareSystem from a file.
         /// </summary>
         /// <param name="softwareSystem">the SoftwareSystem the documentation relates to</param>
-        /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddArchitecturalViewsSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        public Section AddArchitecturalViewsSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddArchitecturalViewsSection(softwareSystem, format, ReadFiles(files));
+            return AddSection(softwareSystem, "Architectural Views", Group3, files);
         }
 
         /// <summary>
@@ -152,12 +147,11 @@ namespace Structurizr.Documentation
         /// Adds a "System Qualities" section relating to a SoftwareSystem from a file.
         /// </summary>
         /// <param name="softwareSystem">the SoftwareSystem the documentation relates to</param>
-        /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddSystemQualitiesSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        public Section AddSystemQualitiesSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddSystemQualitiesSection(softwareSystem, format, ReadFiles(files));
+            return AddSection(softwareSystem, "System Qualities", Group4, files);
         }
 
         /// <summary>
@@ -176,12 +170,11 @@ namespace Structurizr.Documentation
         /// Adds a "Appendices" section relating to a SoftwareSystem from a file.
         /// </summary>
         /// <param name="softwareSystem">the SoftwareSystem the documentation relates to</param>
-        /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileSystemInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddAppendicesSection(SoftwareSystem softwareSystem, Format format, params FileSystemInfo[] files)
+        public Section AddAppendicesSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddAppendicesSection(softwareSystem, format, ReadFiles(files));
+            return AddSection(softwareSystem, "Appendices", Group5, files);
         }
 
         /// <summary>

@@ -11,18 +11,18 @@ You can then add documentation sections as needed, each associated with a softwa
 StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
 
 DirectoryInfo documentationRoot = new DirectoryInfo("Documentation" + Path.DirectorySeparatorChar + "structurizr" + Path.DirectorySeparatorChar + "markdown");
-template.AddContextSection(softwareSystem, Format.Markdown,new FileInfo(Path.Combine(documentationRoot.FullName, "01-context.md")));
-template.AddFunctionalOverviewSection(softwareSystem, Format.Markdown,new FileInfo(Path.Combine(documentationRoot.FullName, "02-functional-overview.md")));
-template.AddQualityAttributesSection(softwareSystem, Format.Markdown,new FileInfo(Path.Combine(documentationRoot.FullName, "03-quality-attributes.md")));
-template.AddConstraintsSection(softwareSystem, Format.Markdown,new FileInfo(Path.Combine(documentationRoot.FullName, "04-constraints.md")));
-template.AddPrinciplesSection(softwareSystem, Format.Markdown,new FileInfo(Path.Combine(documentationRoot.FullName, "05-principles.md")));
-template.AddSoftwareArchitectureSection(softwareSystem, Format.Markdown,new FileInfo(Path.Combine(documentationRoot.FullName, "06-software-architecture.md")));
-template.AddDataSection(softwareSystem, Format.Markdown,new FileInfo(Path.Combine(documentationRoot.FullName, "07-data.md")));
-template.AddInfrastructureArchitectureSection(softwareSystem, Format.Markdown,new FileInfo(Path.Combine(documentationRoot.FullName, "08-infrastructure-architecture.md")));
-template.AddDeploymentSection(softwareSystem, Format.Markdown,new FileInfo(Path.Combine(documentationRoot.FullName, "09-deployment.md")));
-template.AddDevelopmentEnvironmentSection(softwareSystem, Format.Markdown,new FileInfo(Path.Combine(documentationRoot.FullName, "10-development-environment.md")));
-template.AddOperationAndSupportSection(softwareSystem, Format.Markdown,new FileInfo(Path.Combine(documentationRoot.FullName, "11-operation-and-support.md")));
-template.AddDecisionLogSection(softwareSystem, Format.Markdown,new FileInfo(Path.Combine(documentationRoot.FullName, "12-decision-log.md")));
+template.AddContextSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "01-context.md")));
+template.AddFunctionalOverviewSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "02-functional-overview.md")));
+template.AddQualityAttributesSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "03-quality-attributes.md")));
+template.AddConstraintsSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "04-constraints.md")));
+template.AddPrinciplesSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "05-principles.md")));
+template.AddSoftwareArchitectureSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "06-software-architecture.md")));
+template.AddDataSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "07-data.md")));
+template.AddInfrastructureArchitectureSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "08-infrastructure-architecture.md")));
+template.AddDeploymentSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "09-deployment.md")));
+template.AddDevelopmentEnvironmentSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "10-development-environment.md")));
+template.AddOperationAndSupportSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "11-operation-and-support.md")));
+template.AddDecisionLogSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "12-decision-log.md")));
 ```
 
 Structurizr will create navigation controls based upon the the sections in the documentation, and the software systems they have been associated with. This particular example is rendered as follows: 

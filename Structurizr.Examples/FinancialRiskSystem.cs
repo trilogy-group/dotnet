@@ -76,9 +76,9 @@ namespace Structurizr.Examples
 
             StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
             DirectoryInfo documentationRoot = new DirectoryInfo("FinancialRiskSystem");
-            template.AddContextSection(financialRiskSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "context.adoc")));
-            template.AddFunctionalOverviewSection(financialRiskSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "functional-overview.md")));
-            template.AddQualityAttributesSection(financialRiskSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "quality-attributes.md")));
+            template.AddContextSection(financialRiskSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "context.adoc")));
+            template.AddFunctionalOverviewSection(financialRiskSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "functional-overview.md")));
+            template.AddQualityAttributesSection(financialRiskSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "quality-attributes.md")));
             template.AddImages(documentationRoot);
 
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);

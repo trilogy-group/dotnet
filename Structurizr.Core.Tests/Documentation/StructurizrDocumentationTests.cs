@@ -99,72 +99,56 @@ namespace Structurizr.Core.Tests.Documentation
             Section section;
             DirectoryInfo root = new DirectoryInfo("Documentation" + Path.DirectorySeparatorChar + "structurizr");
     
-            section = _template.AddContextSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "context.md")));
+            section = _template.AddContextSection(_softwareSystem, new FileInfo(Path.Combine(root.FullName, "context.md")));
             AssertSection(_softwareSystem, "Context", 1, Format.Markdown, "Context section", 1, section);
     
-            section = _template.AddFunctionalOverviewSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "functional-overview.md")));
+            section = _template.AddFunctionalOverviewSection(_softwareSystem, new FileInfo(Path.Combine(root.FullName, "functional-overview.md")));
             AssertSection(_softwareSystem, "Functional Overview", 2, Format.Markdown, "Functional overview section", 2, section);
     
-            section = _template.AddQualityAttributesSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "quality-attributes.md")));
+            section = _template.AddQualityAttributesSection(_softwareSystem, new FileInfo(Path.Combine(root.FullName, "quality-attributes.md")));
             AssertSection(_softwareSystem, "Quality Attributes", 2, Format.Markdown, "Quality attributes section", 3, section);
     
-            section = _template.AddConstraintsSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "constraints.md")));
+            section = _template.AddConstraintsSection(_softwareSystem, new FileInfo(Path.Combine(root.FullName, "constraints.md")));
             AssertSection(_softwareSystem, "Constraints", 2, Format.Markdown, "Constraints section", 4, section);
     
-            section = _template.AddPrinciplesSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "principles.md")));
+            section = _template.AddPrinciplesSection(_softwareSystem, new FileInfo(Path.Combine(root.FullName, "principles.md")));
             AssertSection(_softwareSystem, "Principles", 2, Format.Markdown, "Principles section", 5, section);
     
-            section = _template.AddSoftwareArchitectureSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "software-architecture.md")));
+            section = _template.AddSoftwareArchitectureSection(_softwareSystem, new FileInfo(Path.Combine(root.FullName, "software-architecture.md")));
             AssertSection(_softwareSystem, "Software Architecture", 3, Format.Markdown, "Software architecture section", 6, section);
     
-            section = _template.AddContainersSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "containers.md")));
+            section = _template.AddContainersSection(_softwareSystem, new FileInfo(Path.Combine(root.FullName, "containers.md")));
             AssertSection(_softwareSystem, "Containers", 3, Format.Markdown, "Containers section", 7, section);
     
-            section = _template.AddComponentsSection(_containerA, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "components-for-containerA.md")));
+            section = _template.AddComponentsSection(_containerA, new FileInfo(Path.Combine(root.FullName, "components-for-containerA.md")));
             AssertSection(_containerA, "Components", 3, Format.Markdown, "Components section for container A", 8, section);
     
-            section = _template.AddComponentsSection(_containerB, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "components-for-containerB.md")));
+            section = _template.AddComponentsSection(_containerB, new FileInfo(Path.Combine(root.FullName, "components-for-containerB.md")));
             AssertSection(_containerB, "Components", 3, Format.Markdown, "Components section for container B", 9, section);
     
-            section = _template.AddCodeSection(_componentA1, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "code-for-componentA1.md")));
+            section = _template.AddCodeSection(_componentA1, new FileInfo(Path.Combine(root.FullName, "code-for-componentA1.md")));
             AssertSection(_componentA1, "Code", 3, Format.Markdown, "Code section for component A1", 10, section);
     
-            section = _template.AddCodeSection(_componentA2, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "code-for-componentA2.md")));
+            section = _template.AddCodeSection(_componentA2, new FileInfo(Path.Combine(root.FullName, "code-for-componentA2.md")));
             AssertSection(_componentA2, "Code", 3, Format.Markdown, "Code section for component A2", 11, section);
     
-            section = _template.AddDataSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "data.md")));
+            section = _template.AddDataSection(_softwareSystem, new FileInfo(Path.Combine(root.FullName, "data.md")));
             AssertSection(_softwareSystem, "Data", 3, Format.Markdown, "Data section", 12, section);
     
-            section = _template.AddInfrastructureArchitectureSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "infrastructure-architecture.md")));
+            section = _template.AddInfrastructureArchitectureSection(_softwareSystem, new FileInfo(Path.Combine(root.FullName, "infrastructure-architecture.md")));
             AssertSection(_softwareSystem, "Infrastructure Architecture", 4, Format.Markdown, "Infrastructure architecture section", 13, section);
     
-            section = _template.AddDeploymentSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "deployment.md")));
+            section = _template.AddDeploymentSection(_softwareSystem, new FileInfo(Path.Combine(root.FullName, "deployment.md")));
             AssertSection(_softwareSystem, "Deployment", 4, Format.Markdown, "Deployment section", 14, section);
     
-            section = _template.AddDevelopmentEnvironmentSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "development-environment.md")));
+            section = _template.AddDevelopmentEnvironmentSection(_softwareSystem, new FileInfo(Path.Combine(root.FullName, "development-environment.md")));
             AssertSection(_softwareSystem, "Development Environment", 4, Format.Markdown, "Development environment section", 15, section);
     
-            section = _template.AddOperationAndSupportSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "operation-and-support.md")));
+            section = _template.AddOperationAndSupportSection(_softwareSystem, new FileInfo(Path.Combine(root.FullName, "operation-and-support.md")));
             AssertSection(_softwareSystem, "Operation and Support", 4, Format.Markdown, "Operation and support section", 16, section);
     
-            section = _template.AddDecisionLogSection(_softwareSystem, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "decision-log.md")));
+            section = _template.AddDecisionLogSection(_softwareSystem, new FileInfo(Path.Combine(root.FullName, "decision-log.md")));
             AssertSection(_softwareSystem, "Decision Log", 5, Format.Markdown, "Decision log section", 17, section);
-        }
-    
-        [Fact]
-        public void Test_AddCustomSectionWithContentAsAstring()
-        {
-            Section section = _template.AddCustomSection(_softwareSystem, "Custom Section", 3, Format.Markdown, "Custom content");
-            AssertSection(_softwareSystem, "Custom Section", 3, Format.Markdown, "Custom content", 1, section);
-        }
-    
-        [Fact]
-        public void Test_AddCustomSectionFromAFile()
-        {
-            DirectoryInfo root = new DirectoryInfo("Documentation" + Path.DirectorySeparatorChar + "structurizr");
-    
-            Section section = _template.AddCustomSection(_softwareSystem, "Custom Section", 3, Format.Markdown, new FileInfo(Path.Combine(root.FullName, "context.md")));
-            AssertSection(_softwareSystem, "Custom Section", 3, Format.Markdown, "Context section", 1, section);
         }
     
         private void AssertSection(Element element, string type, int group, Format format, string content, int order, Section section)

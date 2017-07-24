@@ -38,23 +38,23 @@ namespace Structurizr.Examples
 
             // this is the Markdown version
             DirectoryInfo documentationRoot = new DirectoryInfo("Documentation" + Path.DirectorySeparatorChar + "viewpointsandperspectives" + Path.DirectorySeparatorChar + "markdown");
-            template.AddIntroductionSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "01-introduction.md")));
-            template.AddGlossarySection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "02-glossary.md")));
-            template.AddSystemStakeholdersAndRequirementsSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "03-system-stakeholders-and-requirements.md")));
-            template.AddArchitecturalForcesSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "04-architectural-forces.md")));
-            template.AddArchitecturalViewsSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "05-architectural-views")));
-            template.AddSystemQualitiesSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "06-system-qualities.md")));
-            template.AddAppendicesSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "07-appendices.md")));
+            template.AddIntroductionSection(softwareSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "01-introduction.md")));
+            template.AddGlossarySection(softwareSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "02-glossary.md")));
+            template.AddSystemStakeholdersAndRequirementsSection(softwareSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "03-system-stakeholders-and-requirements.md")));
+            template.AddArchitecturalForcesSection(softwareSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "04-architectural-forces.md")));
+            template.AddArchitecturalViewsSection(softwareSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "05-architectural-views")));
+            template.AddSystemQualitiesSection(softwareSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "06-system-qualities.md")));
+            template.AddAppendicesSection(softwareSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "07-appendices.md")));
 
             // this is the AsciiDoc version
 //            DirectoryInfo documentationRoot = new DirectoryInfo("Documentation" + Path.DirectorySeparatorChar + "viewpointsandperspectives" + Path.DirectorySeparatorChar + "asciidoc");
-//            template.AddIntroductionSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "01-introduction.adoc")));
-//            template.AddGlossarySection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "02-glossary.adoc")));
-//            template.AddSystemStakeholdersAndRequirementsSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "03-system-stakeholders-and-requirements.adoc")));
-//            template.AddArchitecturalForcesSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "04-architectural-forces.adoc")));
-//            template.AddArchitecturalViewsSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "05-architectural-views")));
-//            template.AddSystemQualitiesSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "06-system-qualities.adoc")));
-//            template.AddAppendicesSection(softwareSystem, Format.AsciiDoc, new FileInfo(Path.Combine(documentationRoot.FullName, "07-appendices.adoc")));
+//            template.AddIntroductionSection(softwareSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "01-introduction.adoc")));
+//            template.AddGlossarySection(softwareSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "02-glossary.adoc")));
+//            template.AddSystemStakeholdersAndRequirementsSection(softwareSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "03-system-stakeholders-and-requirements.adoc")));
+//            template.AddArchitecturalForcesSection(softwareSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "04-architectural-forces.adoc")));
+//            template.AddArchitecturalViewsSection(softwareSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "05-architectural-views")));
+//            template.AddSystemQualitiesSection(softwareSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "06-system-qualities.adoc")));
+//            template.AddAppendicesSection(softwareSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "07-appendices.adoc")));
 
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
             structurizrClient.PutWorkspace(WorkspaceId, workspace);

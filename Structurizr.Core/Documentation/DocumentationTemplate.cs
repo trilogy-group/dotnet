@@ -34,13 +34,14 @@ namespace Structurizr.Documentation
             _documentation = workspace.Documentation;
         }
         
-                protected string ReadFiles(params FileSystemInfo[] files)
+        private FormattedContent ReadFiles(params FileSystemInfo[] files)
         {
             if (files == null || files.Length == 0)
             {
                 throw new ArgumentException("One or more files must be specified.");
             }
 
+            Format format = Format.Markdown;
             StringBuilder content = new StringBuilder();
             foreach (FileSystemInfo file in files)
             {
@@ -61,6 +62,7 @@ namespace Structurizr.Documentation
 
                 if (File.Exists(file.FullName))
                 {
+                    format = FormatFinder.FindFormat(file);
                     string contentInFile = File.ReadAllText(file.FullName, Encoding.UTF8);
                     content.Append(contentInFile);
                 }
@@ -69,11 +71,11 @@ namespace Structurizr.Documentation
                     DirectoryInfo directory = new DirectoryInfo(file.FullName);
                     FileSystemInfo[] children = directory.GetFileSystemInfos();
                     Array.Sort(children, (f1, f2) => f1.Name.CompareTo(f2.Name));
-                    content.Append(ReadFiles(children));
+                    content.Append(ReadFiles(children).Content);
                 }
             }
 
-            return content.ToString();
+            return new FormattedContent(content.ToString(), format);
         }
 
         /// <summary>
@@ -81,12 +83,11 @@ namespace Structurizr.Documentation
         /// </summary>
         /// <param name="name">the name of the section</param>
         /// <param name="group">the group of the section (an integer between 1 and 5)</param>
-        /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddCustomSection(string name, int group, Format format, params FileInfo[] files)
+        public Section AddSection(string name, int group, params FileInfo[] files)
         {
-            return AddCustomSection(name, group, format, ReadFiles(files));
+            return Add(null, name, group, files);
         }
     
         /// <summary>
@@ -97,9 +98,9 @@ namespace Structurizr.Documentation
         /// <param name="format">the format of the documentation content</param>
         /// <param name="content">a string containing the documentation content</param>
         /// <returns>a documentation section</returns>
-        public Section AddCustomSection(string name, int group, Format format, string content)
+        public Section AddSection(string name, int group, Format format, string content)
         {
-            return AddSection(null, name, group, format, content);
+            return Add(null, name, group, format, content);
         }
     
         /// <summary>
@@ -108,24 +109,13 @@ namespace Structurizr.Documentation
         /// <param name="softwareSystem">the SoftwareSystem the documentation content relates to</param>
         /// <param name="name">the name of the section</param>
         /// <param name="group">the group of the section (an integer between 1 and 5)</param>
-        /// <param name="format">the format of the documentation content</param>
         /// <param name="files">one or more FileInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddCustomSection(SoftwareSystem softwareSystem, string name, int group, Format format, params FileInfo[] files)
+        public Section AddSection(SoftwareSystem softwareSystem, string name, int group, params FileSystemInfo[] files)
         {
-            return AddCustomSection(softwareSystem, name, group, format, ReadFiles(files));
+            return Add(softwareSystem, name, group, files);
         }
     
-        /**
-         * 
-         *
-         * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-         * @param name              the name of the section
-         * @param group             the group of the section (an integer between 1 and 5)
-         * @param format    the {@link Format} of the documentation content
-         * @param content   a String containing the documentation content
-         * @return  a documentation {@link Section}
-         */
         /// <summary>
         /// Adds a custom section relating to a SoftwareSystem.
         /// </summary>
@@ -135,12 +125,72 @@ namespace Structurizr.Documentation
         /// <param name="format">the format of the documentation content</param>
         /// <param name="content">a string containing the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddCustomSection(SoftwareSystem softwareSystem, string name, int group, Format format, String content)
+        public Section AddSection(SoftwareSystem softwareSystem, string name, int group, Format format, String content)
         {
-            return AddSection(softwareSystem, name, group, format, content);
+            return Add(softwareSystem, name, group, format, content);
         }
 
-        protected Section AddSection(Element element, string type, int group, Format format, string content) {
+        /// <summary>
+        /// Adds a custom section relating to a Container from one or more files.
+        /// </summary>
+        /// <param name="container">the Container the documentation content relates to</param>
+        /// <param name="name">the name of the section</param>
+        /// <param name="group">the group of the section (an integer between 1 and 5)</param>
+        /// <param name="files">one or more FileInfo objects that point to the documentation content</param>
+        /// <returns>a documentation Section</returns>
+        public Section AddSection(Container container, string name, int group, params FileSystemInfo[] files)
+        {
+            return Add(container, name, group, files);
+        }
+    
+        /// <summary>
+        /// Adds a custom section relating to a Container.
+        /// </summary>
+        /// <param name="container">the Container the documentation content relates to</param>
+        /// <param name="name">the name of the section</param>
+        /// <param name="group">the group of the section (an integer between 1 and 5)</param>
+        /// <param name="format">the format of the documentation content</param>
+        /// <param name="content">a string containing the documentation content</param>
+        /// <returns>a documentation Section</returns>
+        public Section AddSection(Container container, string name, int group, Format format, String content)
+        {
+            return Add(container, name, group, format, content);
+        }
+
+        /// <summary>
+        /// Adds a custom section relating to a Component from one or more files.
+        /// </summary>
+        /// <param name="component">the Component the documentation content relates to</param>
+        /// <param name="name">the name of the section</param>
+        /// <param name="group">the group of the section (an integer between 1 and 5)</param>
+        /// <param name="files">one or more FileInfo objects that point to the documentation content</param>
+        /// <returns>a documentation Section</returns>
+        public Section AddSection(Component component, string name, int group, params FileSystemInfo[] files)
+        {
+            return Add(component, name, group, files);
+        }
+    
+        /// <summary>
+        /// Adds a custom section relating to a Component.
+        /// </summary>
+        /// <param name="component">the Component the documentation content relates to</param>
+        /// <param name="name">the name of the section</param>
+        /// <param name="group">the group of the section (an integer between 1 and 5)</param>
+        /// <param name="format">the format of the documentation content</param>
+        /// <param name="content">a string containing the documentation content</param>
+        /// <returns>a documentation Section</returns>
+        public Section AddSection(Component component, string name, int group, Format format, String content)
+        {
+            return Add(component, name, group, format, content);
+        }
+
+        private Section Add(Element element, string type, int group, params FileSystemInfo[] files)
+        {
+            FormattedContent content = ReadFiles(files);
+            return _documentation.AddSection(element, type, group, content.Format, content.Content);
+        }
+
+        private Section Add(Element element, string type, int group, Format format, string content) {
             return _documentation.AddSection(element, type, group, format, content);
         }
 

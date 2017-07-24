@@ -11,13 +11,13 @@ You can then add documentation sections as needed, each associated with a softwa
 ViewpointsAndPerspectivesDocumentationTemplate template = new ViewpointsAndPerspectivesDocumentationTemplate(workspace);
 
 DirectoryInfo documentationRoot = new DirectoryInfo("Documentation" + Path.DirectorySeparatorChar + "viewpointsandperspectives" + Path.DirectorySeparatorChar + "markdown");
-template.AddIntroductionSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "01-introduction.md")));
-template.AddGlossarySection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "02-glossary.md")));
-template.AddSystemStakeholdersAndRequirementsSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "03-system-stakeholders-and-requirements.md")));
-template.AddArchitecturalForcesSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "04-architectural-forces.md")));
-template.AddArchitecturalViewsSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "05-architectural-views")));
-template.AddSystemQualitiesSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "06-system-qualities.md")));
-template.AddAppendicesSection(softwareSystem, Format.Markdown, new FileInfo(Path.Combine(documentationRoot.FullName, "07-appendices.md")));
+template.AddIntroductionSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "01-introduction.md")));
+template.AddGlossarySection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "02-glossary.md")));
+template.AddSystemStakeholdersAndRequirementsSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "03-system-stakeholders-and-requirements.md")));
+template.AddArchitecturalForcesSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "04-architectural-forces.md")));
+template.AddArchitecturalViewsSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "05-architectural-views")));
+template.AddSystemQualitiesSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "06-system-qualities.md")));
+template.AddAppendicesSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "07-appendices.md")));
 ```
 
 Structurizr will create navigation controls based upon the the sections in the documentation, and the software systems they have been associated with. This particular example is rendered as follows: 
