@@ -8,6 +8,9 @@ namespace Structurizr
 
         private static Dictionary<string, PaperSize> paperSizes = new Dictionary<string, PaperSize>();
 
+        public static readonly PaperSize A6_Portrait = new PaperSize("A6_Portrait", "A6", Orientation.Portrait, 1240, 1748);
+        public static readonly PaperSize A6_Landscape = new PaperSize("A6_Landscape", "A6", Orientation.Landscape, 1748, 1240);
+
         public static readonly PaperSize A5_Portrait = new PaperSize("A5_Portrait", "A5", Orientation.Portrait, 1748, 2480);
         public static readonly PaperSize A5_Landscape = new PaperSize("A5_Landscape", "A5", Orientation.Landscape, 2480, 1748);
 
