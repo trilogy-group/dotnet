@@ -5,7 +5,7 @@ namespace Structurizr.Analysis
     public abstract class SupportingTypesStrategy
     {
 
-        public TypeRepository TypeRepository { get; set; }
+        public ITypeRepository TypeRepository { get; set; }
 
         public abstract HashSet<string> FindSupportingTypes(Component component);
 

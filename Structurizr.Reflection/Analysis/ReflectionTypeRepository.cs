@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 namespace Structurizr.Analysis
 {
 
-    public class ReflectionTypeRepository : TypeRepository
+    public class ReflectionTypeRepository : ITypeRepository
     {
 
         private readonly string _namespace;

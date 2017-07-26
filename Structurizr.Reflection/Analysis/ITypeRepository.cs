@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Structurizr.Analysis
 {
 
-    public interface TypeRepository
+    public interface ITypeRepository
     {
 
         string Namespace { get; }

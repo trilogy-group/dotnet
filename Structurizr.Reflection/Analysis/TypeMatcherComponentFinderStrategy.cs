@@ -22,7 +22,7 @@ namespace Structurizr.Analysis
 
         private HashSet<Component> _componentsFound = new HashSet<Component>();
 
-        private TypeRepository _typeRepository;
+        private ITypeRepository _typeRepository;
         private List<ITypeMatcher> _typeMatchers = new List<ITypeMatcher>();
         private List<SupportingTypesStrategy> _supportingTypesStrategies = new List<SupportingTypesStrategy>();
 
