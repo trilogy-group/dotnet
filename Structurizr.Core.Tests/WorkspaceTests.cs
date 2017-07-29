@@ -11,39 +11,6 @@ namespace Structurizr.Core.Tests
         private Workspace workspace = new Workspace("Name", "Description");
 
         [Fact]
-        public void Test_SetSource_DoesNotThrowAnException_WhenANullUrlIsSpecified()
-        {
-            workspace.Source = null;
-        }
-
-        [Fact]
-        public void Test_SetSource_DoesNotThrowAnException_WhenAnEmptyUrlIsSpecified()
-        {
-            workspace.Source = "";
-        }
-
-        [Fact]
-        public void Test_SetSource_ThrowsAnException_WhenAnInvalidUrlIsSpecified()
-        {
-            try
-            {
-                workspace.Source = "www.somedomain.com";
-                throw new TestFailedException();
-            }
-            catch (Exception e)
-            {
-                Assert.Equal("www.somedomain.com is not a valid URL.", e.Message);
-            }
-        }
-
-        [Fact]
-        public void Test_SetSource_DoesNotThrowAnException_WhenAValidUrlIsSpecified()
-        {
-            workspace.Source = "http://www.somedomain.com";
-            Assert.Equal("http://www.somedomain.com", workspace.Source);
-        }
-
-        [Fact]
         public void Test_SetApi_DoesNotThrowAnException_WhenANullUrlIsSpecified()
         {
             workspace.Api = null;

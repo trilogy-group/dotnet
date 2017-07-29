@@ -39,37 +39,6 @@ namespace Structurizr
         [DataMember(Name = "thumbnail", EmitDefaultValue = false)]
         public string Thumbnail { get; set; }
 
-        private string _source;
-
-        /// <summary>
-        /// The source URL of this workspace.
-        /// </summary>
-        [DataMember(Name = "source", EmitDefaultValue = false)]
-        public string Source
-        {
-            get
-            {
-                return _source;
-            }
-
-            set
-            {
-                if (value != null && value.Trim().Length > 0)
-                {
-                    Uri uri;
-                    bool result = Uri.TryCreate(value, UriKind.Absolute, out uri);
-                    if (result)
-                    {
-                        this._source = value;
-                    }
-                    else
-                    {
-                        throw new ArgumentException(value + " is not a valid URL.");
-                    }
-                }
-            }
-        }
-
         private string _api;
 
         /// <summary>
