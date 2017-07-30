@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net452</TargetFramework>
     <StartupObject>Structurizr.Examples.ContosoUniversity</StartupObject>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Structurizr.Core\Structurizr.Core.csproj" />

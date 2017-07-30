@@ -1,5 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <!-- Update this property group for every regular release -->
+  <PropertyGroup>
+    <VersionPrefix>0.6.0</VersionPrefix>
+    <ReleaseNotes></ReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Description>Roslyn based software architecture analysis for Structurizr.Core</Description>
+    <Authors>Structurizr Limited</Authors>
+    <Copyright>Copyright 2017</Copyright>
+    <PackageLicenseUrl>https://opensource.org/licenses/Apache-2.0</PackageLicenseUrl>
+    <PackageProjectUrl>https://structurizr.com</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/structurizr/dotnet</RepositoryUrl>
+  </PropertyGroup>
+
   <PropertyGroup>
     <TargetFrameworks>net46</TargetFrameworks>
   </PropertyGroup>
