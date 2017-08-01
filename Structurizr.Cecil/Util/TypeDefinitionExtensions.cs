@@ -18,11 +18,10 @@ namespace Structurizr.Cecil
         /// <param name="parentTypeDef"></param>
         /// <returns></returns>
         public static bool IsSubclassOf(this TypeDefinition childTypeDef, TypeDefinition parentTypeDef) =>
-            childTypeDef.MetadataToken
-            != parentTypeDef.MetadataToken
+            (childTypeDef.MetadataToken != parentTypeDef.MetadataToken || childTypeDef.Module.Mvid != parentTypeDef.Module.Mvid)
             && childTypeDef
                 .EnumerateBaseClasses()
-                .Any(b => b.MetadataToken == parentTypeDef.MetadataToken);
+                .Any(b => b.MetadataToken == parentTypeDef.MetadataToken && b.Module.Mvid == parentTypeDef.Module.Mvid);
 
         /// <summary>
         /// Does childType inherit from parentInterface
@@ -63,7 +62,8 @@ namespace Structurizr.Cecil
         {
             Debug.Assert(iface1.IsInterface);
             Debug.Assert(iface0.IsInterface);
-            return iface0.MetadataToken == iface1.MetadataToken || iface0.DoesAnySubTypeImplementInterface(iface1);
+            return (iface0.MetadataToken == iface1.MetadataToken && iface0.Module.Mvid == iface1.Module.Mvid)
+                || iface0.DoesAnySubTypeImplementInterface(iface1);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Structurizr.Cecil
         /// <returns></returns>
         public static bool IsAssignableFrom(this TypeDefinition target, TypeDefinition source)
             => target == source
-                || target.MetadataToken == source.MetadataToken
+                || (target.MetadataToken == source.MetadataToken && target.Module.Mvid == source.Module.Mvid)
                 || source.IsSubclassOf(target)
                 || target.IsInterface && source.DoesAnySubTypeImplementInterface(target);
 
