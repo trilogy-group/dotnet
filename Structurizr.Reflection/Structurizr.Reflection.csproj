@@ -43,12 +43,12 @@
     <Compile Include="Analysis\ExtendsClassMatcher.cs" />
     <Compile Include="Analysis\InterfaceImplementationTypeMatcher.cs" />
     <Compile Include="Analysis\ITypeMatcher.cs" />
+    <Compile Include="Analysis\ITypeRepository.cs" />
     <Compile Include="Analysis\NameSuffixTypeMatcher.cs" />
     <Compile Include="Analysis\ReflectionTypeRepository.cs" />
     <Compile Include="Analysis\SupportingTypes\ReferencedTypesSupportingTypesStrategy.cs" />
     <Compile Include="Analysis\SupportingTypes\SupportingTypesStrategy.cs" />
     <Compile Include="Analysis\TypeMatcherComponentFinderStrategy.cs" />
-    <Compile Include="Analysis\TypeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
