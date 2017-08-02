@@ -14,7 +14,7 @@ build_script:
     if ($env:APPVEYOR_REPO_TAG -Eq "true") {
         dotnet msbuild "/t:Restore;Pack" /p:Configuration=Release /p:Version=$env:APPVEYOR_REPO_TAG_NAME
     } else {
-        dotnet msbuild "/t:Restore;Pack" /p:Configuration=Release /p:VersionSuffix=pre-$($env:APPVEYOR_REPO_COMMIT.Substring(0,8))
+        dotnet msbuild "/t:Restore;Pack" /p:Configuration=Release /p:VersionSuffix=pre${env:APPVEYOR_BUILD_NUMBER}-$($env:APPVEYOR_REPO_COMMIT.Substring(0,8))
     }
 test_script:
 - ps: dotnet test .\Structurizr.Core.Tests\Structurizr.Core.Tests.csproj
