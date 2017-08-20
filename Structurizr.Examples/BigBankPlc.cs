@@ -138,9 +138,6 @@ namespace Structurizr.Examples
                 liveDeploymentView.Add(secondaryDatabaseServer);
                 liveDeploymentView.Add(dataReplicationRelationship);
                 liveDeploymentView.PaperSize = PaperSize.A5_Landscape;
-    
-                Branding branding = views.Configuration.Branding;
-                branding.Logo = ImageUtils.GetImageAsDataUri(new FileInfo("structurizr-logo.png"));
             }
     
             // colours, shapes and other diagram styling
