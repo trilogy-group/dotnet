@@ -33,6 +33,8 @@ If using [Structurizr](https://structurizr.com), the end-result, after adding so
 
 You can see the live workspace at [https://structurizr.com/share/25441](https://structurizr.com/share/25441).
 
+[![Build status](https://ci.appveyor.com/api/projects/status/t7oph9oynedawkm0?svg=true)](https://ci.appveyor.com/project/structurizr/dotnet)
+
 ## Table of contents
 
 * Introduction
