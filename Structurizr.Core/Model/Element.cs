@@ -164,7 +164,7 @@ namespace Structurizr
                 throw new ArgumentException("A property value must be specified.");
             }
 
-            Properties[name] = value;
+            _properties[name] = value;
         }
 
         public override string ToString()
