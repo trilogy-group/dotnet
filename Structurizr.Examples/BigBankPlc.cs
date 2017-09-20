@@ -52,7 +52,7 @@ namespace Structurizr.Examples
             Container database = internetBankingSystem.AddContainer("Database", "Stores interesting data.", "Relational Database Schema");
             database.AddTags(DatabaseTag);
     
-            customer.Uses(webApplication, "HTTPS");
+            customer.Uses(webApplication, "Uses", "HTTPS");
             webApplication.Uses(database, "Reads from and writes to", "JDBC");
             webApplication.Uses(mainframeBankingSystem, "Uses", "XML/HTTPS");
     
@@ -98,7 +98,7 @@ namespace Structurizr.Examples
             secondaryDatabase.AddTags("Failover");
     
             // views/diagrams
-            EnterpriseContextView enterpriseContextView = views.CreateEnterpriseContextView("EnterpriseContext", "The system context diagram for the Internet Banking System.");
+            EnterpriseContextView enterpriseContextView = views.CreateEnterpriseContextView("EnterpriseContext", "The enterprise context diagram for the Internet Banking System.");
             enterpriseContextView.AddAllElements();
             enterpriseContextView.PaperSize = PaperSize.A5_Landscape;
     
@@ -112,7 +112,7 @@ namespace Structurizr.Examples
             containerView.Add(mainframeBankingSystem);
             containerView.PaperSize = PaperSize.A5_Landscape;
     
-            ComponentView componentView = views.CreateComponentView(webApplication, "Components", "The components diagram for the Web Application");
+            ComponentView componentView = views.CreateComponentView(webApplication, "Components", "The component diagram for the Web Application");
             componentView.AddAllContainers();
             componentView.AddAllComponents();
             componentView.Add(customer);
