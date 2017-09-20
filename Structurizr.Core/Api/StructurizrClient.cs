@@ -8,6 +8,7 @@ using System.Text;
 
 namespace Structurizr.Api
 {
+
     public class StructurizrClient
     {
 
@@ -36,11 +37,12 @@ namespace Structurizr.Api
 
             this.WorkspaceArchiveLocation = new DirectoryInfo(".");
             this.MergeFromRemote = true;
+
         }
 
         public Workspace GetWorkspace(long workspaceId)
         {
-            using (HttpClient httpClient = new HttpClient())
+            using (HttpClient httpClient = createHttpClient())
             {
                 string httpMethod = "GET";
                 string path = WorkspacePath + workspaceId;
@@ -93,7 +95,7 @@ namespace Structurizr.Api
 
             workspace.Id = workspaceId;
 
-            using (HttpClient httpClient = new HttpClient())
+            using (HttpClient httpClient = createHttpClient())
             {
                 try
                 {
@@ -137,6 +139,11 @@ namespace Structurizr.Api
             }
         }
 
+        protected virtual HttpClient createHttpClient()
+        {
+            return new HttpClient();
+        }
+
         private void AddHeaders(HttpClient httpClient, string httpMethod, string path, string content, string contentType)
         {
             string contentMd5 = new Md5Digest().Generate(content);
@@ -146,8 +153,16 @@ namespace Structurizr.Api
             HmacContent hmacContent = new HmacContent(httpMethod, path, contentMd5, contentType, nonce);
             string authorizationHeader = new HmacAuthorizationHeader(ApiKey, hmac.Generate(hmacContent.ToString())).ToString();
 
+            if (httpClient.DefaultRequestHeaders.Authorization == null)
+            {
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation(HttpHeaders.Authorization, authorizationHeader);
+            }
+            else
+            {
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation(HttpHeaders.XAuthorization, authorizationHeader);
+            }
+
             httpClient.DefaultRequestHeaders.Add(HttpHeaders.UserAgent, "structurizr-dotnet");
-            httpClient.DefaultRequestHeaders.TryAddWithoutValidation(HttpHeaders.Authorization, authorizationHeader);
             httpClient.DefaultRequestHeaders.Add(HttpHeaders.Nonce, nonce);
         }
 
