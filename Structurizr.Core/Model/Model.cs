@@ -471,6 +471,139 @@ namespace Structurizr
         {
             return _relationshipsById[id];
         }
+        
+        /// <summary>
+        /// Propagates all relationships from children to their parents. For example, if you have two components (AAA and BBB)
+        /// in different software systems that have a relationship, calling this method will add the following
+        /// additional implied relationships to the model: AAA-&gt;BB AAA--&gt;B AA-&gt;BBB AA-&gt;BB AA-&gt;B A-&gt;BBB A-&gt;BB A-&gt;B.
+        /// </summary>
+        /// <returns>a set of all implicit relationships</returns>
+        public ISet<Relationship> AddImplicitRelationships()
+        {
+            ISet<Relationship> implicitRelationships = new HashSet<Relationship>();
+
+            string descriptionKey = "D";
+            string technologyKey = "T";
+            
+            // source element -> destination element -> D/T -> possible values
+            Dictionary<Element, Dictionary<Element, Dictionary<string, HashSet<string>>>> candidateRelationships = new Dictionary<Element, Dictionary<Element, Dictionary<string, HashSet<string>>>>();
+    
+            foreach (Relationship relationship in Relationships)
+            {
+                Element source = relationship.Source;
+                Element destination = relationship.Destination;
+    
+                while (source != null)
+                {
+                    while (destination != null)
+                    {
+                        if (!source.HasEfferentRelationshipWith(destination))
+                        {
+                            if (propagatedRelationshipIsAllowed(source, destination))
+                            {
+    
+                                if (!candidateRelationships.ContainsKey(source)) 
+                                {
+                                    candidateRelationships.Add(source, new Dictionary<Element, Dictionary<string, HashSet<string>>>());
+                                }
+    
+                                if (!candidateRelationships[source].ContainsKey(destination))
+                                {
+                                    candidateRelationships[source].Add(destination, new Dictionary<string, HashSet<string>>());
+                                    candidateRelationships[source][destination].Add(descriptionKey, new HashSet<string>());
+                                    candidateRelationships[source][destination].Add(technologyKey, new HashSet<string>());
+                                }
+    
+                                if (relationship.Description != null)
+                                {
+                                    candidateRelationships[source][destination][descriptionKey].Add(relationship.Description);
+                                }
+    
+                                if (relationship.Technology != null)
+                                {
+                                    candidateRelationships[source][destination][technologyKey].Add(relationship.Technology);
+                                }
+                            }
+                        }
+    
+                        destination = destination.Parent;
+                    }
+    
+                    destination = relationship.Destination;
+                    source = source.Parent;
+                }
+            }
+    
+            foreach (Element source in candidateRelationships.Keys)
+            {
+                foreach (Element destination in candidateRelationships[source].Keys)
+                {
+                    ISet<string> possibleDescriptions = candidateRelationships[source][destination][descriptionKey];
+                    ISet<string> possibleTechnologies = candidateRelationships[source][destination][technologyKey];
+    
+                    string description = "";
+                    if (possibleDescriptions.Count == 1)
+                    {
+                        description = possibleDescriptions.First();
+                    }
+    
+                    string technology = "";
+                    if (possibleTechnologies.Count == 1)
+                    {
+                        technology = possibleTechnologies.First();
+                    }
+    
+                    Relationship implicitRelationship = AddRelationship(source, destination, description, technology);
+                    if (implicitRelationship != null)
+                    {
+                        implicitRelationships.Add(implicitRelationship);
+                    }
+                }
+            }
+    
+            return implicitRelationships;
+        }
+
+        private bool propagatedRelationshipIsAllowed(Element source, Element destination)
+        {
+            if (source.Equals(destination))
+            {
+                return false;
+            }
+    
+            if (source.Parent != null) {
+                if (destination.Equals(source.Parent))
+                {
+                    return false;
+                }
+    
+                if (source.Parent.Parent != null)
+                {
+                    if (destination.Equals(source.Parent.Parent))
+                    {
+                        return false;
+                    }
+                }
+            }
+    
+            if (destination.Parent != null)
+            {
+                if (source.Equals(destination.Parent))
+                {
+                    return false;
+                }
+    
+                if (destination.Parent.Parent != null)
+                {
+                    if (source.Equals(destination.Parent.Parent))
+                    {
+                        return false;
+                    }
+                }
+            }
+    
+            return true;
+        }
 
     }
 

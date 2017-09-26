@@ -8,7 +8,7 @@ namespace Structurizr.Core.Tests
     {
         
         [Fact]
-        public void test_addContainerInstance_ThrowsAnException_WhenANullContainerIsSpecified() {
+        public void Test_AddContainerInstance_ThrowsAnException_WhenANullContainerIsSpecified() {
             try {
                 Model.AddContainerInstance(null);
                 throw new TestFailedException();
@@ -18,7 +18,7 @@ namespace Structurizr.Core.Tests
         }
 
         [Fact]
-        public void test_addContainerInstance_AddsAContainerInstance_WhenAContainerIsSpecified() {
+        public void Test_AddContainerInstance_AddsAContainerInstance_WhenAContainerIsSpecified() {
             SoftwareSystem softwareSystem1 = Model.AddSoftwareSystem("Software System 1", "Description");
             Container container1 = softwareSystem1.AddContainer("Container 1", "Description", "Technology");
     
@@ -58,5 +58,67 @@ namespace Structurizr.Core.Tests
             Assert.Equal(InteractionStyle.Asynchronous, relationship.InteractionStyle);
         }
     
+        [Fact]
+        public void Test_AddImplicitRelationships_SetsTheDescriptionOfThePropagatedRelationship_WhenThereIsOnlyOnePossibleDescription() {
+            Person user = Model.AddPerson("Person", "Description");
+            SoftwareSystem softwareSystem = Model.AddSoftwareSystem("Software System", "Description");
+            Container webApplication = softwareSystem.AddContainer("Web Application", "Description", "Technology");
+    
+            user.Uses(webApplication, "Uses", "");
+            Model.AddImplicitRelationships();
+    
+            Assert.Equal(2, user.Relationships.Count);
+    
+            Relationship relationship = user.Relationships.First(r => r.Destination == softwareSystem);
+            Assert.Equal("Uses", relationship.Description);
+        }
+
+        [Fact]
+        public void Test_AddImplicitRelationships_DoeNotSetTheDescriptionOfThePropagatedRelationship_WhenThereIsMoreThanOnePossibleDescription() {
+            Person user = Model.AddPerson("Person", "Description");
+            SoftwareSystem softwareSystem = Model.AddSoftwareSystem("Software System", "Description");
+            Container webApplication = softwareSystem.AddContainer("Web Application", "Description", "Technology");
+    
+            user.Uses(webApplication, "Does something", "");
+            user.Uses(webApplication, "Does something else", "");
+            Model.AddImplicitRelationships();
+    
+            Assert.Equal(3, user.Relationships.Count);
+    
+            Relationship relationship = user.Relationships.First(r => r.Destination == softwareSystem);
+            Assert.Equal("", relationship.Description);
+        }
+
+        [Fact]
+        public void Test_AddImplicitRelationships_SetsTheTechnologyOfThePropagatedRelationship_WhenThereIsOnlyOnePossibleTechnology() {
+            Person user = Model.AddPerson("Person", "Description");
+            SoftwareSystem softwareSystem = Model.AddSoftwareSystem("Software System", "Description");
+            Container webApplication = softwareSystem.AddContainer("Web Application", "Description", "Technology");
+    
+            user.Uses(webApplication, "Uses", "HTTPS");
+            Model.AddImplicitRelationships();
+    
+            Assert.Equal(2, user.Relationships.Count);
+    
+            Relationship relationship = user.Relationships.First(r => r.Destination == softwareSystem);
+            Assert.Equal("HTTPS", relationship.Technology);
+        }
+
+        [Fact]
+        public void Test_AddImplicitRelationships_DoeNotSetTheTechnologyOfThePropagatedRelationship_WhenThereIsMoreThanOnePossibleTechnology() {
+            Person user = Model.AddPerson("Person", "Description");
+            SoftwareSystem softwareSystem = Model.AddSoftwareSystem("Software System", "Description");
+            Container webApplication = softwareSystem.AddContainer("Web Application", "Description", "Technology");
+    
+            user.Uses(webApplication, "Does something", "Some technology");
+            user.Uses(webApplication, "Does something else", "Some other technology");
+            Model.AddImplicitRelationships();
+    
+            Assert.Equal(3, user.Relationships.Count);
+    
+            Relationship relationship = user.Relationships.First(r => r.Destination == softwareSystem);
+            Assert.Equal("", relationship.Technology);
+        }
+
     }
 }
