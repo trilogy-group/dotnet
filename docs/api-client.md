@@ -10,6 +10,12 @@ To configure the API client, simply provide values for the API key and API secre
 StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
 ```
 
+If you're using the [on-premises installation](https://structurizr.com/help/on-premises-ui), there is a three argument version of the constructor where you can also specify the API URL.
+
+```c#
+StructurizrClient structurizrClient = new StructurizrClient("url", "key", "secret");
+```
+
 ## Usage
 
 The following operations are available on the API client.
