@@ -93,7 +93,6 @@ namespace Structurizr
 
         internal View()
         {
-            this.PaperSize = PaperSize.A4_Portrait;
         }
 
         internal View(SoftwareSystem softwareSystem, string key, string description) : this()
@@ -216,7 +215,10 @@ namespace Structurizr
 
         public void CopyLayoutInformationFrom(View source)
         {
-            this.PaperSize = source.PaperSize;
+            if (PaperSize == null)
+            {
+                PaperSize = source.PaperSize;
+            }
 
             foreach (ElementView sourceElementView in source.Elements)
             {
