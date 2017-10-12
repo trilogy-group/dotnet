@@ -66,8 +66,6 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [Client-side encryption](docs/client-side-encryption.md)
     * [Corporate branding](docs/corporate-branding.md)
 * Related projects
-    * [structurizr-java](https://github.com/structurizr/java): Structurizr for Java
-    * [cat-boot-structurizr](https://github.com/Catalysts/cat-boot/tree/master/cat-boot-structurizr): A way to apply dependency management to help modularise Structurizr code.
-    * [java-starter](https://github.com/structurizr/java-starter): A simple starting point for using Structurizr for Java
-    * [structurizr-groovy](https://github.com/tidyjava/structurizr-groovy): An initial version of a Groovy wrapper around Structurizr for Java.
-    
+    * [dotnet-core-quickstart](https://github.com/structurizr/dotnet-core-quickstart): A quickstart for .NET Core
+    * [dotnet-framework-quickstart](https://github.com/structurizr/dotnet-framework-quickstart): A quickstart for .NET Framework
+    * [structurizr-java](https://github.com/structurizr/java): Structurizr for Java    
