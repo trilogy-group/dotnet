@@ -62,6 +62,7 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [Viewpoints and Perspectives](docs/documentation-viewpoints-and-perspectives.md)
 * Exporting and visualising with other tools
     * [PlantUML](docs/plantuml.md)
+    * [DGML](https://github.com/merijndejonge/Structurizr.Dgml)
 * Other
     * [Client-side encryption](docs/client-side-encryption.md)
     * [Corporate branding](docs/corporate-branding.md)
