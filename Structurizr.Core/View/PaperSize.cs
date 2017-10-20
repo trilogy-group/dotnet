@@ -26,6 +26,9 @@ namespace Structurizr
         public static readonly PaperSize Letter_Portrait = new PaperSize("Letter_Portrait", "Letter", Orientation.Portrait, 2550, 3300);
         public static readonly PaperSize Letter_Landscape = new PaperSize("Letter_Landscape", "Letter", Orientation.Landscape, 3300, 2550);
 
+        public static readonly PaperSize Legal_Portrait = new PaperSize("Legal_Portrait", "Legal", Orientation.Portrait, 2550, 4200);
+        public static readonly PaperSize Legal_Landscape = new PaperSize("Legal_Landscape", "Legal", Orientation.Landscape, 4200, 2550);
+
         public static readonly PaperSize Slide_4_3 = new PaperSize("Slide_4_3", "Slide 4:3", Orientation.Landscape, 3306, 2480);
         public static readonly PaperSize Slide_16_9 = new PaperSize("Slide_16_9", "Slide 16:9", Orientation.Landscape, 3508, 1973);
 
