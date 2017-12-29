@@ -53,7 +53,7 @@ namespace Structurizr.Examples
             ecommerceSystem.Uses(taxamo, "Delegates credit card processing to");
             taxamo.Uses(braintreePayments, "Uses for credit card processing");
     
-            EnterpriseContextView enterpriseContextView = views.CreateEnterpriseContextView("EnterpriseContext", "The enterprise context for Widgets Limited.");
+            EnterpriseContextView enterpriseContextView = views.CreateEnterpriseContextView("SystemLandscape", "The system landscape for Widgets Limited.");
             enterpriseContextView.AddAllElements();
     
             SystemContextView ecommerceSystemContext = views.CreateSystemContextView(ecommerceSystem, "EcommerceSystemContext", "The system context diagram for the Widgets Limited e-commerce system.");
@@ -68,7 +68,7 @@ namespace Structurizr.Examples
             dynamicView.Add(customerServiceUser, ecommerceSystem);
     
             StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
-            template.AddSection("Enterprise Context", 1, Format.Markdown, "Here is some information about the Widgets Limited enterprise context... ![](embed:EnterpriseContext)");
+            template.AddSection("System Landscape", 1, Format.Markdown, "Here is some information about the Widgets Limited system landscape... ![](embed:SystemLandscape)");
             template.AddContextSection(ecommerceSystem, Format.Markdown, "This is the context section for the E-commerce System... ![](embed:EcommerceSystemContext)");
             template.AddContextSection(fulfilmentSystem, Format.Markdown, "This is the context section for the Fulfilment System... ![](embed:FulfilmentSystemContext)");
 

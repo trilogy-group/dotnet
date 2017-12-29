@@ -98,7 +98,7 @@ namespace Structurizr.Examples
             secondaryDatabase.AddTags("Failover");
     
             // views/diagrams
-            EnterpriseContextView enterpriseContextView = views.CreateEnterpriseContextView("EnterpriseContext", "The enterprise context diagram for the Internet Banking System.");
+            EnterpriseContextView enterpriseContextView = views.CreateEnterpriseContextView("SystemLandscape", "The system landscape diagram for Big Bank plc.");
             enterpriseContextView.AddAllElements();
             enterpriseContextView.PaperSize = PaperSize.A5_Landscape;
     
