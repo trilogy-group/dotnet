@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -66,7 +67,14 @@ namespace Structurizr.Analysis
         /// <inheritdoc />
         public TypeDefinition GetType(string typeName)
         {
-            return _types.Values.SingleOrDefault(t => typeName == t.FullName);
+            Func<TypeDefinition, bool> predicate;
+            var split = typeName.Split(new[] { ", " }, 2, StringSplitOptions.RemoveEmptyEntries);
+            if (split.Length == 2)
+                predicate = t => t.FullName == split[0] && t.Module.Assembly.FullName == split[1];
+            else
+                predicate = t => t.FullName == typeName;
+
+            return _types.Values.SingleOrDefault(predicate);
         }
 
         /// <inheritdoc />
