@@ -37,15 +37,29 @@ namespace Structurizr.Analysis
             {
                 if (!type.HasCustomAttributes) continue;
                 var componentAttribute = type.CustomAttributes.OfType<ComponentAttribute>().FirstOrDefault();
-                if (componentAttribute == null) continue;
+                if (componentAttribute != null)
+                {
+                    Component component = ComponentFinder.Container.AddComponent(
+                        type.Name,
+                        type.GetAssemblyQualifiedName(),
+                        componentAttribute.Description,
+                        componentAttribute.Technology
+                    );
+                    _componentsFound.Add(component);
+                    continue; // CodeElementAttribute on a type already decorated with ComponentAttribute is ignored
+                }
 
-                Component component = ComponentFinder.Container.AddComponent(
-                    type.Name,
-                    type.GetAssemblyQualifiedName(),
-                    componentAttribute.Description,
-                    componentAttribute.Technology
-                );
-                _componentsFound.Add(component);
+                var codeElementAttribute = type.CustomAttributes.OfType<CodeElementAttribute>().FirstOrDefault();
+                if (codeElementAttribute != null)
+                {
+                    Component component =
+                        ComponentFinder.Container.GetComponentOfType(codeElementAttribute.ComponentName)
+                        ?? ComponentFinder.Container.GetComponentWithName(codeElementAttribute.ComponentName);
+                    if (component == null) continue;
+
+                    CodeElement codeElement = component.AddSupportingType(type.GetAssemblyQualifiedName());
+                    codeElement.Description = codeElementAttribute.Description;
+                }
             }
 
             return _componentsFound;
