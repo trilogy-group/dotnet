@@ -64,6 +64,12 @@ namespace Structurizr.Analysis
         }
 
         /// <inheritdoc />
+        public TypeDefinition GetType(string typeName)
+        {
+            return _types.Values.SingleOrDefault(t => typeName == t.FullName);
+        }
+
+        /// <inheritdoc />
         public IEnumerable<string> GetReferencedTypes(string typeName)
         {
             // use the cached version if possible
