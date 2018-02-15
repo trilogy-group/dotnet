@@ -151,8 +151,8 @@ namespace Structurizr.Analysis
         /// <inheritdoc />
         public string FindVisibility(string typeName)
         {
-            TypeDefinition type = _types[typeName];
-            if (type != null)
+            TypeDefinition type;
+            if (_types.TryGetValue(typeName, out type) && type != null)
             {
                 if (type.IsPublic)
                 {
@@ -171,8 +171,8 @@ namespace Structurizr.Analysis
         /// <inheritdoc />
         public string FindCategory(string typeName)
         {
-            TypeDefinition type = _types[typeName];
-            if (type != null)
+            TypeDefinition type;
+            if (_types.TryGetValue(typeName, out type) && type != null)
             {
                 if (type.IsAbstract)
                 {
