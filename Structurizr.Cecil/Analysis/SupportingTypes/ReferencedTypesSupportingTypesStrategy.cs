@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Structurizr.Analysis.SupportingTypes
 {
-    class ReferencedTypesSupportingTypesStrategy : SupportingTypesStrategy
+    public class ReferencedTypesSupportingTypesStrategy : SupportingTypesStrategy
     {
         private bool _includeIndirectlyReferencedTypes;
 
