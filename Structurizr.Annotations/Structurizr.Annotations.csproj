@@ -1,5 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <!-- Update this property group for every regular release -->
+  <PropertyGroup>
+    <VersionPrefix>0.6.0</VersionPrefix>
+    <ReleaseNotes></ReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Summary>Annotations to maintain the C4 model for software architecture in code</Summary>
+    <Description>Structurizr Annotations lets you use .NET attributes to declare components and their relationships using the C4 model for software architecture.</Description>
+    <Authors>Structurizr Limited</Authors>
+    <Copyright>Copyright 2017</Copyright>
+    <PackageLicenseUrl>https://opensource.org/licenses/Apache-2.0</PackageLicenseUrl>
+    <PackageProjectUrl>https://structurizr.com</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/structurizr/dotnet</RepositoryUrl>
+  </PropertyGroup>
+
   <PropertyGroup>
     <TargetFrameworks>netstandard1.0;net40</TargetFrameworks>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Structurizr.Annotations.xml</DocumentationFile>
