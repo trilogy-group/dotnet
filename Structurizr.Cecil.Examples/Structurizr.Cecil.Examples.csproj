@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net45</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mono.Cecil" Version="0.10.0-beta6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Structurizr.Annotations\Structurizr.Annotations.csproj" />
+    <ProjectReference Include="..\Structurizr.Cecil\Structurizr.Cecil.csproj" />
+    <ProjectReference Include="..\Structurizr.Core\Structurizr.Core.csproj" />
+  </ItemGroup>
+
+</Project>
