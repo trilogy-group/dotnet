@@ -5,6 +5,7 @@ using Mono.Cecil;
 
 using Structurizr.Annotations;
 using Structurizr.Cecil;
+using Structurizr.Cecil.Util;
 
 namespace Structurizr.Analysis
 {
@@ -33,10 +34,14 @@ namespace Structurizr.Analysis
 
         public IEnumerable<Component> FindComponents()
         {
-            foreach(TypeDefinition type in _typeRepository.GetAllTypes())
+            List<TypeDefinition> types = _typeRepository.GetAllTypes().ToList();
+
+            foreach (TypeDefinition type in types)
             {
                 if (!type.HasCustomAttributes) continue;
-                var componentAttribute = type.CustomAttributes.OfType<ComponentAttribute>().FirstOrDefault();
+
+                ComponentAttribute componentAttribute =
+                    type.ResolvableAttributes<ComponentAttribute>().SingleOrDefault();
                 if (componentAttribute != null)
                 {
                     Component component = ComponentFinder.Container.AddComponent(
@@ -46,19 +51,27 @@ namespace Structurizr.Analysis
                         componentAttribute.Technology
                     );
                     _componentsFound.Add(component);
-                    continue; // CodeElementAttribute on a type already decorated with ComponentAttribute is ignored
                 }
+            }
 
-                var codeElementAttribute = type.CustomAttributes.OfType<CodeElementAttribute>().FirstOrDefault();
+            // Look for code elements after finding all the components
+            foreach (TypeDefinition type in types)
+            {
+                CodeElementAttribute codeElementAttribute = type.ResolvableAttributes<CodeElementAttribute>().SingleOrDefault();
                 if (codeElementAttribute != null)
                 {
                     Component component =
                         ComponentFinder.Container.GetComponentOfType(codeElementAttribute.ComponentName)
                         ?? ComponentFinder.Container.GetComponentWithName(codeElementAttribute.ComponentName);
-                    if (component == null) continue;
-
-                    CodeElement codeElement = component.AddSupportingType(type.GetAssemblyQualifiedName());
-                    codeElement.Description = codeElementAttribute.Description;
+                    if (component != null)
+                    {
+                        CodeElement codeElement = component.AddSupportingType(type.GetAssemblyQualifiedName());
+                        codeElement.Description = codeElementAttribute.Description;
+                    }
+                    else
+                    {
+                        // todo: logging
+                    }
                 }
             }
 
@@ -76,10 +89,10 @@ namespace Structurizr.Analysis
 
                     FindUsesComponentAnnotations(component, codeElement.Type);
                     FindUsesContainerAnnotations(component, codeElement.Type);
-                    FindUsedBySoftwareSystemAnnotations(component, codeElement.Type);
+                    FindUsesSoftwareSystemAnnotations(component, codeElement.Type);
 
                     FindUsedByPersonAnnotations(component, codeElement.Type);
-                    FindUsedBySoftwareSystemAnnotations(component, codeElement.Type);
+                    FindUsedByContainerAnnotations(component, codeElement.Type);
                     FindUsedBySoftwareSystemAnnotations(component, codeElement.Type);
                 }
             }
@@ -97,14 +110,55 @@ namespace Structurizr.Analysis
             foreach (FieldDefinition field in type.Fields)
             {
                 if (!field.HasCustomAttributes) continue;
-                var annotation = field.CustomAttributes.OfType<UsesComponentAttribute>().SingleOrDefault();
+                var annotation = field.ResolvableAttributes<UsesComponentAttribute>().SingleOrDefault();
                 if (annotation == null) continue;
 
-                string destinationTypeName = field.FieldType.FullName;
-                Component destination = ComponentFinder.Container.GetComponentOfType(destinationTypeName);
-                if (destination != null)
+                AddUsesComponentRelationship(component, field.FieldType, annotation);
+            }
+
+            foreach (PropertyDefinition property in type.Properties)
+            {
+                if (!property.HasCustomAttributes) continue;
+                var annotation = property.ResolvableAttributes<UsesComponentAttribute>().SingleOrDefault();
+                if (annotation == null) continue;
+
+                AddUsesComponentRelationship(component, property.PropertyType, annotation);
+            }
+
+            foreach (MethodDefinition method in type.Methods)
+            {
+                foreach (ParameterDefinition parameter in method.Parameters)
                 {
-                    foreach (Relationship relationship in component.Relationships.Where(r => r.Destination == destination))
+                    if (!parameter.HasCustomAttributes) continue;
+                    var annotation = parameter.ResolvableAttributes<UsesComponentAttribute>().SingleOrDefault();
+                    if (annotation == null) continue;
+
+                    AddUsesComponentRelationship(component, parameter.ParameterType, annotation);
+                }
+            }
+        }
+
+        private void AddUsesComponentRelationship(
+            Component component,
+            TypeReference destinationType,
+            UsesComponentAttribute annotation)
+        {
+            if (annotation == null)
+            {
+                // todo: logging
+                return;
+            }
+
+            string destinationTypeName = destinationType.GetAssemblyQualifiedName();
+            Component destination = ComponentFinder.Container.GetComponentOfType(destinationTypeName);
+            if (destination != null)
+            {
+                IList<Relationship> relationships = component.Relationships
+                    .Where(r => r.Destination.Equals(destination))
+                    .ToList();
+                if (relationships.Count > 0)
+                {
+                    foreach (Relationship relationship in relationships)
                     {
                         relationship.Description = annotation.Description;
                         relationship.Technology = annotation.Technology;
@@ -112,8 +166,13 @@ namespace Structurizr.Analysis
                 }
                 else
                 {
-                    // todo: logging
+                    // Relationship doesn't already exist, so add it
+                    component.Uses(destination, annotation.Description, annotation.Technology);
                 }
+            }
+            else
+            {
+                // todo: logging
             }
         }
 
@@ -127,13 +186,16 @@ namespace Structurizr.Analysis
             }
             if (!type.HasCustomAttributes) return;
 
-            var annotations = type.CustomAttributes.OfType<UsesContainerAttribute>().ToList();
+            var annotations = type.ResolvableAttributes<UsesContainerAttribute>().ToList();
             foreach(UsesContainerAttribute annotation in annotations)
             {
                 Container container = FindContainerByNameOrId(component, annotation.ContainerName);
                 if (container != null)
                 {
-                    component.Uses(container, annotation.Description, annotation.Technology);
+                    string description = annotation.Description;
+                    string technology = annotation.Technology;
+
+                    component.Uses(container, description, technology);
                 }
                 else
                 {
@@ -152,13 +214,16 @@ namespace Structurizr.Analysis
             }
             if (!type.HasCustomAttributes) return;
 
-            var annotations = type.CustomAttributes.OfType<UsesSoftwareSystemAttribute>().ToList();
+            var annotations = type.ResolvableAttributes<UsesSoftwareSystemAttribute>().ToList();
             foreach(UsesSoftwareSystemAttribute annotation in annotations)
             {
                 SoftwareSystem system = component.Model.GetSoftwareSystemWithName(annotation.SoftwareSystemName);
                 if (system != null)
                 {
-                    component.Uses(system, annotation.Description, annotation.Technology);
+                    string description = annotation.Description;
+                    string technology = annotation.Technology;
+
+                    component.Uses(system, description, technology);
                 }
                 else
                 {
@@ -177,13 +242,16 @@ namespace Structurizr.Analysis
             }
             if (!type.HasCustomAttributes) return;
 
-            var annotations = type.CustomAttributes.OfType<UsedByContainerAttribute>().ToList();
+            var annotations = type.ResolvableAttributes<UsedByContainerAttribute>().ToList();
             foreach(UsedByContainerAttribute annotation in annotations)
             {
                 Container container = FindContainerByNameOrId(component, annotation.ContainerName);
                 if (container != null)
                 {
-                    container.Uses(component, annotation.Description, annotation.Technology);
+                    string description = annotation.Description;
+                    string technology = annotation.Technology;
+
+                    container.Uses(component, description, technology);
                 }
                 else
                 {
@@ -202,13 +270,16 @@ namespace Structurizr.Analysis
             }
             if (!type.HasCustomAttributes) return;
 
-            var annotations = type.CustomAttributes.OfType<UsedByPersonAttribute>().ToList();
+            var annotations = type.ResolvableAttributes<UsedByPersonAttribute>().ToList();
             foreach(UsedByPersonAttribute annotation in annotations)
             {
                 Person person = component.Model.GetPersonWithName(annotation.PersonName);
                 if (person != null)
                 {
-                    person.Uses(component, annotation.Description, annotation.Technology);
+                    string description = annotation.Description;
+                    string technology = annotation.Technology;
+
+                    person.Uses(component, description, technology);
                 }
                 else
                 {
@@ -227,7 +298,7 @@ namespace Structurizr.Analysis
             }
             if (!type.HasCustomAttributes) return;
 
-            var annotations = type.CustomAttributes.OfType<UsedBySoftwareSystemAttribute>().ToList();
+            var annotations = type.ResolvableAttributes<UsedBySoftwareSystemAttribute>().ToList();
             foreach(UsedBySoftwareSystemAttribute annotation in annotations)
             {
                 SoftwareSystem system = component.Model.GetSoftwareSystemWithName(annotation.SoftwareSystemName);
