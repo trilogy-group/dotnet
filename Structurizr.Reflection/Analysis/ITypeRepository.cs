@@ -9,6 +9,7 @@ namespace Structurizr.Analysis
 
         string Namespace { get; }
         IEnumerable<Type> GetAllTypes();
+        Type GetType(string type);
         IEnumerable<string> GetReferencedTypes(string type);
 
         string FindCategory(string typeName);
