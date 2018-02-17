@@ -7,9 +7,16 @@ using Structurizr.Api;
 
 namespace Structurizr.Examples
 {
+
+    /// <summary>
+    /// A small example that illustrates how to use the Structurizr annotations
+    /// in conjunction with the StructurizrAnnotationsComponentFinderStrategy.
+    /// 
+    /// The live workspace is available to view at https://structurizr.com/share/38339
+    /// </summary>
     public class StructurizrAnnotations
     {
-        private const string DATABASE_TAG = "Database";
+        private const string DatabaseTag = "Database";
 
         private const long WorkspaceId = 38339;
         private const string ApiKey = "key";
@@ -25,7 +32,7 @@ namespace Structurizr.Examples
 
             Container webApplication = softwareSystem.AddContainer("Web Application", "Provides users with information.", "C#");
             Container database = softwareSystem.AddContainer("Database", "Stores information.", "Relational database schema");
-            database.AddTags(DATABASE_TAG);
+            database.AddTags(DatabaseTag);
 
             string assemblyPath = typeof(StructurizrAnnotations).Assembly.Location;
             DefaultAssemblyResolver resolver = new DefaultAssemblyResolver();
@@ -59,7 +66,7 @@ namespace Structurizr.Examples
             styles.Add(new ElementStyle(Tags.Container) { Background = "#438dd5" });
             styles.Add(new ElementStyle(Tags.Component) { Background = "#85bbf0", Color = "#000000" });
             styles.Add(new ElementStyle(Tags.Person) { Background = "#08427b", Shape = Shape.Person });
-            styles.Add(new ElementStyle(DATABASE_TAG) { Shape = Shape.Cylinder });
+            styles.Add(new ElementStyle(DatabaseTag) { Shape = Shape.Cylinder });
 
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
             structurizrClient.PutWorkspace(WorkspaceId, workspace);
