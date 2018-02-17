@@ -19,7 +19,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard1.0;net40</TargetFrameworks>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Structurizr.Annotations.xml</DocumentationFile>
-    <NetStandardImplicitPackageVersion>1.0.0</NetStandardImplicitPackageVersion>
+    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.0'">
