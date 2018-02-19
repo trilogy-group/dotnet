@@ -10,4 +10,7 @@
     <ProjectReference Include="..\Structurizr.Core\Structurizr.Core.csproj" />
     <ProjectReference Include="..\Structurizr.Reflection\Structurizr.Reflection.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Runtime" />
+  </ItemGroup>
 </Project>

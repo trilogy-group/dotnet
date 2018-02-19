@@ -54,6 +54,18 @@ namespace Structurizr.Analysis
             return _types.Values;
         }
 
+        public Type GetType(string typeName)
+        {
+            Func<Type, bool> predicate;
+            var split = typeName.Split(new[] { ", " }, 2, StringSplitOptions.RemoveEmptyEntries);
+            if (split.Length == 2)
+                predicate = t => t.FullName == split[0] && t.Module.Assembly.FullName == split[1];
+            else
+                predicate = t => t.FullName == typeName;
+
+            return _types.Values.SingleOrDefault(predicate);
+        }
+
         public IEnumerable<string> GetReferencedTypes(string typeName)
         {
             // use the cached version if possible

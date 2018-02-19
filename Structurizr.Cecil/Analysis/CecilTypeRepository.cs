@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -61,6 +62,19 @@ namespace Structurizr.Analysis
         public IEnumerable<TypeDefinition> GetAllTypes()
         {
             return _types.Values;
+        }
+
+        /// <inheritdoc />
+        public TypeDefinition GetType(string typeName)
+        {
+            Func<TypeDefinition, bool> predicate;
+            var split = typeName.Split(new[] { ", " }, 2, StringSplitOptions.RemoveEmptyEntries);
+            if (split.Length == 2)
+                predicate = t => t.FullName == split[0] && t.Module.Assembly.FullName == split[1];
+            else
+                predicate = t => t.FullName == typeName;
+
+            return _types.Values.SingleOrDefault(predicate);
         }
 
         /// <inheritdoc />
@@ -137,8 +151,8 @@ namespace Structurizr.Analysis
         /// <inheritdoc />
         public string FindVisibility(string typeName)
         {
-            TypeDefinition type = _types[typeName];
-            if (type != null)
+            TypeDefinition type;
+            if (_types.TryGetValue(typeName, out type) && type != null)
             {
                 if (type.IsPublic)
                 {
@@ -157,8 +171,8 @@ namespace Structurizr.Analysis
         /// <inheritdoc />
         public string FindCategory(string typeName)
         {
-            TypeDefinition type = _types[typeName];
-            if (type != null)
+            TypeDefinition type;
+            if (_types.TryGetValue(typeName, out type) && type != null)
             {
                 if (type.IsAbstract)
                 {
