@@ -19,6 +19,8 @@ namespace Structurizr.Analysis
 
         private ITypeRepository _typeRepository;
 
+        private List<SupportingTypesStrategy> _supportingTypesStrategies = new List<SupportingTypesStrategy>();
+
         public StructurizrAnnotationsComponentFinderStrategy(AssemblyDefinition assembly)
         {
             this._primaryAssembly = assembly;
@@ -30,6 +32,10 @@ namespace Structurizr.Analysis
                 _primaryAssembly,
                 ComponentFinder.Namespace,
                 ComponentFinder.Exclusions);
+            foreach (SupportingTypesStrategy strategy in _supportingTypesStrategies)
+            {
+                strategy.TypeRepository = _typeRepository;
+            }
         }
 
         public IEnumerable<Component> FindComponents()
@@ -82,6 +88,17 @@ namespace Structurizr.Analysis
         {
             foreach (Component component in _componentsFound)
             {
+                foreach (SupportingTypesStrategy strategy in _supportingTypesStrategies)
+                {
+                    foreach (string type in strategy.FindSupportingTypes(component))
+                    {
+                        if (ComponentFinder.Container.GetComponentOfType(type) == null)
+                        {
+                            component.AddSupportingType(type);
+                        }
+                    }
+                }
+
                 foreach (CodeElement codeElement in component.CodeElements)
                 {
                     codeElement.Visibility = _typeRepository.FindVisibility(codeElement.Type);
@@ -324,6 +341,19 @@ namespace Structurizr.Analysis
             }
 
             return container;
+        }
+
+        /// <summary>
+        /// Adds a SupportingTypeStrategy.
+        /// </summary>
+        /// <param name="strategy">A SupportingTypesStrategy object</param>
+        public void AddSupportingTypesStrategy(SupportingTypesStrategy strategy)
+        {
+            if (strategy != null)
+            {
+                _supportingTypesStrategies.Add(strategy);
+                strategy.TypeRepository = _typeRepository;
+            }
         }
     }
 }
