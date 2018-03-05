@@ -37,7 +37,13 @@ namespace Structurizr.Annotations
         /// <param name="personName">The name of the person which uses the attributed component.</param>
         public UsedByPersonAttribute(string personName)
         {
-            if (String.IsNullOrWhiteSpace(personName)) throw new ArgumentNullException(nameof(personName));
+#if NET20 || PORTABLE2
+            if (String.IsNullOrEmpty(personName) || personName.Trim() == String.Empty)
+#else
+            if (String.IsNullOrWhiteSpace(personName))
+#endif
+                throw new ArgumentNullException(nameof(personName));
+
             this.PersonName = personName;
         }
     }

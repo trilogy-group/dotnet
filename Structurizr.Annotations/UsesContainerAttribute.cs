@@ -37,7 +37,13 @@ namespace Structurizr.Annotations
         /// <param name="containerName">The name of the container which is used by the attributed component.</param>
         public UsesContainerAttribute(string containerName)
         {
-            if (String.IsNullOrWhiteSpace(containerName)) throw new ArgumentNullException(nameof(containerName));
+#if NET20 || PORTABLE2
+            if (String.IsNullOrEmpty(containerName) || containerName.Trim() == String.Empty)
+#else
+            if (String.IsNullOrWhiteSpace(containerName))
+#endif
+                throw new ArgumentNullException(nameof(containerName));
+
             this.ContainerName = containerName;
         }
     }

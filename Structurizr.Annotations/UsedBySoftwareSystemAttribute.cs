@@ -38,8 +38,13 @@ namespace Structurizr.Annotations
         /// <param name="softwareSystemName">The name of the software system which uses the attributed component.</param>
         public UsedBySoftwareSystemAttribute(string softwareSystemName)
         {
+#if NET20 || PORTABLE2
+            if (String.IsNullOrEmpty(softwareSystemName) || softwareSystemName.Trim() == String.Empty)
+#else
             if (String.IsNullOrWhiteSpace(softwareSystemName))
+#endif
                 throw new ArgumentNullException(nameof(softwareSystemName));
+
             this.SoftwareSystemName = softwareSystemName;
         }
     }
