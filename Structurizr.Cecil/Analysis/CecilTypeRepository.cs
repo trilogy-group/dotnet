@@ -174,7 +174,12 @@ namespace Structurizr.Analysis
             TypeDefinition type;
             if (_types.TryGetValue(typeName, out type) && type != null)
             {
-                if (type.IsAbstract)
+                if (type.IsInterface)
+                {
+                    // IsAbstract=true for interfaces so we need to check this first!
+                    return "interface";
+                }
+                else if (type.IsAbstract)
                 {
                     if (type.IsSealed)
                     {
@@ -182,10 +187,6 @@ namespace Structurizr.Analysis
                     }
 
                     return "abstract class";
-                }
-                else if (type.IsInterface)
-                {
-                    return "interface";
                 }
                 else if (type.IsEnum)
                 {

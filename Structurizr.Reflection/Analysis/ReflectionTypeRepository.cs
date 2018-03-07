@@ -163,13 +163,18 @@ namespace Structurizr.Analysis
             Type type = _types[typeName];
             if (type != null)
             {
-                if (type.IsAbstract)
+                if (type.IsInterface)
                 {
-                    return "abstract class";
-                }
-                else if (type.IsInterface)
-                {
+                    // IsAbstract=true for interfaces so we need to check this first!
                     return "interface";
+                }
+                else if (type.IsAbstract)
+                {
+                    if (type.IsSealed)
+                    {
+                        return "static class";
+                    }
+                    return "abstract class";
                 }
                 else if (type.IsEnum)
                 {

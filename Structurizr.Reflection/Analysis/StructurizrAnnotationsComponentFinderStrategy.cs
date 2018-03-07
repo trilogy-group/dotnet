@@ -58,7 +58,7 @@ namespace Structurizr.Analysis
                 }
                 else
                 {
-                    // todo: logging
+                    Console.WriteLine("Could not find component " + codeElementAttribute.ComponentName + " for type " + type.FullName);
                 }
             }
 
@@ -101,7 +101,7 @@ namespace Structurizr.Analysis
             Type type = _typeRepository.GetType(typeName);
             if (type == null)
             {
-                // todo: logging
+                Console.WriteLine("Could not find type " + typeName + " for component " + component.Name);
                 return;
             }
 
@@ -140,7 +140,7 @@ namespace Structurizr.Analysis
         {
             if (annotation == null)
             {
-                // todo: logging
+                Console.WriteLine("Missing UsesComponent annotation on " + component.Name);
                 return;
             }
 
@@ -166,7 +166,7 @@ namespace Structurizr.Analysis
             }
             else
             {
-                // todo: logging
+                Console.WriteLine("Could not find component with " + destinationType.FullName + " for component " + component.Name);
             }
         }
 
@@ -175,7 +175,7 @@ namespace Structurizr.Analysis
             Type type = _typeRepository.GetType(typeName);
             if (type == null)
             {
-                // todo: logging
+                Console.WriteLine("Could not find type " + typeName + " for component " + component.Name);
                 return;
             }
 
@@ -189,7 +189,7 @@ namespace Structurizr.Analysis
                 }
                 else
                 {
-                    // todo: logging
+                    Console.WriteLine("Could not find container " + annotation.ContainerName + " for component " + component.Name);
                 }
             }
         }
@@ -199,7 +199,7 @@ namespace Structurizr.Analysis
             var type = _typeRepository.GetType(typeName);
             if (type == null)
             {
-                // todo: logging
+                Console.WriteLine("Could not find type " + typeName + " for component " + component.Name);
                 return;
             }
 
@@ -213,7 +213,7 @@ namespace Structurizr.Analysis
                 }
                 else
                 {
-                    // todo: logging
+                    Console.WriteLine("Could not find software system " + annotation.SoftwareSystemName + " for component " + component.Name);
                 }
             }
         }
@@ -223,7 +223,7 @@ namespace Structurizr.Analysis
             Type type = _typeRepository.GetType(typeName);
             if (type == null)
             {
-                // todo: logging
+                Console.WriteLine("Could not find type " + typeName + " for component " + component.Name);
                 return;
             }
 
@@ -237,7 +237,7 @@ namespace Structurizr.Analysis
                 }
                 else
                 {
-                    // todo: logging
+                    Console.WriteLine("Could not find person " + annotation.PersonName + " using component " + component.Name);
                 }
             }
         }
@@ -247,7 +247,7 @@ namespace Structurizr.Analysis
             Type type = _typeRepository.GetType(typeName);
             if (type == null)
             {
-                // todo: logging
+                Console.WriteLine("Could not find type " + typeName + " for component " + component.Name);
                 return;
             }
 
@@ -261,7 +261,7 @@ namespace Structurizr.Analysis
                 }
                 else
                 {
-                    // todo: logging
+                    Console.WriteLine("Could not find container " + annotation.ContainerName + " using component " + component.Name);
                 }
             }
         }
@@ -271,7 +271,7 @@ namespace Structurizr.Analysis
             Type type = _typeRepository.GetType(typeName);
             if (type == null)
             {
-                // todo: logging
+                Console.WriteLine("Could not find type " + typeName + " for component " + component.Name);
                 return;
             }
 
@@ -285,7 +285,7 @@ namespace Structurizr.Analysis
                 }
                 else
                 {
-                    // todo: logging
+                    Console.WriteLine("Could not find software system " + annotation.SoftwareSystemName + " using component " + component.Name);
                 }
             }
         }
