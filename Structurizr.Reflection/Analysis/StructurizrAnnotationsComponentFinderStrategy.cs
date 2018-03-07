@@ -7,8 +7,21 @@ using Structurizr.Annotations;
 
 namespace Structurizr.Analysis
 {
+    /// <summary>
+    /// Implements a component finder strategy which uses the attributes from <see cref="Structurizr.Annotations"/> to
+    /// identify components, their code elements, and their relationships.
+    /// </summary>
+    /// <seealso cref="CodeElementAttribute" />
+    /// <seealso cref="ComponentAttribute" />
+    /// <seealso cref="UsedByContainerAttribute" />
+    /// <seealso cref="UsedByPersonAttribute" />
+    /// <seealso cref="UsedBySoftwareSystemAttribute" />
+    /// <seealso cref="UsesComponentAttribute" />
+    /// <seealso cref="UsesContainerAttribute" />
+    /// <seealso cref="UsesSoftwareSystemAttribute" />
     public class StructurizrAnnotationsComponentFinderStrategy : ComponentFinderStrategy
     {
+        /// <inheritdoc />
         public ComponentFinder ComponentFinder { get; set; }
 
         private HashSet<Component> _componentsFound = new HashSet<Component>();
@@ -16,6 +29,7 @@ namespace Structurizr.Analysis
         private ITypeRepository _typeRepository;
         private List<SupportingTypesStrategy> _supportingTypesStrategies = new List<SupportingTypesStrategy>();
 
+        /// <inheritdoc />
         public void BeforeFindComponents()
         {
             _typeRepository = new ReflectionTypeRepository(ComponentFinder.Namespace, ComponentFinder.Exclusions);
@@ -25,6 +39,7 @@ namespace Structurizr.Analysis
             }
         }
 
+        /// <inheritdoc />
         public IEnumerable<Component> FindComponents()
         {
             List<Type> types = _typeRepository.GetAllTypes().ToList();
@@ -65,6 +80,7 @@ namespace Structurizr.Analysis
             return _componentsFound;
         }
 
+        /// <inheritdoc />
         public void AfterFindComponents()
         {
             foreach (Component component in _componentsFound)
@@ -304,9 +320,11 @@ namespace Structurizr.Analysis
         }
 
         /// <summary>
-        /// Adds a SupportingTypeStrategy.
+        /// Adds a strategy for identifying supporting types of components identified by this strategy.
         /// </summary>
-        /// <param name="strategy">A SupportingTypesStrategy object</param>
+        /// <param name="strategy">
+        /// A <see cref="SupportingTypesStrategy"/> instance to use for identifying supporting types.
+        /// </param>
         public void AddSupportingTypesStrategy(SupportingTypesStrategy strategy)
         {
             if (strategy != null)

@@ -5,12 +5,19 @@ namespace Structurizr.Analysis
 {
 
     /// <summary>
-    /// This is a component finder strategy that uses one or more TypeMatcher instances to find components.
+    /// Implements a component finder strategy which uses a collection of <see cref="ITypeMatcher"/> objects to identify
+    /// components and their dependencies.
     /// </summary>
+    /// <seealso cref="CustomAttributeTypeMatcher" />
+    /// <seealso cref="ExtendsClassTypeMatcher" />
+    /// <seealso cref="InterfaceImplementationTypeMatcher" />
+    /// <seealso cref="NameSuffixTypeMatcher" />
     public class TypeMatcherComponentFinderStrategy : ComponentFinderStrategy
     {
 
         private ComponentFinder _componentFinder;
+
+        /// <inheritdoc />
         public ComponentFinder ComponentFinder
         {
             get { return _componentFinder; }
@@ -26,11 +33,20 @@ namespace Structurizr.Analysis
         private List<ITypeMatcher> _typeMatchers = new List<ITypeMatcher>();
         private List<SupportingTypesStrategy> _supportingTypesStrategies = new List<SupportingTypesStrategy>();
 
+        /// <summary>
+        /// Creates a new instance of <see cref="TypeMatcherComponentFinderStrategy"/> for identifying
+        /// components using the provided type matchers.
+        /// </summary>
+        /// <param name="typeMatchers">
+        /// An array of objects implementing <see cref="ITypeMatcher"> that will be used to identify components in the
+        /// provided assembly.
+        /// </param>
         public TypeMatcherComponentFinderStrategy(params ITypeMatcher[] typeMatchers)
         {
             this._typeMatchers.AddRange(typeMatchers);
         }
 
+        /// <inheritdoc />
         public void BeforeFindComponents()
         {
             _typeRepository = new ReflectionTypeRepository(_componentFinder.Namespace, _componentFinder.Exclusions);
@@ -40,6 +56,7 @@ namespace Structurizr.Analysis
             }
         }
 
+        /// <inheritdoc />
         public IEnumerable<Component> FindComponents()
         {
             foreach (Type type in _typeRepository.GetAllTypes())
@@ -61,6 +78,7 @@ namespace Structurizr.Analysis
             return _componentsFound;
         }
 
+        /// <inheritdoc />
         public void AfterFindComponents()
         {
             // before finding dependencies, let's find the types that are used to implement each component
@@ -123,9 +141,11 @@ namespace Structurizr.Analysis
         }
 
         /// <summary>
-        /// Adds a SupportingTypeStrategy.
+        /// Adds a strategy for identifying supporting types of components identified by this strategy.
         /// </summary>
-        /// <param name="strategy">A SupportingTypesStrategy object</param>
+        /// <param name="strategy">
+        /// A <see cref="SupportingTypesStrategy"/> instance to use for identifying supporting types.
+        /// </param>
         public void AddSupportingTypesStrategy(SupportingTypesStrategy strategy)
         {
             if (strategy != null)
