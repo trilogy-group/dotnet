@@ -6,8 +6,20 @@ using Mono.Cecil;
 
 namespace Structurizr.Cecil.Util
 {
+    /// <summary>
+    /// Provides extension methods for working with custom attributes.
+    /// </summary>
     static class CustomAttributeExtensions
     {
+        /// <summary>
+        /// Retrieves custom attributes of a specified type that are applied to a specified type.
+        /// </summary>
+        /// <param name="klassType">The type to inspect.</param>
+        /// <typeparam name="TAttribute">The type of attribute to search for.</typeparam>
+        /// <returns>
+        /// A collection of custom attributes which match <typeparamref name="TAttribute"/>, or an empty enumeration if
+        /// no such attribute is found.
+        /// </returns>
         public static IEnumerable<TAttribute> ResolvableAttributes<TAttribute>(this TypeDefinition klassType)
             where TAttribute : Attribute
         {
@@ -30,6 +42,15 @@ namespace Structurizr.Cecil.Util
             }
         }
 
+        /// <summary>
+        /// Retrieves custom attributes of a specified type that are applied to a specified field.
+        /// </summary>
+        /// <param name="field">The field to inspect.</param>
+        /// <typeparam name="TAttribute">The type of attribute to search for.</typeparam>
+        /// <returns>
+        /// A collection of custom attributes which match <typeparamref name="TAttribute"/>, or an empty enumeration if
+        /// no such attribute is found.
+        /// </returns>
         public static IEnumerable<TAttribute> ResolvableAttributes<TAttribute>(this FieldDefinition field)
             where TAttribute : Attribute
         {
@@ -52,6 +73,15 @@ namespace Structurizr.Cecil.Util
             }
         }
 
+        /// <summary>
+        /// Retrieves custom attributes of a specified type that are applied to a specified property.
+        /// </summary>
+        /// <param name="field">The property to inspect.</param>
+        /// <typeparam name="TAttribute">The type of attribute to search for.</typeparam>
+        /// <returns>
+        /// A collection of custom attributes which match <typeparamref name="TAttribute"/>, or an empty enumeration if
+        /// no such attribute is found.
+        /// </returns>
         public static IEnumerable<TAttribute> ResolvableAttributes<TAttribute>(this PropertyDefinition property)
             where TAttribute : Attribute
         {
@@ -74,6 +104,15 @@ namespace Structurizr.Cecil.Util
             }
         }
 
+        /// <summary>
+        /// Retrieves custom attributes of a specified type that are applied to a specified parameter.
+        /// </summary>
+        /// <param name="field">The property to inspect.</param>
+        /// <typeparam name="TAttribute">The type of attribute to search for.</typeparam>
+        /// <returns>
+        /// A collection of custom attributes which match <typeparamref name="TAttribute"/>, or an empty enumeration if
+        /// no such attribute is found.
+        /// </returns>
         public static IEnumerable<TAttribute> ResolvableAttributes<TAttribute>(this ParameterDefinition parameter)
             where TAttribute : Attribute
         {
