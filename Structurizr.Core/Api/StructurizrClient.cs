@@ -153,15 +153,7 @@ namespace Structurizr.Api
             HmacContent hmacContent = new HmacContent(httpMethod, path, contentMd5, contentType, nonce);
             string authorizationHeader = new HmacAuthorizationHeader(ApiKey, hmac.Generate(hmacContent.ToString())).ToString();
 
-            if (httpClient.DefaultRequestHeaders.Authorization == null)
-            {
-                httpClient.DefaultRequestHeaders.TryAddWithoutValidation(HttpHeaders.Authorization, authorizationHeader);
-            }
-            else
-            {
-                httpClient.DefaultRequestHeaders.TryAddWithoutValidation(HttpHeaders.XAuthorization, authorizationHeader);
-            }
-
+            httpClient.DefaultRequestHeaders.Add(HttpHeaders.XAuthorization, authorizationHeader);
             httpClient.DefaultRequestHeaders.Add(HttpHeaders.UserAgent, "structurizr-dotnet");
             httpClient.DefaultRequestHeaders.Add(HttpHeaders.Nonce, nonce);
         }
