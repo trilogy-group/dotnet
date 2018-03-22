@@ -5,8 +5,16 @@ using Mono.Cecil;
 
 namespace Structurizr.Cecil
 {
+    /// <summary>
+    /// Provides extension methods for <see cref="TypeReference"/>.
+    /// </summary>
     public static class TypeReferenceExtensions
     {
+        /// <summary>
+        /// Gets the assembly qualified name of the type.
+        /// </summary>
+        /// <param name="type">The <see cref="TypeReference"/> instance representing the type.</param>
+        /// <returns>The assembly qualified name of the type.</returns>
         public static string GetAssemblyQualifiedName(this TypeReference type)
         {
             string typeName;

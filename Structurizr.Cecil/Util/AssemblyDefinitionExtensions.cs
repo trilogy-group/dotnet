@@ -6,8 +6,17 @@ using Mono.Cecil;
 
 namespace Structurizr.Cecil
 {
+    /// <summary>
+    /// Provides extension methods for <see cref="AssemblyDefinition"/>.
+    /// </summary>
     public static class AssemblyDefinitionExtensions
     {
+        /// <summary>
+        /// Generates a collection of assemblies directly or indirectly referenced by this assembly.
+        /// </summary>
+        /// <param name="assembly">The assembly whose references are to be returned.</param>
+        /// <param name="includeSelf">Whether or not to include this assembly in the returned collection.</param>
+        /// <returns>A generated collection of referenced assemblies.</returns>
         public static IEnumerable<AssemblyDefinition> EnumerateReferencedAssemblies(this AssemblyDefinition assembly,
             bool includeSelf = true)
         {

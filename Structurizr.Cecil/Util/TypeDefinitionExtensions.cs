@@ -6,6 +6,9 @@ using Mono.Cecil;
 
 namespace Structurizr.Cecil
 {
+    /// <summary>
+    /// Provides extension methods for <see cref="TypeDefinition"/>.
+    /// </summary>
     /// <remarks>
     /// Sourced from https://stackoverflow.com/questions/40018991/how-to-implement-isassignablefrom-with-mono-cecil
     /// </remarks>

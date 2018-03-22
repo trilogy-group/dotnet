@@ -6,6 +6,14 @@ using Structurizr.Cecil;
 
 namespace Structurizr.Analysis
 {
+    /// <summary>
+    /// Implements a component finder strategy which uses a collection of <see cref="ITypeMatcher"/> objects to identify
+    /// components and their dependencies.
+    /// </summary>
+    /// <seealso cref="CustomAttributeTypeMatcher" />
+    /// <seealso cref="ExtendsClassTypeMatcher" />
+    /// <seealso cref="InterfaceImplementationTypeMatcher" />
+    /// <seealso cref="NameSuffixTypeMatcher" />
     public class TypeMatcherComponentFinderStrategy : ComponentFinderStrategy
     {
         /// <inheritdoc />
@@ -18,6 +26,17 @@ namespace Structurizr.Analysis
         private List<ITypeMatcher> _typeMatchers = new List<ITypeMatcher>();
         private List<SupportingTypesStrategy> _supportingTypesStrategies = new List<SupportingTypesStrategy>();
 
+        /// <summary>
+        /// Creates a new instance of <see cref="TypeMatcherComponentFinderStrategy"/> for identifying
+        /// components from the provided assembly using the provided type matchers.
+        /// </summary>
+        /// <param name="assembly">
+        /// An <see cref="AssemblyDefinition"/> instance representing the assembly to analyze.
+        /// </param>
+        /// <param name="typeMatchers">
+        /// An array of objects implementing <see cref="ITypeMatcher"> that will be used to identify components in the
+        /// provided assembly.
+        /// </param>
         public TypeMatcherComponentFinderStrategy(AssemblyDefinition assembly,
             params ITypeMatcher[] typeMatchers)
         {
@@ -123,9 +142,11 @@ namespace Structurizr.Analysis
         }
 
         /// <summary>
-        /// Adds a CecilSupportingTypesStrategy.
+        /// Adds a strategy for identifying supporting types of components identified by this strategy.
         /// </summary>
-        /// <param name="strategy">A CecilSupportingTypesStrategy object</param>
+        /// <param name="strategy">
+        /// A <see cref="SupportingTypesStrategy"/> instance to use for identifying supporting types.
+        /// </param>
         public void AddSupportingTypesStrategy(SupportingTypesStrategy strategy)
         {
             if (strategy != null)

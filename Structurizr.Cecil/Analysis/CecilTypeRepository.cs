@@ -10,6 +10,9 @@ using Structurizr.Cecil;
 
 namespace Structurizr.Analysis
 {
+    /// <summary>
+    /// Implements a type repository based on Mono.Cecil.
+    /// </summary>
     public class CecilTypeRepository : ITypeRepository
     {
 
@@ -22,6 +25,12 @@ namespace Structurizr.Analysis
         /// <inheritdoc />
         public string Namespace { get { return _namespace; } }
 
+        /// <summary>
+        /// Creates a new instance of <see cref="CecilTypeRepository"/> for the provided assembly definition.
+        /// </summary>
+        /// <param name="assembly">An <see cref="AssemblyDefintion"/> for the assembly being analyzed.</param>
+        /// <param name="namespaceName">The root namespace to use for limiting which types in the assembly to analyze.</param>
+        /// <param name="exclusions">A set of regular expressions to further exclude types by name from analysis.</param>
         public CecilTypeRepository(AssemblyDefinition assembly, string namespaceName, HashSet<Regex> exclusions)
         {
             _assembly = assembly;

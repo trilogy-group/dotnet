@@ -8,6 +8,9 @@ using System.Text.RegularExpressions;
 namespace Structurizr.Analysis
 {
 
+    /// <summary>
+    /// Implements a type repository based on .NET reflection.
+    /// </summary>
     public class ReflectionTypeRepository : ITypeRepository
     {
 
@@ -16,11 +19,17 @@ namespace Structurizr.Analysis
         private readonly Dictionary<string, Type> _types = new Dictionary<string, Type>();
         private readonly Dictionary<string, IEnumerable<string>> _referencedTypesCache = new Dictionary<string, IEnumerable<string>>();
 
+        /// <inheritdoc />
         public string Namespace
         {
             get { return _namespace; }
         }
 
+        /// <summary>
+        /// Creates a new instance of <see cref="ReflectionTypeRepository"/>.
+        /// </summary>
+        /// <param name="namespaceName">The root namespace to use for limiting which types to analyze.</param>
+        /// <param name="exclusions">A set of regular expressions to further exclude types by name from analysis.</param>
         public ReflectionTypeRepository(string namespaceName, HashSet<Regex> exclusions)
         {
             _namespace = namespaceName;
@@ -49,11 +58,13 @@ namespace Structurizr.Analysis
             return type.Namespace != null && type.Namespace.StartsWith(_namespace);
         }
 
+        /// <inheritdoc />
         public IEnumerable<Type> GetAllTypes()
         {
             return _types.Values;
         }
 
+        /// <inheritdoc />
         public Type GetType(string typeName)
         {
             Func<Type, bool> predicate;
@@ -66,6 +77,7 @@ namespace Structurizr.Analysis
             return _types.Values.SingleOrDefault(predicate);
         }
 
+        /// <inheritdoc />
         public IEnumerable<string> GetReferencedTypes(string typeName)
         {
             // use the cached version if possible
@@ -139,6 +151,7 @@ namespace Structurizr.Analysis
             }
         }
 
+        /// <inheritdoc />
         public string FindVisibility(string typeName)
         {
             Type type = _types[typeName];
@@ -158,6 +171,7 @@ namespace Structurizr.Analysis
             return null;
         }
 
+        /// <inheritdoc />
         public string FindCategory(string typeName)
         {
             Type type = _types[typeName];

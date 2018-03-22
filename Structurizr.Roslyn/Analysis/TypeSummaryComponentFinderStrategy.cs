@@ -16,6 +16,7 @@ namespace Structurizr.Analysis
     {
 
         private ComponentFinder _componentFinder;
+        /// <inheritdoc />
         public ComponentFinder ComponentFinder
         {
             get { return _componentFinder; }
@@ -27,19 +28,36 @@ namespace Structurizr.Analysis
 
         private HashSet<Component> _components = new HashSet<Component>();
 
+        /// <summary>
+        /// Gets or sets the path to the solution (.sln) file containing the project to analyze.
+        /// </summary>
+        /// <value>The file path of the Visual Studio solution file to use.</value>
         public string PathToSolution { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the project within the solution to analyze.
+        /// </summary>
+        /// <value>The name of the project to analyze.</value>
         public string ProjectName { get; set; }
 
+        /// <summary>
+        /// Creates a new instance of <see cref="TypeSummaryComponentFinderStrategy"/> for a specified project within a
+        /// specified Visual Studio solution.
+        /// </summary>
+        /// <param name="pathToSolution"></param>
+        /// <param name="projectName"></param>
         public TypeSummaryComponentFinderStrategy(string pathToSolution, string projectName)
         {
             this.PathToSolution = pathToSolution;
             this.ProjectName = projectName;
         }
 
+        /// <inheritdoc />
         public void BeforeFindComponents()
         {
         }
 
+        /// <inheritdoc />
         public IEnumerable<Component> FindComponents()
         {
             MSBuildWorkspace msWorkspace = MSBuildWorkspace.Create();
@@ -86,6 +104,7 @@ namespace Structurizr.Analysis
             return new HashSet<Component>();
         }
 
+        /// <inheritdoc />
         public void AfterFindComponents()
         {
         }
