@@ -40,8 +40,13 @@ namespace Structurizr.Annotations
         /// </param>
         public UsesSoftwareSystemAttribute(string softwareSystemName)
         {
+#if NET20 || PORTABLE2
+            if (String.IsNullOrEmpty(softwareSystemName) || softwareSystemName.Trim() == String.Empty)
+#else
             if (String.IsNullOrWhiteSpace(softwareSystemName))
+#endif
                 throw new ArgumentNullException(nameof(softwareSystemName));
+
             this.SoftwareSystemName = softwareSystemName;
         }
     }

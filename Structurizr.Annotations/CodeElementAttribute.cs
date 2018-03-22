@@ -26,9 +26,15 @@ namespace Structurizr.Annotations
         /// <summary>
         /// Initializes a new instance of the <see cref="ComponentAttribute"/> class.
         /// </summary>
-        public CodeElementAttribute(string componentName) {
+        public CodeElementAttribute(string componentName)
+         {
+#if NET20 || PORTABLE2
+            if (String.IsNullOrEmpty(componentName) || componentName.Trim() == String.Empty)
+#else
             if (String.IsNullOrWhiteSpace(componentName))
+#endif
                 throw new ArgumentNullException(nameof(componentName));
+
             this.ComponentName = componentName;
         }
     }

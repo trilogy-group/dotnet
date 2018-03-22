@@ -17,9 +17,30 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.0;net40</TargetFrameworks>
+    <TargetFrameworks>netstandard1.0;net20;portable40-net40+sl4+win8+wp7;portable40-net40+sl5+win8+wp8+wpa81</TargetFrameworks>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Structurizr.Annotations.xml</DocumentationFile>
     <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'portable40-net40+sl4+win8+wp7'">
+    <TargetFrameworkIdentifier>.NETPortable</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile2</TargetFrameworkProfile>
+    <DefineConstants>$(DefineConstants);PORTABLE2</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'portable40-net40+sl5+win8+wp8+wpa81'">
+    <TargetFrameworkIdentifier>.NETPortable</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile328</TargetFrameworkProfile>
+    <DefineConstants>$(DefineConstants);PORTABLE328</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net20'">
+    <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <DefineConstants>$(DefineConstants);NET20</DefineConstants>
+    <FrameworkPathOverride>$(windir)\Microsoft.NET\Framework\v2.0.50727</FrameworkPathOverride>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.0'">

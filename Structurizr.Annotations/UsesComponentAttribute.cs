@@ -43,7 +43,13 @@ namespace Structurizr.Annotations
         /// </param>
         public UsesComponentAttribute(string description)
         {
-            if (String.IsNullOrWhiteSpace(description)) throw new ArgumentNullException(nameof(description));
+#if NET20 || PORTABLE2
+            if (String.IsNullOrEmpty(description) || description.Trim() == String.Empty)
+#else
+            if (String.IsNullOrWhiteSpace(description))
+#endif
+                throw new ArgumentNullException(nameof(description));
+
             this.Description = description;
         }
     }
