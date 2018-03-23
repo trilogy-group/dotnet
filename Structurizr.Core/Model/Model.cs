@@ -186,43 +186,31 @@ namespace Structurizr
             return containerInstance;
         }
 
-        internal Component AddComponent(Container parent, string name, string description, string technology)
-        {
-            return AddComponent(parent, name, null, null, description, technology);
-        }
-
         internal Component AddComponent(Container parent, string name, string type, string description, string technology)
         {
-            return AddComponent(parent, name, type, null, description, technology);
-        }
-
-        internal Component AddComponent(Container parent, string name, Type type, string description, string technology)
-        {
-            if (type != null)
+            if (parent.GetComponentWithName(name) == null)
             {
-                return AddComponent(parent, name, type.AssemblyQualifiedName, type, description, technology);
+                Component component = new Component();
+                component.Name = name;
+                component.Description = description;
+                component.Technology = technology;
+
+                if (type != null)
+                {
+                    component.Type = type;
+
+                }
+
+                component.Parent = parent;
+                parent.Add(component);
+
+                component.Id = _idGenerator.GenerateId(component);
+                AddElementToInternalStructures(component);
+
+                return component;
             }
-            else
-            {
-                return AddComponent(parent, name, description, technology);
-            }
-        }
-
-        internal Component AddComponent(Container parent, string name, string type, Type typeObj, string description, string technology)
-        {
-            Component component = new Component();
-            component.Name = name;
-            component.Type = type;
-            component.Description = description;
-            component.Technology = technology;
-
-            component.Parent = parent;
-            parent.Add(component);
-
-            component.Id = _idGenerator.GenerateId(component);
-            AddElementToInternalStructures(component);
-
-            return component;
+             
+            throw new ArgumentException("A container named '" + name + "' already exists for this software system.");
         }
 
         public DeploymentNode AddDeploymentNode(string name, string description, string technology) {
