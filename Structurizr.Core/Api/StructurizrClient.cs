@@ -8,15 +8,64 @@ using System.Text;
 
 namespace Structurizr.Api
 {
-
     public class StructurizrClient
     {
-
         private const string WorkspacePath = "/workspace/";
 
-        public string Url { get; set; }
-        public string ApiKey { get; set; }
-        public string ApiSecret { get; set; }
+        private string _url;
+
+        public string Url
+        {
+            get { return _url; }
+            set
+            {
+                if (value == null || value.Trim().Length == 0)
+                {
+                    throw new ArgumentException("The API URL must not be null or empty.");
+                }
+
+                if (value.EndsWith("/"))
+                {
+                    _url = value.Substring(0, value.Length - 1);
+                }
+                else
+                {
+                    _url = value;
+                }
+            }
+        }
+
+        private string _apiKey;
+
+        public string ApiKey
+        {
+            get { return _apiKey; }
+            set
+            {
+                if (value == null || value.Trim().Length == 0)
+                {
+                    throw new ArgumentException("The API key must not be null or empty.");
+                }
+
+                _apiKey = value;
+            }
+        }
+
+        private string _apiSecret;
+
+        public string ApiSecret
+        {
+            get { return _apiSecret; }
+            set
+            {
+                if (value == null || value.Trim().Length == 0)
+                {
+                    throw new ArgumentException("The API secret must not be null or empty.");
+                }
+
+                _apiSecret = value;
+            }
+        }
 
         /// <summary>the location where a copy of the workspace will be archived when it is retrieved from the server</summary>
         public DirectoryInfo WorkspaceArchiveLocation { get; set; }
@@ -31,17 +80,21 @@ namespace Structurizr.Api
 
         public StructurizrClient(string apiUrl, string apiKey, string apiSecret)
         {
-            this.Url = apiUrl;
-            this.ApiKey = apiKey;
-            this.ApiSecret = apiSecret;
+            Url = apiUrl;
+            ApiKey = apiKey;
+            ApiSecret = apiSecret;
 
-            this.WorkspaceArchiveLocation = new DirectoryInfo(".");
-            this.MergeFromRemote = true;
-
+            WorkspaceArchiveLocation = new DirectoryInfo(".");
+            MergeFromRemote = true;
         }
 
         public Workspace GetWorkspace(long workspaceId)
         {
+            if (workspaceId <= 0)
+            {
+                throw new ArgumentException("The workspace ID must be a positive integer.");
+            }
+
             using (HttpClient httpClient = createHttpClient())
             {
                 string httpMethod = "GET";
@@ -76,11 +129,11 @@ namespace Structurizr.Api
         {
             if (workspace == null)
             {
-                throw new ArgumentException("A workspace must be supplied");
+                throw new ArgumentException("The workspace must not be null.");
             }
             else if (workspaceId <= 0)
             {
-                throw new ArgumentException("The workspace ID must be set");
+                throw new ArgumentException("The workspace ID must be a positive integer.");
             }
 
             if (MergeFromRemote)
