@@ -57,7 +57,42 @@ namespace Structurizr
         /// </summary>
         [DataMember(Name="vertices", EmitDefaultValue=false)]
         public List<Vertex> Vertices { get; set; }
-  
+
+        /// <summary>
+        /// The routing of the line.
+        /// </summary>
+        [DataMember(Name = "routing", EmitDefaultValue = false)]
+        public Routing? Routing { get; set; }
+
+        private int? _position;
+
+        /// <summary>
+        /// The position of the annotation along the line; 0 (start) to 100 (end).
+        /// </summary>
+        [DataMember(Name = "position", EmitDefaultValue = false)]
+        public int? Position
+        {
+            get { return _position; }
+            set
+            {
+                if (value != null)
+                {
+                    if (value < 0)
+                    {
+                        _position = 0;
+                    }
+                    else if (value > 100)
+                    {
+                        _position = 100;
+                    }
+                    else
+                    {
+                        _position = value;
+                    }
+                }
+            }
+        }
+
         internal RelationshipView()
         {
         }
@@ -107,6 +142,8 @@ namespace Structurizr
             if (source != null)
             {
                 this.Vertices = source.Vertices;
+                this.Routing = source.Routing;
+                this.Position = source.Position;
             }
         }
 
