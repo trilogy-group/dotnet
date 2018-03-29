@@ -2,7 +2,6 @@
 
   <!-- Update this property group for every regular release -->
   <PropertyGroup>
-    <VersionPrefix>0.6.0</VersionPrefix>
     <ReleaseNotes></ReleaseNotes>
   </PropertyGroup>
 

@@ -2,12 +2,10 @@
 
   <!-- Update this property group for every regular release -->
   <PropertyGroup>
-    <VersionPrefix>0.6.0</VersionPrefix>
     <ReleaseNotes></ReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
-    <VersionPrefix>0.6.0</VersionPrefix>
     <Description>The core library for creating software architecture models compatible with Structurizr</Description>
     <Authors>Structurizr Limited</Authors>
     <Copyright>Copyright 2017</Copyright>
