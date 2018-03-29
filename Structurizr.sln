@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4ED0E8DB-8A5B-4DF0-9CB1-995D97A04B88}"
 	ProjectSection(SolutionItems) = preProject
@@ -19,6 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4ED0E8DB-8
 		docs\enterprise-context-diagram.md = docs\enterprise-context-diagram.md
 		docs\filtered-views.md = docs\filtered-views.md
 		docs\getting-started.md = docs\getting-started.md
+		docs\nuget.md = docs\nuget.md
 		docs\plantuml.md = docs\plantuml.md
 		README.md = README.md
 		docs\styling-elements.md = docs\styling-elements.md
