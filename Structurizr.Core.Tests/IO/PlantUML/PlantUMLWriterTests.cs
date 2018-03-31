@@ -38,7 +38,7 @@ namespace Structurizr.Core.Tests.IO.PlantUML
             Assert.Equal("@startuml" + Environment.NewLine +
                     "title Enterprise Context for Some Enterprise" + Environment.NewLine +
                     "component \"E-mail System\" <<Software System>> as 4" + Environment.NewLine +
-                    "package SomeEnterprise {" + Environment.NewLine +
+                    "package Some Enterprise {" + Environment.NewLine +
                     "  actor \"User\" <<Person>> as 1" + Environment.NewLine +
                     "  component \"Software System\" <<Software System>> as 2" + Environment.NewLine +
                     "}" + Environment.NewLine +
@@ -128,7 +128,7 @@ namespace Structurizr.Core.Tests.IO.PlantUML
             Assert.Equal("@startuml" + Environment.NewLine +
                     "title Enterprise Context for Some Enterprise" + Environment.NewLine +
                     "component \"E-mail System\" <<Software System>> as 4" + Environment.NewLine +
-                    "package SomeEnterprise {" + Environment.NewLine +
+                    "package Some Enterprise {" + Environment.NewLine +
                     "  actor \"User\" <<Person>> as 1" + Environment.NewLine +
                     "  component \"Software System\" <<Software System>> as 2" + Environment.NewLine +
                     "}" + Environment.NewLine +
