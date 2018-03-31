@@ -53,7 +53,8 @@ namespace Structurizr.IO.PlantUML
                     .OrderBy(e => e.Name).ToList()
                     .ForEach(e => Write(e, writer, false));
 
-                writer.WriteLine("package " + NameOf(view.Model.Enterprise.Name) + " {");
+                string name = view.Model.Enterprise != null ? view.Model.Enterprise.Name : "Enterprise";
+                writer.WriteLine("package " + name + " {");
 
                 view.Elements
                     .Select(ev => ev.Element)
