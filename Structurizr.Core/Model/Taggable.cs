@@ -67,7 +67,7 @@ namespace Structurizr
             }
         }
 
-        public void RemoveTag(string tag)
+        public virtual void RemoveTag(string tag)
         {
             if (tag != null)
             {

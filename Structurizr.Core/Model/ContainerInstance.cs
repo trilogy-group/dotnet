@@ -51,21 +51,19 @@ namespace Structurizr
         internal ContainerInstance(Container container, int instanceId)
         {
             Container = container;
+            Tags = container.Tags;
+            AddTags(Structurizr.Tags.ContainerInstance);
             InstanceId = instanceId;
         }
 
         public override List<string> getRequiredTags()
         {
-            return new List<string>
-            {
-                Structurizr.Tags.ContainerInstance
-            };
+            return new List<string>();
         }
 
-        [DataMember(Name = "tags", EmitDefaultValue = false)]
-        public override string Tags
+        public override void RemoveTag(string tag)
         {
-            get { return Container.Tags + "," + base.Tags; }
+            // do nothing ... tags cannot be removed from container instances (they should reflect the container they are based upon)
         }
 
         public override string CanonicalName
