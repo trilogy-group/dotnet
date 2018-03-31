@@ -89,8 +89,8 @@ namespace Structurizr.Analysis
             HashSet<string> referencedTypes = new HashSet<string>();
             BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance |
                                         BindingFlags.Static | BindingFlags.FlattenHierarchy;
-            Type type = _types[typeName];
-            if (type != null)
+
+            if (_types.TryGetValue(typeName, out Type type))
             {
                 foreach (PropertyInfo propertyInfo in type.GetProperties(bindingFlags))
                 {
