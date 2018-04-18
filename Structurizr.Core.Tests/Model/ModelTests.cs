@@ -120,5 +120,19 @@ namespace Structurizr.Core.Tests
             Assert.Equal("", relationship.Technology);
         }
 
+        [Fact]
+        public void Test_AddRelationship_DisallowsTheSameRelationshipToBeAddedMoreThanOnce()
+        {
+            SoftwareSystem element1 = Model.AddSoftwareSystem("Element 1", "Description");
+            SoftwareSystem element2 = Model.AddSoftwareSystem("Element 2", "Description");
+            Relationship relationship1 = element1.Uses(element2, "Uses", "");
+            Relationship relationship2 = element1.Uses(element2, "Uses", "");
+            Assert.True(element1.Has(relationship1));
+            Assert.Null(relationship2);
+            Assert.Equal(1, element1.Relationships.Count);
+        }
+
+
+
     }
 }
