@@ -12,7 +12,9 @@
         Pipe,
         Person,
         Folder,
-        WebBrowser
+        WebBrowser,
+        MobileDevicePortrait,
+        MobileDeviceLandscape
 
     }
 }
