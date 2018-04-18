@@ -11,7 +11,8 @@
         Cylinder,
         Pipe,
         Person,
-        Folder
+        Folder,
+        WebBrowser
 
     }
 }
