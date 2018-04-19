@@ -132,6 +132,18 @@ namespace Structurizr.Core.Tests
             Assert.Equal(1, element1.Relationships.Count);
         }
 
+        [Fact]
+        public void Test_AddRelationship_AllowsMultipleRelationshipsBetweenElements()
+        {
+            SoftwareSystem element1 = Model.AddSoftwareSystem("Element 1", "Description");
+            SoftwareSystem element2 = Model.AddSoftwareSystem("Element 2", "Description");
+            Relationship relationship1 = element1.Uses(element2, "Uses in some way", "");
+            Relationship relationship2 = element1.Uses(element2, "Uses in another way", "");
+            Assert.True(element1.Has(relationship1));
+            Assert.True(element1.Has(relationship2));
+            Assert.Equal(2, element1.Relationships.Count);
+        }
+
 
 
     }
