@@ -46,19 +46,11 @@ namespace Structurizr
 
         public abstract string Name { get; }
 
-        public string Title
-        {
-            get
-            {
-                if (Description != null && Description.Trim().Length > 0)
-                {
-                    return Name + " [" + Description + "]";
-                }
-                else {
-                    return Name;
-                }
-            }
-        }
+        /// <summary>
+        /// The title for this view.
+        /// </summary>
+        [DataMember(Name = "title", EmitDefaultValue = false)]
+        public string Title { get; set; }
 
         public virtual Model Model
         {
