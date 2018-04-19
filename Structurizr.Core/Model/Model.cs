@@ -306,6 +306,31 @@ namespace Structurizr
         }
 
         /// <summary>
+        /// Provides a way for the description and technology to be modified on an existing relationship.
+        /// </summary>
+        /// <param name="relationship">a Relationship instance</param>
+        /// <param name="description">the new description</param>
+        /// <param name="technology">the new technology</param>
+        public void ModifyRelationship(Relationship relationship, String description, String technology)
+        {
+            if (relationship == null)
+            {
+                throw new ArgumentException("A relationship must be specified.");
+            }
+
+            Relationship newRelationship = new Relationship(relationship.Source, relationship.Destination, description, technology, relationship.InteractionStyle);
+            if (!relationship.Source.Has(newRelationship))
+            {
+                relationship.Description = description;
+                relationship.Technology = technology;
+            }
+            else
+            {
+                throw new ArgumentException("This relationship exists already: " + newRelationship);
+            }
+        }
+
+        /// <summary>
         /// Gets the SoftwareSystem instance with the specified name.
         /// </summary>
         /// <returns>A SoftwareSystem instance, or null if one doesn't exist.</returns>

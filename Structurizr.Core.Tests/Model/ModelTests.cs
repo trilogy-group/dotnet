@@ -144,6 +144,50 @@ namespace Structurizr.Core.Tests
             Assert.Equal(2, element1.Relationships.Count);
         }
 
+        [Fact]
+        public void Test_ModifyRelationship_ThrowsAnException_WhenARelationshipIsNotSpecified()
+        {
+            try
+            {
+                Model.ModifyRelationship(null, "Uses", "Technology");
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("A relationship must be specified.", ae.Message);
+            }
+        }
+
+        [Fact]
+        public void Test_ModifyRelationship_ModifiesAnExistingRelationship_WhenThatRelationshipDoesNotAlreadyExist()
+        {
+            SoftwareSystem element1 = Model.AddSoftwareSystem("Element 1", "Description");
+            SoftwareSystem element2 = Model.AddSoftwareSystem("Element 2", "Description");
+            Relationship relationship = element1.Uses(element2, "", "");
+
+            Model.ModifyRelationship(relationship, "Uses", "Technology");
+            Assert.Equal("Uses", relationship.Description);
+            Assert.Equal("Technology", relationship.Technology);
+        }
+
+        [Fact]
+        public void Test_ModifyRelationship_ThrowsAnException_WhenThatRelationshipDoesAlreadyExist()
+        {
+            SoftwareSystem element1 = Model.AddSoftwareSystem("Element 1", "Description");
+            SoftwareSystem element2 = Model.AddSoftwareSystem("Element 2", "Description");
+            Relationship relationship = element1.Uses(element2, "Uses", "Technology");
+
+            try
+            {
+                Model.ModifyRelationship(relationship, "Uses", "Technology");
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("This relationship exists already: {1 | Element 1 | Description} ---[Uses]---> {2 | Element 2 | Description}", ae.Message);
+            }
+        }
+
 
 
     }

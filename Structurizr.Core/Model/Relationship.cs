@@ -33,7 +33,7 @@ namespace Structurizr
                 return _description ?? "";
             }
 
-            set { _description = value; }
+            internal set { _description = value; }
         }
 
         private string sourceId;
@@ -92,7 +92,7 @@ namespace Structurizr
         /// The technology associated with this relationship (e.g. HTTPS, JDBC, etc).
         /// </summary>
         [DataMember(Name = "technology", EmitDefaultValue = false)]
-        public string Technology { get; set; }
+        public string Technology { get; internal set; }
 
         private InteractionStyle interactionStyle = InteractionStyle.Synchronous;
 

@@ -201,8 +201,11 @@ namespace Structurizr.Analysis
                 {
                     foreach (Relationship relationship in relationships)
                     {
-                        relationship.Description = annotation.Description;
-                        relationship.Technology = annotation.Technology;
+                        if (String.IsNullOrEmpty(relationship.Description))
+                        {
+                            // only change the details of relationships that have no description
+                            component.Model.ModifyRelationship(relationship, annotation.Description, annotation.Technology);
+                        }
                     }
                 }
                 else
