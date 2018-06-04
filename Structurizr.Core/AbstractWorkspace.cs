@@ -39,37 +39,6 @@ namespace Structurizr
         [DataMember(Name = "thumbnail", EmitDefaultValue = false)]
         public string Thumbnail { get; set; }
 
-        private string _api;
-
-        /// <summary>
-        /// The URL of the API where the content of this workspace can be found.
-        /// </summary>
-        [DataMember(Name = "api", EmitDefaultValue = false)]
-        public string Api
-        {
-            get
-            {
-                return _api;
-            }
-
-            set
-            {
-                if (value != null && value.Trim().Length > 0)
-                {
-                    Uri uri;
-                    bool result = Uri.TryCreate(value, UriKind.Absolute, out uri);
-                    if (result)
-                    {
-                        this._api = value;
-                    }
-                    else
-                    {
-                        throw new ArgumentException(value + " is not a valid URL.");
-                    }
-                }
-            }
-        }
-
         public AbstractWorkspace() { }
 
         public AbstractWorkspace(string name, string description)
