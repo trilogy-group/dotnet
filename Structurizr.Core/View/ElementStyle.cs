@@ -87,6 +87,18 @@ namespace Structurizr
             }
         }
 
+        /// <summary>
+        /// A flag to indicate whether the element metadata should be shown or not.
+        /// </summary>
+        [DataMember(Name = "metadata", EmitDefaultValue = false)]
+        public bool? Metadata { get; set; }
+
+        /// <summary>
+        /// A flag to indicate whether the element description should be shown or not.
+        /// </summary>
+        [DataMember(Name = "description", EmitDefaultValue = false)]
+        public bool? Description { get; set; }
+
         internal ElementStyle()
         {
         }
