@@ -85,6 +85,8 @@ namespace Structurizr
 
         internal View()
         {
+            this.Elements = new HashSet<ElementView>();
+            this.Relationships = new HashSet<RelationshipView>();
         }
 
         internal View(SoftwareSystem softwareSystem, string key, string description) : this()
