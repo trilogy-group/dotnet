@@ -1,4 +1,5 @@
 using System.Runtime.Serialization;
+using Structurizr.Core.View;
 
 namespace Structurizr
 {
@@ -14,13 +15,17 @@ namespace Structurizr
         {
             this.Styles = new Styles();
             this.Branding = new Branding();
+            this.Terminology = new Terminology();
         }
 
         [DataMember(Name = "styles", EmitDefaultValue = false)]
-        public Styles Styles { get; set; }
+        public Styles Styles { get; internal set; }
 
         [DataMember(Name = "branding", EmitDefaultValue = false)]
-        public Branding Branding { get; set; }
+        public Branding Branding { get; internal set; }
+
+        [DataMember(Name = "terminology", EmitDefaultValue = false)]
+        public Terminology Terminology { get; internal set; }
 
         [DataMember(Name = "defaultView", EmitDefaultValue = false)]
         public string DefaultView { get; private set; }
