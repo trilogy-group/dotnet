@@ -53,8 +53,8 @@ namespace Structurizr.Examples
             ecommerceSystem.Uses(taxamo, "Delegates credit card processing to");
             taxamo.Uses(braintreePayments, "Uses for credit card processing");
     
-            EnterpriseContextView enterpriseContextView = views.CreateEnterpriseContextView("SystemLandscape", "The system landscape for Widgets Limited.");
-            enterpriseContextView.AddAllElements();
+            SystemLandscapeView systemLandscapeView = views.CreateSystemLandscapeView("SystemLandscape", "The system landscape for Widgets Limited.");
+            systemLandscapeView.AddAllElements();
     
             SystemContextView ecommerceSystemContext = views.CreateSystemContextView(ecommerceSystem, "EcommerceSystemContext", "The system context diagram for the Widgets Limited e-commerce system.");
             ecommerceSystemContext.AddNearestNeighbours(ecommerceSystem);

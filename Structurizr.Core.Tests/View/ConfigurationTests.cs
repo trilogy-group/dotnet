@@ -18,7 +18,7 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void test_defaultView()
         {
-            EnterpriseContextView view = Views.CreateEnterpriseContextView("key", "Description");
+            SystemLandscapeView view = Views.CreateSystemLandscapeView("key", "Description");
             Configuration configuration = new Configuration();
             configuration.SetDefaultView(view);
             Assert.Equal("key", configuration.DefaultView);

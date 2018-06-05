@@ -33,11 +33,11 @@ namespace Structurizr.Examples
             user.Uses(softwareSystemB, "Uses for task 2").AddTags(FutureState);
 
             ViewSet views = workspace.Views;
-            EnterpriseContextView enterpriseContextView = views.CreateEnterpriseContextView("EnterpriseContext", "An example Enterprise Context diagram.");
-            enterpriseContextView.AddAllElements();
+            SystemLandscapeView systemLandscapeView = views.CreateSystemLandscapeView("EnterpriseContext", "An example Enterprise Context diagram.");
+            systemLandscapeView.AddAllElements();
 
-            views.CreateFilteredView(enterpriseContextView, "CurrentState", "The current context.", FilterMode.Exclude, FutureState);
-            views.CreateFilteredView(enterpriseContextView, "FutureState", "The future state context after Software System B is live.", FilterMode.Exclude, CurrentState);
+            views.CreateFilteredView(systemLandscapeView, "CurrentState", "The current context.", FilterMode.Exclude, FutureState);
+            views.CreateFilteredView(systemLandscapeView, "FutureState", "The future state context after Software System B is live.", FilterMode.Exclude, CurrentState);
 
             Styles styles = views.Configuration.Styles;
             styles.Add(new ElementStyle(Tags.Element) { Color = "#ffffff" });

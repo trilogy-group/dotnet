@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Runtime.Serialization;
 
 namespace Structurizr
 {
@@ -10,6 +11,12 @@ namespace Structurizr
     {
 
         public override Model Model { get; set; }
+
+        /// <summary>
+        /// The name of the environment that this deployment view is for (e.g. "Development", "Live", etc).
+        /// </summary>
+        [DataMember(Name = "environment", EmitDefaultValue = false)]
+        public string Environment { get; set; }
 
         DeploymentView()
         {

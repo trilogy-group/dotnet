@@ -16,56 +16,71 @@ namespace Structurizr
         public Model Model { get; set; }
 
         /// <summary>
-        /// The set of enterprise context views.
+        /// The set of enterprise context views (this is for backwards compatibility).
         /// </summary>
         [DataMember(Name = "enterpriseContextViews", EmitDefaultValue = false)]
-        public ICollection<EnterpriseContextView> EnterpriseContextViews { get; set; }
+        internal ISet<SystemLandscapeView> EnterpriseContextViews
+        {
+            set
+            {
+                foreach (SystemLandscapeView systemLandscapeView in value)
+                {
+                    SystemLandscapeViews.Add(systemLandscapeView);
+                }
+            }
+        }
+
+        /// <summary>
+        /// The set of system landscape views.
+        /// </summary>
+        [DataMember(Name = "systemLandscapeViews", EmitDefaultValue = false)]
+        public ISet<SystemLandscapeView> SystemLandscapeViews { get; internal set; }
 
         /// <summary>
         /// The set of system context views.
         /// </summary>
         [DataMember(Name = "systemContextViews", EmitDefaultValue = false)]
-        public ISet<SystemContextView> SystemContextViews { get; set; }
+        public ISet<SystemContextView> SystemContextViews { get; internal set; }
 
         /// <summary>
         /// The set of container views.
         /// </summary>
         [DataMember(Name = "containerViews", EmitDefaultValue = false)]
-        public ISet<ContainerView> ContainerViews { get; set; }
+        public ISet<ContainerView> ContainerViews { get; internal set; }
 
         /// <summary>
         /// The set of component views.
         /// </summary>
         [DataMember(Name = "componentViews", EmitDefaultValue = false)]
-        public ISet<ComponentView> ComponentViews { get; set; }
+        public ISet<ComponentView> ComponentViews { get; internal set; }
 
         /// <summary>
         /// The set of dynamic views.
         /// </summary>
         [DataMember(Name = "dynamicViews", EmitDefaultValue = false)]
-        public ISet<DynamicView> DynamicViews { get; set; }
+        public ISet<DynamicView> DynamicViews { get; internal set; }
 
         /// <summary>
         /// The set of deployment views.
         /// </summary>
         [DataMember(Name = "deploymentViews", EmitDefaultValue = false)]
-        public ISet<DeploymentView> DeploymentViews { get; set; }
+        public ISet<DeploymentView> DeploymentViews { get; internal set; }
 
         /// <summary>
         /// The set of filtered views.
         /// </summary>
         [DataMember(Name = "filteredViews", EmitDefaultValue = false)]
-        public ISet<FilteredView> FilteredViews { get; set; }
+        public ISet<FilteredView> FilteredViews { get; internal set; }
 
         /// <summary>
         /// The configuration object associated with this set of views.
         /// </summary>
         [DataMember(Name = "configuration", EmitDefaultValue = false)]
-        public Configuration Configuration { get; set; }
+        public Configuration Configuration { get; internal set; }
 
         internal ViewSet()
         {
-            EnterpriseContextViews = new HashSet<EnterpriseContextView>();
+            SystemLandscapeViews = new HashSet<SystemLandscapeView>();
             SystemContextViews = new HashSet<SystemContextView>();
             ContainerViews = new HashSet<ContainerView>();
             ComponentViews = new HashSet<ComponentView>();
@@ -81,12 +96,12 @@ namespace Structurizr
             Model = model;
         }
 
-        public EnterpriseContextView CreateEnterpriseContextView(string key, string description)
+        public SystemLandscapeView CreateSystemLandscapeView(string key, string description)
         {
             AssertThatTheViewKeyIsUnique(key);
 
-            EnterpriseContextView view = new EnterpriseContextView(Model, key, description);
-            EnterpriseContextViews.Add(view);
+            SystemLandscapeView view = new SystemLandscapeView(Model, key, description);
+            SystemLandscapeViews.Add(view);
             return view;
         }
 
@@ -223,7 +238,7 @@ namespace Structurizr
 
         public void Hydrate()
         {
-            foreach (EnterpriseContextView view in EnterpriseContextViews)
+            foreach (SystemLandscapeView view in SystemLandscapeViews)
             {
                 view.Model = Model;
                 HydrateView(view);
@@ -284,9 +299,9 @@ namespace Structurizr
 
         public void CopyLayoutInformationFrom(ViewSet source)
         {
-            foreach (EnterpriseContextView sourceView in source.EnterpriseContextViews)
+            foreach (SystemLandscapeView sourceView in source.SystemLandscapeViews)
             {
-                EnterpriseContextView destinationView = FindEnterpriseContextView(sourceView);
+                SystemLandscapeView destinationView = FindSystemLandscapeView(sourceView);
                 if (destinationView != null)
                 {
                     destinationView.CopyLayoutInformationFrom(sourceView);
@@ -339,9 +354,9 @@ namespace Structurizr
             }
         }
 
-        private EnterpriseContextView FindEnterpriseContextView(EnterpriseContextView enterpriseContextView)
+        private SystemLandscapeView FindSystemLandscapeView(SystemLandscapeView systemLandscapeView)
         {
-            return EnterpriseContextViews.FirstOrDefault(view => view.Key == enterpriseContextView.Key);
+            return SystemLandscapeViews.FirstOrDefault(view => view.Key == systemLandscapeView.Key);
         }
 
         private SystemContextView FindSystemContextView(SystemContextView systemContextView)
@@ -379,7 +394,7 @@ namespace Structurizr
                 throw new ArgumentException("A key must be specified.");
             }
             
-            foreach (EnterpriseContextView view in EnterpriseContextViews)
+            foreach (SystemLandscapeView view in SystemLandscapeViews)
             {
                 if (view.Key.Equals(key))
                 {

@@ -21,7 +21,7 @@ namespace Structurizr.IO.PlantUML
         {
             if (workspace != null && writer != null)
             {
-                workspace.Views.EnterpriseContextViews.ToList().ForEach(v => Write(v, writer));
+                workspace.Views.SystemLandscapeViews.ToList().ForEach(v => Write(v, writer));
                 workspace.Views.SystemContextViews.ToList().ForEach(v => Write(v, writer));
                 workspace.Views.ContainerViews.ToList().ForEach(v => Write(v, writer));
                 workspace.Views.ComponentViews.ToList().ForEach(v => Write(v, writer));
@@ -30,7 +30,7 @@ namespace Structurizr.IO.PlantUML
             }
         }
 
-        public void Write(EnterpriseContextView view, TextWriter writer)
+        public void Write(SystemLandscapeView view, TextWriter writer)
         {
             if (view == null)
             {

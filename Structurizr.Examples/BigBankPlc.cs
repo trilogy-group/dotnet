@@ -1,9 +1,7 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using Structurizr.Api;
 using Structurizr.Core.Util;
 using Structurizr.Documentation;
-using Structurizr.Util;
 
 namespace Structurizr.Examples
 {
@@ -21,7 +19,12 @@ namespace Structurizr.Examples
         private const string ApiKey = "key";
         private const string ApiSecret = "secret";
 
+        private const string ExistingSystemTag = "Existing System";
+        private const string BankStaffTag = "Bank Staff";
+        private const string WebBrowserTag = "Web Browser";
+        private const string MobileAppTag = "Mobile App";
         private const string DatabaseTag = "Database";
+        private const string FailoverTag = "Failover";
 
         private static Workspace Create(bool usePaidFeatures)
         {
@@ -32,131 +35,178 @@ namespace Structurizr.Examples
             model.Enterprise = new Enterprise("Big Bank plc");
     
             // people and software systems
-            Person customer = model.AddPerson(Location.External, "Customer", "A customer of the bank.");
+            Person customer = model.AddPerson(Location.External, "Personal Banking Customer", "A customer of the bank, with personal bank accounts.");
     
-            SoftwareSystem internetBankingSystem = model.AddSoftwareSystem(Location.Internal, "Internet Banking System", "Allows customers to view information about their bank accounts and make payments.");
+            SoftwareSystem internetBankingSystem = model.AddSoftwareSystem(Location.Internal, "Internet Banking System", "Allows customers to view information about their bank accounts, and make payments.");
             customer.Uses(internetBankingSystem, "Uses");
     
             SoftwareSystem mainframeBankingSystem = model.AddSoftwareSystem(Location.Internal, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.");
+            mainframeBankingSystem.AddTags(ExistingSystemTag);
             internetBankingSystem.Uses(mainframeBankingSystem, "Uses");
-    
+
+            SoftwareSystem emailSystem = model.AddSoftwareSystem(Location.Internal, "E-mail System", "The internal Microsoft Exchange e-mail system.");
+            emailSystem.AddTags(ExistingSystemTag);
+            emailSystem.Delivers(customer, "Sends e-mails to");
+
             SoftwareSystem atm = model.AddSoftwareSystem(Location.Internal, "ATM", "Allows customers to withdraw cash.");
+            atm.AddTags(ExistingSystemTag);
             atm.Uses(mainframeBankingSystem, "Uses");
             customer.Uses(atm, "Withdraws cash using");
-    
-            Person bankStaff = model.AddPerson(Location.Internal, "Bank Staff", "Staff within the bank.");
-            bankStaff.Uses(mainframeBankingSystem, "Uses");
-    
+
+            Person customerServiceStaff = model.AddPerson(Location.Internal, "Customer Service Staff", "Customer service staff within the bank.");
+            customerServiceStaff.AddTags(BankStaffTag);
+            customerServiceStaff.Uses(mainframeBankingSystem, "Uses");
+            customer.InteractsWith(customerServiceStaff, "Asks questions to", "Telephone");
+
+            Person backOfficeStaff = model.AddPerson(Location.Internal, "Back Office Staff", "Administration and support staff within the bank.");
+            backOfficeStaff.AddTags(BankStaffTag);
+            backOfficeStaff.Uses(mainframeBankingSystem, "Uses");
+
             // containers
-            Container webApplication = internetBankingSystem.AddContainer("Web Application", "Provides all of the Internet banking functionality to customers.", "Java and Spring MVC");
-            Container database = internetBankingSystem.AddContainer("Database", "Stores interesting data.", "Relational Database Schema");
+            Container singlePageApplication = internetBankingSystem.AddContainer("Single-Page Application", "Provides all of the Internet banking functionality to customers via their web browser.", "JavaScript and Angular");
+            singlePageApplication.AddTags(WebBrowserTag);
+            Container mobileApp = internetBankingSystem.AddContainer("Mobile App", "Provides a limited subset of the Internet banking functionality to customers via their mobile device.", "Xamarin");
+            mobileApp.AddTags(MobileAppTag);
+            Container webApplication = internetBankingSystem.AddContainer("Web Application", "Delivers the static content and the Internet banking single page application.", "Java and Spring MVC");
+            Container apiApplication = internetBankingSystem.AddContainer("API Application", "Provides Internet banking functionality via a JSON/HTTPS API.", "Java and Spring MVC");
+            Container database = internetBankingSystem.AddContainer("Database", "Stores user registration information, hashed authentication credentials, access logs, etc.", "Relational Database Schema");
             database.AddTags(DatabaseTag);
-    
+
             customer.Uses(webApplication, "Uses", "HTTPS");
-            webApplication.Uses(database, "Reads from and writes to", "JDBC");
-            webApplication.Uses(mainframeBankingSystem, "Uses", "XML/HTTPS");
-    
+            customer.Uses(singlePageApplication, "Uses", "");
+            customer.Uses(mobileApp, "Uses", "");
+            webApplication.Uses(singlePageApplication, "Delivers", "");
+            apiApplication.Uses(database, "Reads from and writes to", "JDBC");
+            apiApplication.Uses(mainframeBankingSystem, "Uses", "XML/HTTPS");
+            apiApplication.Uses(emailSystem, "Sends e-mail using", "SMTP");
+
             // components
             // - for a real-world software system, you would probably want to extract the components using
             // - static analysis/reflection rather than manually specifying them all
-            Component homePageController = webApplication.AddComponent("Home Page Controller", "Serves up the home page.", "Spring MVC Controller");
-            Component signinController = webApplication.AddComponent("Sign In Controller", "Allows users to sign in to the Internet Banking System.", "Spring MVC Controller");
-            Component accountsSummaryController = webApplication.AddComponent("Accounts Summary Controller", "Provides customers with an summary of their bank accounts.", "Spring MVC Controller");
-            Component securityComponent = webApplication.AddComponent("Security Component", "Provides functionality related to signing in, changing passwords, etc.", "Spring Bean");
-            Component mainframeBankingSystemFacade = webApplication.AddComponent("Mainframe Banking System Facade", "A facade onto the mainframe banking system.", "Spring Bean");
-    
-            webApplication.Components.Where(c => "Spring MVC Controller".Equals(c.Technology)).ToList().ForEach(c => customer.Uses(c, "Uses", "HTTPS"));
+            Component signinController = apiApplication.AddComponent("Sign In Controller", "Allows users to sign in to the Internet Banking System.", "Spring MVC Rest Controller");
+            Component accountsSummaryController = apiApplication.AddComponent("Accounts Summary Controller", "Provides customers with a summary of their bank accounts.", "Spring MVC Rest Controller");
+            Component securityComponent = apiApplication.AddComponent("Security Component", "Provides functionality related to signing in, changing passwords, etc.", "Spring Bean");
+            Component mainframeBankingSystemFacade = apiApplication.AddComponent("Mainframe Banking System Facade", "A facade onto the mainframe banking system.", "Spring Bean");
+
+            apiApplication.Components.Where(c => "Spring MVC Rest Controller".Equals(c.Technology)).ToList().ForEach(c => singlePageApplication.Uses(c, "Uses", "HTTPS"));
+            apiApplication.Components.Where(c => "Spring MVC Rest Controller".Equals(c.Technology)).ToList().ForEach(c => mobileApp.Uses(c, "Uses", "HTTPS"));
             signinController.Uses(securityComponent, "Uses");
             accountsSummaryController.Uses(mainframeBankingSystemFacade, "Uses");
             securityComponent.Uses(database, "Reads from and writes to", "JDBC");
             mainframeBankingSystemFacade.Uses(mainframeBankingSystem, "Uses", "XML/HTTPS");
-    
+
+            model.AddImplicitRelationships();
+
             // deployment nodes and container instances
-            DeploymentNode developerLaptop = model.AddDeploymentNode("Developer Laptop", "A developer laptop.", "Windows 7 or 10");
-            developerLaptop.AddDeploymentNode("Docker Container - Web Server", "A Docker container.", "Docker")
-                .AddDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, DictionaryUtils.Create("Xmx=512M", "Xms=1024M", "Java Version=8"))
-                .Add(webApplication);
-    
+            DeploymentNode developerLaptop = model.AddDeploymentNode("Developer Laptop", "A developer laptop.", "Microsoft Windows 10 or Apple macOS");
+            DeploymentNode apacheTomcat = developerLaptop.AddDeploymentNode("Docker Container - Web Server", "A Docker container.", "Docker")
+                .AddDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, DictionaryUtils.Create("Xmx=512M", "Xms=1024M", "Java Version=8"));
+            apacheTomcat.Add(webApplication);
+            apacheTomcat.Add(apiApplication);
+
             developerLaptop.AddDeploymentNode("Docker Container - Database Server", "A Docker container.", "Docker")
                 .AddDeploymentNode("Database Server", "A development database.", "Oracle 12c")
                 .Add(database);
-    
-            DeploymentNode liveWebServer = model.AddDeploymentNode("bigbank-web***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 8, DictionaryUtils.Create("Location=London"));
+
+            developerLaptop.AddDeploymentNode("Web Browser", "", "Google Chrome, Mozilla Firefox, Apple Safari or Microsoft Edge").Add(singlePageApplication);
+
+            DeploymentNode customerMobileDevice = model.AddDeploymentNode("Customer's mobile device", "", "Apple iOS or Android");
+            customerMobileDevice.Add(mobileApp);
+
+            DeploymentNode customerComputer = model.AddDeploymentNode("Customer's computer", "", "Microsoft Windows or Apple macOS");
+            customerComputer.AddDeploymentNode("Web Browser", "", "Google Chrome, Mozilla Firefox, Apple Safari or Microsoft Edge").Add(singlePageApplication);
+
+            DeploymentNode bigBankDataCenter = model.AddDeploymentNode("Big Bank plc", "", "Big Bank plc data center");
+
+            DeploymentNode liveWebServer = bigBankDataCenter.AddDeploymentNode("bigbank-web***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 4, DictionaryUtils.Create("Location=London and Reading"));
             liveWebServer.AddDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, DictionaryUtils.Create("Xmx=512M", "Xms=1024M", "Java Version=8"))
-                    .Add(webApplication);
-    
-            DeploymentNode primaryDatabaseServer = model.AddDeploymentNode("bigbank-db01", "The primary database server.", "Ubuntu 16.04 LTS", 1, DictionaryUtils.Create("Location=London"))
-                    .AddDeploymentNode("Oracle - Primary", "The primary, live database server.", "Oracle 12c");
+                .Add(webApplication);
+
+            DeploymentNode liveApiServer = bigBankDataCenter.AddDeploymentNode("bigbank-api***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 8, DictionaryUtils.Create("Location=London and Reading"));
+            liveApiServer.AddDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, DictionaryUtils.Create("Xmx=512M", "Xms=1024M", "Java Version=8"))
+                .Add(apiApplication);
+
+            DeploymentNode primaryDatabaseServer = bigBankDataCenter.AddDeploymentNode("bigbank-db01", "The primary database server.", "Ubuntu 16.04 LTS", 1, DictionaryUtils.Create("Location=London"))
+                .AddDeploymentNode("Oracle - Primary", "The primary, live database server.", "Oracle 12c");
             primaryDatabaseServer.Add(database);
-    
-            DeploymentNode secondaryDatabaseServer = model.AddDeploymentNode("bigbank-db02", "The secondary database server.", "Ubuntu 16.04 LTS", 1, DictionaryUtils.Create("Location=Reading"))
-                    .AddDeploymentNode("Oracle - Secondary", "A secondary, standby database server, used for failover purposes only.", "Oracle 12c");
+
+            DeploymentNode secondaryDatabaseServer = bigBankDataCenter.AddDeploymentNode("bigbank-db02", "The secondary database server.", "Ubuntu 16.04 LTS", 1, DictionaryUtils.Create("Location=Reading"))
+                .AddDeploymentNode("Oracle - Secondary", "A secondary, standby database server, used for failover purposes only.", "Oracle 12c");
             ContainerInstance secondaryDatabase = secondaryDatabaseServer.Add(database);
-    
-            model.Relationships.Where(r => r.Destination.Equals(secondaryDatabase)).ToList().ForEach(r => r.AddTags("Failover"));
+
+            model.Relationships.Where(r=>r.Destination.Equals(secondaryDatabase)).ToList().ForEach(r=>r.AddTags(FailoverTag));
             Relationship dataReplicationRelationship = primaryDatabaseServer.Uses(secondaryDatabaseServer, "Replicates data to", "");
-            secondaryDatabase.AddTags("Failover");
-    
+            secondaryDatabase.AddTags(FailoverTag);
+
             // views/diagrams
-            EnterpriseContextView enterpriseContextView = views.CreateEnterpriseContextView("SystemLandscape", "The system landscape diagram for Big Bank plc.");
-            enterpriseContextView.AddAllElements();
-            enterpriseContextView.PaperSize = PaperSize.A5_Landscape;
-    
+            SystemLandscapeView systemLandscapeView = views.CreateSystemLandscapeView("SystemLandscape", "The system landscape diagram for Big Bank plc.");
+            systemLandscapeView.AddAllElements();
+            systemLandscapeView.PaperSize = PaperSize.A5_Landscape;
+
             SystemContextView systemContextView = views.CreateSystemContextView(internetBankingSystem, "SystemContext", "The system context diagram for the Internet Banking System.");
+            systemContextView.EnterpriseBoundaryVisible = false;
             systemContextView.AddNearestNeighbours(internetBankingSystem);
             systemContextView.PaperSize = PaperSize.A5_Landscape;
-    
+
             ContainerView containerView = views.CreateContainerView(internetBankingSystem, "Containers", "The container diagram for the Internet Banking System.");
             containerView.Add(customer);
             containerView.AddAllContainers();
             containerView.Add(mainframeBankingSystem);
+            containerView.Add(emailSystem);
             containerView.PaperSize = PaperSize.A5_Landscape;
-    
-            ComponentView componentView = views.CreateComponentView(webApplication, "Components", "The component diagram for the Web Application");
-            componentView.AddAllContainers();
+
+            ComponentView componentView = views.CreateComponentView(apiApplication, "Components", "The component diagram for the API Application.");
+            componentView.Add(mobileApp);
+            componentView.Add(singlePageApplication);
+            componentView.Add(database);
             componentView.AddAllComponents();
-            componentView.Add(customer);
             componentView.Add(mainframeBankingSystem);
             componentView.PaperSize = PaperSize.A5_Landscape;
-    
-            if (usePaidFeatures) {
-                // dynamic diagrams, deployment diagrams and corporate branding are not available with the Free Plan
-                DynamicView dynamicView = views.CreateDynamicView(webApplication, "SignIn", "Summarises how the sign in feature works.");
-                dynamicView.Add(customer, "Requests /signin from", signinController);
-                dynamicView.Add(customer, "Submits credentials to", signinController);
+
+            if (usePaidFeatures)
+            {
+                // dynamic diagrams and deployment diagrams are not available with the Free Plan
+                DynamicView dynamicView = views.CreateDynamicView(apiApplication, "SignIn", "Summarises how the sign in feature works in the single-page application.");
+                dynamicView.Add(singlePageApplication, "Submits credentials to", signinController);
                 dynamicView.Add(signinController, "Calls isAuthenticated() on", securityComponent);
-                dynamicView.Add(securityComponent, "select * from users u where username = ?", database);
+                dynamicView.Add(securityComponent, "select * from users where username = ?", database);
                 dynamicView.PaperSize = PaperSize.A5_Landscape;
-    
+
                 DeploymentView developmentDeploymentView = views.CreateDeploymentView(internetBankingSystem, "DevelopmentDeployment", "An example development deployment scenario for the Internet Banking System.");
+                developmentDeploymentView.Environment = "Development";
                 developmentDeploymentView.Add(developerLaptop);
                 developmentDeploymentView.PaperSize = PaperSize.A5_Landscape;
-    
+
                 DeploymentView liveDeploymentView = views.CreateDeploymentView(internetBankingSystem, "LiveDeployment", "An example live deployment scenario for the Internet Banking System.");
-                liveDeploymentView.Add(liveWebServer);
-                liveDeploymentView.Add(primaryDatabaseServer);
-                liveDeploymentView.Add(secondaryDatabaseServer);
+                liveDeploymentView.Environment = "Live";
+                liveDeploymentView.Add(bigBankDataCenter);
+                liveDeploymentView.Add(customerMobileDevice);
+                liveDeploymentView.Add(customerComputer);
                 liveDeploymentView.Add(dataReplicationRelationship);
                 liveDeploymentView.PaperSize = PaperSize.A5_Landscape;
             }
-    
+
             // colours, shapes and other diagram styling
             Styles styles = views.Configuration.Styles;
             styles.Add(new ElementStyle(Tags.Element) { Color = "#ffffff" });
             styles.Add(new ElementStyle(Tags.SoftwareSystem) { Background = "#1168bd" });
             styles.Add(new ElementStyle(Tags.Container) { Background = "#438dd5" });
             styles.Add(new ElementStyle(Tags.Component) { Background = "#85bbf0", Color = "#000000" });
-            styles.Add(new ElementStyle(Tags.Person) { Background = "#08427b", Shape = Shape.Person });
+            styles.Add(new ElementStyle(Tags.Person) { Background = "#08427b", Shape = Shape.Person, FontSize = 22});
+            styles.Add(new ElementStyle(ExistingSystemTag) { Background = "#999999"});
+            styles.Add(new ElementStyle(BankStaffTag) { Background = "#999999" });
+            styles.Add(new ElementStyle(WebBrowserTag) { Shape = Shape.WebBrowser });
+            styles.Add(new ElementStyle(MobileAppTag) { Shape = Shape.MobileDeviceLandscape });
             styles.Add(new ElementStyle(DatabaseTag) { Shape = Shape.Cylinder });
-            styles.Add(new ElementStyle("Failover") { Opacity = 25 });
-            styles.Add(new RelationshipStyle("Failover") {Opacity = 25, Position = 70});
-    
+            styles.Add(new ElementStyle(FailoverTag) { Opacity = 25 });
+            styles.Add(new RelationshipStyle(FailoverTag) { Opacity = 25, Position = 70});
+
             // documentation
             // - usually the documentation would be included from separate Markdown/AsciiDoc files, but this is just an example
             StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
             template.AddContextSection(internetBankingSystem, Format.Markdown,
                     "Here is some context about the Internet Banking System...\n" +
-                    "![](embed:EnterpriseContext)\n" +
+                    "![](embed:SystemLandscape)\n" +
                     "![](embed:SystemContext)\n" +
                     "### Internet Banking System\n...\n" +
                     "### Mainframe Banking System\n...\n");
@@ -166,7 +216,7 @@ namespace Structurizr.Examples
                     "### Web Application\n...\n" +
                     "### Database\n...\n");
             template.AddComponentsSection(webApplication, Format.Markdown,
-                    "Here is some information about the Web Application...\n" +
+                    "Here is some information about the API Application...\n" +
                     "![](embed:Components)\n" +
                     "### Sign in process\n" +
                     "Here is some information about the Sign In Controller, including how the sign in process works...\n" +

@@ -18,6 +18,12 @@ namespace Structurizr
             }
         }
 
+        /// <summary>
+        /// Determines whether the enterprise boundary (to differentiate "internal" elements from "external" elements") should be visible on the resulting diagram.
+        /// </summary>
+        [DataMember(Name = "enterpriseBoundaryVisible", EmitDefaultValue = false)]
+        public bool? EnterpriseBoundaryVisible { get; set; }
+
         internal SystemContextView() : base()
         {
         }

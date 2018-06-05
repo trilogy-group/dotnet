@@ -36,7 +36,7 @@ namespace Structurizr.Core.Tests.IO.PlantUML
     
             _plantUMLWriter.Write(_workspace, _stringWriter);
             Assert.Equal("@startuml" + Environment.NewLine +
-                    "title Enterprise Context for Some Enterprise" + Environment.NewLine +
+                    "title System Landscape for Some Enterprise" + Environment.NewLine +
                     "component \"E-mail System\" <<Software System>> as 4" + Environment.NewLine +
                     "package Some Enterprise {" + Environment.NewLine +
                     "  actor \"User\" <<Person>> as 1" + Environment.NewLine +
@@ -122,11 +122,11 @@ namespace Structurizr.Core.Tests.IO.PlantUML
         {
             PopulateWorkspace();
     
-            EnterpriseContextView enterpriseContextView = _workspace.Views.EnterpriseContextViews.First();
-            _plantUMLWriter.Write(enterpriseContextView, _stringWriter);
+            SystemLandscapeView systemLandscapeView = _workspace.Views.SystemLandscapeViews.First();
+            _plantUMLWriter.Write(systemLandscapeView, _stringWriter);
     
             Assert.Equal("@startuml" + Environment.NewLine +
-                    "title Enterprise Context for Some Enterprise" + Environment.NewLine +
+                    "title System Landscape for Some Enterprise" + Environment.NewLine +
                     "component \"E-mail System\" <<Software System>> as 4" + Environment.NewLine +
                     "package Some Enterprise {" + Environment.NewLine +
                     "  actor \"User\" <<Person>> as 1" + Environment.NewLine +
@@ -294,9 +294,9 @@ namespace Structurizr.Core.Tests.IO.PlantUML
             databaseServer.AddDeploymentNode("MySQL", "The live database server", "MySQL 5.5.x")
                     .Add(database);
     
-            EnterpriseContextView
-                enterpriseContextView = views.CreateEnterpriseContextView("enterpriseContext", "");
-            enterpriseContextView.AddAllElements();
+            SystemLandscapeView
+                systemLandscapeView = views.CreateSystemLandscapeView("enterpriseContext", "");
+            systemLandscapeView.AddAllElements();
     
             SystemContextView systemContextView = views.CreateSystemContextView(softwareSystem, "systemContext", "");
             systemContextView.AddAllElements();

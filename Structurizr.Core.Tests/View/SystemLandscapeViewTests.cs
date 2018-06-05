@@ -5,20 +5,20 @@ namespace Structurizr.Core.Tests
 {
 
     
-    public class EnterpriseContextViewTests : AbstractTestBase
+    public class SystemLandscapeViewTests : AbstractTestBase
     {
 
-        private EnterpriseContextView view;
+        private SystemLandscapeView view;
 
-        public EnterpriseContextViewTests()
+        public SystemLandscapeViewTests()
         {
-            view = Workspace.Views.CreateEnterpriseContextView("context", "Description");
+            view = Workspace.Views.CreateSystemLandscapeView("context", "Description");
         }
 
         [Fact]
         public void Test_Construction()
         {
-            Assert.Equal("Enterprise Context", view.Name);
+            Assert.Equal("System Landscape", view.Name);
             Assert.Equal(0, view.Elements.Count);
             Assert.Same(Model, view.Model);
         }
@@ -26,14 +26,14 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_GetName_WhenNoEnterpriseIsSpecified()
         {
-            Assert.Equal("Enterprise Context", view.Name);
+            Assert.Equal("System Landscape", view.Name);
         }
 
         [Fact]
         public void Test_GetName_WhenAnEnterpriseIsSpecified()
         {
             Model.Enterprise = new Enterprise("Widgets Limited");
-            Assert.Equal("Enterprise Context for Widgets Limited", view.Name);
+            Assert.Equal("System Landscape for Widgets Limited", view.Name);
         }
 
         [Fact]

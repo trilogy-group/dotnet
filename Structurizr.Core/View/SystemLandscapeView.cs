@@ -4,12 +4,12 @@ namespace Structurizr
 { 
 
     /// <summary>
-    /// Represents an Enterprise Context view that sits above the C4 model. This is the "big picture" view,
+    /// Represents an System Landscape view that sits above the C4 model. This is the "big picture" view,
     /// showing the software systems and people in an given environment.
     /// The permitted elements in this view are software systems and people.
     /// </summary>
     [DataContract]
-    public sealed class EnterpriseContextView : StaticView
+    public sealed class SystemLandscapeView : StaticView
     {
 
         public override string Name
@@ -17,17 +17,23 @@ namespace Structurizr
             get
             {
                 Enterprise enterprise = Model.Enterprise;
-                return "Enterprise Context" + (enterprise != null && enterprise.Name.Trim().Length > 0 ? " for " + enterprise.Name : "");
+                return "System Landscape" + (enterprise != null && enterprise.Name.Trim().Length > 0 ? " for " + enterprise.Name : "");
             }
         }
 
         public sealed override Model Model { get; set; }
 
-        internal EnterpriseContextView() : base()
+        /// <summary>
+        /// Determines whether the enterprise boundary (to differentiate "internal" elements from "external" elements") should be visible on the resulting diagram.
+        /// </summary>
+        [DataMember(Name = "enterpriseBoundaryVisible", EmitDefaultValue = false)]
+        public bool? EnterpriseBoundaryVisible { get; set; }
+
+        internal SystemLandscapeView() : base()
         {
         }
 
-        internal EnterpriseContextView(Model model, string key, string description) : base(null, key, description)
+        internal SystemLandscapeView(Model model, string key, string description) : base(null, key, description)
         {
             Model = model;
         }
