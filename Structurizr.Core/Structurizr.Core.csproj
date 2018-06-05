@@ -3,6 +3,7 @@
   <!-- Update this property group for every regular release -->
   <PropertyGroup>
     <ReleaseNotes></ReleaseNotes>
+    <Version>0.7.2</Version>
   </PropertyGroup>
 
   <PropertyGroup>
