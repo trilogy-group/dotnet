@@ -1,8 +1,9 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 
 namespace Structurizr.Core.Tests.View
 {
-    
+
     public class RelationshipStyleTests
     {
 
@@ -49,5 +50,35 @@ namespace Structurizr.Core.Tests.View
             style.Opacity = 101;
             Assert.Equal(100, style.Opacity);
         }
+
+        [Fact]
+        public void Test_Color_SetsTheColorProperty_WhenAValidHexColorCodeIsSpecified()
+        {
+            RelationshipStyle style = new RelationshipStyle();
+            style.Color = "#ffffff";
+            Assert.Equal("#ffffff", style.Color);
+
+            style.Color = "#FFFFFF";
+            Assert.Equal("#ffffff", style.Color);
+
+            style.Color = "#123456";
+            Assert.Equal("#123456", style.Color);
+        }
+
+        [Fact]
+        public void Test_Color_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified()
+        {
+            try
+            {
+                RelationshipStyle style = new RelationshipStyle();
+                style.Color = "white";
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("'white' is not a valid hex color code.", ae.Message);
+            }
+        }
+
     }
 }

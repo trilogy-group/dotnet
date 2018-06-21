@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.Serialization;
 
 namespace Structurizr
@@ -27,19 +28,59 @@ namespace Structurizr
         /// </summary>
         [DataMember(Name="height", EmitDefaultValue=false)]
         public int? Height { get; set; }
-        
+
+        private string _background;
+
         /// <summary>
         /// The background colour of the element, as a HTML RGB hex string (e.g.
         /// </summary>
-        [DataMember(Name="background", EmitDefaultValue=false)]
-        public string Background { get; set; }
-        
+        [DataMember(Name = "background", EmitDefaultValue = false)]
+        public string Background
+        {
+            get
+            {
+                return this._background;
+            }
+
+            set
+            {
+                if (Structurizr.Color.IsHexColorCode(value))
+                {
+                    this._background = value.ToLower();
+                }
+                else
+                {
+                    throw new ArgumentException("'" + value + "' is not a valid hex color code.");
+                }
+            }
+        }
+
+        private string _color;
+
         /// <summary>
         /// The foreground (text) colour of the element, as a HTML RGB hex string (e.g.
         /// </summary>
-        [DataMember(Name="color", EmitDefaultValue=false)]
-        public string Color { get; set; }
-        
+        [DataMember(Name = "color", EmitDefaultValue = false)]
+        public string Color
+        {
+            get
+            {
+                return this._color;
+            }
+
+            set
+            {
+                if (Structurizr.Color.IsHexColorCode(value))
+                {
+                    this._color = value.ToLower();
+                }
+                else
+                {
+                    throw new ArgumentException("'" + value + "' is not a valid hex color code.");
+                }
+            }
+        }
+
         /// <summary>
         /// The standard font size used to render text, in pixels.
         /// </summary>

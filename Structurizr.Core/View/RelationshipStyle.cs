@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.Serialization;
 
 namespace Structurizr
@@ -9,25 +10,44 @@ namespace Structurizr
     [DataContract]
     public sealed class RelationshipStyle
     {
-        
+
         /// <summary>
         /// The tag to which this relationship style applies.
         /// </summary>
         [DataMember(Name="tag", EmitDefaultValue=false)]
         public string Tag { get; set; }
-  
+
         /// <summary>
         /// The thickness of the line, in pixels.
         /// </summary>
         [DataMember(Name="thickness", EmitDefaultValue=false)]
         public int? Thickness { get; set; }
-        
+
+        private string _color;
+
         /// <summary>
         /// The colour of the line, as a HTML RGB hex string (e.g. #123456)
         /// </summary>
-        [DataMember(Name="color", EmitDefaultValue=false)]
-        public string Color { get; set; }
-        
+        [DataMember(Name = "color", EmitDefaultValue = false)]
+        public string Color
+        { 
+            get {
+                return this._color;
+            }
+
+            set
+            {
+                if (Structurizr.Color.IsHexColorCode(value))
+                {
+                    this._color = value.ToLower();
+                }
+                else
+                {
+                    throw new ArgumentException("'" + value + "' is not a valid hex color code.");
+                }
+            }
+        }
+
         /// <summary>
         /// The standard font size used to render the relationship annotation, in pixels.
         /// </summary>
