@@ -6,6 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4ED0E8DB-8
 	ProjectSection(SolutionItems) = preProject
 		docs\api-client.md = docs\api-client.md
 		docs\binaries.md = docs\binaries.md
+		docs\changelog.md = docs\changelog.md
 		docs\client-side-encryption.md = docs\client-side-encryption.md
 		docs\component-diagram.md = docs\component-diagram.md
 		docs\container-diagram.md = docs\container-diagram.md
