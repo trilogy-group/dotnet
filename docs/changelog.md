@@ -4,6 +4,7 @@
 
 - Added validation for hex colour codes (on ElementStyle and RelationshipStyle)
 - Removed the "groups" property of documentation sections (__breaking change__).
+- Added support for the HTTP-based health checks feature.
 
 ## 0.7.2
 

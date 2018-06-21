@@ -115,7 +115,133 @@ namespace Structurizr.Core.Tests
             Assert.Equal("Replicates data to", relationship.Description);
             Assert.Equal("Some technology", relationship.Technology);
         }
-        
+
+        [Fact]
+        public void test_AddHealthCheck()
+        {
+            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+            Assert.Equal(0, containerInstance.HealthChecks.Count);
+
+            HttpHealthCheck healthCheck = containerInstance.AddHealthCheck("Test web application is working", "http://localhost:8080");
+            Assert.Equal("Test web application is working", healthCheck.Name);
+            Assert.Equal("http://localhost:8080", healthCheck.Url);
+            Assert.Equal(60, healthCheck.Interval);
+            Assert.Equal(0, healthCheck.Timeout);
+            Assert.Equal(1, containerInstance.HealthChecks.Count);
+        }
+
+        [Fact]
+        public void test_AddHealthCheck_ThrowsAnException_WhenTheNameIsNull()
+        {
+            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+
+            try
+            {
+                containerInstance.AddHealthCheck(null, "http://localhost");
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("The name must not be null or empty.", ae.Message);
+            }
+        }
+
+        [Fact]
+        public void test_AddHealthCheck_ThrowsAnException_WhenTheNameIsEmpty()
+        {
+            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+
+            try
+            {
+                containerInstance.AddHealthCheck(" ", "http://localhost");
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("The name must not be null or empty.", ae.Message);
+            }
+        }
+
+        [Fact]
+        public void test_AddHealthCheck_ThrowsAnException_WhenTheUrlIsNull()
+        {
+            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+
+            try
+            {
+                containerInstance.AddHealthCheck("Name", null);
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("The URL must not be null or empty.", ae.Message);
+            }
+        }
+
+        [Fact]
+        public void test_AddHealthCheck_ThrowsAnException_WhenTheUrlIsEmpty()
+        {
+            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+
+            try
+            {
+                containerInstance.AddHealthCheck("Name", " ");
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("The URL must not be null or empty.", ae.Message);
+            }
+        }
+
+        [Fact]
+        public void test_AddHealthCheck_ThrowsAnException_WhenTheUrlIsInvalid()
+        {
+            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+
+            try
+            {
+                containerInstance.AddHealthCheck("Name", "localhost");
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("localhost is not a valid URL.", ae.Message);
+            }
+        }
+
+        [Fact]
+        public void test_AddHealthCheck_ThrowsAnException_WhenTheIntervalIsLessThanZero()
+        {
+            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+
+            try
+            {
+                containerInstance.AddHealthCheck("Name", "https://localhost", -1, 0);
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("The polling interval must be zero or a positive integer.", ae.Message);
+            }
+        }
+
+        [Fact]
+        public void test_AddHealthCheck_ThrowsAnException_WhenTheTimeoutIsLessThanZero()
+        {
+            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+
+            try
+            {
+                containerInstance.AddHealthCheck("Name", "https://localhost", 60, -1);
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("The timeout must be zero or a positive integer.", ae.Message);
+            }
+        }
+
     }
-    
+
 }

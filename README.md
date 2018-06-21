@@ -66,6 +66,7 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [PlantUML](docs/plantuml.md)
     * [DGML](https://github.com/merijndejonge/Structurizr.Dgml)
 * Other
+	* [HTTP-based health checks](docs/health-checks.md)
     * [Client-side encryption](docs/client-side-encryption.md)
     * [Corporate branding](docs/corporate-branding.md)
 * Related projects
