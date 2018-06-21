@@ -71,4 +71,5 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
 * Related projects
     * [dotnet-core-quickstart](https://github.com/structurizr/dotnet-core-quickstart): A quickstart for .NET Core
     * [dotnet-framework-quickstart](https://github.com/structurizr/dotnet-framework-quickstart): A quickstart for .NET Framework
-    * [structurizr-java](https://github.com/structurizr/java): Structurizr for Java    
+    * [structurizr-java](https://github.com/structurizr/java): Structurizr for Java
+* [changelog](docs/changelog.md)
