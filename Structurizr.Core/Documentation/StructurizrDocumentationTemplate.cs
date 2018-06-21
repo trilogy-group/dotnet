@@ -42,7 +42,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddContextSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddSection(softwareSystem, "Context", Group1, files);
+            return AddSection(softwareSystem, "Context", files);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddContextSection(SoftwareSystem softwareSystem, Format format, string content)
         {
-            return AddSection(softwareSystem, "Context", Group1, format, content);
+            return AddSection(softwareSystem, "Context", format, content);
         }
         
         /// <summary>
@@ -65,7 +65,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddFunctionalOverviewSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddSection(softwareSystem, "Functional Overview", Group2, files);
+            return AddSection(softwareSystem, "Functional Overview", files);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddFunctionalOverviewSection(SoftwareSystem softwareSystem, Format format, string content)
         {
-            return AddSection(softwareSystem, "Functional Overview", Group2, format, content);
+            return AddSection(softwareSystem, "Functional Overview", format, content);
         }
         
         /// <summary>
@@ -88,7 +88,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddQualityAttributesSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddSection(softwareSystem, "Quality Attributes", Group2, files);
+            return AddSection(softwareSystem, "Quality Attributes", files);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddQualityAttributesSection(SoftwareSystem softwareSystem, Format format, string content)
         {
-            return AddSection(softwareSystem, "Quality Attributes", Group2, format, content);
+            return AddSection(softwareSystem, "Quality Attributes", format, content);
         }
         
         /// <summary>
@@ -111,7 +111,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddConstraintsSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddSection(softwareSystem, "Constraints", Group2, files);
+            return AddSection(softwareSystem, "Constraints", files);
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddConstraintsSection(SoftwareSystem softwareSystem, Format format, string content)
         {
-            return AddSection(softwareSystem, "Constraints", Group2, format, content);
+            return AddSection(softwareSystem, "Constraints", format, content);
         }
         
         /// <summary>
@@ -134,7 +134,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddPrinciplesSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddSection(softwareSystem, "Principles", Group2, files);
+            return AddSection(softwareSystem, "Principles", files);
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddPrinciplesSection(SoftwareSystem softwareSystem, Format format, string content)
         {
-            return AddSection(softwareSystem, "Principles", Group2, format, content);
+            return AddSection(softwareSystem, "Principles", format, content);
         }
         
         /// <summary>
@@ -157,7 +157,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddSoftwareArchitectureSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddSection(softwareSystem, "Software Architecture", Group3, files);
+            return AddSection(softwareSystem, "Software Architecture", files);
         }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddSoftwareArchitectureSection(SoftwareSystem softwareSystem, Format format, string content)
         {
-            return AddSection(softwareSystem, "Software Architecture", Group3, format, content);
+            return AddSection(softwareSystem, "Software Architecture", format, content);
         }
         
         /// <summary>
@@ -180,7 +180,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddContainersSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddSection(softwareSystem, "Containers", Group3, files);
+            return AddSection(softwareSystem, "Containers", files);
         }
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddContainersSection(SoftwareSystem softwareSystem, Format format, string content)
         {
-            return AddSection(softwareSystem, "Containers", Group3, format, content);
+            return AddSection(softwareSystem, "Containers", format, content);
         }
         
         /// <summary>
@@ -203,7 +203,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddComponentsSection(Container container, params FileSystemInfo[] files)
         {
-            return AddSection(container, "Components", Group3, files);
+            return AddSection(container, "Components", files);
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddComponentsSection(Container container, Format format, string content)
         {
-            return AddSection(container, "Components", Group3, format, content);
+            return AddSection(container, "Components", format, content);
         }
         
         /// <summary>
@@ -226,7 +226,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddCodeSection(Component component, params FileSystemInfo[] files)
         {
-            return AddSection(component, "Code", Group3, files);
+            return AddSection(component, "Code", files);
         }
 
         /// <summary>
@@ -238,7 +238,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddCodeSection(Component component, Format format, string content)
         {
-            return AddSection(component, "Code", Group3, format, content);
+            return AddSection(component, "Code", format, content);
         }
         
         /// <summary>
@@ -249,7 +249,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddDataSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddSection(softwareSystem, "Data", Group3, files);
+            return AddSection(softwareSystem, "Data", files);
         }
 
         /// <summary>
@@ -261,7 +261,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddDataSection(SoftwareSystem softwareSystem, Format format, string content)
         {
-            return AddSection(softwareSystem, "Data", Group3, format, content);
+            return AddSection(softwareSystem, "Data", format, content);
         }
         
         /// <summary>
@@ -272,7 +272,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddInfrastructureArchitectureSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddSection(softwareSystem, "Infrastructure Architecture", Group4, files);
+            return AddSection(softwareSystem, "Infrastructure Architecture", files);
         }
 
         /// <summary>
@@ -284,7 +284,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddInfrastructureArchitectureSection(SoftwareSystem softwareSystem, Format format, string content)
         {
-            return AddSection(softwareSystem, "Infrastructure Architecture", Group4, format, content);
+            return AddSection(softwareSystem, "Infrastructure Architecture", format, content);
         }
 
         /// <summary>
@@ -295,7 +295,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddDeploymentSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddSection(softwareSystem, "Deployment", Group4, files);
+            return AddSection(softwareSystem, "Deployment", files);
         }
 
         /// <summary>
@@ -307,7 +307,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddDeploymentSection(SoftwareSystem softwareSystem, Format format, string content)
         {
-            return AddSection(softwareSystem, "Deployment", Group4, format, content);
+            return AddSection(softwareSystem, "Deployment", format, content);
         }
 
         /// <summary>
@@ -318,7 +318,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddDevelopmentEnvironmentSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddSection(softwareSystem, "Development Environment", Group4, files);
+            return AddSection(softwareSystem, "Development Environment", files);
         }
 
         /// <summary>
@@ -330,7 +330,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddDevelopmentEnvironmentSection(SoftwareSystem softwareSystem, Format format, string content)
         {
-            return AddSection(softwareSystem, "Development Environment", Group4, format, content);
+            return AddSection(softwareSystem, "Development Environment", format, content);
         }
 
         /// <summary>
@@ -341,7 +341,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddOperationAndSupportSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddSection(softwareSystem, "Operation and Support", Group4, files);
+            return AddSection(softwareSystem, "Operation and Support", files);
         }
 
         /// <summary>
@@ -353,7 +353,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddOperationAndSupportSection(SoftwareSystem softwareSystem, Format format, string content)
         {
-            return AddSection(softwareSystem, "Operation and Support", Group4, format, content);
+            return AddSection(softwareSystem, "Operation and Support", format, content);
         }
 
         /// <summary>
@@ -364,7 +364,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddDecisionLogSection(SoftwareSystem softwareSystem, params FileSystemInfo[] files)
         {
-            return AddSection(softwareSystem, "Decision Log", Group5, files);
+            return AddSection(softwareSystem, "Decision Log", files);
         }
 
         /// <summary>
@@ -376,7 +376,7 @@ namespace Structurizr.Documentation
         /// <returns>a documentation Section</returns>
         public Section AddDecisionLogSection(SoftwareSystem softwareSystem, Format format, string content)
         {
-            return AddSection(softwareSystem, "Decision Log", Group5, format, content);
+            return AddSection(softwareSystem, "Decision Log", format, content);
         }
 
     }

@@ -300,18 +300,5 @@ namespace Structurizr.Core.Tests.Documentation
                     "File 2", section.Content);
         }
 
-        [Fact]
-        public void Test_AddCustomSection_AddsASectionWithAGroupOf1_WhenAGroupLessThan1IsSpecified()
-        {
-            Section section = _template.AddSection(_softwareSystem, "Custom Section", 0, Format.Markdown, "Custom content");
-            Assert.Equal(1, section.Group);
-        }
-
-        [Fact]
-        public void Test_AddCustomSection_AddsASectionWithAGroupOf5_WhenAGroupMoreThan5IsSpecified() {
-            Section section = _template.AddSection(_softwareSystem, "Custom Section", 6, Format.Markdown, "Custom content");
-            Assert.Equal(5, section.Group);
-        }
-
     }
 }

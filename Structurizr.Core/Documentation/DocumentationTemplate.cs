@@ -13,12 +13,6 @@ namespace Structurizr.Documentation
     public abstract class DocumentationTemplate
     {
         
-        protected const int Group1 = 1;
-        protected const int Group2 = 2;
-        protected const int Group3 = 3;
-        protected const int Group4 = 4;
-        protected const int Group5 = 5;
-        
         private readonly Documentation _documentation;
 
         /// <summary>
@@ -82,25 +76,23 @@ namespace Structurizr.Documentation
         /// Adds a custom section from a file, that isn't related to any element in the model.
         /// </summary>
         /// <param name="name">the name of the section</param>
-        /// <param name="group">the group of the section (an integer between 1 and 5)</param>
         /// <param name="files">one or more FileInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddSection(string name, int group, params FileInfo[] files)
+        public Section AddSection(string name, params FileInfo[] files)
         {
-            return Add(null, name, group, files);
+            return Add(null, name, files);
         }
     
         /// <summary>
         /// Adds a custom section, that isn't related to any element in the model.
         /// </summary>
         /// <param name="name">the name of the section</param>
-        /// <param name="group">the group of the section (an integer between 1 and 5)</param>
         /// <param name="format">the format of the documentation content</param>
         /// <param name="content">a string containing the documentation content</param>
         /// <returns>a documentation section</returns>
-        public Section AddSection(string name, int group, Format format, string content)
+        public Section AddSection(string name, Format format, string content)
         {
-            return Add(null, name, group, format, content);
+            return Add(null, name, format, content);
         }
     
         /// <summary>
@@ -108,12 +100,11 @@ namespace Structurizr.Documentation
         /// </summary>
         /// <param name="softwareSystem">the SoftwareSystem the documentation content relates to</param>
         /// <param name="name">the name of the section</param>
-        /// <param name="group">the group of the section (an integer between 1 and 5)</param>
         /// <param name="files">one or more FileInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddSection(SoftwareSystem softwareSystem, string name, int group, params FileSystemInfo[] files)
+        public Section AddSection(SoftwareSystem softwareSystem, string name, params FileSystemInfo[] files)
         {
-            return Add(softwareSystem, name, group, files);
+            return Add(softwareSystem, name, files);
         }
     
         /// <summary>
@@ -121,13 +112,12 @@ namespace Structurizr.Documentation
         /// </summary>
         /// <param name="softwareSystem">the SoftwareSystem the documentation content relates to</param>
         /// <param name="name">the name of the section</param>
-        /// <param name="group">the group of the section (an integer between 1 and 5)</param>
         /// <param name="format">the format of the documentation content</param>
         /// <param name="content">a string containing the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddSection(SoftwareSystem softwareSystem, string name, int group, Format format, String content)
+        public Section AddSection(SoftwareSystem softwareSystem, string name, Format format, String content)
         {
-            return Add(softwareSystem, name, group, format, content);
+            return Add(softwareSystem, name, format, content);
         }
 
         /// <summary>
@@ -135,12 +125,11 @@ namespace Structurizr.Documentation
         /// </summary>
         /// <param name="container">the Container the documentation content relates to</param>
         /// <param name="name">the name of the section</param>
-        /// <param name="group">the group of the section (an integer between 1 and 5)</param>
         /// <param name="files">one or more FileInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddSection(Container container, string name, int group, params FileSystemInfo[] files)
+        public Section AddSection(Container container, string name, params FileSystemInfo[] files)
         {
-            return Add(container, name, group, files);
+            return Add(container, name, files);
         }
     
         /// <summary>
@@ -148,13 +137,12 @@ namespace Structurizr.Documentation
         /// </summary>
         /// <param name="container">the Container the documentation content relates to</param>
         /// <param name="name">the name of the section</param>
-        /// <param name="group">the group of the section (an integer between 1 and 5)</param>
         /// <param name="format">the format of the documentation content</param>
         /// <param name="content">a string containing the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddSection(Container container, string name, int group, Format format, String content)
+        public Section AddSection(Container container, string name, Format format, String content)
         {
-            return Add(container, name, group, format, content);
+            return Add(container, name, format, content);
         }
 
         /// <summary>
@@ -162,12 +150,11 @@ namespace Structurizr.Documentation
         /// </summary>
         /// <param name="component">the Component the documentation content relates to</param>
         /// <param name="name">the name of the section</param>
-        /// <param name="group">the group of the section (an integer between 1 and 5)</param>
         /// <param name="files">one or more FileInfo objects that point to the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddSection(Component component, string name, int group, params FileSystemInfo[] files)
+        public Section AddSection(Component component, string name, params FileSystemInfo[] files)
         {
-            return Add(component, name, group, files);
+            return Add(component, name, files);
         }
     
         /// <summary>
@@ -175,23 +162,22 @@ namespace Structurizr.Documentation
         /// </summary>
         /// <param name="component">the Component the documentation content relates to</param>
         /// <param name="name">the name of the section</param>
-        /// <param name="group">the group of the section (an integer between 1 and 5)</param>
         /// <param name="format">the format of the documentation content</param>
         /// <param name="content">a string containing the documentation content</param>
         /// <returns>a documentation Section</returns>
-        public Section AddSection(Component component, string name, int group, Format format, String content)
+        public Section AddSection(Component component, string name, Format format, String content)
         {
-            return Add(component, name, group, format, content);
+            return Add(component, name, format, content);
         }
 
-        private Section Add(Element element, string type, int group, params FileSystemInfo[] files)
+        private Section Add(Element element, string type, params FileSystemInfo[] files)
         {
             FormattedContent content = ReadFiles(files);
-            return _documentation.AddSection(element, type, group, content.Format, content.Content);
+            return _documentation.AddSection(element, type, content.Format, content.Content);
         }
 
-        private Section Add(Element element, string type, int group, Format format, string content) {
-            return _documentation.AddSection(element, type, group, format, content);
+        private Section Add(Element element, string type, Format format, string content) {
+            return _documentation.AddSection(element, type, format, content);
         }
 
         /// <summary>

@@ -38,9 +38,6 @@ namespace Structurizr.Documentation
         [DataMember(Name = "type", EmitDefaultValue = true)]
         public string SectionType { get; internal set; }
 
-        [DataMember(Name = "group", EmitDefaultValue = true)]
-        public int Group { get; internal set; }
-        
         [DataMember(Name = "order", EmitDefaultValue = true)]
         public int Order { get; internal set; }
         
@@ -52,11 +49,10 @@ namespace Structurizr.Documentation
 
         internal Section() { }
 
-        internal Section(Element element, string type, int order, int group, Format format, string content) {
+        internal Section(Element element, string type, int order, Format format, string content) {
             Element = element;
             SectionType = type;
             Order = order;
-            Group = group;
             Format = format;
             Content = content;
         }

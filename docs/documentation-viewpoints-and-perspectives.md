@@ -20,10 +20,7 @@ template.AddSystemQualitiesSection(softwareSystem, new FileInfoPath.Combine(docu
 template.AddAppendicesSection(softwareSystem, new FileInfoPath.Combine(documentationRoot.FullName, "07-appendices.md")));
 ```
 
-Structurizr will create navigation controls based upon the the sections in the documentation, and the software systems they have been associated with. This particular example is rendered as follows: 
-
-![Documentation based upon the Viewpoints and Perspectives template](images/documentation-viewpoints-and-perspectives-1.png)
-
+Structurizr will create navigation controls based upon the the sections in the documentation, and the software systems they have been associated with.
 See [ViewpointsAndPerspectivesDocumentationExample.cs](https://github.com/structurizr/dotnet/blob/master/Structurizr.Examples/ViewpointsAndPerspectivesDocumentationExample.cs) for the full code, and [https://structurizr.com/share/36371/documentation](https://structurizr.com/share/36371/documentation) to see the rendered documentation.
 
 ## More information

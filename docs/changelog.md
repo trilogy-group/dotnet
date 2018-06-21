@@ -3,7 +3,7 @@
 ## 0.8.0 (unreleased)
 
 - Added validation for hex colour codes (on ElementStyle and RelationshipStyle)
-- TODO: Removed the "groups" property of documentation sections (__breaking change__).
+- Removed the "groups" property of documentation sections (__breaking change__).
 
 ## 0.7.2
 

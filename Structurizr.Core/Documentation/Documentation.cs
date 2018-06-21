@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Runtime.Serialization;
-using System.Text;
-using Structurizr.Util;
 using Newtonsoft.Json;
 
 namespace Structurizr.Documentation
@@ -53,21 +50,11 @@ namespace Structurizr.Documentation
                     section.Element = Model.GetElement(section.ElementId);
                 }
             }
-
         }
             
-        internal Section AddSection(Element element, string type, int group, Format format, string content)
+        internal Section AddSection(Element element, string type, Format format, string content)
         {
-            if (group < 1)
-            {
-                group = 1;
-            }
-            else if (group > 5)
-            {
-                group = 5;
-            }
-    
-            Section section = new Section(element, type, CalculateOrder(), group, format, content);
+            Section section = new Section(element, type, CalculateOrder(), format, content);
             if (!Sections.Contains(section))
             {
                 Sections.Add(section);
