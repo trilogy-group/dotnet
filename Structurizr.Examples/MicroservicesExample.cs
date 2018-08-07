@@ -78,8 +78,10 @@ namespace Structurizr.Examples
             dynamicView.Add(messageBus, auditService);
             dynamicView.Add(auditService, auditStore);
             dynamicView.EndParallelSequence();
-    
+
+            dynamicView.StartParallelSequence();
             dynamicView.Add(customerService, "Confirms update to", customerApplication);
+            dynamicView.EndParallelSequence();
 
             Styles styles = views.Configuration.Styles;
             styles.Add(new ElementStyle(Tags.Element) { Color = "#000000" });

@@ -15,24 +15,23 @@
             return _counter.AsString();
         }
 
-        internal void StartChildSequence()
-        {
-            _counter = new SequenceCounter(_counter);
-        }
-
-        internal void EndChildSequence()
-        {
-            _counter = _counter.Parent;
-        }
-
         internal void StartParallelSequence()
         {
             _counter = new ParallelSequenceCounter(_counter);
         }
 
-        internal void EndParallelSequence()
+        internal void EndParallelSequence(bool endAllParallelSequencesAndContinueNumbering)
         {
-            _counter = ((ParallelSequenceCounter)_counter).Root;
+            if (endAllParallelSequencesAndContinueNumbering)
+            {
+                int sequence = _counter.Sequence;
+                _counter = _counter.Parent;
+                _counter.Sequence = sequence;
+            }
+            else
+            {
+                _counter = _counter.Parent;
+            }
         }
 
     }

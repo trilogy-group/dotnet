@@ -15,20 +15,6 @@ namespace Structurizr.Core.Tests
         }
 
         [Fact]
-        public void Test_ChildSequence()
-        {
-            SequenceNumber sequenceNumber = new SequenceNumber();
-            Assert.Equal("1", sequenceNumber.GetNext());
-
-            sequenceNumber.StartChildSequence();
-            Assert.Equal("1.1", sequenceNumber.GetNext());
-            Assert.Equal("1.2", sequenceNumber.GetNext());
-
-            sequenceNumber.EndChildSequence();
-            Assert.Equal("2", sequenceNumber.GetNext());
-        }
-
-        [Fact]
         public void Test_ParallelSequences()
         {
             SequenceNumber sequenceNumber = new SequenceNumber();
@@ -36,13 +22,13 @@ namespace Structurizr.Core.Tests
 
             sequenceNumber.StartParallelSequence();
             Assert.Equal("2", sequenceNumber.GetNext());
-            sequenceNumber.EndParallelSequence();
+            sequenceNumber.EndParallelSequence(false);
 
             sequenceNumber.StartParallelSequence();
             Assert.Equal("2", sequenceNumber.GetNext());
-            sequenceNumber.EndParallelSequence();
+            sequenceNumber.EndParallelSequence(true);
 
-            Assert.Equal("2", sequenceNumber.GetNext());
+            Assert.Equal("3", sequenceNumber.GetNext());
         }
 
     }

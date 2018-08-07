@@ -176,7 +176,12 @@ namespace Structurizr
 
         public void EndParallelSequence()
         {
-            _sequenceNumber.EndParallelSequence();
+            EndParallelSequence(false);
+        }
+
+        public void EndParallelSequence(bool endAllParallelSequencesAndContinueNumbering)
+        {
+            _sequenceNumber.EndParallelSequence(endAllParallelSequencesAndContinueNumbering);
         }
 
     }

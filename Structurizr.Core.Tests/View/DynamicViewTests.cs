@@ -204,52 +204,39 @@ namespace Structurizr.Core.Tests
         {
             Workspace = new Workspace("Name", "Description");
             Model = Workspace.Model;
-            SoftwareSystem softwareSystem = Model.AddSoftwareSystem("Name", "Description");
-            Person user = Model.AddPerson("User", "Description");
-            Container microservice1 = softwareSystem.AddContainer("Microservice 1", "", "");
-            Container database1 = softwareSystem.AddContainer("Database 1", "", "");
-            Container microservice2 = softwareSystem.AddContainer("Microservice 2", "", "");
-            Container database2 = softwareSystem.AddContainer("Database 2", "", "");
-            Container microservice3 = softwareSystem.AddContainer("Microservice 3", "", "");
-            Container database3 = softwareSystem.AddContainer("Database 3", "", "");
-            Container messageBus = softwareSystem.AddContainer("Message Bus", "", "");
+            SoftwareSystem softwareSystemA = Model.AddSoftwareSystem("A", "");
+            SoftwareSystem softwareSystemB = Model.AddSoftwareSystem("B", "");
+            SoftwareSystem softwareSystemC1 = Model.AddSoftwareSystem("C1", "");
+            SoftwareSystem softwareSystemC2 = Model.AddSoftwareSystem("C2", "");
+            SoftwareSystem softwareSystemD = Model.AddSoftwareSystem("D", "");
+            SoftwareSystem softwareSystemE = Model.AddSoftwareSystem("E", "");
 
-            user.Uses(microservice1, "Updates using");
-            microservice1.Delivers(user, "Sends updates to");
+            // A -> B -> C1 -> D -> E
+            // A -> B -> C2 -> D -> E
+            softwareSystemA.Uses(softwareSystemB, "uses");
+            softwareSystemB.Uses(softwareSystemC1, "uses");
+            softwareSystemC1.Uses(softwareSystemD, "uses");
+            softwareSystemB.Uses(softwareSystemC2, "uses");
+            softwareSystemC2.Uses(softwareSystemD, "uses");
+            softwareSystemD.Uses(softwareSystemE, "uses");
 
-            microservice1.Uses(database1, "Stores data in");
-            microservice1.Uses(messageBus, "Sends messages to");
-            microservice1.Uses(messageBus, "Sends messages to");
+            DynamicView view = Workspace.Views.CreateDynamicView("key", "Description");
 
-            messageBus.Uses(microservice2, "Sends messages to");
-            messageBus.Uses(microservice3, "Sends messages to");
-
-            microservice2.Uses(database2, "Stores data in");
-            microservice3.Uses(database3, "Stores data in");
-
-            DynamicView view = Workspace.Views.CreateDynamicView(softwareSystem, "key", "Description");
-
-            view.Add(user, "1", microservice1);
-            view.Add(microservice1, "2", database1);
-            view.Add(microservice1, "3", messageBus);
-
+            view.Add(softwareSystemA, softwareSystemB);
             view.StartParallelSequence();
-            view.Add(messageBus, "4", microservice2);
-            view.Add(microservice2, "5", database2);
+            view.Add(softwareSystemB, softwareSystemC1);
+            view.Add(softwareSystemC1, softwareSystemD);
             view.EndParallelSequence();
-
             view.StartParallelSequence();
-            view.Add(messageBus, "4", microservice3);
-            view.Add(microservice3, "5", database3);
-            view.EndParallelSequence();
-
-            view.Add(microservice1, "5", database1);
+            view.Add(softwareSystemB, softwareSystemC2);
+            view.Add(softwareSystemC2, softwareSystemD);
+            view.EndParallelSequence(true);
+            view.Add(softwareSystemD, softwareSystemE);
 
             Assert.Equal(1, view.Relationships.Count(r=>r.Order.Equals("1")));
-            Assert.Equal(1, view.Relationships.Count(r => r.Order.Equals("2")));
-            Assert.Equal(1, view.Relationships.Count(r => r.Order.Equals("3")));
-            Assert.Equal(3, view.Relationships.Count(r => r.Order.Equals("4")));
-            Assert.Equal(2, view.Relationships.Count(r => r.Order.Equals("5")));
+            Assert.Equal(2, view.Relationships.Count(r => r.Order.Equals("2")));
+            Assert.Equal(2, view.Relationships.Count(r => r.Order.Equals("3")));
+            Assert.Equal(1, view.Relationships.Count(r => r.Order.Equals("4")));
         }
 
     }
