@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.8.0 (unreleased)
+## 0.8.0
 
 - Added validation for hex colour codes (on ElementStyle and RelationshipStyle)
 - Removed the "groups" property of documentation sections (__breaking change__).
