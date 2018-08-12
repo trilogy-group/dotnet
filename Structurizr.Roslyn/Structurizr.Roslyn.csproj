@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Structurizr.Core\Structurizr.Core.csproj" />
+    <ProjectReference Include="..\Structurizr.Analysis\Structurizr.Analysis.csproj" />
   </ItemGroup>
 
 </Project>

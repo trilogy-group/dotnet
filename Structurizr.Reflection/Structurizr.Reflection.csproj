@@ -24,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Structurizr.Analysis\Structurizr.Analysis.csproj" />
     <ProjectReference Include="..\Structurizr.Annotations\Structurizr.Annotations.csproj" />
-    <ProjectReference Include="..\Structurizr.Core\Structurizr.Core.csproj" />
   </ItemGroup>
 
 </Project>

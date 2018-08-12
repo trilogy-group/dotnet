@@ -6,6 +6,7 @@ Name                    | Description
 ---------------------   | ---------------------------------------------------------------------------------------------------------------------------
 Structurizr.Core        | The basic library that can used to create software architecture models.
 Structurizr.Client		| The API client for publishing models on the Structurizr cloud service and on-premises installation.
+Structurizr.Analysis	| Provides analysis capabilities, using reflection on compiled bytecode to find components.
 Structurizr.AdrTools	| Imports architecture decision records (ADRs) from the adr-tools tooling.
 Structurizr.Annotations | Annotation attribute library for descriptive architecture in code.
 Structurizr.Cecil       | Architecture analysis library built around the Mono.Cecil library.

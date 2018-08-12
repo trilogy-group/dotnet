@@ -57,9 +57,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurizr.PlantUML", "Str
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurizr.PlantUML.Tests", "Structurizr.PlantUML.Tests\Structurizr.PlantUML.Tests.csproj", "{E97E3C71-4C89-4A31-896E-38A9B335E636}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.Client", "Structurizr.Client\Structurizr.Client.csproj", "{5A35FC5E-28E2-4534-9921-DA2AA1259FFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurizr.Client", "Structurizr.Client\Structurizr.Client.csproj", "{5A35FC5E-28E2-4534-9921-DA2AA1259FFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.Client.Tests", "Structurizr.Client.Tests\Structurizr.Client.Tests.csproj", "{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurizr.Client.Tests", "Structurizr.Client.Tests\Structurizr.Client.Tests.csproj", "{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.Analysis", "Structurizr.Analysis\Structurizr.Analysis.csproj", "{FADC8E1C-3B18-47B4-ABA3-D76EC648D9DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -263,6 +265,18 @@ Global
 		{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}.Release|x64.Build.0 = Release|Any CPU
 		{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}.Release|x86.ActiveCfg = Release|Any CPU
 		{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}.Release|x86.Build.0 = Release|Any CPU
+		{FADC8E1C-3B18-47B4-ABA3-D76EC648D9DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FADC8E1C-3B18-47B4-ABA3-D76EC648D9DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FADC8E1C-3B18-47B4-ABA3-D76EC648D9DA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FADC8E1C-3B18-47B4-ABA3-D76EC648D9DA}.Debug|x64.Build.0 = Debug|Any CPU
+		{FADC8E1C-3B18-47B4-ABA3-D76EC648D9DA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FADC8E1C-3B18-47B4-ABA3-D76EC648D9DA}.Debug|x86.Build.0 = Debug|Any CPU
+		{FADC8E1C-3B18-47B4-ABA3-D76EC648D9DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FADC8E1C-3B18-47B4-ABA3-D76EC648D9DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FADC8E1C-3B18-47B4-ABA3-D76EC648D9DA}.Release|x64.ActiveCfg = Release|Any CPU
+		{FADC8E1C-3B18-47B4-ABA3-D76EC648D9DA}.Release|x64.Build.0 = Release|Any CPU
+		{FADC8E1C-3B18-47B4-ABA3-D76EC648D9DA}.Release|x86.ActiveCfg = Release|Any CPU
+		{FADC8E1C-3B18-47B4-ABA3-D76EC648D9DA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
