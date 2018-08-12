@@ -85,7 +85,7 @@ namespace Structurizr.Core.Tests.Documentation
             Assert.Equal(1, _documentation.Sections.Count);
             Assert.True(_documentation.Sections.Contains(section));
             Assert.Same(softwareSystem, section.Element);
-            Assert.Equal("Title", section.SectionType);
+            Assert.Equal("Title", section.Title);
             Assert.Equal(Format.Markdown, section.Format);
             Assert.Equal("Content", section.Content);
             Assert.Equal(1, section.Order);
@@ -170,7 +170,7 @@ namespace Structurizr.Core.Tests.Documentation
 
             Section section = new Section();
             section.ElementId = softwareSystem.Id;
-            section.SectionType = "Title";
+            section.Title = "Title";
             _documentation.Sections = new HashSet<Section>() { section };
 
             Decision decision = new Decision();

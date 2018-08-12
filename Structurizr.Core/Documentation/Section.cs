@@ -35,8 +35,17 @@ namespace Structurizr.Documentation
             }
         }
 
+        [DataMember(Name = "title", EmitDefaultValue = true)]
+        public string Title { get; internal set; }
+
+        /// <summary>
+        /// (this is for backwards compatibility with older client libraries)
+        /// </summary>
         [DataMember(Name = "type", EmitDefaultValue = true)]
-        public string SectionType { get; internal set; }
+        internal string SectionType
+        {
+            set { Title = value; }
+        }
 
         [DataMember(Name = "order", EmitDefaultValue = true)]
         public int Order { get; internal set; }
@@ -49,9 +58,9 @@ namespace Structurizr.Documentation
 
         internal Section() { }
 
-        internal Section(Element element, string type, int order, Format format, string content) {
+        internal Section(Element element, string title, int order, Format format, string content) {
             Element = element;
-            SectionType = type;
+            Title = title;
             Order = order;
             Format = format;
             Content = content;
@@ -76,18 +85,18 @@ namespace Structurizr.Documentation
             
             if (ElementId != null)
             {
-                return ElementId.Equals(section.ElementId) && SectionType == section.SectionType;
+                return ElementId.Equals(section.ElementId) && Title == section.Title;
             }
             else
             {
-                return SectionType == section.SectionType;
+                return Title == section.Title;
             }
         }
 
         public override int GetHashCode()
         {
             int result = ElementId != null ? ElementId.GetHashCode() : 0;
-            result = 31 * result + SectionType.GetHashCode();
+            result = 31 * result + Title.GetHashCode();
             return result;
         }
 

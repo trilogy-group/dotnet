@@ -102,7 +102,7 @@ namespace Structurizr.Documentation
             {
                 foreach (Section section in Sections)
                 {
-                    if (section.Element == null && title.Equals(section.SectionType))
+                    if (section.Element == null && title.Equals(section.Title))
                     {
                         throw new ArgumentException("A section with a title of " + title + " already exists for this workspace.");
                     }
@@ -112,7 +112,7 @@ namespace Structurizr.Documentation
             {
                 foreach (Section section in Sections)
                 {
-                    if (element.Id.Equals(section.ElementId) && title.Equals(section.SectionType))
+                    if (element.Id.Equals(section.ElementId) && title.Equals(section.Title))
                     {
                         throw new ArgumentException("A section with a title of " + title + " already exists for the element named " + element.Name + ".");
                     }

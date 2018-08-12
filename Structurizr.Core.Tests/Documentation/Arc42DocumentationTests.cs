@@ -119,7 +119,7 @@ namespace Structurizr.Core.Tests.Documentation
             Assert.True(Workspace.Documentation.Sections.Contains(section));
             Assert.Equal(element, section.Element);
             Assert.Equal(element.Id, section.ElementId);
-            Assert.Equal(type, section.SectionType);
+            Assert.Equal(type, section.Title);
             Assert.Equal(format, section.Format);
             Assert.Equal(content, section.Content);
             Assert.Equal(order, section.Order);
