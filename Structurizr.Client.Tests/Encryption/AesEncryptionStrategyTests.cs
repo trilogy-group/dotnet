@@ -1,9 +1,9 @@
 ﻿using Xunit;
 using Structurizr.Encryption;
-using System;
 using System.Security.Cryptography;
+using Structurizr.Api.Tests;
 
-namespace Structurizr.Core.Tests.Encryption
+namespace Structurizr.Api.Encryption.Tests
 {
     
     public class AesEncryptionStrategyTests

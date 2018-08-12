@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <!-- Update this property group for every regular release -->
   <PropertyGroup>
@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Description>The basic library that can used to create software architecture models.</Description>
+    <Description>The API client for publishing models on the Structurizr cloud service and on-premises installation.</Description>
     <Authors>Structurizr Limited</Authors>
     <Copyright>Copyright 2017</Copyright>
     <PackageLicenseUrl>https://opensource.org/licenses/Apache-2.0</PackageLicenseUrl>
@@ -20,7 +20,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="System.Net.Http" Version="4.3.2" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <PackageReference Include="System.Net.Http">
+      <Version>4.3.2</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Structurizr.Core\Structurizr.Core.csproj" />
   </ItemGroup>
 
 </Project>

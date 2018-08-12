@@ -49,13 +49,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurizr.Cecil.Examples"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurizr.ActiveDirectory", "Structurizr.ActiveDirectory\Structurizr.ActiveDirectory.csproj", "{9966673B-9F79-47EC-A65D-AC5E2D646692}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.AdrTools", "Structurizr.AdrTools\Structurizr.AdrTools.csproj", "{A5F37222-6114-4898-9873-C7FE7A1B4704}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurizr.AdrTools", "Structurizr.AdrTools\Structurizr.AdrTools.csproj", "{A5F37222-6114-4898-9873-C7FE7A1B4704}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.AdrTools.Tests", "Structurizr.AdrTools.Tests\Structurizr.AdrTools.Tests.csproj", "{DDEA6BE6-1C4F-4462-991A-B6C215E9109D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurizr.AdrTools.Tests", "Structurizr.AdrTools.Tests\Structurizr.AdrTools.Tests.csproj", "{DDEA6BE6-1C4F-4462-991A-B6C215E9109D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.PlantUML", "Structurizr.PlantUML\Structurizr.PlantUML.csproj", "{25DC16B2-FCD3-4170-8E72-E9A9317328D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurizr.PlantUML", "Structurizr.PlantUML\Structurizr.PlantUML.csproj", "{25DC16B2-FCD3-4170-8E72-E9A9317328D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.PlantUML.Tests", "Structurizr.PlantUML.Tests\Structurizr.PlantUML.Tests.csproj", "{E97E3C71-4C89-4A31-896E-38A9B335E636}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurizr.PlantUML.Tests", "Structurizr.PlantUML.Tests\Structurizr.PlantUML.Tests.csproj", "{E97E3C71-4C89-4A31-896E-38A9B335E636}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.Client", "Structurizr.Client\Structurizr.Client.csproj", "{5A35FC5E-28E2-4534-9921-DA2AA1259FFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.Client.Tests", "Structurizr.Client.Tests\Structurizr.Client.Tests.csproj", "{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -235,6 +239,30 @@ Global
 		{E97E3C71-4C89-4A31-896E-38A9B335E636}.Release|x64.Build.0 = Release|Any CPU
 		{E97E3C71-4C89-4A31-896E-38A9B335E636}.Release|x86.ActiveCfg = Release|Any CPU
 		{E97E3C71-4C89-4A31-896E-38A9B335E636}.Release|x86.Build.0 = Release|Any CPU
+		{5A35FC5E-28E2-4534-9921-DA2AA1259FFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A35FC5E-28E2-4534-9921-DA2AA1259FFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A35FC5E-28E2-4534-9921-DA2AA1259FFA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5A35FC5E-28E2-4534-9921-DA2AA1259FFA}.Debug|x64.Build.0 = Debug|Any CPU
+		{5A35FC5E-28E2-4534-9921-DA2AA1259FFA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5A35FC5E-28E2-4534-9921-DA2AA1259FFA}.Debug|x86.Build.0 = Debug|Any CPU
+		{5A35FC5E-28E2-4534-9921-DA2AA1259FFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A35FC5E-28E2-4534-9921-DA2AA1259FFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A35FC5E-28E2-4534-9921-DA2AA1259FFA}.Release|x64.ActiveCfg = Release|Any CPU
+		{5A35FC5E-28E2-4534-9921-DA2AA1259FFA}.Release|x64.Build.0 = Release|Any CPU
+		{5A35FC5E-28E2-4534-9921-DA2AA1259FFA}.Release|x86.ActiveCfg = Release|Any CPU
+		{5A35FC5E-28E2-4534-9921-DA2AA1259FFA}.Release|x86.Build.0 = Release|Any CPU
+		{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}.Debug|x64.Build.0 = Debug|Any CPU
+		{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}.Debug|x86.Build.0 = Debug|Any CPU
+		{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}.Release|x64.ActiveCfg = Release|Any CPU
+		{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}.Release|x64.Build.0 = Release|Any CPU
+		{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}.Release|x86.ActiveCfg = Release|Any CPU
+		{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

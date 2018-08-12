@@ -17,7 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Structurizr.Annotations\Structurizr.Annotations.csproj" />
     <ProjectReference Include="..\Structurizr.Cecil\Structurizr.Cecil.csproj" />
-    <ProjectReference Include="..\Structurizr.Core\Structurizr.Core.csproj" />
+    <ProjectReference Include="..\Structurizr.Client\Structurizr.Client.csproj" />
   </ItemGroup>
 
 </Project>

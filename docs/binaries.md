@@ -5,6 +5,7 @@ The "Structurizr for .NET" binaries are hosted on [NuGet](https://www.nuget.org/
 Name                    | Description
 ---------------------   | ---------------------------------------------------------------------------------------------------------------------------
 Structurizr.Core        | The basic library that can used to create software architecture models.
+Structurizr.Client		| The API client for publishing models on the Structurizr cloud service and on-premises installation.
 Structurizr.AdrTools	| Imports architecture decision records (ADRs) from the adr-tools tooling.
 Structurizr.Annotations | Annotation attribute library for descriptive architecture in code.
 Structurizr.Cecil       | Architecture analysis library built around the Mono.Cecil library.

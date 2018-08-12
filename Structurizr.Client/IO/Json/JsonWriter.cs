@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Structurizr.IO.Json
 {
-    public class JsonWriter : IWorkspaceWriter
+    public class JsonWriter
     {
 
         public bool IndentOutput { get; set; }

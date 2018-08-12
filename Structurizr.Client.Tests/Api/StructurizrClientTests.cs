@@ -1,8 +1,7 @@
 ﻿using System;
-using Structurizr.Api;
 using Xunit;
 
-namespace Structurizr.Core.Tests.Api
+namespace Structurizr.Api.Tests
 {
     public class StructurizrClientTests
     {

@@ -14,7 +14,7 @@ namespace Structurizr.IO.PlantUML
     /// 
     /// Note: This won't work if you have two elements named the same on a diagram.
     /// </summary>
-    public class PlantUMLWriter : IWorkspaceWriter
+    public class PlantUMLWriter
     {
 
         public void Write(Workspace workspace, TextWriter writer)

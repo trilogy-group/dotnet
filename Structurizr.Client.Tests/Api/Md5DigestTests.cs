@@ -1,7 +1,6 @@
 ﻿using Xunit;
-using Structurizr.Api;
 
-namespace Structurizr.Core.Tests.Api
+namespace Structurizr.Api.Tests
 {
     
     public class Md5DigestTests

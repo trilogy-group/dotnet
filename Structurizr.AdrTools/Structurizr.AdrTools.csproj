@@ -1,5 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <!-- Update this property group for every regular release -->
+  <PropertyGroup>
+    <ReleaseNotes></ReleaseNotes>
+    <Version>0.8.0</Version>
+  </PropertyGroup>
+
   <PropertyGroup>
     <TargetFrameworks>netstandard1.3;net45</TargetFrameworks>
   </PropertyGroup>
