@@ -6,6 +6,7 @@
 - Removed the "groups" property of documentation sections (__breaking change__).
 - Added support for the HTTP-based health checks feature.
 - Added an ```EndParallelSequence(boolean)``` method to the ```DynamicView``` class, which allows sequence numbering to continue.
+- Added support for decision records.
 
 ## 0.7.2
 

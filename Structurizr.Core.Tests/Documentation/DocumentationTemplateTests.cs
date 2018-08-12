@@ -49,7 +49,7 @@ namespace Structurizr.Core.Tests.Documentation
             catch (ArgumentException ae)
             {
                 // this is the expected exception
-                Assert.Equal("A section of type Context for Name already exists.", ae.Message);
+                Assert.Equal("A section with a title of Context already exists for the element named Name.", ae.Message);
                 Assert.Equal(1, _documentation.Sections.Count);
             }
         }

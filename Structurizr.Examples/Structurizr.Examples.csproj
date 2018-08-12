@@ -6,9 +6,34 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Structurizr.AdrTools\Structurizr.AdrTools.csproj" />
     <ProjectReference Include="..\Structurizr.Core\Structurizr.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Documentation\adr\0001-record-architecture-decisions.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\adr\0002-implement-as-shell-scripts.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\adr\0003-single-command-with-subcommands.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\adr\0004-markdown-format.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\adr\0005-help-comments.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\adr\0006-packaging-and-distribution-in-other-version-control-repositories.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\adr\0007-invoke-adr-config-executable-to-get-configuration.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\adr\0008-use-iso-8601-format-for-dates.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="structurizr-logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
