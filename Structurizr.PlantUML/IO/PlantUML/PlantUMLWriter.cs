@@ -34,7 +34,7 @@ namespace Structurizr.IO.PlantUML
         {
             if (view == null)
             {
-                throw new ArgumentException("An enterprise context view must be specified.");    
+                throw new ArgumentException("A system landscape view must be specified.");    
             }
             
             try
@@ -54,7 +54,7 @@ namespace Structurizr.IO.PlantUML
                     .ForEach(e => Write(e, writer, false));
 
                 string name = view.Model.Enterprise != null ? view.Model.Enterprise.Name : "Enterprise";
-                writer.WriteLine("package " + name + " {");
+                writer.WriteLine("package \"" + name + "\" {");
 
                 view.Elements
                     .Select(ev => ev.Element)

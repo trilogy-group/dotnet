@@ -1,10 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using Structurizr.IO.PlantUML;
 using Xunit;
 
-namespace Structurizr.Core.Tests.IO.PlantUML
+namespace Structurizr.IO.PlantUML.Tests
 {
     
     public class PlantUMLWriterTests
@@ -38,7 +37,7 @@ namespace Structurizr.Core.Tests.IO.PlantUML
             Assert.Equal("@startuml" + Environment.NewLine +
                     "title System Landscape for Some Enterprise" + Environment.NewLine +
                     "component \"E-mail System\" <<Software System>> as 4" + Environment.NewLine +
-                    "package Some Enterprise {" + Environment.NewLine +
+                    "package \"Some Enterprise\" {" + Environment.NewLine +
                     "  actor \"User\" <<Person>> as 1" + Environment.NewLine +
                     "  component \"Software System\" <<Software System>> as 2" + Environment.NewLine +
                     "}" + Environment.NewLine +
@@ -128,7 +127,7 @@ namespace Structurizr.Core.Tests.IO.PlantUML
             Assert.Equal("@startuml" + Environment.NewLine +
                     "title System Landscape for Some Enterprise" + Environment.NewLine +
                     "component \"E-mail System\" <<Software System>> as 4" + Environment.NewLine +
-                    "package Some Enterprise {" + Environment.NewLine +
+                    "package \"Some Enterprise\" {" + Environment.NewLine +
                     "  actor \"User\" <<Person>> as 1" + Environment.NewLine +
                     "  component \"Software System\" <<Software System>> as 2" + Environment.NewLine +
                     "}" + Environment.NewLine +
