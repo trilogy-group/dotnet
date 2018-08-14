@@ -16,7 +16,7 @@ namespace Structurizr.AdrTools
 
         private readonly Regex TitleRegex = new Regex("^# \\d*\\. (.*)$", RegexOptions.Multiline);
         private readonly Regex DateRegex = new Regex("^Date: (\\d\\d\\d\\d-\\d\\d-\\d\\d)$", RegexOptions.Multiline);
-        private readonly Regex StatusRegex = new Regex("## Status[\\n\\r][\\n\\r](\\w*)", RegexOptions.Multiline);
+        private readonly Regex StatusRegex = new Regex("## Status\\n\\n(\\w*)", RegexOptions.Multiline);
 
         private const string SupercededAlternativeSpelling = "Superceded";
 
@@ -69,6 +69,7 @@ namespace Structurizr.AdrTools
                 string title = "";
                 DecisionStatus status = DecisionStatus.Proposed;
                 string content = File.ReadAllText(file.FullName, Encoding.UTF8);
+                content = content.Replace("\r", "");
                 Format format = Format.Markdown;
 
                 title = ExtractTitle(content);

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json.Converters;
 
 namespace Structurizr.IO.Json
 {
@@ -13,7 +14,8 @@ namespace Structurizr.IO.Json
             {
                 ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
                 Converters = new List<JsonConverter> {
-                    new Newtonsoft.Json.Converters.StringEnumConverter(),
+                    new StringEnumConverter(),
+                    new IsoDateTimeConverter(),
                     new PaperSizeJsonConverter()
                 }
             };

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.IO;
+using Newtonsoft.Json.Converters;
 
 namespace Structurizr.IO.Json
 {
@@ -17,7 +18,8 @@ namespace Structurizr.IO.Json
         {
             string json = JsonConvert.SerializeObject(workspace,
                 IndentOutput ? Formatting.Indented : Formatting.None,
-                new Newtonsoft.Json.Converters.StringEnumConverter(),
+                new StringEnumConverter(),
+                new IsoDateTimeConverter(),
                 new PaperSizeJsonConverter());
 
             writer.Write(json);
