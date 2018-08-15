@@ -72,6 +72,7 @@ namespace Structurizr.Documentation
             }
 
             CheckTitleIsSpecified(title);
+            CheckContentIsSpecified(content);
             CheckSectionIsUnique(element, title);
             CheckFormatIsSpecified(format);
 
@@ -85,6 +86,14 @@ namespace Structurizr.Documentation
             if (String.IsNullOrWhiteSpace(title))
             {
                 throw new ArgumentException("A title must be specified.");
+            }
+        }
+
+        private void CheckContentIsSpecified(string title)
+        {
+            if (String.IsNullOrWhiteSpace(title))
+            {
+                throw new ArgumentException("Content must be specified.");
             }
         }
 
@@ -129,6 +138,7 @@ namespace Structurizr.Documentation
         {
             CheckIdIsSpecified(id);
             CheckTitleIsSpecified(title);
+            CheckContentIsSpecified(content);
             CheckDecisionStatusIsSpecified(status);
             CheckFormatIsSpecified(format);
             CheckDecisionIsUnique(softwareSystem, id);

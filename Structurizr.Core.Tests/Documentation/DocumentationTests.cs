@@ -46,6 +46,20 @@ namespace Structurizr.Core.Tests.Documentation
         }
 
         [Fact]
+        public void test_addSection_ThrowsAnException_WhenTheContentIsNotSpecified()
+        {
+            try
+            {
+                _documentation.AddSection(null, "Title", Format.Markdown, null);
+                throw new TestFailedException();
+            }
+            catch (ArgumentException iae)
+            {
+                Assert.Equal("Content must be specified.", iae.Message);
+            }
+        }
+
+        [Fact]
         public void test_addSection_ThrowsAnException_WhenASectionExistsWithTheSameTitle()
         {
             try
@@ -129,6 +143,20 @@ namespace Structurizr.Core.Tests.Documentation
             catch (ArgumentException iae)
             {
                 Assert.Equal("A title must be specified.", iae.Message);
+            }
+        }
+
+        [Fact]
+        public void test_addDecision_ThrowsAnException_WhenTheContentIsNotSpecified()
+        {
+            try
+            {
+                _documentation.AddDecision("1", new DateTime(), "Title", DecisionStatus.Accepted, Format.Markdown, null);
+                throw new TestFailedException();
+            }
+            catch (ArgumentException iae)
+            {
+                Assert.Equal("Content must be specified.", iae.Message);
             }
         }
 
