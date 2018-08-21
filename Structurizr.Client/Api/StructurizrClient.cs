@@ -147,6 +147,7 @@ namespace Structurizr.Api
             }
 
             workspace.Id = workspaceId;
+            workspace.LastModifiedDate = DateTime.UtcNow;
 
             using (HttpClient httpClient = createHttpClient())
             {

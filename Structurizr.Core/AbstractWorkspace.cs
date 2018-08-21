@@ -27,6 +27,12 @@ namespace Structurizr
         public string Description { get; set; }
 
         /// <summary>
+        /// The last modified date of the workspace.
+        /// </summary>
+        [DataMember(Name = "lastModifiedDate", EmitDefaultValue = false)]
+        public DateTime LastModifiedDate { get; set; }
+
+        /// <summary>
         /// The version of the workspace.
         /// </summary>
         [DataMember(Name = "version", EmitDefaultValue = false)]
