@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.0 (unreleased)
+
+Added name-value properties to relationships.
+
 ## 0.8.0
 
 - Added validation for hex colour codes (on ElementStyle and RelationshipStyle)

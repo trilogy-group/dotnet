@@ -63,7 +63,7 @@ namespace Structurizr.Core.Tests
         public void test_getRequiredTags() {
             ContainerInstance containerInstance = Model.AddContainerInstance(_database);
     
-            Assert.Equal(0, containerInstance.getRequiredTags().Count);
+            Assert.Equal(0, containerInstance.GetRequiredTags().Count);
         }
     
         [Fact]

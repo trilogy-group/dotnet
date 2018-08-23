@@ -10,16 +10,10 @@ namespace Structurizr
     /// This is the superclass for all model elements.
     /// </summary>
     [DataContract]
-    public abstract class Element : Taggable
+    public abstract class Element : ModelItem
     {
 
         public const string CanonicalNameSeparator = "/";
-
-        /// <summary>
-        /// The ID of this element in the model.
-        /// </summary>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        public string Id { get; set; }
 
         /// <summary>
         /// The name of this element.
@@ -33,21 +27,6 @@ namespace Structurizr
         [DataMember(Name = "description", EmitDefaultValue = false)]
         public string Description { get; set; }
 
-        private Dictionary<string, string> _properties = new Dictionary<string, string>();
-
-        /// <summary>
-        /// The collection of name-value property pairs associated with this element, as a Dictionary.
-        /// </summary>
-        [DataMember(Name = "properties", EmitDefaultValue = false)]
-        public Dictionary<string, string> Properties
-        {
-            get
-            {
-                return new Dictionary<string, string>(_properties);
-            }
-            internal set { _properties = value; }
-        }
-        
         private string _url;
 
         /// <summary>
@@ -147,24 +126,6 @@ namespace Structurizr
         protected string FormatForCanonicalName(String name)
         {
             return name.Replace(CanonicalNameSeparator, "");
-        }
-
-        /// <summary>
-        /// Adds a name-value pair property to this element. 
-        /// </summary>
-        /// <param name="name">the name of the property</param>
-        /// <param name="value">the value of the property</param>
-        /// <exception cref="IllegalArgumentException"></exception>
-        public void AddProperty(string name, string value) {
-            if (String.IsNullOrEmpty(name)) {
-                throw new ArgumentException("A property name must be specified.");
-            }
-
-            if (String.IsNullOrEmpty(value)) {
-                throw new ArgumentException("A property value must be specified.");
-            }
-
-            _properties[name] = value;
         }
 
         public override string ToString()

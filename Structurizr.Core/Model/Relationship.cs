@@ -11,14 +11,8 @@ namespace Structurizr
     /// A relationship between two elements.
     /// </summary>
     [DataContract]
-    public sealed class Relationship : Taggable, IEquatable<Relationship>
+    public sealed class Relationship : ModelItem, IEquatable<Relationship>
     {
-
-        /// <summary>
-        /// The ID of this relationship in the model.
-        /// </summary>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        public string Id { get; set; }
 
         private string _description;
 
@@ -36,7 +30,7 @@ namespace Structurizr
             internal set { _description = value; }
         }
 
-        private string sourceId;
+        private string _sourceId;
 
         /// <summary>
         /// The ID of the source element.
@@ -46,23 +40,24 @@ namespace Structurizr
         {
             get
             {
-                if (this.Source != null)
+                if (Source != null)
                 {
-                    return this.Source.Id;
+                    return Source.Id;
                 }
-                else {
-                    return this.sourceId;
+                else
+                {
+                    return _sourceId;
                 }
             }
             set
             {
-                this.sourceId = value;
+                _sourceId = value;
             }
         }
 
         public Element Source { get; set; }
 
-        private string destinationId;
+        private string _destinationId;
 
         /// <summary>
         /// The ID of the destination element.
@@ -72,17 +67,18 @@ namespace Structurizr
         {
             get
             {
-                if (this.Destination != null)
+                if (Destination != null)
                 {
-                    return this.Destination.Id;
+                    return Destination.Id;
                 }
-                else {
-                    return this.destinationId;
+                else
+                {
+                    return _destinationId;
                 }
             }
             set
             {
-                this.destinationId = value;
+                _destinationId = value;
             }
         }
 
@@ -94,7 +90,7 @@ namespace Structurizr
         [DataMember(Name = "technology", EmitDefaultValue = false)]
         public string Technology { get; internal set; }
 
-        private InteractionStyle interactionStyle = InteractionStyle.Synchronous;
+        private InteractionStyle _interactionStyle = InteractionStyle.Synchronous;
 
         /// <summary>
         /// The interaction style (synchronous or asynchronous).
@@ -104,17 +100,18 @@ namespace Structurizr
         {
             get
             {
-                return this.interactionStyle;
+                return _interactionStyle;
             }
             set
             {
-                this.interactionStyle = value;
-                if (this.interactionStyle == InteractionStyle.Synchronous)
+                _interactionStyle = value;
+                if (_interactionStyle == InteractionStyle.Synchronous)
                 {
                     RemoveTag(Structurizr.Tags.Asynchronous);
                     AddTags(Structurizr.Tags.Synchronous);
                 }
-                else {
+                else
+                {
                     RemoveTag(Structurizr.Tags.Synchronous);
                     AddTags(Structurizr.Tags.Asynchronous);
                 }
@@ -146,7 +143,7 @@ namespace Structurizr
             this.InteractionStyle = interactionStyle;
         }
 
-        public override List<string> getRequiredTags()
+        public override List<string> GetRequiredTags()
         {
             string[] tags = {
                 Structurizr.Tags.Relationship
@@ -199,7 +196,6 @@ namespace Structurizr
         {
             return Source.ToString() + " ---[" + Description + "]---> " + Destination.ToString();
         }
-
 
     }
 }

@@ -67,7 +67,7 @@ namespace Structurizr
             }
         }
         
-        public override List<string> getRequiredTags()
+        public override List<string> GetRequiredTags()
         {
             return new List<string>();
         }
