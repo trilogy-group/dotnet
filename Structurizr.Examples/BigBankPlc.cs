@@ -165,6 +165,27 @@ namespace Structurizr.Examples
 
             if (usePaidFeatures)
             {
+                // animations are not available with the Free Plan
+                systemLandscapeView.AddAnimation(internetBankingSystem, customer, mainframeBankingSystem, emailSystem);
+                systemLandscapeView.AddAnimation(atm);
+                systemLandscapeView.AddAnimation(customerServiceStaff, backOfficeStaff);
+
+                systemContextView.AddAnimation(internetBankingSystem);
+                systemContextView.AddAnimation(customer);
+                systemContextView.AddAnimation(mainframeBankingSystem);
+                systemContextView.AddAnimation(emailSystem);
+
+                containerView.AddAnimation(customer, mainframeBankingSystem, emailSystem);
+                containerView.AddAnimation(webApplication);
+                containerView.AddAnimation(singlePageApplication);
+                containerView.AddAnimation(mobileApp);
+                containerView.AddAnimation(apiApplication);
+                containerView.AddAnimation(database);
+
+                componentView.AddAnimation(singlePageApplication, mobileApp);
+                componentView.AddAnimation(signinController, securityComponent, database);
+                componentView.AddAnimation(accountsSummaryController, mainframeBankingSystemFacade, mainframeBankingSystem);
+
                 // dynamic diagrams and deployment diagrams are not available with the Free Plan
                 DynamicView dynamicView = views.CreateDynamicView(apiApplication, "SignIn", "Summarises how the sign in feature works in the single-page application.");
                 dynamicView.Add(singlePageApplication, "Submits credentials to", signinController);

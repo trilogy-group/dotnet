@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
 
 namespace Structurizr
@@ -10,12 +9,17 @@ namespace Structurizr
     public abstract class StaticView : View
     {
 
+        [DataMember(Name = "animations", EmitDefaultValue = false)]
+        public IList<Animation> Animations { get; internal set; }
+
         internal StaticView() : base()
         {
+            Animations = new List<Animation>();
         }
 
         internal StaticView(SoftwareSystem softwareSystem, string key, string description) : base(softwareSystem, key, description)
         {
+            Animations = new List<Animation>();
         }
 
         public abstract void AddAllElements();
@@ -101,6 +105,53 @@ namespace Structurizr
                 }
             }
         }
+        
+        public void AddAnimation(params Element[] elements)
+        {
+            if (elements == null || elements.Length == 0)
+            {
+                throw new ArgumentException("One or more elements must be specified.");
+            }
+
+            ISet<string> elementIdsInPreviousAnimationSteps = new HashSet<string>();
+            ISet<Element> elementsInThisAnimationStep = new HashSet<Element>();
+            ISet<Relationship> relationshipsInThisAnimationStep = new HashSet<Relationship>();
+
+            foreach (Element element in elements)
+            {
+                if (IsElementInView(element))
+                {
+                    elementIdsInPreviousAnimationSteps.Add(element.Id);
+                    elementsInThisAnimationStep.Add(element);
+                }
+            }
+
+            if (elementsInThisAnimationStep.Count == 0)
+            {
+                throw new ArgumentException("None of the specified elements exist in this view.");
+            }
+
+            foreach (Animation animation in Animations) {
+                foreach (string elementId in animation.Elements)
+                {
+                    elementIdsInPreviousAnimationSteps.Add(elementId);
+                }
+            }
+
+            foreach (RelationshipView relationshipView in Relationships)
+            {
+                if (
+                    (elementsInThisAnimationStep.Contains(relationshipView.Relationship.Source) && elementIdsInPreviousAnimationSteps.Contains(relationshipView.Relationship.Destination.Id)) ||
+                    (elementIdsInPreviousAnimationSteps.Contains(relationshipView.Relationship.Source.Id)) && elementsInThisAnimationStep.Contains(relationshipView.Relationship.Destination)
+                   )
+                {
+                    relationshipsInThisAnimationStep.Add(relationshipView.Relationship);
+                }
+            }
+
+            Animations.Add(new Animation(Animations.Count + 1, elementsInThisAnimationStep, relationshipsInThisAnimationStep));
+        }
+
 
     }
 }

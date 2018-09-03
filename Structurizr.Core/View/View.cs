@@ -163,7 +163,7 @@ namespace Structurizr
             return relationshipView;
         }
 
-        private bool IsElementInView(Element element)
+        internal bool IsElementInView(Element element)
         {
             return Elements.Count(ev => ev.Element.Equals(element)) > 0;
         }

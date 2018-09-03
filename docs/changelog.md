@@ -2,7 +2,8 @@
 
 ## 0.9.0 (unreleased)
 
-Added name-value properties to relationships.
+- Added name-value properties to relationships.
+- Added the ability to define animations on the static structure diagrams.
 
 ## 0.8.0
 
