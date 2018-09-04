@@ -4,7 +4,7 @@
 
 - Added name-value properties to relationships.
 - Added the ability to define animations on the static structure diagrams.
-- Removed support for colours in the corporate branding feature.
+- Removed support for colours in the corporate branding feature (__breaking change__).
 
 ## 0.8.0
 
