@@ -4,12 +4,15 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
 
 namespace Structurizr.Api
 {
     public class StructurizrClient
     {
+
+        private string _version;
         private const string WorkspacePath = "/workspace/";
 
         private string _url;
@@ -86,6 +89,8 @@ namespace Structurizr.Api
 
             WorkspaceArchiveLocation = new DirectoryInfo(".");
             MergeFromRemote = true;
+            
+            _version = typeof(StructurizrClient).GetTypeInfo().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion; 
         }
 
         public Workspace GetWorkspace(long workspaceId)
@@ -208,7 +213,7 @@ namespace Structurizr.Api
             string authorizationHeader = new HmacAuthorizationHeader(ApiKey, hmac.Generate(hmacContent.ToString())).ToString();
 
             httpClient.DefaultRequestHeaders.Add(HttpHeaders.XAuthorization, authorizationHeader);
-            httpClient.DefaultRequestHeaders.Add(HttpHeaders.UserAgent, "structurizr-dotnet");
+            httpClient.DefaultRequestHeaders.Add(HttpHeaders.UserAgent, "structurizr-dotnet/" + _version);
             httpClient.DefaultRequestHeaders.Add(HttpHeaders.Nonce, nonce);
         }
 
