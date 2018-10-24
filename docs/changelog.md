@@ -1,6 +1,8 @@
 # Changelog
 
-## 0.9.0 (unreleased)
+- Fixes a bug where client-side encrypted workspaces could not be created.
+
+## 0.8.2 (23rd October 2018)
 
 - Added name-value properties to relationships.
 - Added the ability to define animations on the static structure diagrams.

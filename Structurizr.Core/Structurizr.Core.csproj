@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <!-- Update this property group for every regular release -->
   <PropertyGroup>
-    <ReleaseNotes></ReleaseNotes>
-    <Version>0.8.0</Version>
+    <ReleaseNotes>
+    </ReleaseNotes>
+    <Version>0.8.2</Version>
   </PropertyGroup>
-
   <PropertyGroup>
     <Description>The basic library that can used to create software architecture models.</Description>
     <Authors>Structurizr Limited</Authors>
@@ -14,13 +13,10 @@
     <PackageProjectUrl>https://structurizr.com</PackageProjectUrl>
     <RepositoryUrl>https://github.com/structurizr/dotnet</RepositoryUrl>
   </PropertyGroup>
-
   <PropertyGroup>
     <TargetFrameworks>netstandard1.3;net45</TargetFrameworks>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
-
 </Project>
