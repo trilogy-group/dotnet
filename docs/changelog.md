@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.8.3 (24th October 2018)
+
 - Fixes a bug where client-side encrypted workspaces could not be created.
 
 ## 0.8.2 (23rd October 2018)

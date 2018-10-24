@@ -113,19 +113,26 @@ namespace Structurizr.Api
                     throw new StructurizrClientException(responseMessage.Result.Content.ReadAsStringAsync().Result);
                 }
 
-                string response = responseMessage.Result.Content.ReadAsStringAsync().Result;
-                ArchiveWorkspace(workspaceId, response);
+                string json = responseMessage.Result.Content.ReadAsStringAsync().Result;
+                ArchiveWorkspace(workspaceId, json);
 
-                StringReader stringReader = new StringReader(response);
                 if (EncryptionStrategy == null)
                 {
-                    return new JsonReader().Read(stringReader);
+                    return new JsonReader().Read(new StringReader(json));
                 }
                 else
                 {
-                    EncryptedWorkspace encryptedWorkspace = new EncryptedJsonReader().Read(stringReader);
-                    encryptedWorkspace.EncryptionStrategy.Passphrase = this.EncryptionStrategy.Passphrase;
-                    return encryptedWorkspace.Workspace;
+                    EncryptedWorkspace encryptedWorkspace = new EncryptedJsonReader().Read(new StringReader(json));
+                    if (encryptedWorkspace.EncryptionStrategy != null)
+                    {
+                        encryptedWorkspace.EncryptionStrategy.Passphrase = this.EncryptionStrategy.Passphrase;
+                        return encryptedWorkspace.Workspace;
+                    }
+                    else
+                    {
+                        // this workspace isn't encrypted, even though the client has an encryption strategy set
+                        return new JsonReader().Read(new StringReader(json));
+                    }
                 }
             }
         }
