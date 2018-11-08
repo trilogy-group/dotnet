@@ -3,7 +3,7 @@
   <PropertyGroup>
     <ReleaseNotes>
     </ReleaseNotes>
-    <Version>0.8.3</Version>
+    <Version>0.9.0</Version>
   </PropertyGroup>
   <PropertyGroup>
     <Description>The basic library that can used to create software architecture models.</Description>
