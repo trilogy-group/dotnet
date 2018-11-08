@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using Structurizr.Config;
 
 namespace Structurizr
 {
@@ -45,12 +46,22 @@ namespace Structurizr
         [DataMember(Name = "thumbnail", EmitDefaultValue = false)]
         public string Thumbnail { get; set; }
 
+        [DataMember(Name = "configuration", EmitDefaultValue = false)]
+        public WorkspaceConfiguration Configuration { get; set; }
+
         public AbstractWorkspace() { }
 
         public AbstractWorkspace(string name, string description)
         {
             this.Name = name;
             this.Description = description;
+            
+            this.Configuration = new WorkspaceConfiguration();
+        }
+
+        public void ClearConfiguration()
+        {
+            Configuration = null;
         }
 
     }

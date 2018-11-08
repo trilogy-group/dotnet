@@ -8,10 +8,10 @@ namespace Structurizr
     /// The configuration associated with a set of views.
     /// </summary>
     [DataContract]
-    public sealed class Configuration
+    public sealed class ViewConfiguration
     {
 
-        internal Configuration()
+        internal ViewConfiguration()
         {
             this.Styles = new Styles();
             this.Branding = new Branding();
@@ -45,7 +45,7 @@ namespace Structurizr
         [DataMember(Name = "lastSavedView", EmitDefaultValue = false)]
         internal string LastSavedView { get; set; }
 
-        public void CopyConfigurationFrom(Configuration configuration)
+        public void CopyConfigurationFrom(ViewConfiguration configuration)
         {
             LastSavedView = configuration.LastSavedView;
         }

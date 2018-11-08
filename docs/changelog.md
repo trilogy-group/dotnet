@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.0 (unreleased)
+
+- Added the ability to specify users who should have read-write or read-only workspace access, via the ```workspace.Configuration.AddUser(username, role)``` method. 
+
 ## 0.8.3 (24th October 2018)
 
 - Fixes a bug where client-side encrypted workspaces could not be created.

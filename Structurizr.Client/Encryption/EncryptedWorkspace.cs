@@ -14,59 +14,63 @@ namespace Structurizr.Encryption
     public class EncryptedWorkspace : AbstractWorkspace
     {
 
-        private Workspace workspace;
+        private Workspace _workspace;
         public Workspace Workspace
         {
             get
             {
-                if (this.workspace != null)
+                if (_workspace != null)
                 {
-                    return this.workspace;
+                    return _workspace;
                 }
-                else if (this.Ciphertext != null)
+                else if (Ciphertext != null)
                 {
-                    this.Plaintext = EncryptionStrategy.Decrypt(Ciphertext);
+                    Plaintext = EncryptionStrategy.Decrypt(Ciphertext);
                     StringReader stringReader = new StringReader(Plaintext);
                     return new JsonReader().Read(stringReader);
                 }
-                else {
+                else
+                {
                     return null;
                 }
             }
 
             set
             {
-                this.workspace = value;
+                _workspace = value;
             }
         }
 
         [DataMember(Name = "encryptionStrategy", EmitDefaultValue = false)]
-        public EncryptionStrategy EncryptionStrategy { get; private set; }
+        public EncryptionStrategy EncryptionStrategy { get; internal set; }
 
-        public string Plaintext { get; private set; }
+        internal string Plaintext { get; set; }
 
         [DataMember(Name = "ciphertext", EmitDefaultValue = false)]
-        public string Ciphertext { get; private set; }
+        public string Ciphertext { get; internal set; }
 
         public EncryptedWorkspace() { }
 
         public EncryptedWorkspace(Workspace workspace, EncryptionStrategy encryptionStrategy)
         {
-            this.Workspace = workspace;
-            this.EncryptionStrategy = encryptionStrategy;
+            Workspace = workspace;
+            EncryptionStrategy = encryptionStrategy;
+            
+            Configuration = workspace.Configuration;
+            workspace.ClearConfiguration();
 
             StringWriter stringWriter = new StringWriter();
             JsonWriter jsonWriter = new JsonWriter(false);
             jsonWriter.Write(workspace, stringWriter);
 
-            this.Id = workspace.Id;
-            this.Name = workspace.Name;
-            this.Description = workspace.Description;
-            this.Version = workspace.Version;
-            this.Thumbnail = workspace.Thumbnail;
+            Id = workspace.Id;
+            Name = workspace.Name;
+            Description = workspace.Description;
+            Version = workspace.Version;
+            Thumbnail = workspace.Thumbnail;
 
-            this.Plaintext = stringWriter.ToString();
-            this.Ciphertext = encryptionStrategy.Encrypt(Plaintext);
+            Plaintext = stringWriter.ToString();
+            Ciphertext = encryptionStrategy.Encrypt(Plaintext);
         }
 
     }

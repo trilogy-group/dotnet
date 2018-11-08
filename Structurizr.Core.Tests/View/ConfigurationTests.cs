@@ -4,13 +4,13 @@ namespace Structurizr.Core.Tests
 {
 
     
-    public class ConfigurationTests : AbstractTestBase
+    public class ViewConfigurationTests : AbstractTestBase
     {
 
         [Fact]
         public void test_defaultView_DoesNothing_WhenPassedNull()
         {
-            Configuration configuration = new Configuration();
+            ViewConfiguration configuration = new ViewConfiguration();
             configuration.SetDefaultView(null);
             Assert.Null(configuration.DefaultView);
         }
@@ -19,7 +19,7 @@ namespace Structurizr.Core.Tests
         public void test_defaultView()
         {
             SystemLandscapeView view = Views.CreateSystemLandscapeView("key", "Description");
-            Configuration configuration = new Configuration();
+            ViewConfiguration configuration = new ViewConfiguration();
             configuration.SetDefaultView(view);
             Assert.Equal("key", configuration.DefaultView);
         }
@@ -27,10 +27,10 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void test_copyConfigurationFrom()
         {
-            Configuration source = new Configuration();
+            ViewConfiguration source = new ViewConfiguration();
             source.LastSavedView = "someKey";
 
-            Configuration destination = new Configuration();
+            ViewConfiguration destination = new ViewConfiguration();
             destination.CopyConfigurationFrom(source);
             Assert.Equal("someKey", destination.LastSavedView);
         }

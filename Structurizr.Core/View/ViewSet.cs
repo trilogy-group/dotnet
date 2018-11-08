@@ -76,7 +76,7 @@ namespace Structurizr
         /// The configuration object associated with this set of views.
         /// </summary>
         [DataMember(Name = "configuration", EmitDefaultValue = false)]
-        public Configuration Configuration { get; internal set; }
+        public ViewConfiguration Configuration { get; internal set; }
 
         internal ViewSet()
         {
@@ -88,7 +88,7 @@ namespace Structurizr
             DeploymentViews = new HashSet<DeploymentView>();
             FilteredViews = new HashSet<FilteredView>();
 
-            Configuration = new Configuration();
+            Configuration = new ViewConfiguration();
         }
 
         internal ViewSet(Model model) : this()
