@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.1 (unreleased)
+
+- The terminology for relationships can now be customised.
+
 ## 0.9.0 (8th November 2018)
 
 - Added the ability to specify users who should have read-write or read-only workspace access, via the ```workspace.Configuration.AddUser(username, role)``` method. 
