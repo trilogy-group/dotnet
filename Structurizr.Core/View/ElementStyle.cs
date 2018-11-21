@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.Serialization;
+using Structurizr.Util;
 
 namespace Structurizr
 {
@@ -93,6 +94,27 @@ namespace Structurizr
         /// </summary>
         [DataMember(Name="shape", EmitDefaultValue=false)]
         public Shape Shape { get; set; }
+
+        private string _icon;
+
+        [DataMember(Name = "icon", EmitDefaultValue = false)]
+        public string Icon
+        {
+            get { return _icon; }
+            set
+            {
+                if (value != null && value.Trim().Length > 0)
+                {
+                    if (Url.IsUrl(value) || value.StartsWith("data:image/"))
+                    {
+                        _icon = value;
+                    }
+                    else {
+                        throw new ArgumentException(value + " is not a valid URL.");
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// The border to use when rendering the element.
