@@ -72,23 +72,17 @@ namespace Structurizr.Core.Tests
             ContainerInstance containerInstance = Model.AddContainerInstance(_database);
             containerInstance.AddTags("Primary Instance");
     
-            Assert.Equal("Element,Container,Database,Container Instance,Primary Instance", containerInstance.Tags);
+            Assert.Equal("Container Instance,Primary Instance", containerInstance.Tags);
         }
     
         [Fact]
         public void test_removeTags_DoesNotRemoveRequiredTags() {
             ContainerInstance containerInstance = Model.AddContainerInstance(_database);
     
-            Assert.True(containerInstance.Tags.Contains(Tags.Element));
-            Assert.True(containerInstance.Tags.Contains(Tags.Container));
             Assert.True(containerInstance.Tags.Contains(Tags.ContainerInstance));
     
             containerInstance.RemoveTag(Tags.ContainerInstance);
-            containerInstance.RemoveTag(Tags.Container);
-            containerInstance.RemoveTag(Tags.Element);
     
-            Assert.True(containerInstance.Tags.Contains(Tags.Element));
-            Assert.True(containerInstance.Tags.Contains(Tags.Container));
             Assert.True(containerInstance.Tags.Contains(Tags.ContainerInstance));
         }
     

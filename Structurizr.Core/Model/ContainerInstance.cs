@@ -70,7 +70,6 @@ namespace Structurizr
         internal ContainerInstance(Container container, int instanceId)
         {
             Container = container;
-            Tags = container.Tags;
             AddTags(Structurizr.Tags.ContainerInstance);
             InstanceId = instanceId;
         }

@@ -39,7 +39,7 @@ namespace Structurizr.Core.Tests
             Assert.Equal(container2.Id, containerInstance2.ContainerId);
             Assert.Same(softwareSystem2, containerInstance2.Parent);
             Assert.Equal("/Software System 2/Container 2[1]", containerInstance2.CanonicalName);
-            Assert.Equal("Element,Container,Container Instance", containerInstance2.Tags);
+            Assert.Equal("Container Instance", containerInstance2.Tags);
     
             Assert.Equal(1, containerInstance1.Relationships.Count);
             Relationship relationship = containerInstance1.Relationships.First();
