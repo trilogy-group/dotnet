@@ -84,20 +84,11 @@ namespace Structurizr
 
         public abstract List<string> GetRequiredTags();
 
-        private Dictionary<string, string> _properties = new Dictionary<string, string>();
-
         /// <summary>
         /// The collection of name-value property pairs associated with this element, as a Dictionary.
         /// </summary>
         [DataMember(Name = "properties", EmitDefaultValue = false)]
-        public Dictionary<string, string> Properties
-        {
-            get
-            {
-                return new Dictionary<string, string>(_properties);
-            }
-            internal set { _properties = value; }
-        }
+        public Dictionary<string, string> Properties = new Dictionary<string, string>();
 
         /// <summary>
         /// Adds a name-value pair property to this element. 
@@ -114,7 +105,7 @@ namespace Structurizr
                 throw new ArgumentException("A property value must be specified.");
             }
 
-            _properties[name] = value;
+            Properties[name] = value;
         }
 
     }

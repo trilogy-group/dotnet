@@ -4,6 +4,7 @@
 
 - The terminology for relationships can now be customised.
 - Added support for icons on element styles.
+- Fixed issue #40 (WorkspaceUtils does not load containers' properties).
 
 ## 0.9.0 (8th November 2018)
 
