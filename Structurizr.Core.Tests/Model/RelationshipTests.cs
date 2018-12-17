@@ -38,11 +38,11 @@ namespace Structurizr.Core.Tests
         }
 
         [Fact]
-        public void Test_Tags_DoesNotDoAnything_WhenPassedNull()
+        public void Test_Tags_ClearsTheTags_WhenPassedNull()
         {
             Relationship relationship = _softwareSystem1.Uses(_softwareSystem2, "uses");
             relationship.Tags = null;
-            Assert.Equal("Relationship,Synchronous", relationship.Tags);
+            Assert.Equal("Relationship", relationship.Tags);
         }
 
         [Fact]
@@ -74,11 +74,11 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void test_Tags_IncludesTheInteractionStyleWhenSpecified()
         {
-            Relationship relationship = _softwareSystem1.Uses(_softwareSystem2, "uses");
+            Relationship relationship = _softwareSystem1.Uses(_softwareSystem2, "Uses 1", "Technology");
             Assert.True(relationship.Tags.Contains(Tags.Synchronous));
             Assert.False(relationship.Tags.Contains(Tags.Asynchronous));
 
-            relationship.InteractionStyle = InteractionStyle.Asynchronous;
+            relationship = _softwareSystem1.Uses(_softwareSystem2, "Uses 2", "Technology", InteractionStyle.Asynchronous);
             Assert.False(relationship.Tags.Contains(Tags.Synchronous));
             Assert.True(relationship.Tags.Contains(Tags.Asynchronous));
         }

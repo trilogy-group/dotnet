@@ -10,7 +10,7 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void Test_AddContainerInstance_ThrowsAnException_WhenANullContainerIsSpecified() {
             try {
-                Model.AddContainerInstance(null);
+                Model.AddContainerInstance(null, null);
                 throw new TestFailedException();
             } catch (ArgumentException ae) {
                 Assert.Equal("A container must be specified.", ae.Message);
@@ -18,7 +18,9 @@ namespace Structurizr.Core.Tests
         }
 
         [Fact]
-        public void Test_AddContainerInstance_AddsAContainerInstance_WhenAContainerIsSpecified() {
+        public void Test_AddContainerInstance_AddsAContainerInstance_WhenAContainerIsSpecified()
+        {
+            DeploymentNode developmentDeploymentNode = Model.AddDeploymentNode("Development", "Deployment Node", "Description", "Technology");
             SoftwareSystem softwareSystem1 = Model.AddSoftwareSystem("Software System 1", "Description");
             Container container1 = softwareSystem1.AddContainer("Container 1", "Description", "Technology");
     
@@ -31,15 +33,22 @@ namespace Structurizr.Core.Tests
             container1.Uses(container2, "Uses 1", "Technology 1", InteractionStyle.Synchronous);
             container2.Uses(container3, "Uses 2", "Technology 2", InteractionStyle.Asynchronous);
     
-            ContainerInstance containerInstance1 = Model.AddContainerInstance(container1);
-            ContainerInstance containerInstance2 = Model.AddContainerInstance(container2);
-            ContainerInstance containerInstance3 = Model.AddContainerInstance(container3);
+            ContainerInstance containerInstance1 = Model.AddContainerInstance(developmentDeploymentNode, container1);
+            ContainerInstance containerInstance2 = Model.AddContainerInstance(developmentDeploymentNode, container2);
+            ContainerInstance containerInstance3 = Model.AddContainerInstance(developmentDeploymentNode, container3);
     
+            // the following live container instances should not affect the relationships of the development container instances
+            DeploymentNode liveDeploymentNode = Model.AddDeploymentNode("Live", "Deployment Node", "Description", "Technology");
+            liveDeploymentNode.Add(container1);
+            liveDeploymentNode.Add(container2);
+            liveDeploymentNode.Add(container3);
+
             Assert.Same(container2, containerInstance2.Container);
             Assert.Equal(container2.Id, containerInstance2.ContainerId);
             Assert.Same(softwareSystem2, containerInstance2.Parent);
             Assert.Equal("/Software System 2/Container 2[1]", containerInstance2.CanonicalName);
             Assert.Equal("Container Instance", containerInstance2.Tags);
+            Assert.Equal("Development", containerInstance2.Environment);
     
             Assert.Equal(1, containerInstance1.Relationships.Count);
             Relationship relationship = containerInstance1.Relationships.First();
@@ -48,6 +57,7 @@ namespace Structurizr.Core.Tests
             Assert.Equal("Uses 1", relationship.Description);
             Assert.Equal("Technology 1", relationship.Technology);
             Assert.Equal(InteractionStyle.Synchronous, relationship.InteractionStyle);
+            Assert.Equal("", relationship.Tags);
     
             Assert.Equal(1, containerInstance2.Relationships.Count);
             relationship = containerInstance2.Relationships.First();
@@ -56,6 +66,7 @@ namespace Structurizr.Core.Tests
             Assert.Equal("Uses 2", relationship.Description);
             Assert.Equal("Technology 2", relationship.Technology);
             Assert.Equal(InteractionStyle.Asynchronous, relationship.InteractionStyle);
+            Assert.Equal("", relationship.Tags);
         }
     
         [Fact]

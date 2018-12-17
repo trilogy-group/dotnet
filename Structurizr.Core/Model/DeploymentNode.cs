@@ -17,7 +17,7 @@ namespace Structurizr
     ///  - etc
     /// </summary>
     [DataContract]
-    public sealed class DeploymentNode : Element
+    public sealed class DeploymentNode : DeploymentElement
     {
 
         private DeploymentNode _parent;
@@ -54,6 +54,7 @@ namespace Structurizr
             Instances = 1;
             Children = new HashSet<DeploymentNode>();
             ContainerInstances = new HashSet<ContainerInstance>();
+            Environment = DefaultDeploymentEnvironment;
         }
 
         public override string Tags {
@@ -82,7 +83,7 @@ namespace Structurizr
                 }
                 else
                 {
-                    return CanonicalNameSeparator + FormatForCanonicalName(Name);
+                    return CanonicalNameSeparator + "Deployment" + CanonicalNameSeparator + FormatForCanonicalName(Environment) + CanonicalNameSeparator + FormatForCanonicalName(Name);
                 }
             }
         }
@@ -97,7 +98,7 @@ namespace Structurizr
                 throw new ArgumentException("A container must be specified.");
             }
 
-            ContainerInstance containerInstance = Model.AddContainerInstance(container);
+            ContainerInstance containerInstance = Model.AddContainerInstance(this, container);
             ContainerInstances.Add(containerInstance);
     
             return containerInstance;
@@ -136,7 +137,7 @@ namespace Structurizr
         /// <param name="properties">a Dictionary (string,string) describing name=value properties</param>
         /// <returns></returns>
         public DeploymentNode AddDeploymentNode(string name, string description, string technology, int instances, Dictionary<string,string> properties) {
-            DeploymentNode deploymentNode = Model.AddDeploymentNode(this, name, description, technology, instances, properties);
+            DeploymentNode deploymentNode = Model.AddDeploymentNode(this, this.Environment, name, description, technology, instances, properties);
             if (deploymentNode != null) {
                 Children.Add(deploymentNode);
             }

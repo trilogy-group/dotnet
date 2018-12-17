@@ -150,33 +150,43 @@ namespace Structurizr
             }
         }
         
-        internal ContainerInstance AddContainerInstance(Container container) {
+        internal ContainerInstance AddContainerInstance(DeploymentNode deploymentNode, Container container) {
             if (container == null) {
                 throw new ArgumentException("A container must be specified.");
             }
 
             long instanceNumber = GetElements().Count(e => e is ContainerInstance && ((ContainerInstance)e).Container.Equals(container));
             instanceNumber++;
-            ContainerInstance containerInstance = new ContainerInstance(container, (int)instanceNumber);
+            ContainerInstance containerInstance = new ContainerInstance(container, (int)instanceNumber, deploymentNode.Environment);
             containerInstance.Id = _idGenerator.GenerateId(containerInstance);
 
-            // find all ContainerInstance objects
-            IEnumerable<ContainerInstance> containerInstances = GetElements().OfType<ContainerInstance>();
+            // find all ContainerInstance objects in the same deployment environment
+            IEnumerable<ContainerInstance> containerInstances = GetElements().OfType<ContainerInstance>().Where(ci => ci.Environment.Equals(deploymentNode.Environment));
 
-            // and replicate the container-container relationships
+            // and replicate the container-container relationships within the same deployment environment
             foreach (ContainerInstance ci in containerInstances)
             {
                 Container c = ci.Container;
 
                 foreach (Relationship relationship in container.Relationships) {
                     if (relationship.Destination.Equals(c)) {
-                        AddRelationship(containerInstance, ci, relationship.Description, relationship.Technology, relationship.InteractionStyle);
+                        Relationship newRelationship = AddRelationship(containerInstance, ci, relationship.Description, relationship.Technology, relationship.InteractionStyle);
+                        if (newRelationship != null)
+                        {
+                            newRelationship.Tags = String.Empty;
+                            newRelationship.LinkedRelationshipId = relationship.Id;
+                        }
                     }
                 }
 
                 foreach (Relationship relationship in c.Relationships) {
                     if (relationship.Destination.Equals(container)) {
-                        AddRelationship(ci, containerInstance, relationship.Description, relationship.Technology, relationship.InteractionStyle);
+                        Relationship newRelationship = AddRelationship(ci, containerInstance, relationship.Description, relationship.Technology, relationship.InteractionStyle);
+                        if (newRelationship != null)
+                        {
+                            newRelationship.Tags = String.Empty;
+                            newRelationship.LinkedRelationshipId = relationship.Id;
+                        }
                     }
                 }
             }
@@ -214,26 +224,39 @@ namespace Structurizr
         }
 
         public DeploymentNode AddDeploymentNode(string name, string description, string technology) {
-            return AddDeploymentNode(name, description, technology, 1);
+            return AddDeploymentNode(DeploymentElement.DefaultDeploymentEnvironment, name, description, technology);
+        }
+
+        public DeploymentNode AddDeploymentNode(string environment, string name, string description, string technology) {
+            return AddDeploymentNode(environment, name, description, technology, 1);
         }
 
         public DeploymentNode AddDeploymentNode(string name, string description, string technology, int instances) {
-            return AddDeploymentNode(name, description, technology, instances, null);
+            return AddDeploymentNode(DeploymentElement.DefaultDeploymentEnvironment, name, description, technology, instances);
+        }
+
+        public DeploymentNode AddDeploymentNode(string environment, string name, string description, string technology, int instances) {
+            return AddDeploymentNode(environment, name, description, technology, instances, null);
         }
 
         public DeploymentNode AddDeploymentNode(string name, string description, string technology, int instances, Dictionary<string,string> properties) {
-            return AddDeploymentNode(null, name, description, technology, instances, properties);
+            return AddDeploymentNode(DeploymentElement.DefaultDeploymentEnvironment, name, description, technology, instances, properties);
         }
 
-        internal DeploymentNode AddDeploymentNode(DeploymentNode parent, string name, string description, string technology, int instances, Dictionary<string,string> properties) {
-            if ((parent == null && GetDeploymentNodeWithName(name) == null) || (parent != null && parent.GetDeploymentNodeWithName(name) == null)) {
+        public DeploymentNode AddDeploymentNode(string environment, string name, string description, string technology, int instances, Dictionary<string,string> properties) {
+            return AddDeploymentNode(null, environment, name, description, technology, instances, properties);
+        }
+
+        internal DeploymentNode AddDeploymentNode(DeploymentNode parent, string environment, string name, string description, string technology, int instances, Dictionary<string,string> properties) {
+            if ((parent == null && GetDeploymentNodeWithName(name, environment) == null) || (parent != null && parent.GetDeploymentNodeWithName(name) == null)) {
                 DeploymentNode deploymentNode = new DeploymentNode
                 {
                     Name = name,
                     Description = description,
                     Technology = technology,
                     Parent = parent,
-                    Instances = instances
+                    Instances = instances,
+                    Environment = environment
                 };
                 
                 if (properties != null) {
@@ -257,10 +280,11 @@ namespace Structurizr
         /// Gets the DeploymentNode with the specified name.
         /// </summary>
         /// <param name="name">the name of the deployment node</param>
+        /// <param name="environment">the name of the deployment environment</param>
         /// <returns>the DeploymentNode instance with the specified name (or null if it doesn't exist)</returns>
-        public DeploymentNode GetDeploymentNodeWithName(string name)
+        public DeploymentNode GetDeploymentNodeWithName(string name, string environment)
         {
-            return DeploymentNodes.FirstOrDefault(dn => dn.Name.Equals(name));
+            return DeploymentNodes.FirstOrDefault(dn => dn.Environment.Equals(environment) && dn.Name.Equals(name));
         }
 
         internal Relationship AddRelationship(Element source, Element destination, string description) {

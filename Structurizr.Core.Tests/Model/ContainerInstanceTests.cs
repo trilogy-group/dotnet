@@ -9,16 +9,18 @@ namespace Structurizr.Core.Tests
 
         private SoftwareSystem _softwareSystem;
         private Container _database;
+        private DeploymentNode _deploymentNode;
 
         public ContainerInstanceTests()
         {
             _softwareSystem = Model.AddSoftwareSystem(Location.External, "System", "Description");
             _database = _softwareSystem.AddContainer("Database Schema", "Stores data", "MySQL");
+            _deploymentNode = Model.AddDeploymentNode("Deployment Node", "Description", "Technology");
         }
         
         [Fact]
         public void test_construction() {
-            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+            ContainerInstance containerInstance = Model.AddContainerInstance(_deploymentNode, _database);
     
             Assert.Same(_database, containerInstance.Container);
             Assert.Equal(_database.Id, containerInstance.ContainerId);
@@ -27,7 +29,7 @@ namespace Structurizr.Core.Tests
 
         [Fact]
         public void test_getContainerId() {
-            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+            ContainerInstance containerInstance = Model.AddContainerInstance(_deploymentNode, _database);
     
             Assert.Equal(_database.Id, containerInstance.ContainerId);
             containerInstance.Container = null;
@@ -37,7 +39,7 @@ namespace Structurizr.Core.Tests
 
         [Fact]
         public void test_getName() {
-            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+            ContainerInstance containerInstance = Model.AddContainerInstance(_deploymentNode, _database);
     
             Assert.Null(containerInstance.Name);
     
@@ -47,21 +49,21 @@ namespace Structurizr.Core.Tests
     
         [Fact]
         public void test_getCanonicalName() {
-            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+            ContainerInstance containerInstance = Model.AddContainerInstance(_deploymentNode, _database);
     
             Assert.Equal("/System/Database Schema[1]", containerInstance.CanonicalName);
         }
     
         [Fact]
         public void test_getParent_ReturnsTheParentSoftwareSystem() {
-            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+            ContainerInstance containerInstance = Model.AddContainerInstance(_deploymentNode, _database);
     
             Assert.Equal(_softwareSystem, containerInstance.Parent);
         }
     
         [Fact]
         public void test_getRequiredTags() {
-            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+            ContainerInstance containerInstance = Model.AddContainerInstance(_deploymentNode, _database);
     
             Assert.Equal(0, containerInstance.GetRequiredTags().Count);
         }
@@ -69,7 +71,7 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void test_getTags() {
             _database.AddTags("Database");
-            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+            ContainerInstance containerInstance = Model.AddContainerInstance(_deploymentNode, _database);
             containerInstance.AddTags("Primary Instance");
     
             Assert.Equal("Container Instance,Primary Instance", containerInstance.Tags);
@@ -77,7 +79,7 @@ namespace Structurizr.Core.Tests
     
         [Fact]
         public void test_removeTags_DoesNotRemoveRequiredTags() {
-            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+            ContainerInstance containerInstance = Model.AddContainerInstance(_deploymentNode, _database);
     
             Assert.True(containerInstance.Tags.Contains(Tags.ContainerInstance));
     
@@ -87,33 +89,9 @@ namespace Structurizr.Core.Tests
         }
     
         [Fact]
-        public void test_uses_ThrowsAnException_WhenADestinationIsNotSpecified() {
-            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
-    
-            try {
-                containerInstance.Uses(null, "", "");
-            } catch (ArgumentException ae) {
-                Assert.Equal("The destination of a relationship must be specified.", ae.Message);
-            }
-        }
-    
-        [Fact]
-        public void test_uses_AddsARelationship_WhenADestinationIsSpecified() {
-            Container database = _softwareSystem.AddContainer("Database", "", "");
-            ContainerInstance primaryDatabase = Model.AddContainerInstance(database);
-            ContainerInstance secondaryDatabase = Model.AddContainerInstance(database);
-    
-            Relationship relationship = primaryDatabase.Uses(secondaryDatabase, "Replicates data to", "Some technology");
-            Assert.Same(primaryDatabase, relationship.Source);
-            Assert.Same(secondaryDatabase, relationship.Destination);
-            Assert.Equal("Replicates data to", relationship.Description);
-            Assert.Equal("Some technology", relationship.Technology);
-        }
-
-        [Fact]
         public void test_AddHealthCheck()
         {
-            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+            ContainerInstance containerInstance = Model.AddContainerInstance(_deploymentNode, _database);
             Assert.Equal(0, containerInstance.HealthChecks.Count);
 
             HttpHealthCheck healthCheck = containerInstance.AddHealthCheck("Test web application is working", "http://localhost:8080");
@@ -127,7 +105,7 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void test_AddHealthCheck_ThrowsAnException_WhenTheNameIsNull()
         {
-            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+            ContainerInstance containerInstance = Model.AddContainerInstance(_deploymentNode, _database);
 
             try
             {
@@ -143,7 +121,7 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void test_AddHealthCheck_ThrowsAnException_WhenTheNameIsEmpty()
         {
-            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+            ContainerInstance containerInstance = Model.AddContainerInstance(_deploymentNode, _database);
 
             try
             {
@@ -159,7 +137,7 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void test_AddHealthCheck_ThrowsAnException_WhenTheUrlIsNull()
         {
-            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+            ContainerInstance containerInstance = Model.AddContainerInstance(_deploymentNode, _database);
 
             try
             {
@@ -175,7 +153,7 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void test_AddHealthCheck_ThrowsAnException_WhenTheUrlIsEmpty()
         {
-            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+            ContainerInstance containerInstance = Model.AddContainerInstance(_deploymentNode, _database);
 
             try
             {
@@ -191,7 +169,7 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void test_AddHealthCheck_ThrowsAnException_WhenTheUrlIsInvalid()
         {
-            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+            ContainerInstance containerInstance = Model.AddContainerInstance(_deploymentNode, _database);
 
             try
             {
@@ -207,7 +185,7 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void test_AddHealthCheck_ThrowsAnException_WhenTheIntervalIsLessThanZero()
         {
-            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+            ContainerInstance containerInstance = Model.AddContainerInstance(_deploymentNode, _database);
 
             try
             {
@@ -223,7 +201,7 @@ namespace Structurizr.Core.Tests
         [Fact]
         public void test_AddHealthCheck_ThrowsAnException_WhenTheTimeoutIsLessThanZero()
         {
-            ContainerInstance containerInstance = Model.AddContainerInstance(_database);
+            ContainerInstance containerInstance = Model.AddContainerInstance(_deploymentNode, _database);
 
             try
             {

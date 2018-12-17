@@ -9,7 +9,7 @@ namespace Structurizr
     /// Represents a deployment instance of a Container, which can be added to a DeploymentNode.
     /// </summary>
     [DataContract]
-    public sealed class ContainerInstance : Element
+    public sealed class ContainerInstance : DeploymentElement
     {
 
         private const int DefaultHealthCheckIntervalInSeconds = 60;
@@ -67,11 +67,12 @@ namespace Structurizr
         internal ContainerInstance() {
         }
 
-        internal ContainerInstance(Container container, int instanceId)
+        internal ContainerInstance(Container container, int instanceId, string environment)
         {
             Container = container;
             AddTags(Structurizr.Tags.ContainerInstance);
             InstanceId = instanceId;
+            Environment = environment;
         }
 
         public override List<string> GetRequiredTags()
@@ -97,26 +98,6 @@ namespace Structurizr
             }
         }
         
-        /// <summary>
-        /// Adds a relationship between this container instance and another.
-        /// </summary>
-        /// <param name="destination">the destination of the relationship (a ContainerInstance)</param>
-        /// <param name="description">a description of the relationship</param>
-        /// <param name="technology">the technology of the relationship</param>
-        /// <returns>a Relationship object</returns>
-        /// <exception cref="ArgumentException"></exception>
-        public Relationship Uses(ContainerInstance destination, string description, string technology)
-        {
-            if (destination != null)
-            {
-                return Model.AddRelationship(this, destination, description, technology);
-            }
-            else
-            {
-                throw new ArgumentException("The destination of a relationship must be specified.");
-            }
-        }
-
         /// <summary>
         /// Adds a new health check, with the default interval (60 seconds) and timeout (0 milliseconds).
         /// </summary>

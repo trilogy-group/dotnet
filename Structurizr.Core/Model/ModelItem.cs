@@ -44,12 +44,13 @@ namespace Structurizr
 
             set
             {
+                this._tags.Clear();
+
                 if (value == null)
                 {
                     return;
                 }
 
-                this._tags.Clear();
                 this._tags.AddRange(value.Split(','));
             }
         }

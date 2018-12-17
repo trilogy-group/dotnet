@@ -92,6 +92,9 @@ namespace Structurizr
 
         private InteractionStyle _interactionStyle = InteractionStyle.Synchronous;
 
+        [DataMember(Name = "linkedRelationshipId", EmitDefaultValue = false)]
+        public string LinkedRelationshipId { get; internal set; }
+
         /// <summary>
         /// The interaction style (synchronous or asynchronous).
         /// </summary>
@@ -105,17 +108,6 @@ namespace Structurizr
             set
             {
                 _interactionStyle = value;
-                if (_interactionStyle == InteractionStyle.Synchronous)
-                {
-                    RemoveTag(Structurizr.Tags.Asynchronous);
-                    AddTags(Structurizr.Tags.Synchronous);
-                }
-                else
-                {
-                    RemoveTag(Structurizr.Tags.Synchronous);
-                    AddTags(Structurizr.Tags.Asynchronous);
-                }
-
             }
         }
 
@@ -141,14 +133,27 @@ namespace Structurizr
             this.Description = description;
             this.Technology = technology;
             this.InteractionStyle = interactionStyle;
+            
+            if (interactionStyle == InteractionStyle.Synchronous)
+            {
+                AddTags(Structurizr.Tags.Synchronous);
+            }
+            else
+            {
+                AddTags(Structurizr.Tags.Asynchronous);
+            }
         }
 
         public override List<string> GetRequiredTags()
         {
-            string[] tags = {
-                Structurizr.Tags.Relationship
-            };
-            return tags.ToList();
+            if (LinkedRelationshipId == null) {
+                string[] tags = {
+                    Structurizr.Tags.Relationship
+                };
+                return tags.ToList();
+            } else {
+                return new List<string>();
+            }
         }
 
         /// <summary>
