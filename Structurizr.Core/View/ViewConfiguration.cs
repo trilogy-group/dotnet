@@ -50,5 +50,8 @@ namespace Structurizr
             LastSavedView = configuration.LastSavedView;
         }
 
+        [DataMember(Name = "viewSortOrder", EmitDefaultValue = true)]
+        public ViewSortOrder ViewSortOrder { get; set; }
+
     }
 }

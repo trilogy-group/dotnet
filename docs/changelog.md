@@ -7,6 +7,7 @@
 - Top-level deployment nodes can now be given an environment property, to represent which deployment environment they belong to (e.g. "Development", "Live", etc).
 - Relationships can no longer be created between container instances (__breaking change__).
 - Fixed issue #40 (WorkspaceUtils does not load containers' properties).
+- Provided a way to customize the sort order when displaying the list of views.
 
 ## 0.9.0 (8th November 2018)
 
