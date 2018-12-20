@@ -24,7 +24,7 @@ namespace Structurizr
                 {
                     if (Url.IsUrl(value) || value.StartsWith("data:image/"))
                     {
-                        _logo = value;
+                        _logo = value.Trim();
                     }
                     else {
                         throw new ArgumentException(value + " is not a valid URL.");

@@ -96,6 +96,14 @@ namespace Structurizr.Core.Tests
         }
 
         [Fact]
+        public void Test_SetIcon_WithAUrlThattHasATrailingSpaceCharacter()
+        {
+            ElementStyle style = new ElementStyle();
+            style.Icon = "https://structurizr.com/static/img/structurizr-logo.png ";
+            Assert.Equal("https://structurizr.com/static/img/structurizr-logo.png", style.Icon);
+        }
+
+        [Fact]
         public void Test_SetIcon_WithADataUri()
         {
             ElementStyle style = new ElementStyle();

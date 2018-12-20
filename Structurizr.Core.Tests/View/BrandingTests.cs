@@ -17,6 +17,14 @@ namespace Structurizr.Core.Tests.View
         }
 
         [Fact]
+        public void Test_SetLogo_WithAUrlThatHasATrailingSpaceCharacter()
+        {
+            Branding branding = new Branding();
+            branding.Logo = "https://structurizr.com/static/img/structurizr-logo.png ";
+            Assert.Equal("https://structurizr.com/static/img/structurizr-logo.png", branding.Logo);
+        }
+
+        [Fact]
         public void Test_SetLogo_WithADataUri()
         {
             Branding branding = new Branding();
