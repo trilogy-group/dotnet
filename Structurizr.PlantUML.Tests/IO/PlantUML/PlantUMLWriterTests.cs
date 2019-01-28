@@ -65,7 +65,7 @@ namespace Structurizr.IO.PlantUML.Tests
                     "  component \"Web Application\" <<Container>> as 7" + Environment.NewLine +
                     "}" + Environment.NewLine +
                     "4 ..> 1 : Delivers e-mails to" + Environment.NewLine +
-                    "1 ..> 7 : Uses <<HTTP>>" + Environment.NewLine +
+                    "1 ..> 7 : <<HTTP>>" + Environment.NewLine +
                     "7 ..> 8 : Reads from and writes to <<JDBC>>" + Environment.NewLine +
                     "7 ..> 4 : Sends e-mail using" + Environment.NewLine +
                     "@enduml" + Environment.NewLine +
@@ -176,7 +176,7 @@ namespace Structurizr.IO.PlantUML.Tests
                     "  component \"Web Application\" <<Container>> as 7" + Environment.NewLine +
                     "}" + Environment.NewLine +
                     "4 ..> 1 : Delivers e-mails to" + Environment.NewLine +
-                    "1 ..> 7 : Uses <<HTTP>>" + Environment.NewLine +
+                    "1 ..> 7 : <<HTTP>>" + Environment.NewLine +
                     "7 ..> 8 : Reads from and writes to <<JDBC>>" + Environment.NewLine +
                     "7 ..> 4 : Sends e-mail using" + Environment.NewLine +
                     "@enduml" + Environment.NewLine +
@@ -273,7 +273,7 @@ namespace Structurizr.IO.PlantUML.Tests
     
             Container webApplication = softwareSystem.AddContainer("Web Application", "", "");
             Container database = softwareSystem.AddContainer("Database", "", "");
-            user.Uses(webApplication, "Uses", "HTTP");
+            user.Uses(webApplication, null, "HTTP");
             webApplication.Uses(database, "Reads from and writes to", "JDBC");
             webApplication.Uses(emailSystem, "Sends e-mail using");
     
