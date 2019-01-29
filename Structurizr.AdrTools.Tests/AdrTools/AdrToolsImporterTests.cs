@@ -74,7 +74,7 @@ namespace Structurizr.AdrTools.Tests
             Decision decision1 = _documentation.Decisions.Where(d => d.Id == "1").First();
             Assert.Equal("1", decision1.Id);
             Assert.Equal("Record architecture decisions", decision1.Title);
-            Assert.Equal("12/02/2016 00:00:00", decision1.Date.ToString());
+            Assert.Equal("2016-02-12T00:00:00.0000000", decision1.Date.ToString("o"));
             Assert.Equal(DecisionStatus.Accepted, decision1.Status);
             Assert.Equal(Format.Markdown, decision1.Format);
             Assert.Equal("# 1. Record architecture decisions\n" +
