@@ -341,8 +341,8 @@ namespace Structurizr.IO.PlantUML
                 if (HasValue(relationship.Description) || HasValue(relationship.Technology))
                 {
                     writer.Write(
-                        String.Format(": {0}{1}",
-                            HasValue(relationship.Description) ? ": " + relationship.Description : "",
+                        String.Format(" :{0}{1}",
+                            HasValue(relationship.Description) ? " " + relationship.Description : "",
                             HasValue(relationship.Technology) ? " <<" + relationship.Technology + ">>" : "")
                     );
                 }
