@@ -17,6 +17,9 @@ build_script:
         dotnet msbuild "/t:Restore;Pack" /p:Configuration=Release /p:VersionSuffix=pre${env:APPVEYOR_BUILD_NUMBER}-$($env:APPVEYOR_REPO_COMMIT.Substring(0,8))
     }
 test_script:
+- ps: dotnet test .\Structurizr.AdrTools.Tests\Structurizr.AdrTools.Tests.csproj
 - ps: dotnet test .\Structurizr.Core.Tests\Structurizr.Core.Tests.csproj
+- ps: dotnet test .\Structurizr.Client.Tests\Structurizr.Client.Tests.csproj
+- ps: dotnet test .\Structurizr.PlantUML.Tests\Structurizr.PlantUML.Tests.csproj
 artifacts:
 - path: '*\bin\Release\*.nupkg'
