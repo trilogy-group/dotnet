@@ -18,5 +18,6 @@ build_script:
     }
 test_script:
 - ps: dotnet test .\Structurizr.Core.Tests\Structurizr.Core.Tests.csproj
+- ps: dotnet test .\Structurizr.PlantUML.Tests\Structurizr.PlantUML.Tests.csproj
 artifacts:
 - path: '*\bin\Release\*.nupkg'
