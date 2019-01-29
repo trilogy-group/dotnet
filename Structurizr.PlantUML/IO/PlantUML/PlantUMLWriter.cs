@@ -331,14 +331,23 @@ namespace Structurizr.IO.PlantUML
         {
             try
             {
-                writer.WriteLine(
-                    String.Format("{0} ..> {1} {2}{3}",
+                // Write the relationship
+                writer.Write(
+                    String.Format("{0} ..> {1}",
                         relationship.Source.Id,
-                        relationship.Destination.Id,
-                        HasValue(relationship.Description) ? ": " + relationship.Description : "",
-                        HasValue(relationship.Technology) ? " <<" + relationship.Technology + ">>" : ""
-                    )
+                        relationship.Destination.Id)
                 );
+                // Check if the relationship needs a label
+                if (HasValue(relationship.Description) || HasValue(relationship.Technology))
+                {
+                    writer.Write(
+                        String.Format(": {0}{1}",
+                            HasValue(relationship.Description) ? ": " + relationship.Description : "",
+                            HasValue(relationship.Technology) ? " <<" + relationship.Technology + ">>" : "")
+                    );
+                }
+                // Add a newline
+                writer.WriteLine("");
             }
             catch (IOException e)
             {
