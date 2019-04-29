@@ -199,7 +199,50 @@ namespace Structurizr.Core.Tests
             }
         }
 
+        [Fact]
+        public void Test_GetElementWithCanonicalName_ThrowsAnException_WhenANullCanonicalNameIsSpecified()
+        {
+            try
+            {
+                Model.GetElementWithCanonicalName(null);
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("A canonical name must be specified.", ae.Message);
+            }
+        }
 
+        [Fact]
+        public void Test_ElementWithCanonicalName_ThrowsAnException_WhenAnEmptyCanonicalNameIsSpecified()
+        {
+            try
+            {
+                Model.GetElementWithCanonicalName(" ");
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("A canonical name must be specified.", ae.Message);
+            }
+        }
+
+        [Fact]
+        public void Test_GetElementWithCanonicalName_ReturnsNull_WhenAnElementWithTheSpecifiedCanonicalNameDoesNotExist()
+        {
+            Assert.Null(Model.GetElementWithCanonicalName("Software System"));
+        }
+
+        [Fact]
+        public void Test_ElementWithCanonicalName_ReturnsTheElement_WhenAnElementWithTheSpecifiedCanonicalNameExists()
+        {
+            SoftwareSystem softwareSystem = Model.AddSoftwareSystem("Software System", "Description");
+
+            Assert.Same(Model.GetElementWithCanonicalName("/Software System"), softwareSystem);
+            Assert.Same(Model.GetElementWithCanonicalName("Software System"), softwareSystem);
+
+            Container container = softwareSystem.AddContainer("Web Application", "Description", "Technology");
+            Assert.Same(container, Model.GetElementWithCanonicalName("/Software System/Web Application"));
+            Assert.Same(container, Model.GetElementWithCanonicalName("Software System/Web Application"));
+        }
 
     }
 }

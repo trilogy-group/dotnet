@@ -499,6 +499,27 @@ namespace Structurizr
             return _elementsById[id];
         }
 
+        /// <summary>
+        /// Gets the element with the specified canonical name.
+        /// </summary>
+        /// <param name="canonicalName">the canonical name (e.g. /SoftwareSystem/Container)</param>
+        /// <returns>the Element with the given canonical name, or null if one doesn't exist</returns>
+        public Element GetElementWithCanonicalName(string canonicalName)
+        {
+            if (string.IsNullOrWhiteSpace(canonicalName))
+            {
+                throw new ArgumentException("A canonical name must be specified.");
+            }
+
+            // canonical names start with a leading slash, so add this if it's missing
+            if (!canonicalName.StartsWith("/"))
+            {
+                canonicalName = "/" + canonicalName;
+            }
+
+            return _elementsById.Values.FirstOrDefault(x => x.CanonicalName == canonicalName);
+        }
+
         public IEnumerable<Element> GetElements()
         {
             return _elementsById.Values;

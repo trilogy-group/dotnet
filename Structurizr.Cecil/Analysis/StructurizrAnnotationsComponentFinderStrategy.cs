@@ -233,7 +233,7 @@ namespace Structurizr.Analysis
             var annotations = type.ResolvableAttributes<UsesContainerAttribute>().ToList();
             foreach(UsesContainerAttribute annotation in annotations)
             {
-                Container container = FindContainerByNameOrId(component, annotation.ContainerName);
+                Container container = FindContainerByNameOrCanonicalNameOrId(component, annotation.ContainerName);
                 if (container != null)
                 {
                     string description = annotation.Description;
@@ -289,7 +289,7 @@ namespace Structurizr.Analysis
             var annotations = type.ResolvableAttributes<UsedByContainerAttribute>().ToList();
             foreach(UsedByContainerAttribute annotation in annotations)
             {
-                Container container = FindContainerByNameOrId(component, annotation.ContainerName);
+                Container container = FindContainerByNameOrCanonicalNameOrId(component, annotation.ContainerName);
                 if (container != null)
                 {
                     string description = annotation.Description;
@@ -357,14 +357,23 @@ namespace Structurizr.Analysis
             }
         }
 
-        private Container FindContainerByNameOrId(Component component, string name)
+        private Container FindContainerByNameOrCanonicalNameOrId(Component component, string name)
         {
             // assume that the container resides in the same software system
             Container container = component.Container.SoftwareSystem.GetContainerWithName(name);
             if (container == null)
             {
-                // perhaps it's an element ID?
-                container = component.Model.GetElement(name) as Container;
+                // perhaps a canonical name has been specified
+                Element element = component.Model.GetElementWithCanonicalName(name);
+                if (element != null && element is Container)
+                {
+                    container = (Container) element;
+                }
+                else
+                {
+                    // perhaps it's an element ID?
+                    container = component.Model.GetElement(name) as Container;
+                }
             }
 
             return container;
