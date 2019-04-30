@@ -1,11 +1,6 @@
 ﻿using Structurizr.IO.Json;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Structurizr.Encryption
 {
@@ -67,6 +62,9 @@ namespace Structurizr.Encryption
             Name = workspace.Name;
             Description = workspace.Description;
             Version = workspace.Version;
+            Revision = workspace.Revision;
+            LastModifiedAgent = workspace.LastModifiedAgent;
+            LastModifiedUser = workspace.LastModifiedUser;
             Thumbnail = workspace.Thumbnail;
 
             Plaintext = stringWriter.ToString();

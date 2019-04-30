@@ -6,9 +6,15 @@ using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Structurizr.Api
 {
+
+    /// <summary>
+    /// A client for the Structurizr API (https://api.structurizr.com)
+    /// that allows you to get and put Structurizr workspaces in a JSON format.
+    /// </summary>
     public class StructurizrClient
     {
 
@@ -77,10 +83,22 @@ namespace Structurizr.Api
 
         public bool MergeFromRemote { get; set; }
 
+        /// <summary>
+        /// Creates a new Structurizr API client with the specified API key and secret,
+        /// for the default API URL(https://api.structurizr.com).
+        /// </summary>
+        /// <param name="apiKey">The API key of your workspace.</param>
+        /// <param name="apiSecret">The API secret of your workspace.</param>
         public StructurizrClient(string apiKey, string apiSecret) : this("https://api.structurizr.com", apiKey, apiSecret)
         {
         }
 
+        /// <summary>
+        /// Creates a new Structurizr client with the specified API URL, key and secret.
+        /// </summary>
+        /// <param name="apiUrl">The URL of your Structurizr instance.</param>
+        /// <param name="apiKey">The API key of your workspace.</param>
+        /// <param name="apiSecret">The API secret of your workspace.</param>
         public StructurizrClient(string apiUrl, string apiKey, string apiSecret)
         {
             Url = apiUrl;
@@ -93,6 +111,78 @@ namespace Structurizr.Api
             _version = typeof(StructurizrClient).GetTypeInfo().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion; 
         }
 
+        /// <summary>
+        /// Locks the specified workspace.
+        /// </summary>
+        /// <param name="workspaceId">The workspace ID.</param>
+        /// <returns>true if the workspace could be locked, false otherwise.</returns>
+        public bool LockWorkspace(long workspaceId)
+        {
+            return manageLockForWorkspace(workspaceId, true);
+        }
+
+        /// <summary>
+        /// Unlocks the specified workspace.
+        /// </summary>
+        /// <param name="workspaceId">The workspace ID.</param>
+        /// <returns>true if the workspace could be unlocked, false otherwise.</returns>
+        public bool UnlockWorkspace(long workspaceId)
+        {
+            return manageLockForWorkspace(workspaceId, false);
+        }
+
+        private bool manageLockForWorkspace(long workspaceId, bool toBeLocked)
+        {
+            if (workspaceId <= 0)
+            {
+                throw new ArgumentException("The workspace ID must be a positive integer.");
+            }
+
+            using (HttpClient httpClient = createHttpClient())
+            {
+                try
+                {
+                    string httpMethod = toBeLocked ? "PUT" : "DELETE";
+                    string path = WorkspacePath + workspaceId + "/lock?user=" + getUser() + "&agent=" + getAgentName();
+                    AddHeaders(httpClient, httpMethod, path, "", "");
+
+                    Task<HttpResponseMessage> response;
+
+                    if (toBeLocked)
+                    {
+                        HttpContent content = new StringContent("", Encoding.UTF8, "application/json");
+                        response = httpClient.PutAsync(Url + path, content);
+                    }
+                    else
+                    {
+                        response = httpClient.DeleteAsync(Url + path);
+                    }
+
+                    string json = response.Result.Content.ReadAsStringAsync().Result;
+                    System.Console.WriteLine(json);
+                    ApiResponse apiResponse = ApiResponse.Parse(json);
+
+                    if (response.Result.StatusCode == HttpStatusCode.OK)
+                    {
+                        return apiResponse.Success;
+                    }
+                    else
+                    {
+                        throw new StructurizrClientException(apiResponse.Message);
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new StructurizrClientException("There was an error putting the workspace: " + e.Message, e);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the workspace with the given ID.
+        /// </summary>
+        /// <param name="workspaceId">The workspace ID.</param>
+        /// <returns>A Workspace object.</returns>
         public Workspace GetWorkspace(long workspaceId)
         {
             if (workspaceId <= 0)
@@ -107,13 +197,15 @@ namespace Structurizr.Api
 
                 AddHeaders(httpClient, httpMethod, new Uri(Url + path).AbsolutePath, "", "");
 
-                var responseMessage = httpClient.GetAsync(Url + path);
-                if (responseMessage.Result.StatusCode != HttpStatusCode.OK)
+                var response = httpClient.GetAsync(Url + path);
+                if (response.Result.StatusCode != HttpStatusCode.OK)
                 {
-                    throw new StructurizrClientException(responseMessage.Result.Content.ReadAsStringAsync().Result);
+                    string jsonResponse = response.Result.Content.ReadAsStringAsync().Result;
+                    ApiResponse apiResponse = ApiResponse.Parse(jsonResponse);
+                    throw new StructurizrClientException(apiResponse.Message);
                 }
 
-                string json = responseMessage.Result.Content.ReadAsStringAsync().Result;
+                string json = response.Result.Content.ReadAsStringAsync().Result;
                 ArchiveWorkspace(workspaceId, json);
 
                 if (EncryptionStrategy == null)
@@ -137,6 +229,11 @@ namespace Structurizr.Api
             }
         }
 
+        /// <summary>
+        /// Updates the given workspace.
+        /// </summary>
+        /// <param name="workspaceId">The workspace ID.</param>
+        /// <param name="workspace">The workspace to be updated.</param>
         public void PutWorkspace(long workspaceId, Workspace workspace)
         {
             if (workspace == null)
@@ -160,6 +257,8 @@ namespace Structurizr.Api
 
             workspace.Id = workspaceId;
             workspace.LastModifiedDate = DateTime.UtcNow;
+            workspace.LastModifiedAgent = getAgentName();
+            workspace.LastModifiedUser = getUser();
 
             using (HttpClient httpClient = createHttpClient())
             {
@@ -194,9 +293,16 @@ namespace Structurizr.Api
                     string contentMd5 = new Md5Digest().Generate(workspaceAsJson);
                     string contentMd5Base64Encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(contentMd5));
                     content.Headers.ContentMD5 = Encoding.UTF8.GetBytes(contentMd5);
+
                     var response = httpClient.PutAsync(this.Url + path, content);
                     string responseContent = response.Result.Content.ReadAsStringAsync().Result;
                     System.Console.WriteLine(responseContent);
+
+                    if (response.Result.StatusCode != HttpStatusCode.OK)
+                    {
+                        ApiResponse apiResponse = ApiResponse.Parse(responseContent);
+                        throw new StructurizrClientException(apiResponse.Message);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -220,8 +326,18 @@ namespace Structurizr.Api
             string authorizationHeader = new HmacAuthorizationHeader(ApiKey, hmac.Generate(hmacContent.ToString())).ToString();
 
             httpClient.DefaultRequestHeaders.Add(HttpHeaders.XAuthorization, authorizationHeader);
-            httpClient.DefaultRequestHeaders.Add(HttpHeaders.UserAgent, "structurizr-dotnet/" + _version);
+            httpClient.DefaultRequestHeaders.Add(HttpHeaders.UserAgent, getAgentName());
             httpClient.DefaultRequestHeaders.Add(HttpHeaders.Nonce, nonce);
+        }
+
+        private string getAgentName()
+        {
+            return "structurizr-dotnet/" + _version;
+        }
+
+        private String getUser()
+        {
+            return Environment.GetEnvironmentVariable("USERNAME") ?? Environment.GetEnvironmentVariable("USER");
         }
 
         private long getCurrentTimeInMilliseconds()

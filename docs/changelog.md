@@ -1,5 +1,9 @@
 # Changelog
 
+## (unreleased)
+
+- Added the ability to lock and unlock workspaces, to prevent concurrent updates.
+
 ## 0.9.1 (unreleased)
 
 - The terminology for relationships can now be customised.

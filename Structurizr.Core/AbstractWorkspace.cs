@@ -34,10 +34,28 @@ namespace Structurizr
         public DateTime LastModifiedDate { get; set; }
 
         /// <summary>
+        /// The name of the user who last modified this workspace (e.g. a username).
+        /// </summary>
+        [DataMember(Name = "lastModifiedUser", EmitDefaultValue = false)]
+        public string LastModifiedUser { get; set; }
+
+        /// <summary>
+        /// The name of the agent that was used to last modify this workspace (e.g. "Structurizr for .NET").
+        /// </summary>
+        [DataMember(Name = "lastModifiedAgent", EmitDefaultValue = false)]
+        public string LastModifiedAgent { get; set; }
+
+        /// <summary>
         /// The version of the workspace.
         /// </summary>
         [DataMember(Name = "version", EmitDefaultValue = false)]
         public string Version { get; set; }
+
+        /// <summary>
+        /// The revision number of the workspace.
+        /// </summary>
+        [DataMember(Name = "revision", EmitDefaultValue = false)]
+        public long Revision { get; set; }
 
         /// <summary>
         /// The thumbnail associated with the workspace; a Base64 encoded PNG file as a Data URI (data:image/png;base64).

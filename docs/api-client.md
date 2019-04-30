@@ -38,3 +38,23 @@ This allows you to overwrite an existing workspace.   If the ```MergeFromRemote`
 structurizrClient.PutWorkspace(1234, workspace);
 ```
 
+### 3. LockWorkspace
+
+If your workspace supports sharing (not available with the Free Plan), you can optionally attempt to lock your workspace before writing to it, to prevent concurrent updates.
+
+```c#
+structurizrClient.LockWorkspace(1234);
+```
+
+This method returns a boolean; ```true``` if the workspace could be locked, ```false``` otherwise.
+
+### 4. UnlockWorkspace
+
+Similarly, you can unlock a workspace.
+
+```c#
+structurizrClient.UnlockWorkspace(1234);
+```
+
+This method also returns a boolean; ```true``` if the workspace could be unlocked, ```false``` otherwise.
+

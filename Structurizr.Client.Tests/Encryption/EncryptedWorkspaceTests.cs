@@ -18,6 +18,9 @@ namespace Structurizr.Api.Encryption.Tests
         {
             _workspace = new Workspace("Name", "Description");
             _workspace.Version = "1.2.3";
+            _workspace.Revision = 123;
+            _workspace.LastModifiedAgent = "Agent";
+            _workspace.LastModifiedUser = "User";
             _workspace.Id = 1234;
             _workspace.Configuration.AddUser("user@domain.com", Role.ReadOnly);
             
@@ -32,6 +35,9 @@ namespace Structurizr.Api.Encryption.Tests
             Assert.Equal("Name", _encryptedWorkspace.Name);
             Assert.Equal("Description", _encryptedWorkspace.Description);
             Assert.Equal("1.2.3", _encryptedWorkspace.Version);
+            Assert.Equal(123, _encryptedWorkspace.Revision);
+            Assert.Equal("Agent", _encryptedWorkspace.LastModifiedAgent);
+            Assert.Equal("User", _encryptedWorkspace.LastModifiedUser);
             Assert.Equal(1234, _encryptedWorkspace.Id);
             Assert.Equal("user@domain.com", _encryptedWorkspace.Configuration.Users.First().Username);
             Assert.Null(_workspace.Configuration);
