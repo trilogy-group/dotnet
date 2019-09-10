@@ -71,22 +71,48 @@ namespace Structurizr
         [DataMember(Name = "paperSize", EmitDefaultValue = false)]
         public PaperSize PaperSize { get; set; }
 
-        /// <summary>
-        /// The set of elements in this views.
-        /// </summary>
-        [DataMember(Name = "elements", EmitDefaultValue = false)]
-        public HashSet<ElementView> Elements { get; set; }
+        private HashSet<ElementView> _elements;
 
         /// <summary>
-        /// The set of relationships in this views.
+        /// The set of elements in this view.
+        /// </summary>
+        [DataMember(Name = "elements", EmitDefaultValue = false)]
+        public ISet<ElementView> Elements
+        {
+            get
+            {
+                return new HashSet<ElementView>(_elements);
+            }
+
+            internal set
+            {
+                _elements = new HashSet<ElementView>(value);
+            }
+        }
+
+        private HashSet<RelationshipView> _relationships;
+
+        /// <summary>
+        /// The set of relationships in this view.
         /// </summary>
         [DataMember(Name = "relationships", EmitDefaultValue = false)]
-        public HashSet<RelationshipView> Relationships { get; set; }
+        public virtual ISet<RelationshipView> Relationships
+        {
+            get
+            {
+                return new HashSet<RelationshipView>(_relationships);
+            }
+
+            internal set
+            {
+                _relationships = new HashSet<RelationshipView>(value);
+            }
+        }
 
         internal View()
         {
-            this.Elements = new HashSet<ElementView>();
-            this.Relationships = new HashSet<RelationshipView>();
+            _elements = new HashSet<ElementView>();
+            _relationships = new HashSet<RelationshipView>();
         }
 
         internal View(SoftwareSystem softwareSystem, string key, string description) : this()
@@ -102,8 +128,8 @@ namespace Structurizr
             }
             this.Description = description;
 
-            this.Elements = new HashSet<ElementView>();
-            this.Relationships = new HashSet<RelationshipView>();
+            _elements = new HashSet<ElementView>();
+            _relationships = new HashSet<RelationshipView>();
         }
 
         protected void AddElement(Element element, bool addRelationships)
@@ -112,7 +138,7 @@ namespace Structurizr
             {
                 if (Model.Contains(element))
                 {
-                    Elements.Add(new ElementView(element));
+                    _elements.Add(new ElementView(element));
 
                     if (addRelationships)
                     {
@@ -127,9 +153,9 @@ namespace Structurizr
             if (element != null)
             {
                 ElementView elementView = new ElementView(element);
-                Elements.Remove(elementView);
+                _elements.Remove(elementView);
 
-                Relationships.RemoveWhere(r =>
+                _relationships.RemoveWhere(r =>
                             r.Relationship.Source.Equals(element) ||
                             r.Relationship.Destination.Equals(element));
             }
@@ -142,7 +168,7 @@ namespace Structurizr
                 if (IsElementInView(relationship.Source) && IsElementInView(relationship.Destination))
                 {
                     RelationshipView relationshipView = new RelationshipView(relationship);
-                    Relationships.Add(relationshipView);
+                    _relationships.Add(relationshipView);
 
                     return relationshipView;
                 }
@@ -165,7 +191,7 @@ namespace Structurizr
 
         internal bool IsElementInView(Element element)
         {
-            return Elements.Count(ev => ev.Element.Equals(element)) > 0;
+            return _elements.Count(ev => ev.Element.Equals(element)) > 0;
         }
 
         private void AddRelationships(Element element)
@@ -181,7 +207,7 @@ namespace Structurizr
             {
                 if (elements.Contains(relationship.Destination))
                 {
-                    this.Relationships.Add(new RelationshipView(relationship));
+                    this._relationships.Add(new RelationshipView(relationship));
                 }
             }
 
@@ -192,7 +218,7 @@ namespace Structurizr
                 {
                     if (relationship.Destination.Equals(element))
                     {
-                        this.Relationships.Add(new RelationshipView(relationship));
+                        _relationships.Add(new RelationshipView(relationship));
                     }
                 }
             }
@@ -203,7 +229,7 @@ namespace Structurizr
             if (relationship != null)
             {
                 RelationshipView relationshipView = new RelationshipView(relationship);
-                Relationships.Remove(relationshipView);
+                _relationships.Remove(relationshipView);
             }
         }
 

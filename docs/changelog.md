@@ -3,6 +3,7 @@
 ## (unreleased)
 
 - Added the ability to lock and unlock workspaces, to prevent concurrent updates.
+- Fixes a bug with the PlantUML writer, where relationships were sorted incorrectly (alphabetically, rather than numerically).
 
 ## 0.9.1 (unreleased)
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Structurizr
@@ -12,6 +13,54 @@ namespace Structurizr
     {
 
         public override Model Model { get; set; }
+
+        public override ISet<RelationshipView> Relationships
+        {
+            get
+            {
+                List<RelationshipView> list = new List<RelationshipView>(base.Relationships);
+                bool ordersAreNumeric = true;
+
+                foreach (RelationshipView relationshipView in list)
+                {
+                    ordersAreNumeric = ordersAreNumeric && isNumeric(relationshipView.Order);
+                }
+
+                if (ordersAreNumeric)
+                {
+                    list.Sort(CompareAsNumber);
+                }
+                else
+                {
+                    list.Sort(CompareAsString);
+                }
+
+                return new HashSet<RelationshipView>(list);
+            }
+        }
+
+        private bool isNumeric(string str)
+        {
+            try
+            {
+                double.Parse(str);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        private int CompareAsNumber(RelationshipView x, RelationshipView y)
+        {
+            return double.Parse(x.Order).CompareTo(double.Parse(y.Order));
+        }
+
+        private int CompareAsString(RelationshipView x, RelationshipView y)
+        {
+            return x.Order.CompareTo(y.Order); 
+        }
 
         public override string Name
         {

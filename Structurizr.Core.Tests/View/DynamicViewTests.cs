@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -237,6 +238,77 @@ namespace Structurizr.Core.Tests
             Assert.Equal(2, view.Relationships.Count(r => r.Order.Equals("2")));
             Assert.Equal(2, view.Relationships.Count(r => r.Order.Equals("3")));
             Assert.Equal(1, view.Relationships.Count(r => r.Order.Equals("4")));
+        }
+
+        [Fact]
+        public void Test_GetRelationships_WhenTheOrderPropertyIsAnInteger()
+        {
+            containerA1.Uses(containerA2, "uses");
+            DynamicView view = Workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
+            for (int i = 0; i < 10; i++) {
+                view.Add(containerA1, containerA2);
+            }
+
+            List<RelationshipView> relationships = new List<RelationshipView>(view.Relationships);
+            Assert.Equal("1", relationships[0].Order);
+            Assert.Equal("2", relationships[1].Order);
+            Assert.Equal("3", relationships[2].Order);
+            Assert.Equal("4", relationships[3].Order);
+            Assert.Equal("5", relationships[4].Order);
+            Assert.Equal("6", relationships[5].Order);
+            Assert.Equal("7", relationships[6].Order);
+            Assert.Equal("8", relationships[7].Order);
+            Assert.Equal("9", relationships[8].Order);
+            Assert.Equal("10", relationships[9].Order);
+        }
+
+        [Fact]
+        public void Test_GetRelationships_WhenTheOrderPropertyIsADecimal()
+        {
+            containerA1.Uses(containerA2, "uses");
+            DynamicView view = Workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
+            for (int i = 0; i < 10; i++)
+            {
+                RelationshipView relationshipView = view.Add(containerA1, containerA2);
+                relationshipView.Order = "1." + i;
+            }
+
+            List<RelationshipView> relationships = new List<RelationshipView>(view.Relationships);
+            Assert.Equal("1.0", relationships[0].Order);
+            Assert.Equal("1.1", relationships[1].Order);
+            Assert.Equal("1.2", relationships[2].Order);
+            Assert.Equal("1.3", relationships[3].Order);
+            Assert.Equal("1.4", relationships[4].Order);
+            Assert.Equal("1.5", relationships[5].Order);
+            Assert.Equal("1.6", relationships[6].Order);
+            Assert.Equal("1.7", relationships[7].Order);
+            Assert.Equal("1.8", relationships[8].Order);
+            Assert.Equal("1.9", relationships[9].Order);
+        }
+
+        [Fact]
+        public void Test_GetRelationships_WhenTheOrderPropertyIsAString()
+        {
+            string characters = "abcdefghij";
+            containerA1.Uses(containerA2, "uses");
+            DynamicView view = Workspace.Views.CreateDynamicView(softwareSystemA, "key", "Description");
+            for (int i = 0; i < 10; i++)
+            {
+                RelationshipView relationshipView = view.Add(containerA1, containerA2);
+                relationshipView.Order = "1" + characters.ToCharArray()[i];
+            }
+
+            List<RelationshipView> relationships = new List<RelationshipView>(view.Relationships);
+            Assert.Equal("1a", relationships[0].Order);
+            Assert.Equal("1b", relationships[1].Order);
+            Assert.Equal("1c", relationships[2].Order);
+            Assert.Equal("1d", relationships[3].Order);
+            Assert.Equal("1e", relationships[4].Order);
+            Assert.Equal("1f", relationships[5].Order);
+            Assert.Equal("1g", relationships[6].Order);
+            Assert.Equal("1h", relationships[7].Order);
+            Assert.Equal("1i", relationships[8].Order);
+            Assert.Equal("1j", relationships[9].Order);
         }
 
     }

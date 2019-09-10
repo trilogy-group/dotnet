@@ -319,7 +319,7 @@ namespace Structurizr.IO.PlantUML
             }
         }
 
-        private void Write(HashSet<RelationshipView> relationships, TextWriter writer)
+        private void Write(ISet<RelationshipView> relationships, TextWriter writer)
         {
             relationships
                 .Select(rv => rv.Relationship)
