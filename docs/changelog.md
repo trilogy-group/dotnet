@@ -1,11 +1,6 @@
 # Changelog
 
-## (unreleased)
-
-- Added the ability to lock and unlock workspaces, to prevent concurrent updates.
-- Fixes a bug with the PlantUML writer, where relationships were sorted incorrectly (alphabetically, rather than numerically).
-
-## 0.9.1 (unreleased)
+## 0.9.1 (10th September 2019)
 
 - The terminology for relationships can now be customised.
 - Added support for icons on element styles.
@@ -13,8 +8,10 @@
 - Relationships can no longer be created between container instances (__breaking change__).
 - Fixed issue #40 (WorkspaceUtils does not load containers' properties).
 - Provided a way to customize the sort order when displaying the list of views.
+- Added the ability to lock and unlock workspaces, to prevent concurrent updates.
+- Fixes a bug with the PlantUML writer, where relationships were sorted incorrectly (alphabetically, rather than numerically).
 
-## 0.9.0 (8th November 2018)
+## 0.9.1 (8th November 2018)
 
 - Added the ability to specify users who should have read-write or read-only workspace access, via the ```workspace.Configuration.AddUser(username, role)``` method. 
 
