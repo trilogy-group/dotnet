@@ -19,7 +19,7 @@ namespace Structurizr
         /// The name of this element.
         /// </summary>
         [DataMember(Name = "name", EmitDefaultValue = false)]
-        public virtual string Name { get; set; }
+        public virtual string Name { get; internal set; }
 
         /// <summary>
         /// A short description of this element.

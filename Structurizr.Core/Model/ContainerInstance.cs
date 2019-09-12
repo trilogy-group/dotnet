@@ -42,7 +42,7 @@ namespace Structurizr
         public override string Name
         {
             get { return null; }
-            set
+            internal set
             {
                 // no-op
             }
