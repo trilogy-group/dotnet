@@ -35,15 +35,28 @@ namespace Structurizr
         [DataMember(Name="size", EmitDefaultValue = true)]
         public long Size { get; set; }
 
+        private HashSet<CodeElement> _codeElements;
+
         /// <summary>
         /// The implementation type (e.g. a fully qualified interface/class name).
         /// </summary>
         [DataMember(Name="code", EmitDefaultValue=false)]
-        public HashSet<CodeElement> CodeElements { get; internal set; }
+        public ISet<CodeElement> CodeElements
+        {
+            get
+            {
+                return new HashSet<CodeElement>(_codeElements);
+            }
+
+            internal set
+            {
+                _codeElements = new HashSet<CodeElement>(value);
+            }
+        }
 
         internal Component()
         {
-            CodeElements = new HashSet<CodeElement>();
+            _codeElements = new HashSet<CodeElement>();
         }
 
         public override string CanonicalName
@@ -70,7 +83,7 @@ namespace Structurizr
         {
             get
             {
-                CodeElement codeElement = CodeElements.FirstOrDefault(ce => ce.Role == CodeElementRole.Primary);
+                CodeElement codeElement = _codeElements.FirstOrDefault(ce => ce.Role == CodeElementRole.Primary);
                 return codeElement?.Type;
             }
 
@@ -78,10 +91,10 @@ namespace Structurizr
             {
                 if (value != null && value.Trim().Length > 0)
                 {
-                    CodeElements.RemoveWhere(ce => ce.Role == CodeElementRole.Primary);
+                    _codeElements.RemoveWhere(ce => ce.Role == CodeElementRole.Primary);
                     CodeElement codeElement = new CodeElement(value);
                     codeElement.Role = CodeElementRole.Primary;
-                    CodeElements.Add(codeElement);
+                    _codeElements.Add(codeElement);
                 }
             }
         }
@@ -90,7 +103,7 @@ namespace Structurizr
         {
             CodeElement codeElement = new CodeElement(type);
             codeElement.Role = CodeElementRole.Supporting;
-            CodeElements.Add(codeElement);
+            _codeElements.Add(codeElement);
 
             return codeElement;
         }

@@ -17,7 +17,8 @@ namespace Structurizr.IO.Json
                     new StringEnumConverter(),
                     new IsoDateTimeConverter(),
                     new PaperSizeJsonConverter()
-                }
+                },
+                ObjectCreationHandling = ObjectCreationHandling.Replace
             };
 
             Workspace workspace = JsonConvert.DeserializeObject<Workspace>(reader.ReadToEnd(), settings);

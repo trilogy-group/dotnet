@@ -28,12 +28,25 @@ namespace Structurizr
         /// </summary>
         [DataMember(Name="technology", EmitDefaultValue=false)]
         public string Technology { get; set; }
-  
+
+        private HashSet<Component> _components;
+
         /// <summary>
         /// The set of components within this container.
         /// </summary>
         [DataMember(Name="components", EmitDefaultValue=false)]
-        public HashSet<Component> Components { get; set; }
+        public ISet<Component> Components
+        {
+            get
+            {
+                return new HashSet<Component>(_components);
+            }
+
+            set
+            {
+                _components = new HashSet<Component>(value);
+            }
+        }
   
         public override string CanonicalName
         {
@@ -45,7 +58,7 @@ namespace Structurizr
 
         internal Container()
         {
-            this.Components = new HashSet<Component>();
+            _components = new HashSet<Component>();
         }
 
         public Component AddComponent(string name, string description)
@@ -72,7 +85,7 @@ namespace Structurizr
         {
             if (GetComponentWithName(component.Name) == null)
             {
-                Components.Add(component);
+                _components.Add(component);
             }
         }
 
@@ -101,7 +114,7 @@ namespace Structurizr
                 return null;
             }
 
-            return Components.Where(c => c.Type == type).FirstOrDefault();
+            return _components.Where(c => c.Type == type).FirstOrDefault();
         }
 
 

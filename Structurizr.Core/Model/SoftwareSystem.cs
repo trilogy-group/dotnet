@@ -18,13 +18,25 @@ namespace Structurizr
         /// </summary>
         [DataMember(Name="location", EmitDefaultValue=false)]
         public Location Location { get; set; }
-  
-        
+
+        private HashSet<Container> _containers;
+
         /// <summary>
         /// The set of containers within this software system.
         /// </summary>
         [DataMember(Name="containers", EmitDefaultValue=false)]
-        public HashSet<Container> Containers { get; set; }
+        public ISet<Container> Containers
+        {
+            get
+            {
+                return new HashSet<Container>(_containers);
+            }
+
+            internal set
+            {
+                _containers = new HashSet<Container>(value);
+            }
+        }
   
         public override string CanonicalName
         {
@@ -48,7 +60,7 @@ namespace Structurizr
 
         internal SoftwareSystem()
         {
-            this.Containers = new HashSet<Container>();
+            _containers = new HashSet<Container>();
         }
 
         /// <summary>
@@ -65,7 +77,7 @@ namespace Structurizr
 
         internal void Add(Container container)
         {
-            Containers.Add(container);
+            _containers.Add(container);
         }
 
         /// <summary>
@@ -73,7 +85,7 @@ namespace Structurizr
         /// </summary>
         public Container GetContainerWithName(string name)
         {
-            foreach (Container container in Containers)
+            foreach (Container container in _containers)
             {
                 if (container.Name == name)
                 {
@@ -89,7 +101,7 @@ namespace Structurizr
         /// </summary>
         public Container GetContainerWithId(string id)
         {
-            foreach (Container container in Containers)
+            foreach (Container container in _containers)
             {
                 if (container.Id == id)
                 {

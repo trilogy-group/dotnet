@@ -54,14 +54,17 @@ namespace Structurizr
         /// The set of health checks associated with this container instance.
         /// </summary>
         [DataMember(Name = "healthChecks", EmitDefaultValue = false)]
-        public HashSet<HttpHealthCheck> HealthChecks
+        public ISet<HttpHealthCheck> HealthChecks
         {
             get
             {
                 return new HashSet<HttpHealthCheck>(_healthChecks);
             }
 
-            internal set { _healthChecks = value; }
+            internal set
+            {
+                _healthChecks = new HashSet<HttpHealthCheck>(value);
+            }
         }
 
         internal ContainerInstance() {

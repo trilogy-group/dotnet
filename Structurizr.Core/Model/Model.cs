@@ -16,14 +16,53 @@ namespace Structurizr
         [DataMember(Name = "enterprise", EmitDefaultValue = false)]
         public Enterprise Enterprise { get; set; }
 
+        private HashSet<Person> _people;
+
         [DataMember(Name = "people", EmitDefaultValue = false)]
-        public HashSet<Person> People { get; set; }
+        public ISet<Person> People
+        {
+            get
+            {
+                return new HashSet<Person>(_people);
+            }
+
+            internal set
+            {
+                _people = new HashSet<Person>(value);
+            }
+        }
+
+        private HashSet<SoftwareSystem> _softwareSystems;
 
         [DataMember(Name = "softwareSystems", EmitDefaultValue = false)]
-        public HashSet<SoftwareSystem> SoftwareSystems { get; }
+        public ISet<SoftwareSystem> SoftwareSystems
+        {
+            get
+            {
+                return new HashSet<SoftwareSystem>(_softwareSystems);
+            }
+
+            internal set
+            {
+                _softwareSystems = new HashSet<SoftwareSystem>(value);
+            }
+        }
+
+        private HashSet<DeploymentNode> _deploymentNodes;
 
         [DataMember(Name = "deploymentNodes", EmitDefaultValue = false)]
-        public HashSet<DeploymentNode> DeploymentNodes { get; }
+        public ISet<DeploymentNode> DeploymentNodes
+        {
+            get
+            {
+                return new HashSet<DeploymentNode>(_deploymentNodes);
+            }
+
+            internal set
+            {
+                _deploymentNodes = new HashSet<DeploymentNode>(value);
+            }
+        }
 
         private readonly Dictionary<string, Element> _elementsById = new Dictionary<string, Element>();
         private readonly Dictionary<string, Relationship> _relationshipsById = new Dictionary<string, Relationship>();
@@ -32,7 +71,7 @@ namespace Structurizr
         {
             get
             {
-                return _relationshipsById.Values;
+                return new List<Relationship>(_relationshipsById.Values);
             }
         }
 
@@ -40,9 +79,9 @@ namespace Structurizr
 
         internal Model()
         {
-            People = new HashSet<Person>();
-            SoftwareSystems = new HashSet<SoftwareSystem>();
-            DeploymentNodes = new HashSet<DeploymentNode>();
+            _people = new HashSet<Person>();
+            _softwareSystems = new HashSet<SoftwareSystem>();
+            _deploymentNodes = new HashSet<DeploymentNode>();
         }
 
         /// <summary>
@@ -74,7 +113,7 @@ namespace Structurizr
                 softwareSystem.Name = name;
                 softwareSystem.Description = description;
 
-                SoftwareSystems.Add(softwareSystem);
+                _softwareSystems.Add(softwareSystem);
 
                 softwareSystem.Id = _idGenerator.GenerateId(softwareSystem);
                 AddElementToInternalStructures(softwareSystem);
@@ -116,7 +155,7 @@ namespace Structurizr
                 person.Name = name;
                 person.Description = description;
 
-                People.Add(person);
+                _people.Add(person);
 
                 person.Id = _idGenerator.GenerateId(person);
                 AddElementToInternalStructures(person);
@@ -264,7 +303,7 @@ namespace Structurizr
                 }
 
                 if (parent == null) {
-                    DeploymentNodes.Add(deploymentNode);
+                    _deploymentNodes.Add(deploymentNode);
                 }
 
                 deploymentNode.Id = _idGenerator.GenerateId(deploymentNode);
@@ -284,7 +323,7 @@ namespace Structurizr
         /// <returns>the DeploymentNode instance with the specified name (or null if it doesn't exist)</returns>
         public DeploymentNode GetDeploymentNodeWithName(string name, string environment)
         {
-            return DeploymentNodes.FirstOrDefault(dn => dn.Environment.Equals(environment) && dn.Name.Equals(name));
+            return _deploymentNodes.FirstOrDefault(dn => dn.Environment.Equals(environment) && dn.Name.Equals(name));
         }
 
         internal Relationship AddRelationship(Element source, Element destination, string description) {
@@ -360,7 +399,7 @@ namespace Structurizr
         /// <returns>A SoftwareSystem instance, or null if one doesn't exist.</returns>
         public SoftwareSystem GetSoftwareSystemWithName(string name)
         {
-            foreach (SoftwareSystem softwareSystem in SoftwareSystems)
+            foreach (SoftwareSystem softwareSystem in _softwareSystems)
             {
                 if (softwareSystem.Name == name)
                 {
@@ -373,7 +412,7 @@ namespace Structurizr
 
         public SoftwareSystem GetSoftwareSystemWithId(string id)
         {
-            foreach (SoftwareSystem softwareSystem in SoftwareSystems)
+            foreach (SoftwareSystem softwareSystem in _softwareSystems)
             {
                 if (softwareSystem.Id == id)
                 {
@@ -390,7 +429,7 @@ namespace Structurizr
         /// <returns>A Person instance, or null if one doesn't exist.</returns>
         public Person GetPersonWithName(string name)
         {
-            foreach (Person person in People)
+            foreach (Person person in _people)
             {
                 if (person.Name == name)
                 {
@@ -417,12 +456,12 @@ namespace Structurizr
         {
             
             // add all of the elements to the model
-            foreach (Person person in People)
+            foreach (Person person in _people)
             {
                 AddElementToInternalStructures(person);
             }
 
-            foreach (SoftwareSystem softwareSystem in SoftwareSystems)
+            foreach (SoftwareSystem softwareSystem in _softwareSystems)
             {
                 AddElementToInternalStructures(softwareSystem);
                 foreach (Container container in softwareSystem.Containers)
@@ -439,7 +478,7 @@ namespace Structurizr
                 }
             }
 
-            DeploymentNodes.ToList().ForEach(dn => HydrateDeploymentNode(dn, null));
+            _deploymentNodes.ToList().ForEach(dn => HydrateDeploymentNode(dn, null));
 
             // now hydrate the relationships
             foreach (Person person in People)
@@ -460,7 +499,7 @@ namespace Structurizr
                 }
             }
             
-            DeploymentNodes.ToList().ForEach(HydrateDeploymentNodeRelationships);
+            _deploymentNodes.ToList().ForEach(HydrateDeploymentNodeRelationships);
         }
 
         private void HydrateDeploymentNode(DeploymentNode deploymentNode, DeploymentNode parent)

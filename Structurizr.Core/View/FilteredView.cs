@@ -23,7 +23,7 @@ namespace Structurizr
         public FilterMode Mode { get; internal set; }
 
         [DataMember(Name="tags", EmitDefaultValue=false)]
-        public HashSet<string> Tags { get; internal set; } 
+        public ISet<string> Tags { get; internal set; } 
         
         private string _baseViewKey;
 

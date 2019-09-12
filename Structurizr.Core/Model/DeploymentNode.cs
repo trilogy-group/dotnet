@@ -36,24 +36,51 @@ namespace Structurizr
 
         [DataMember(Name = "instances", EmitDefaultValue = false)]
         public int Instances { get; set; }
-        
+
+        private HashSet<DeploymentNode> _children;
+
         /// <summary>
         /// The set of child deployment nodes.
         /// </summary>
         [DataMember(Name = "children", EmitDefaultValue = false)]
-        public ISet<DeploymentNode> Children { get; internal set; }
+        public ISet<DeploymentNode> Children
+        {
+            get
+            {
+                return new HashSet<DeploymentNode>(_children);
+            }
+
+            internal set
+            {
+                _children = new HashSet<DeploymentNode>(value);
+            }
+        }
+
+        private HashSet<ContainerInstance> _containerInstances;
+
 
         /// <summary>
         /// The set of container instances associated with this deployment node.
         /// </summary>
         [DataMember(Name = "containerInstances", EmitDefaultValue = false)]
-        public ISet<ContainerInstance> ContainerInstances { get; internal set; }
+        public ISet<ContainerInstance> ContainerInstances
+        {
+            get
+            {
+                return new HashSet<ContainerInstance>(_containerInstances);
+            }
+
+            internal set
+            {
+                _containerInstances = new HashSet<ContainerInstance>(value);
+            }
+        }
 
         internal DeploymentNode()
         {
             Instances = 1;
-            Children = new HashSet<DeploymentNode>();
-            ContainerInstances = new HashSet<ContainerInstance>();
+            _children = new HashSet<DeploymentNode>();
+            _containerInstances = new HashSet<ContainerInstance>();
             Environment = DefaultDeploymentEnvironment;
         }
 
@@ -99,7 +126,7 @@ namespace Structurizr
             }
 
             ContainerInstance containerInstance = Model.AddContainerInstance(this, container);
-            ContainerInstances.Add(containerInstance);
+            _containerInstances.Add(containerInstance);
     
             return containerInstance;
         }
@@ -139,7 +166,7 @@ namespace Structurizr
         public DeploymentNode AddDeploymentNode(string name, string description, string technology, int instances, Dictionary<string,string> properties) {
             DeploymentNode deploymentNode = Model.AddDeploymentNode(this, this.Environment, name, description, technology, instances, properties);
             if (deploymentNode != null) {
-                Children.Add(deploymentNode);
+                _children.Add(deploymentNode);
             }
             
             return deploymentNode;
@@ -157,7 +184,7 @@ namespace Structurizr
                 throw new ArgumentException("A name must be specified.");
             }
 
-            return Children.FirstOrDefault(dn => dn.Name.Equals(name));
+            return _children.FirstOrDefault(dn => dn.Name.Equals(name));
         }
 
         /// <summary>

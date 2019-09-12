@@ -25,52 +25,143 @@ namespace Structurizr
             {
                 foreach (SystemLandscapeView systemLandscapeView in value)
                 {
-                    SystemLandscapeViews.Add(systemLandscapeView);
+                    _systemLandscapeViews.Add(systemLandscapeView);
                 }
             }
         }
+
+        private HashSet<SystemLandscapeView> _systemLandscapeViews;
 
         /// <summary>
         /// The set of system landscape views.
         /// </summary>
         [DataMember(Name = "systemLandscapeViews", EmitDefaultValue = false)]
-        public ISet<SystemLandscapeView> SystemLandscapeViews { get; internal set; }
+        public ISet<SystemLandscapeView> SystemLandscapeViews
+        {
+            get
+            {
+                return new HashSet<SystemLandscapeView>(_systemLandscapeViews);
+            }
+
+            internal set
+            {
+                _systemLandscapeViews = new HashSet<SystemLandscapeView>(value);
+            }
+        }
+
+        private HashSet<SystemContextView> _systemContextViews;
 
         /// <summary>
         /// The set of system context views.
         /// </summary>
         [DataMember(Name = "systemContextViews", EmitDefaultValue = false)]
-        public ISet<SystemContextView> SystemContextViews { get; internal set; }
+        public ISet<SystemContextView> SystemContextViews
+        {
+            get
+            {
+                return new HashSet<SystemContextView>(_systemContextViews);
+            }
+
+            internal set
+            {
+                _systemContextViews = new HashSet<SystemContextView>(value);
+            }
+        }
+
+        private HashSet<ContainerView> _containerViews;
 
         /// <summary>
         /// The set of container views.
         /// </summary>
         [DataMember(Name = "containerViews", EmitDefaultValue = false)]
-        public ISet<ContainerView> ContainerViews { get; internal set; }
+        public ISet<ContainerView> ContainerViews
+        {
+            get
+            {
+                return new HashSet<ContainerView>(_containerViews);
+            }
+
+            internal set
+            {
+                _containerViews = new HashSet<ContainerView>(value);
+            }
+        }
+
+        private HashSet<ComponentView> _componentViews;
 
         /// <summary>
         /// The set of component views.
         /// </summary>
         [DataMember(Name = "componentViews", EmitDefaultValue = false)]
-        public ISet<ComponentView> ComponentViews { get; internal set; }
+        public ISet<ComponentView> ComponentViews
+        {
+            get
+            {
+                return new HashSet<ComponentView>(_componentViews);
+            }
+
+            internal set
+            {
+                _componentViews = new HashSet<ComponentView>(value);
+            }
+        }
+
+        private HashSet<DynamicView> _dynamicViews;
 
         /// <summary>
         /// The set of dynamic views.
         /// </summary>
         [DataMember(Name = "dynamicViews", EmitDefaultValue = false)]
-        public ISet<DynamicView> DynamicViews { get; internal set; }
+        public ISet<DynamicView> DynamicViews
+        {
+            get
+            {
+                return new HashSet<DynamicView>(_dynamicViews);
+            }
+
+            internal set
+            {
+                _dynamicViews = new HashSet<DynamicView>(value);
+            }
+        }
+
+        private HashSet<DeploymentView> _deploymentViews;
 
         /// <summary>
         /// The set of deployment views.
         /// </summary>
         [DataMember(Name = "deploymentViews", EmitDefaultValue = false)]
-        public ISet<DeploymentView> DeploymentViews { get; internal set; }
+        public ISet<DeploymentView> DeploymentViews
+        {
+            get
+            {
+                return new HashSet<DeploymentView>(_deploymentViews);
+            }
+
+            internal set
+            {
+                _deploymentViews = new HashSet<DeploymentView>(value);
+            }
+        }
+
+        private HashSet<FilteredView> _filteredViews;
 
         /// <summary>
         /// The set of filtered views.
         /// </summary>
         [DataMember(Name = "filteredViews", EmitDefaultValue = false)]
-        public ISet<FilteredView> FilteredViews { get; internal set; }
+        public ISet<FilteredView> FilteredViews
+        {
+            get
+            {
+                return new HashSet<FilteredView>(_filteredViews);
+            }
+
+            internal set
+            {
+                _filteredViews = new HashSet<FilteredView>(value);
+            }
+        }
 
         /// <summary>
         /// The configuration object associated with this set of views.
@@ -80,13 +171,13 @@ namespace Structurizr
 
         internal ViewSet()
         {
-            SystemLandscapeViews = new HashSet<SystemLandscapeView>();
-            SystemContextViews = new HashSet<SystemContextView>();
-            ContainerViews = new HashSet<ContainerView>();
-            ComponentViews = new HashSet<ComponentView>();
-            DynamicViews = new HashSet<DynamicView>();
-            DeploymentViews = new HashSet<DeploymentView>();
-            FilteredViews = new HashSet<FilteredView>();
+            _systemLandscapeViews = new HashSet<SystemLandscapeView>();
+            _systemContextViews = new HashSet<SystemContextView>();
+            _containerViews = new HashSet<ContainerView>();
+            _componentViews = new HashSet<ComponentView>();
+            _dynamicViews = new HashSet<DynamicView>();
+            _deploymentViews = new HashSet<DeploymentView>();
+            _filteredViews = new HashSet<FilteredView>();
 
             Configuration = new ViewConfiguration();
         }
@@ -101,7 +192,7 @@ namespace Structurizr
             AssertThatTheViewKeyIsUnique(key);
 
             SystemLandscapeView view = new SystemLandscapeView(Model, key, description);
-            SystemLandscapeViews.Add(view);
+            _systemLandscapeViews.Add(view);
             return view;
         }
 
@@ -110,7 +201,7 @@ namespace Structurizr
             AssertThatTheViewKeyIsUnique(key);
 
             SystemContextView view = new SystemContextView(softwareSystem, key, description);
-            SystemContextViews.Add(view);
+            _systemContextViews.Add(view);
 
             return view;
         }
@@ -120,7 +211,7 @@ namespace Structurizr
             AssertThatTheViewKeyIsUnique(key);
 
             ContainerView view = new ContainerView(softwareSystem, key, description);
-            ContainerViews.Add(view);
+            _containerViews.Add(view);
 
             return view;
         }
@@ -130,7 +221,7 @@ namespace Structurizr
             AssertThatTheViewKeyIsUnique(key);
 
             ComponentView view = new ComponentView(container, key, description);
-            ComponentViews.Add(view);
+            _componentViews.Add(view);
 
             return view;
         }
@@ -140,7 +231,7 @@ namespace Structurizr
             AssertThatTheViewKeyIsUnique(key);
 
             DynamicView view = new DynamicView(Model, key, description);
-            DynamicViews.Add(view);
+            _dynamicViews.Add(view);
             return view;
         }
 
@@ -150,7 +241,7 @@ namespace Structurizr
             AssertThatTheViewKeyIsUnique(key);
 
             DynamicView view = new DynamicView(softwareSystem, key, description);
-            DynamicViews.Add(view);
+            _dynamicViews.Add(view);
             return view;
         }
 
@@ -160,7 +251,7 @@ namespace Structurizr
             AssertThatTheViewKeyIsUnique(key);
 
             DynamicView view = new DynamicView(container, key, description);
-            DynamicViews.Add(view);
+            _dynamicViews.Add(view);
             return view;
         }
         
@@ -172,7 +263,7 @@ namespace Structurizr
             AssertThatTheViewKeyIsUnique(key);
 
             DeploymentView view = new DeploymentView(Model, key, description);
-            DeploymentViews.Add(view);
+            _deploymentViews.Add(view);
             return view;
         }
 
@@ -188,7 +279,7 @@ namespace Structurizr
             AssertThatTheViewKeyIsUnique(key);
 
             DeploymentView view = new DeploymentView(softwareSystem, key, description);
-            DeploymentViews.Add(view);
+            _deploymentViews.Add(view);
             return view;
         }
 
@@ -207,7 +298,7 @@ namespace Structurizr
             AssertThatTheViewKeyIsUnique(key);
 
             FilteredView filteredView = new FilteredView(view, key, description, mode, tags);
-            FilteredViews.Add(filteredView);
+            _filteredViews.Add(filteredView);
             
             return filteredView;
         }
@@ -238,38 +329,38 @@ namespace Structurizr
 
         public void Hydrate()
         {
-            foreach (SystemLandscapeView view in SystemLandscapeViews)
+            foreach (SystemLandscapeView view in _systemLandscapeViews)
             {
                 view.Model = Model;
                 HydrateView(view);
             }
 
-            foreach (SystemContextView view in SystemContextViews)
+            foreach (SystemContextView view in _systemContextViews)
             {
                 view.SoftwareSystem = Model.GetSoftwareSystemWithId(view.SoftwareSystemId);
                 HydrateView(view);
             }
 
-            foreach (ContainerView view in ContainerViews)
+            foreach (ContainerView view in _containerViews)
             {
                 view.SoftwareSystem = Model.GetSoftwareSystemWithId(view.SoftwareSystemId);
                 HydrateView(view);
             }
 
-            foreach (ComponentView view in ComponentViews)
+            foreach (ComponentView view in _componentViews)
             {
                 view.SoftwareSystem = Model.GetSoftwareSystemWithId(view.SoftwareSystemId);
                 view.Container = view.SoftwareSystem.GetContainerWithId(view.ContainerId);
                 HydrateView(view);
             }
 
-            foreach (DynamicView view in DynamicViews)
+            foreach (DynamicView view in _dynamicViews)
             {
                 view.Model = Model;
                 HydrateView(view);
             }
             
-            foreach (DeploymentView view in DeploymentViews)
+            foreach (DeploymentView view in _deploymentViews)
             {
                 if (!String.IsNullOrEmpty(view.SoftwareSystemId))
                 {
@@ -279,7 +370,7 @@ namespace Structurizr
                 HydrateView(view);
             }
             
-            foreach (FilteredView filteredView in FilteredViews)
+            foreach (FilteredView filteredView in _filteredViews)
             {
                 filteredView.View = GetViewWithKey(filteredView.BaseViewKey);
             }
@@ -356,32 +447,32 @@ namespace Structurizr
 
         private SystemLandscapeView FindSystemLandscapeView(SystemLandscapeView systemLandscapeView)
         {
-            return SystemLandscapeViews.FirstOrDefault(view => view.Key == systemLandscapeView.Key);
+            return _systemLandscapeViews.FirstOrDefault(view => view.Key == systemLandscapeView.Key);
         }
 
         private SystemContextView FindSystemContextView(SystemContextView systemContextView)
         {
-            return SystemContextViews.FirstOrDefault(view => view.Key == systemContextView.Key);
+            return _systemContextViews.FirstOrDefault(view => view.Key == systemContextView.Key);
         }
 
         private ContainerView FindContainerView(ContainerView containerView)
         {
-            return ContainerViews.FirstOrDefault(view => view.Key == containerView.Key);
+            return _containerViews.FirstOrDefault(view => view.Key == containerView.Key);
         }
 
         private ComponentView FindComponentView(ComponentView componentView)
         {
-            return ComponentViews.FirstOrDefault(view => view.Key == componentView.Key);
+            return _componentViews.FirstOrDefault(view => view.Key == componentView.Key);
         }
 
         private DynamicView FindDynamicView(DynamicView dynamicView)
         {
-            return DynamicViews.FirstOrDefault(view => view.Key == dynamicView.Key);
+            return _dynamicViews.FirstOrDefault(view => view.Key == dynamicView.Key);
         }
 
         private DeploymentView FindDeploymentView(DeploymentView deploymentView)
         {
-            return DeploymentViews.FirstOrDefault(view => view.Key == deploymentView.Key);
+            return _deploymentViews.FirstOrDefault(view => view.Key == deploymentView.Key);
         }
 
         /// <summary>
@@ -402,7 +493,7 @@ namespace Structurizr
                 }
             }
 
-            foreach (SystemContextView view in SystemContextViews)
+            foreach (SystemContextView view in _systemContextViews)
             {
                 if (view.Key.Equals(key))
                 {
@@ -410,7 +501,7 @@ namespace Structurizr
                 }
             }
 
-            foreach (ContainerView view in ContainerViews)
+            foreach (ContainerView view in _containerViews)
             {
                 if (view.Key.Equals(key))
                 {
@@ -418,7 +509,7 @@ namespace Structurizr
                 }
             }
 
-            foreach (ComponentView view in ComponentViews)
+            foreach (ComponentView view in _componentViews)
             {
                 if (view.Key.Equals(key))
                 {
@@ -426,7 +517,7 @@ namespace Structurizr
                 }
             }
 
-            foreach (DynamicView view in DynamicViews)
+            foreach (DynamicView view in _dynamicViews)
             {
                 if (view.Key.Equals(key))
                 {
@@ -434,7 +525,7 @@ namespace Structurizr
                 }
             }
 
-            foreach (DeploymentView view in DeploymentViews)
+            foreach (DeploymentView view in _deploymentViews)
             {
                 if (view.Key.Equals(key))
                 {
@@ -452,7 +543,7 @@ namespace Structurizr
                 throw new ArgumentException("A key must be specified.");
             }
 
-            foreach (FilteredView view in FilteredViews)
+            foreach (FilteredView view in _filteredViews)
             {
                 if (view.Key.Equals(key))
                 {

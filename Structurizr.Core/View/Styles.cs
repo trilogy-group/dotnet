@@ -11,29 +11,55 @@ namespace Structurizr
     public sealed class Styles
     {
 
+        private List<RelationshipStyle> _relationships;
+
         /// <summary>
         /// The set of relationship styles.
         /// </summary>
         [DataMember(Name="relationships", EmitDefaultValue=false)]
-        public List<RelationshipStyle> Relationships { get; set; }
-  
+        public IList<RelationshipStyle> Relationships
+        {
+            get
+            {
+                return new List<RelationshipStyle>(_relationships);
+            }
+
+            internal set
+            {
+                _relationships = new List<RelationshipStyle>(value);
+            }
+        }
+
+        private List<ElementStyle> _elements;
+
         /// <summary>
         /// The set of element styles.
         /// </summary>
         [DataMember(Name="elements", EmitDefaultValue=false)]
-        public List<ElementStyle> Elements { get; set; }
+        public IList<ElementStyle> Elements
+        {
+            get
+            {
+                return new List<ElementStyle>(_elements);
+            }
+
+            set
+            {
+                _elements = new List<ElementStyle>(value);
+            }
+        }
   
         internal Styles()
         {
-            this.Elements = new List<ElementStyle>();
-            this.Relationships = new List<RelationshipStyle>();
+            _elements = new List<ElementStyle>();
+            _relationships = new List<RelationshipStyle>();
         }
 
         public void Add(ElementStyle elementStyle)
         {
             if (elementStyle != null)
             {
-                this.Elements.Add(elementStyle);
+                _elements.Add(elementStyle);
             }
         }
 
@@ -41,7 +67,7 @@ namespace Structurizr
         {
             if (relationshipStyle != null)
             {
-                this.Relationships.Add(relationshipStyle);
+                _relationships.Add(relationshipStyle);
             }
         }
 

@@ -10,17 +10,43 @@ namespace Structurizr
         
         [DataMember(Name = "order", EmitDefaultValue = false)]
         public int Order { get; internal set; }
-        
+
+        private HashSet<string> _elements;
+
         [DataMember(Name = "elements", EmitDefaultValue = false)]
-        public ISet<string> Elements { get; internal set; }
+        public ISet<string> Elements
+        {
+            get
+            {
+                return new HashSet<string>(_elements);
+            }
+
+            internal set
+            {
+                _elements = new HashSet<string>(value);
+            }
+        }
+
+        private HashSet<string> _relationships;
 
         [DataMember(Name = "relationships", EmitDefaultValue = false)]
-        public ISet<string> Relationships { get; internal set; }
+        public ISet<string> Relationships
+        {
+            get
+            {
+                return new HashSet<string>(_relationships);
+            }
+
+            internal set
+            {
+                _relationships = new HashSet<string>(value);
+            }
+        }
 
         internal Animation()
         {
-            Elements = new HashSet<string>();
-            Relationships = new HashSet<string>();
+            _elements = new HashSet<string>();
+            _relationships = new HashSet<string>();
         }
         
         internal Animation(int order, ISet<Element> elements, ISet<Relationship> relationships) : this()
@@ -29,15 +55,14 @@ namespace Structurizr
 
             foreach (Element element in elements)
             {
-                Elements.Add(element.Id);
+                _elements.Add(element.Id);
             }
 
             foreach (Relationship relationship in relationships)
             {
-                Relationships.Add(relationship.Id);
+                _relationships.Add(relationship.Id);
             }
         }
-
 
     }
 }

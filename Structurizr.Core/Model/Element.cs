@@ -58,8 +58,21 @@ namespace Structurizr
 
         public Model Model { get; set; }
 
+        private HashSet<Relationship> _relationships;
+
         [DataMember(Name = "relationships", EmitDefaultValue = false)]
-        public HashSet<Relationship> Relationships { get; set; }
+        public ISet<Relationship> Relationships
+        {
+            get
+            {
+                return new HashSet<Relationship>(_relationships);
+            }
+
+            internal set
+            {
+                _relationships = new HashSet<Relationship>(value);
+            }
+        }
 
         public abstract string CanonicalName { get; }
 
@@ -67,17 +80,17 @@ namespace Structurizr
 
         internal Element()
         {
-            Relationships = new HashSet<Relationship>();
+            _relationships = new HashSet<Relationship>();
         }
 
         internal void AddRelationship(Relationship relationship)
         {
-            Relationships.Add(relationship);
+            _relationships.Add(relationship);
         }
 
         public bool Has(Relationship relationship)
         {
-            return Relationships.Contains(relationship);
+            return _relationships.Contains(relationship);
         }
 
         /// <summary>
