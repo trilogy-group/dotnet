@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.2 (16th September 2019)
+
+- Fixes a bug where element and relationship positioning is lost when workspaces are merged.
+
 ## 0.9.1 (10th September 2019)
 
 - The terminology for relationships can now be customised.
@@ -11,7 +15,7 @@
 - Added the ability to lock and unlock workspaces, to prevent concurrent updates.
 - Fixes a bug with the PlantUML writer, where relationships were sorted incorrectly (alphabetically, rather than numerically).
 
-## 0.9.1 (8th November 2018)
+## 0.9.0 (8th November 2018)
 
 - Added the ability to specify users who should have read-write or read-only workspace access, via the ```workspace.Configuration.AddUser(username, role)``` method. 
 
