@@ -339,13 +339,38 @@ namespace Structurizr
             {
                 throw new ArgumentException("The destination must be specified.");
             }
-            
+
+            if (IsChildOf(source, destination) || IsChildOf(destination, source))
+            {
+                throw new ArgumentException("Relationships cannot be added between parents and children.");
+            }
+
             Relationship relationship = new Relationship(source, destination, description, technology, interactionStyle);
             if (AddRelationship(relationship)) {
                 return relationship;
             }
             
             return null;
+        }
+
+        private bool IsChildOf(Element e1, Element e2)
+        {
+            if (e1 is Person || e2 is Person) {
+                return false;
+            }
+
+            Element parent = e2.Parent;
+            while (parent != null)
+            {
+                if (parent.Id.Equals(e1.Id))
+                {
+                    return true;
+                }
+
+                parent = parent.Parent;
+            }
+
+            return false;
         }
 
         private bool AddRelationship(Relationship relationship)
@@ -667,39 +692,8 @@ namespace Structurizr
             {
                 return false;
             }
-    
-            if (source.Parent != null) {
-                if (destination.Equals(source.Parent))
-                {
-                    return false;
-                }
-    
-                if (source.Parent.Parent != null)
-                {
-                    if (destination.Equals(source.Parent.Parent))
-                    {
-                        return false;
-                    }
-                }
-            }
-    
-            if (destination.Parent != null)
-            {
-                if (source.Equals(destination.Parent))
-                {
-                    return false;
-                }
-    
-                if (destination.Parent.Parent != null)
-                {
-                    if (source.Equals(destination.Parent.Parent))
-                    {
-                        return false;
-                    }
-                }
-            }
-    
-            return true;
+
+            return !(IsChildOf(source, destination) || IsChildOf(destination, source));
         }
 
     }

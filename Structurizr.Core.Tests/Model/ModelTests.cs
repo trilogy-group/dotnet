@@ -156,6 +156,88 @@ namespace Structurizr.Core.Tests
         }
 
         [Fact]
+        public void Test_AddRelationship_ThrowsAnException_WhenTheDestinationIsAChildOfTheSource()
+        {
+            SoftwareSystem softwareSystem = Model.AddSoftwareSystem("Software System", "");
+            Container container = softwareSystem.AddContainer("Container", "", "");
+            Component component = container.AddComponent("Component", "", "");
+
+            try
+            {
+                softwareSystem.Uses(container, "Uses");
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("Relationships cannot be added between parents and children.", ae.Message);
+                Assert.Equal(0, softwareSystem.Relationships.Count);
+            }
+
+            try
+            {
+                container.Uses(component, "Uses");
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("Relationships cannot be added between parents and children.", ae.Message);
+                Assert.Equal(0, softwareSystem.Relationships.Count);
+            }
+
+            try
+            {
+                softwareSystem.Uses(component, "Uses");
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("Relationships cannot be added between parents and children.", ae.Message);
+                Assert.Equal(0, softwareSystem.Relationships.Count);
+            }
+        }
+
+        [Fact]
+        public void Test_AddRelationship_ThrowsAnException_WhenTheSourceIsAChildOfTheDestination()
+        {
+            SoftwareSystem softwareSystem = Model.AddSoftwareSystem("Software System", "");
+            Container container = softwareSystem.AddContainer("Container", "", "");
+            Component component = container.AddComponent("Component", "", "");
+
+            try
+            {
+                container.Uses(softwareSystem, "Uses");
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("Relationships cannot be added between parents and children.", ae.Message);
+                Assert.Equal(0, softwareSystem.Relationships.Count);
+            }
+
+            try
+            {
+                component.Uses(container, "Uses");
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("Relationships cannot be added between parents and children.", ae.Message);
+                Assert.Equal(0, softwareSystem.Relationships.Count);
+            }
+
+            try
+            {
+                component.Uses(softwareSystem, "Uses");
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("Relationships cannot be added between parents and children.", ae.Message);
+                Assert.Equal(0, softwareSystem.Relationships.Count);
+            }
+        }
+
+        [Fact]
         public void Test_ModifyRelationship_ThrowsAnException_WhenARelationshipIsNotSpecified()
         {
             try

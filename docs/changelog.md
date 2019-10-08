@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.3 (unreleased)
+
+- Fixes a bug that allows relationships to be created between parents and children.
+
 ## 0.9.2 (16th September 2019)
 
 - Fixes a bug where element and relationship positioning is lost when workspaces are merged.
