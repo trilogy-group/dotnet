@@ -1,6 +1,8 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 
 namespace Structurizr
 {
@@ -39,23 +41,23 @@ namespace Structurizr
                 this.id = value;
             }
         }
-        
+
         /// <summary>
         /// The order of this relationship (used in dynamic views only; e.g. 1.0, 1.1, 2.0, etc).
         /// </summary>
-        [DataMember(Name="order", EmitDefaultValue=false)]
+        [DataMember(Name = "order", EmitDefaultValue = false)]
         public string Order { get; set; }
-          
+
         /// <summary>
         /// The description of this relationship (used in dynamic views only).
         /// </summary>
-        [DataMember(Name="description", EmitDefaultValue=false)]
+        [DataMember(Name = "description", EmitDefaultValue = false)]
         public string Description { get; set; }
-          
+
         /// <summary>
         /// The set of vertices used to render the relationship.
         /// </summary>
-        [DataMember(Name="vertices", EmitDefaultValue=false)]
+        [DataMember(Name = "vertices", EmitDefaultValue = false)]
         public List<Vertex> Vertices { get; set; }
 
         /// <summary>
@@ -90,6 +92,79 @@ namespace Structurizr
                         _position = value;
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Relationship tags extended with additional view related tags (which are not part of the model). 
+        /// (e.g. PlantUMLWriter uses layout specific relation tags, and via this extended tags a relation can have
+        /// view specific layout directions like REL_UP, REL_DOWN..)
+        /// </summary>
+        public IEnumerable<string> GetAllTags()
+        {
+            List<string> listOfTags = new List<string>(this._viewTags);
+            if (this.Relationship != null)
+                listOfTags.AddRange(this.Relationship.GetAllTags());
+            return listOfTags;
+        }
+
+        private List<string> _viewTags = new List<string>();
+
+        [DataMember(Name = "viewTags", EmitDefaultValue = false)]
+        public string ViewTags
+        {
+            get
+            {
+                if (_viewTags.Count == 0)
+                {
+                    return "";
+                }
+
+                StringBuilder buf = new StringBuilder();
+                foreach (string tag in this._viewTags)
+                {
+                    buf.Append(tag);
+                    buf.Append(",");
+                }
+
+                string tagsAsString = buf.ToString();
+                return tagsAsString.Substring(0, tagsAsString.Length - 1);
+            }
+
+            set
+            {
+                this._viewTags.Clear();
+
+                if (value == null)
+                {
+                    return;
+                }
+
+                this._viewTags.AddRange(value.Split(','));
+            }
+        }
+
+        public void AddViewTags(params string[] tags)
+        {
+            if (tags == null)
+            {
+                return;
+            }
+
+            foreach (string tag in tags)
+            {
+                if (tag != null)
+                {
+                    this._viewTags.Add(tag);
+                }
+            }
+        }
+
+        public void RemoveViewTag(string tag)
+        {
+            if (tag != null)
+            {
+                this._viewTags.Remove(tag);
             }
         }
 
@@ -146,6 +221,5 @@ namespace Structurizr
                 this.Position = source.Position;
             }
         }
-
     }
 }

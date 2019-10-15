@@ -2,6 +2,12 @@
 
 ## 0.9.3 (unreleased)
 
+- Add new C4PlantUmlWriter with C4-PlantUML support (issue #47)
+- ModelItem returns a list of all tags via GetAllTag()
+- RelationshipView support an additional list of tags which can be used in the diagram via ViewTags.
+  RelationshipView.GetAllTag() returns a merged list of ViewTags and all Relationship tags
+- Update relationship descriptions and technology in BigBankPlc example
+- Update PlantUMLWriterTests and C4PlantUmlWriterTests that the expected text can be (simpler) reused as UML definition 
 - Fixes a bug that allows relationships to be created between parents and children.
 
 ## 0.9.2 (16th September 2019)

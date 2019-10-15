@@ -1,7 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using Xunit;
+using Structurizr.IO.PlantUML.Tests.Utilities;
 
 namespace Structurizr.IO.PlantUML.Tests
 {
@@ -34,86 +34,88 @@ namespace Structurizr.IO.PlantUML.Tests
             PopulateWorkspace();
     
             _plantUMLWriter.Write(_workspace, _stringWriter);
-            Assert.Equal("@startuml" + Environment.NewLine +
-                    "title System Landscape for Some Enterprise" + Environment.NewLine +
-                    "component \"E-mail System\" <<Software System>> as 4" + Environment.NewLine +
-                    "package \"Some Enterprise\" {" + Environment.NewLine +
-                    "  actor \"User\" <<Person>> as 1" + Environment.NewLine +
-                    "  component \"Software System\" <<Software System>> as 2" + Environment.NewLine +
-                    "}" + Environment.NewLine +
-                    "4 ..> 1 : Delivers e-mails to" + Environment.NewLine +
-                    "2 ..> 4 : Sends e-mail using" + Environment.NewLine +
-                    "1 ..> 2 : Uses" + Environment.NewLine +
-                    "@enduml" + Environment.NewLine +
-                    "" + Environment.NewLine +
-                    "@startuml" + Environment.NewLine +
-                    "title Software System - System Context" + Environment.NewLine +
-                    "component \"E-mail System\" <<Software System>> as 4" + Environment.NewLine +
-                    "component \"Software System\" <<Software System>> as 2" + Environment.NewLine +
-                    "actor \"User\" <<Person>> as 1" + Environment.NewLine +
-                    "4 ..> 1 : Delivers e-mails to" + Environment.NewLine +
-                    "2 ..> 4 : Sends e-mail using" + Environment.NewLine +
-                    "1 ..> 2 : Uses" + Environment.NewLine +
-                    "@enduml" + Environment.NewLine +
-                    "" + Environment.NewLine +
-                    "@startuml" + Environment.NewLine +
-                    "title Software System - Containers" + Environment.NewLine +
-                    "component \"E-mail System\" <<Software System>> as 4" + Environment.NewLine +
-                    "actor \"User\" <<Person>> as 1" + Environment.NewLine +
-                    "package SoftwareSystem {" + Environment.NewLine +
-                    "  component \"Database\" <<Container>> as 8" + Environment.NewLine +
-                    "  component \"Web Application\" <<Container>> as 7" + Environment.NewLine +
-                    "}" + Environment.NewLine +
-                    "4 ..> 1 : Delivers e-mails to" + Environment.NewLine +
-                    "1 ..> 7 : <<HTTP>>" + Environment.NewLine +
-                    "7 ..> 8 : Reads from and writes to <<JDBC>>" + Environment.NewLine +
-                    "7 ..> 4 : Sends e-mail using" + Environment.NewLine +
-                    "@enduml" + Environment.NewLine +
-                    "" + Environment.NewLine +
-                    "@startuml" + Environment.NewLine +
-                    "title Software System - Web Application - Components" + Environment.NewLine +
-                    "component \"Database\" <<Container>> as 8" + Environment.NewLine +
-                    "component \"E-mail System\" <<Software System>> as 4" + Environment.NewLine +
-                    "actor \"User\" <<Person>> as 1" + Environment.NewLine +
-                    "package WebApplication {" + Environment.NewLine +
-                    "  component \"EmailComponent\" <<Component>> as 13" + Environment.NewLine +
-                    "  component \"SomeController\" <<Spring MVC Controller>> as 12" + Environment.NewLine +
-                    "  component \"SomeRepository\" <<Spring Data>> as 14" + Environment.NewLine +
-                    "}" + Environment.NewLine +
-                    "4 ..> 1 : Delivers e-mails to" + Environment.NewLine +
-                    "13 ..> 4 : Sends e-mails using <<SMTP>>" + Environment.NewLine +
-                    "12 ..> 13 : Sends e-mail using" + Environment.NewLine +
-                    "12 ..> 14 : Uses" + Environment.NewLine +
-                    "14 ..> 8 : Reads from and writes to <<JDBC>>" + Environment.NewLine +
-                    "1 ..> 12 : Uses <<HTTP>>" + Environment.NewLine +
-                    "@enduml" + Environment.NewLine +
-                    "" + Environment.NewLine +
-                    "@startuml" + Environment.NewLine +
-                    "title Web Application - Dynamic" + Environment.NewLine +
-                    "component \"Database\" <<Container>> as 8" + Environment.NewLine +
-                    "component \"SomeController\" <<Spring MVC Controller>> as 12" + Environment.NewLine +
-                    "component \"SomeRepository\" <<Spring Data>> as 14" + Environment.NewLine +
-                    "actor \"User\" <<Person>> as 1" + Environment.NewLine +
-                    "1 -> 12 : Requests /something" + Environment.NewLine +
-                    "12 -> 14 : Uses" + Environment.NewLine +
-                    "14 -> 8 : select * from something" + Environment.NewLine +
-                    "@enduml" + Environment.NewLine +
-                    "" + Environment.NewLine +
-                    "@startuml" + Environment.NewLine +
-                    "title Software System - Deployment" + Environment.NewLine +
-                    "node \"Database Server\" <<Ubuntu 12.04 LTS>> as 23 {" + Environment.NewLine +
-                    "  node \"MySQL\" <<MySQL 5.5.x>> as 24 {" + Environment.NewLine +
-                    "    artifact \"Database\" <<Container>> as 25" + Environment.NewLine +
-                    "  }" + Environment.NewLine +
-                    "}" + Environment.NewLine +
-                    "node \"Web Server\" <<Ubuntu 12.04 LTS>> as 20 {" + Environment.NewLine +
-                    "  node \"Apache Tomcat\" <<Apache Tomcat 8.x>> as 21 {" + Environment.NewLine +
-                    "    artifact \"Web Application\" <<Container>> as 22" + Environment.NewLine +
-                    "  }" + Environment.NewLine +
-                    "}" + Environment.NewLine +
-                    "22 ..> 25 : Reads from and writes to <<JDBC>>" + Environment.NewLine +
-                    "@enduml" + Environment.NewLine +
-                    Environment.NewLine, _stringWriter.ToString());
+            Assert.Equal(
+@"@startuml
+title System Landscape for Some Enterprise
+component ""E-mail System"" <<Software System>> as 4
+package ""Some Enterprise"" {
+  actor ""User"" <<Person>> as 1
+  component ""Software System"" <<Software System>> as 2
+}
+4 ..> 1 : Delivers e-mails to
+2 ..> 4 : Sends e-mail using
+1 ..> 2 : Uses
+@enduml
+
+@startuml
+title Software System - System Context
+component ""E-mail System"" <<Software System>> as 4
+component ""Software System"" <<Software System>> as 2
+actor ""User"" <<Person>> as 1
+4 ..> 1 : Delivers e-mails to
+2 ..> 4 : Sends e-mail using
+1 ..> 2 : Uses
+@enduml
+
+@startuml
+title Software System - Containers
+component ""E-mail System"" <<Software System>> as 4
+actor ""User"" <<Person>> as 1
+package SoftwareSystem {
+  component ""Database"" <<Container>> as 8
+  component ""Web Application"" <<Container>> as 7
+}
+4 ..> 1 : Delivers e-mails to
+1 ..> 7 : <<HTTP>>
+7 ..> 8 : Reads from and writes to <<JDBC>>
+7 ..> 4 : Sends e-mail using
+@enduml
+
+@startuml
+title Software System - Web Application - Components
+component ""Database"" <<Container>> as 8
+component ""E-mail System"" <<Software System>> as 4
+actor ""User"" <<Person>> as 1
+package WebApplication {
+  component ""EmailComponent"" <<Component>> as 13
+  component ""SomeController"" <<Spring MVC Controller>> as 12
+  component ""SomeRepository"" <<Spring Data>> as 14
+}
+4 ..> 1 : Delivers e-mails to
+13 ..> 4 : Sends e-mails using <<SMTP>>
+12 ..> 13 : Sends e-mail using
+12 ..> 14 : Uses
+14 ..> 8 : Reads from and writes to <<JDBC>>
+1 ..> 12 : Uses <<HTTP>>
+@enduml
+
+@startuml
+title Web Application - Dynamic
+component ""Database"" <<Container>> as 8
+component ""SomeController"" <<Spring MVC Controller>> as 12
+component ""SomeRepository"" <<Spring Data>> as 14
+actor ""User"" <<Person>> as 1
+1 -> 12 : Requests /something
+12 -> 14 : Uses
+14 -> 8 : select * from something
+@enduml
+
+@startuml
+title Software System - Deployment
+node ""Database Server"" <<Ubuntu 12.04 LTS>> as 23 {
+  node ""MySQL"" <<MySQL 5.5.x>> as 24 {
+    artifact ""Database"" <<Container>> as 25
+  }
+}
+node ""Web Server"" <<Ubuntu 12.04 LTS>> as 20 {
+  node ""Apache Tomcat"" <<Apache Tomcat 8.x>> as 21 {
+    artifact ""Web Application"" <<Container>> as 22
+  }
+}
+22 ..> 25 : Reads from and writes to <<JDBC>>
+@enduml
+
+".UnifyNewLine(), _stringWriter.ToString());
         }
     
         [Fact]
@@ -124,18 +126,20 @@ namespace Structurizr.IO.PlantUML.Tests
             SystemLandscapeView systemLandscapeView = _workspace.Views.SystemLandscapeViews.First();
             _plantUMLWriter.Write(systemLandscapeView, _stringWriter);
     
-            Assert.Equal("@startuml" + Environment.NewLine +
-                    "title System Landscape for Some Enterprise" + Environment.NewLine +
-                    "component \"E-mail System\" <<Software System>> as 4" + Environment.NewLine +
-                    "package \"Some Enterprise\" {" + Environment.NewLine +
-                    "  actor \"User\" <<Person>> as 1" + Environment.NewLine +
-                    "  component \"Software System\" <<Software System>> as 2" + Environment.NewLine +
-                    "}" + Environment.NewLine +
-                    "4 ..> 1 : Delivers e-mails to" + Environment.NewLine +
-                    "2 ..> 4 : Sends e-mail using" + Environment.NewLine +
-                    "1 ..> 2 : Uses" + Environment.NewLine +
-                    "@enduml" + Environment.NewLine +
-                    Environment.NewLine, _stringWriter.ToString());
+            Assert.Equal(
+@"@startuml
+title System Landscape for Some Enterprise
+component ""E-mail System"" <<Software System>> as 4
+package ""Some Enterprise"" {
+  actor ""User"" <<Person>> as 1
+  component ""Software System"" <<Software System>> as 2
+}
+4 ..> 1 : Delivers e-mails to
+2 ..> 4 : Sends e-mail using
+1 ..> 2 : Uses
+@enduml
+
+".UnifyNewLine(), _stringWriter.ToString());
     
         }
     
@@ -147,16 +151,18 @@ namespace Structurizr.IO.PlantUML.Tests
             SystemContextView systemContextView = _workspace.Views.SystemContextViews.First();
             _plantUMLWriter.Write(systemContextView, _stringWriter);
     
-            Assert.Equal("@startuml" + Environment.NewLine +
-                    "title Software System - System Context" + Environment.NewLine +
-                    "component \"E-mail System\" <<Software System>> as 4" + Environment.NewLine +
-                    "component \"Software System\" <<Software System>> as 2" + Environment.NewLine +
-                    "actor \"User\" <<Person>> as 1" + Environment.NewLine +
-                    "4 ..> 1 : Delivers e-mails to" + Environment.NewLine +
-                    "2 ..> 4 : Sends e-mail using" + Environment.NewLine +
-                    "1 ..> 2 : Uses" + Environment.NewLine +
-                    "@enduml" + Environment.NewLine +
-                    Environment.NewLine, _stringWriter.ToString());
+            Assert.Equal(
+@"@startuml
+title Software System - System Context
+component ""E-mail System"" <<Software System>> as 4
+component ""Software System"" <<Software System>> as 2
+actor ""User"" <<Person>> as 1
+4 ..> 1 : Delivers e-mails to
+2 ..> 4 : Sends e-mail using
+1 ..> 2 : Uses
+@enduml
+
+".UnifyNewLine(), _stringWriter.ToString());
         }
     
         [Fact]
@@ -167,20 +173,22 @@ namespace Structurizr.IO.PlantUML.Tests
             ContainerView containerView = _workspace.Views.ContainerViews.First();
             _plantUMLWriter.Write(containerView, _stringWriter);
     
-            Assert.Equal("@startuml" + Environment.NewLine +
-                    "title Software System - Containers" + Environment.NewLine +
-                    "component \"E-mail System\" <<Software System>> as 4" + Environment.NewLine +
-                    "actor \"User\" <<Person>> as 1" + Environment.NewLine +
-                    "package SoftwareSystem {" + Environment.NewLine +
-                    "  component \"Database\" <<Container>> as 8" + Environment.NewLine +
-                    "  component \"Web Application\" <<Container>> as 7" + Environment.NewLine +
-                    "}" + Environment.NewLine +
-                    "4 ..> 1 : Delivers e-mails to" + Environment.NewLine +
-                    "1 ..> 7 : <<HTTP>>" + Environment.NewLine +
-                    "7 ..> 8 : Reads from and writes to <<JDBC>>" + Environment.NewLine +
-                    "7 ..> 4 : Sends e-mail using" + Environment.NewLine +
-                    "@enduml" + Environment.NewLine +
-                    Environment.NewLine, _stringWriter.ToString());
+            Assert.Equal(
+@"@startuml
+title Software System - Containers
+component ""E-mail System"" <<Software System>> as 4
+actor ""User"" <<Person>> as 1
+package SoftwareSystem {
+  component ""Database"" <<Container>> as 8
+  component ""Web Application"" <<Container>> as 7
+}
+4 ..> 1 : Delivers e-mails to
+1 ..> 7 : <<HTTP>>
+7 ..> 8 : Reads from and writes to <<JDBC>>
+7 ..> 4 : Sends e-mail using
+@enduml
+
+".UnifyNewLine(), _stringWriter.ToString());
         }
     
         [Fact]
@@ -191,24 +199,26 @@ namespace Structurizr.IO.PlantUML.Tests
             ComponentView componentView = _workspace.Views.ComponentViews.First();
             _plantUMLWriter.Write(componentView, _stringWriter);
     
-            Assert.Equal("@startuml" + Environment.NewLine +
-                    "title Software System - Web Application - Components" + Environment.NewLine +
-                    "component \"Database\" <<Container>> as 8" + Environment.NewLine +
-                    "component \"E-mail System\" <<Software System>> as 4" + Environment.NewLine +
-                    "actor \"User\" <<Person>> as 1" + Environment.NewLine +
-                    "package WebApplication {" + Environment.NewLine +
-                    "  component \"EmailComponent\" <<Component>> as 13" + Environment.NewLine +
-                    "  component \"SomeController\" <<Spring MVC Controller>> as 12" + Environment.NewLine +
-                    "  component \"SomeRepository\" <<Spring Data>> as 14" + Environment.NewLine +
-                    "}" + Environment.NewLine +
-                    "4 ..> 1 : Delivers e-mails to" + Environment.NewLine +
-                    "13 ..> 4 : Sends e-mails using <<SMTP>>" + Environment.NewLine +
-                    "12 ..> 13 : Sends e-mail using" + Environment.NewLine +
-                    "12 ..> 14 : Uses" + Environment.NewLine +
-                    "14 ..> 8 : Reads from and writes to <<JDBC>>" + Environment.NewLine +
-                    "1 ..> 12 : Uses <<HTTP>>" + Environment.NewLine +
-                    "@enduml" + Environment.NewLine +
-                    Environment.NewLine, _stringWriter.ToString());
+            Assert.Equal(
+@"@startuml
+title Software System - Web Application - Components
+component ""Database"" <<Container>> as 8
+component ""E-mail System"" <<Software System>> as 4
+actor ""User"" <<Person>> as 1
+package WebApplication {
+  component ""EmailComponent"" <<Component>> as 13
+  component ""SomeController"" <<Spring MVC Controller>> as 12
+  component ""SomeRepository"" <<Spring Data>> as 14
+}
+4 ..> 1 : Delivers e-mails to
+13 ..> 4 : Sends e-mails using <<SMTP>>
+12 ..> 13 : Sends e-mail using
+12 ..> 14 : Uses
+14 ..> 8 : Reads from and writes to <<JDBC>>
+1 ..> 12 : Uses <<HTTP>>
+@enduml
+
+".UnifyNewLine(), _stringWriter.ToString());
         }
     
         [Fact]
@@ -219,42 +229,46 @@ namespace Structurizr.IO.PlantUML.Tests
             DynamicView dynamicView = _workspace.Views.DynamicViews.First();
             _plantUMLWriter.Write(dynamicView, _stringWriter);
     
-            Assert.Equal("@startuml" + Environment.NewLine +
-                    "title Web Application - Dynamic" + Environment.NewLine +
-                    "component \"Database\" <<Container>> as 8" + Environment.NewLine +
-                    "component \"SomeController\" <<Spring MVC Controller>> as 12" + Environment.NewLine +
-                    "component \"SomeRepository\" <<Spring Data>> as 14" + Environment.NewLine +
-                    "actor \"User\" <<Person>> as 1" + Environment.NewLine +
-                    "1 -> 12 : Requests /something" + Environment.NewLine +
-                    "12 -> 14 : Uses" + Environment.NewLine +
-                    "14 -> 8 : select * from something" + Environment.NewLine +
-                    "@enduml" + Environment.NewLine +
-                    Environment.NewLine, _stringWriter.ToString());
+            Assert.Equal(
+@"@startuml
+title Web Application - Dynamic
+component ""Database"" <<Container>> as 8
+component ""SomeController"" <<Spring MVC Controller>> as 12
+component ""SomeRepository"" <<Spring Data>> as 14
+actor ""User"" <<Person>> as 1
+1 -> 12 : Requests /something
+12 -> 14 : Uses
+14 -> 8 : select * from something
+@enduml
+
+".UnifyNewLine(), _stringWriter.ToString());
         }
  
         [Fact]
         public void test_writeDeploymentView()
         {
             PopulateWorkspace();
-    
+   
             DeploymentView deploymentView = _workspace.Views.DeploymentViews.First();
             _plantUMLWriter.Write(deploymentView, _stringWriter);
     
-            Assert.Equal("@startuml" + Environment.NewLine +
-                    "title Software System - Deployment" + Environment.NewLine +
-                    "node \"Database Server\" <<Ubuntu 12.04 LTS>> as 23 {" + Environment.NewLine +
-                    "  node \"MySQL\" <<MySQL 5.5.x>> as 24 {" + Environment.NewLine +
-                    "    artifact \"Database\" <<Container>> as 25" + Environment.NewLine +
-                    "  }" + Environment.NewLine +
-                    "}" + Environment.NewLine +
-                    "node \"Web Server\" <<Ubuntu 12.04 LTS>> as 20 {" + Environment.NewLine +
-                    "  node \"Apache Tomcat\" <<Apache Tomcat 8.x>> as 21 {" + Environment.NewLine +
-                    "    artifact \"Web Application\" <<Container>> as 22" + Environment.NewLine +
-                    "  }" + Environment.NewLine +
-                    "}" + Environment.NewLine +
-                    "22 ..> 25 : Reads from and writes to <<JDBC>>" + Environment.NewLine +
-                    "@enduml" + Environment.NewLine +
-                    Environment.NewLine, _stringWriter.ToString());
+            Assert.Equal(
+@"@startuml
+title Software System - Deployment
+node ""Database Server"" <<Ubuntu 12.04 LTS>> as 23 {
+  node ""MySQL"" <<MySQL 5.5.x>> as 24 {
+    artifact ""Database"" <<Container>> as 25
+  }
+}
+node ""Web Server"" <<Ubuntu 12.04 LTS>> as 20 {
+  node ""Apache Tomcat"" <<Apache Tomcat 8.x>> as 21 {
+    artifact ""Web Application"" <<Container>> as 22
+  }
+}
+22 ..> 25 : Reads from and writes to <<JDBC>>
+@enduml
+
+".UnifyNewLine(), _stringWriter.ToString());
         }
     
         private void PopulateWorkspace()
@@ -314,6 +328,5 @@ namespace Structurizr.IO.PlantUML.Tests
             DeploymentView deploymentView = views.CreateDeploymentView(softwareSystem, "deployment", "");
             deploymentView.AddAllDeploymentNodes();
         }
-
     }
 }

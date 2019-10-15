@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -17,6 +18,13 @@ namespace Structurizr
         public string Id { get; set; }
 
         private List<string> _tags = new List<string>();
+
+        public IEnumerable<string> GetAllTags()
+        {
+            if (String.IsNullOrWhiteSpace(Tags))
+                return Enumerable.Empty<string>();
+            return Tags.Split(new [] { "," }, StringSplitOptions.RemoveEmptyEntries);
+        }
 
         [DataMember(Name = "tags", EmitDefaultValue = false)]
         public virtual string Tags

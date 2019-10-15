@@ -1,4 +1,4 @@
-![Structurizr](docs/images/structurizr-banner.png)
+﻿![Structurizr](docs/images/structurizr-banner.png)
 
 # Structurizr for .NET
 
@@ -64,6 +64,7 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [Structurizr annotations](docs/structurizr-annotations.md)
 * Exporting and visualising with other tools
     * [PlantUML](docs/plantuml.md)
+    * [PlantUML with C4 layout](docs/c4-plantuml.md)
     * [DGML](https://github.com/merijndejonge/Structurizr.Dgml)
 * Other
 	* [HTTP-based health checks](docs/health-checks.md)
