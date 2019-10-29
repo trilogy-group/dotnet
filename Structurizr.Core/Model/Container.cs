@@ -39,7 +39,7 @@ namespace Structurizr
         {
             get
             {
-                return new HashSet<Component>(_components);
+                return _components;
             }
 
             set
@@ -80,6 +80,24 @@ namespace Structurizr
         {
             return Model.AddComponent(this, name, type, description, technology);
         }
+
+        public void RemoveComponent(string id) => RemoveComponent(_components.FirstOrDefault(x => x.Id == id));
+        
+        public void RemoveComponent(Component component)
+        {
+            if (component != null)
+            {
+                _components.Remove(component);
+
+                foreach (var item in _components)
+                {
+                    item.RemoveAllRelaltionshipsWith(component.Id);
+                    
+                }
+                Model.DeleteComponent(component);
+            }
+        }
+
 
         internal void Add(Component component)
         {

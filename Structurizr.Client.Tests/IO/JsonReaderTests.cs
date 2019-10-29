@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Structurizr.Client.Tests.IO;
 using Structurizr.IO.Json;
 using Xunit;
 
@@ -20,6 +21,13 @@ namespace Structurizr.Api.Tests.IO
             workspace = new JsonReader().Read(stringReader);
             Assert.Equal("Value", workspace.Model.GetSoftwareSystemWithName("Name").Properties["Name"]);
         }
-        
+
+        [Fact]
+        public void Test_Deserialization()
+        {
+            StringReader stringReader = new StringReader(TestData.Model1);
+            var workspace = new JsonReader().Read(stringReader);
+            Assert.Equal("292", workspace.Model.GetSoftwareSystemWithName("Magento Plugin").Id);
+        }
     }
 }

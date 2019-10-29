@@ -135,5 +135,14 @@ namespace Structurizr.Core.Tests
             Assert.Equal("http://www.somedomain.com", element.Url);
         }
 
+        [Fact]
+        public void Test_VerifyTags()
+        {
+            var tags = "Element, Component, SHARED_LIBRARY,SE7:SLIAO";
+            var component = new Component();
+            component.Tags = tags;
+            Assert.Equal(tags.Replace(" ", string.Empty), component.Tags);
+        }
+
     }
 }

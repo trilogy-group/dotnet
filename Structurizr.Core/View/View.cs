@@ -81,7 +81,7 @@ namespace Structurizr
         {
             get
             {
-                return new HashSet<ElementView>(_elements);
+                return _elements;
             }
 
             internal set
@@ -100,7 +100,7 @@ namespace Structurizr
         {
             get
             {
-                return new HashSet<RelationshipView>(_relationships);
+                return _relationships;
             }
 
             internal set
@@ -189,7 +189,7 @@ namespace Structurizr
             return relationshipView;
         }
 
-        internal bool IsElementInView(Element element)
+        public bool IsElementInView(Element element)
         {
             return _elements.Count(ev => ev.Element.Equals(element)) > 0;
         }
@@ -220,6 +220,18 @@ namespace Structurizr
                     {
                         _relationships.Add(new RelationshipView(relationship));
                     }
+                }
+            }
+        }
+
+        public void RemoveRelatipnshipsWith(string destinationId)
+        {
+            if (destinationId != null)
+            {
+                var relationshipsToRemove =_relationships.Select(x=>x.Relationship).Where(x => x.DestinationId == destinationId).ToArray();
+                foreach (var item in relationshipsToRemove)
+                {
+                    Remove(item);
                 }
             }
         }

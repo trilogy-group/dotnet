@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -23,8 +24,7 @@ namespace Structurizr
         {
             get
             {
-                List<string> listOfTags = new List<string>(GetRequiredTags());
-                listOfTags.AddRange(_tags);
+                List<string> listOfTags = new List<string>(GetRequiredTags().Union(_tags).Distinct());
 
                 if (listOfTags.Count == 0)
                 {
@@ -51,7 +51,7 @@ namespace Structurizr
                     return;
                 }
 
-                this._tags.AddRange(value.Split(','));
+                _tags.AddRange(value.Split(',').Select(x=>x.TrimStart().TrimEnd()).Distinct());
             }
         }
 
@@ -70,7 +70,10 @@ namespace Structurizr
             {
                 if (tag != null)
                 {
-                    this._tags.Add(tag);
+                    if (!_tags.Contains(tag))
+                    {
+                        this._tags.Add(tag);
+                    }
                 }
             }
         }
