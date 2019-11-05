@@ -96,7 +96,7 @@ namespace Structurizr.Examples
             styles.Add(new RelationshipStyle(Tags.Synchronous) { Dashed = false });
 
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
-            structurizrClient.PutWorkspace(WorkspaceId, workspace);
+            structurizrClient.PutWorkspaceAsync(WorkspaceId, workspace).Wait();
         }
 
     }

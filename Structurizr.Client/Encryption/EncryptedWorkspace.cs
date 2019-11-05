@@ -22,7 +22,7 @@ namespace Structurizr.Encryption
                 {
                     Plaintext = EncryptionStrategy.Decrypt(Ciphertext);
                     StringReader stringReader = new StringReader(Plaintext);
-                    return new JsonReader().Read(stringReader);
+                    return new JsonReader().ReadAsync(stringReader).Result;
                 }
                 else
                 {
@@ -56,7 +56,7 @@ namespace Structurizr.Encryption
 
             StringWriter stringWriter = new StringWriter();
             JsonWriter jsonWriter = new JsonWriter(false);
-            jsonWriter.Write(workspace, stringWriter);
+            jsonWriter.WriteAsync(workspace, stringWriter).Wait();
 
             Id = workspace.Id;
             Name = workspace.Name;

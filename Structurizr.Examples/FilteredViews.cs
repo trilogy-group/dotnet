@@ -45,7 +45,7 @@ namespace Structurizr.Examples
             styles.Add(new ElementStyle(Tags.Person) { Background = "#6a7b15", Shape = Shape.Person });
 
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
-            structurizrClient.PutWorkspace(WorkspaceId, workspace);
+            structurizrClient.PutWorkspaceAsync(WorkspaceId, workspace).Wait();
         }
 
     }

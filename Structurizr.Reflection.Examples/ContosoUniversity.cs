@@ -109,7 +109,7 @@ namespace Structurizr.Examples
             styles.Add(new ElementStyle(Tags.Component) { Background = "#407f7f", Color = "#ffffff" });
 
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
-            structurizrClient.PutWorkspace(WorkspaceId, workspace);
+            structurizrClient.PutWorkspaceAsync(WorkspaceId, workspace).Wait();
         }
 
     }

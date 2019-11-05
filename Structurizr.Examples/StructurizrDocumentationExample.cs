@@ -70,7 +70,7 @@ namespace Structurizr.Examples
 //            template.AddDecisionLogSection(softwareSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "12-decision-log.adoc")));
 
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
-            structurizrClient.PutWorkspace(WorkspaceId, workspace);
+            structurizrClient.PutWorkspaceAsync(WorkspaceId, workspace).Wait();
         }
 
     }

@@ -56,7 +56,7 @@ namespace Structurizr.Examples
             styles.Add(new ElementStyle(FileSystemTag) { Shape = Shape.Folder });
 
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
-            structurizrClient.PutWorkspace(WorkspaceId, workspace);
+            structurizrClient.PutWorkspaceAsync(WorkspaceId, workspace).Wait();
         }
 
     }

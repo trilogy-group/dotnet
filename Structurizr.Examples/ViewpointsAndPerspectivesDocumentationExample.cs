@@ -57,7 +57,7 @@ namespace Structurizr.Examples
 //            template.AddAppendicesSection(softwareSystem, new FileInfo(Path.Combine(documentationRoot.FullName, "07-appendices.adoc")));
 
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
-            structurizrClient.PutWorkspace(WorkspaceId, workspace);
+            structurizrClient.PutWorkspaceAsync(WorkspaceId, workspace).Wait();
         }
         
     }

@@ -80,7 +80,7 @@ namespace Structurizr.Examples
             styles.Add(new ElementStyle(InternalTag) { Background = "#B60037" });
     
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
-            structurizrClient.PutWorkspace(WorkspaceId, workspace);
+            structurizrClient.PutWorkspaceAsync(WorkspaceId, workspace).Wait();
         }
         
     }

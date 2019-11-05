@@ -52,7 +52,7 @@ namespace Structurizr.Examples
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
             WorkspaceUtils.PrintWorkspaceAsJson(workspace);
             Console.ReadKey();
-            structurizrClient.PutWorkspace(WorkspaceId, workspace);
+            structurizrClient.PutWorkspaceAsync(WorkspaceId, workspace).Wait();
         }
 
     }

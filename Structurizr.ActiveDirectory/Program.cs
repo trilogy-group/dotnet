@@ -36,7 +36,7 @@
                 ApiUrl, ApiKey, ApiSecret,
                 AzureActiveDirectoryInstance, AzureActiveDirectoryTenant, AzureActiveDirectoryClientId, AzureActiveDirectoryClientKey, AzureActiveDirectoryResourceId
             );
-            structurizrClient.PutWorkspace(WorkspaceId, workspace);
+            structurizrClient.PutWorkspaceAsync(WorkspaceId, workspace).Wait();
         }
 
     }

@@ -259,7 +259,7 @@ namespace Structurizr.Examples
         static void Main()
         {
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
-            structurizrClient.PutWorkspace(WorkspaceId, Create());
+            structurizrClient.PutWorkspaceAsync(WorkspaceId, Create()).Wait();
         }
         
     }
