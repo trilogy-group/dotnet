@@ -72,7 +72,7 @@ namespace Structurizr
                 {
                     if (!_tags.Contains(tag))
                     {
-                        this._tags.Add(tag);
+                        _tags.Add(tag);
                     }
                 }
             }
@@ -88,11 +88,31 @@ namespace Structurizr
 
         public abstract List<string> GetRequiredTags();
 
+        private Dictionary<string, string> _properties = new Dictionary<string, string>();
+
         /// <summary>
         /// The collection of name-value property pairs associated with this element, as a Dictionary.
         /// </summary>
         [DataMember(Name = "properties", EmitDefaultValue = false)]
-        public Dictionary<string, string> Properties = new Dictionary<string, string>();
+        public Dictionary<string, string> Properties
+        {
+            get
+            {
+                return _properties;
+            }
+
+            internal set
+            {
+                if (value != null)
+                {
+                    _properties = value;
+                }
+                else
+                {
+                    _properties.Clear();
+                }
+            }
+        }
 
         /// <summary>
         /// Adds a name-value pair property to this element. 
@@ -100,16 +120,65 @@ namespace Structurizr
         /// <param name="name">the name of the property</param>
         /// <param name="value">the value of the property</param>
         /// <exception cref="ArgumentException"></exception>
-        public void AddProperty(string name, string value) {
-            if (String.IsNullOrEmpty(name)) {
+        public void AddProperty(string name, string value)
+        {
+            if (String.IsNullOrWhiteSpace(name)) {
                 throw new ArgumentException("A property name must be specified.");
             }
 
-            if (String.IsNullOrEmpty(value)) {
+            if (String.IsNullOrWhiteSpace(value)) {
                 throw new ArgumentException("A property value must be specified.");
             }
 
             Properties[name] = value;
+        }
+
+        private ISet<Perspective> _perspectives = new HashSet<Perspective>();
+
+        /// <summary>
+        /// The set of perspectives associated with this element.
+        /// </summary>
+        [DataMember(Name = "perspectives", EmitDefaultValue = false)]
+        public ISet<Perspective> Perspectives
+        {
+            get
+            {
+                return new HashSet<Perspective>(_perspectives);
+            }
+
+            internal set
+            {
+                _perspectives = new HashSet<Perspective>(value);
+            }
+        }
+
+        /// <summary>
+        /// Adds a perspective to this model item.
+        /// </summary>
+        /// <param name="name">the name of the perspective (e.g. "Security", must be unique)</param>
+        /// <param name="description"></param>
+        /// <returns>a Perspective object</returns>
+        public Perspective AddPerspective(string name, string description)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("A name must be specified.");
+            }
+
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                throw new ArgumentException("A description must be specified.");
+            }
+
+            if (Perspectives.Contains(new Perspective(name, "")))
+            {
+                throw new ArgumentException("A perspective named \"" + name + "\" already exists.");
+            }
+
+            Perspective perspective = new Perspective(name, description);
+            _perspectives.Add(perspective);
+
+            return perspective;
         }
 
     }
