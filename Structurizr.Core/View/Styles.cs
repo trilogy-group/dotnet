@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -59,6 +60,11 @@ namespace Structurizr
         {
             if (elementStyle != null)
             {
+                if (_elements.Exists(es => es.Tag.Equals(elementStyle.Tag)))
+                {
+                    throw new ArgumentException("An element style for the tag \"" + elementStyle.Tag + "\" already exists.");
+                }
+
                 _elements.Add(elementStyle);
             }
         }
@@ -67,8 +73,29 @@ namespace Structurizr
         {
             if (relationshipStyle != null)
             {
+                if (_relationships.Exists(es => es.Tag.Equals(relationshipStyle.Tag)))
+                {
+                    throw new ArgumentException("A relationship style for the tag \"" + relationshipStyle.Tag + "\" already exists.");
+                }
+
                 _relationships.Add(relationshipStyle);
             }
+        }
+
+        /// <summary>
+        /// Removes all element styles.
+        /// </summary>
+        public void ClearElementStyles()
+        {
+            _elements = new List<ElementStyle>();
+        }
+
+        /// <summary>
+        /// Removes all relationship styles.
+        /// </summary>
+        public void ClearRelationshipStyles()
+        {
+            _relationships = new List<RelationshipStyle>();
         }
 
     }

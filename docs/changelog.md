@@ -9,6 +9,7 @@
 - Update relationship descriptions and technology in BigBankPlc example
 - Update PlantUMLWriterTests and C4PlantUmlWriterTests that the expected text can be (simpler) reused as UML definition 
 - Fixes a bug that allows relationships to be created between parents and children.
+- Added support for perspectives on elements and relationships.
 
 ## 0.9.2 (16th September 2019)
 
