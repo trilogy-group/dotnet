@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using Structurizr.IO.C4PlantUML;
+using Structurizr.IO.C4PlantUML.ModelExtensions;
 
 namespace Structurizr.Examples
 {
@@ -21,23 +22,41 @@ namespace Structurizr.Examples
             Person user = model.AddPerson("User", "A user of my software system.");
             SoftwareSystem softwareSystem = model.AddSoftwareSystem("Software System", "My software system.");
             var userUsesSystemRelation = user.Uses(softwareSystem, "Uses");
-            // layout could be added to relation (active in all views)
-            // userUsesSystemRelation.AddTags(C4PlantUmlWriter.Tags.Rel_Right);
+            // a direction could be added to relation (active in all views)
+            // userUsesSystemRelation.SetDirection(DirectionValues.Right);
 
             ViewSet views = workspace.Views;
             SystemContextView contextView = views.CreateSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
             contextView.AddAllSoftwareSystems();
             contextView.AddAllPeople();
 
-            // C4PlantUMLWriter support relation layouts tags, e.g. "User" should be left of "Software System" in view
+            // C4PlantUMLWriter support view specific directions too, e.g. "User" should be left of "Software System" only in this view
             contextView.Relationships
                 .First(rv => rv.Relationship.SourceId == user.Id && rv.Relationship.DestinationId == softwareSystem.Id)
-                .AddViewTags(C4PlantUmlWriter.Tags.Rel_Right);
+                .SetDirection(DirectionValues.Right);
 
             using (var stringWriter = new StringWriter())
             {
                 var plantUmlWriter = new C4PlantUmlWriter();
                 plantUmlWriter.Write(workspace, stringWriter);
+                Console.WriteLine(stringWriter.ToString());
+            }
+
+
+            Container webApplication = softwareSystem.AddContainer("Web Application", "Delivers content", "Java and spring MVC");
+            Container database = softwareSystem.AddContainer("Database", "Stores information", "Relational Database Schema");
+            // Additional mark it as database
+            database.SetIsDatabase(true);
+            user.Uses(webApplication, "uses", "HTTP");
+            webApplication.Uses(database, "Reads from and writes to", "JDBC").SetDirection(DirectionValues.Right);
+
+            var containerView = views.CreateContainerView(softwareSystem, "containers", "");
+            containerView.AddAllElements();
+
+            using (var stringWriter = new StringWriter())
+            {
+                var plantUmlWriter = new C4PlantUmlWriter();
+                plantUmlWriter.Write(containerView, stringWriter);
                 Console.WriteLine(stringWriter.ToString());
             }
         }

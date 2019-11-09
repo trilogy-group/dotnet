@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using Structurizr.Examples;
+using Structurizr.IO.C4PlantUML.ModelExtensions;
 using Structurizr.IO.PlantUML.Tests.Utilities;
 using Xunit;
 
@@ -379,18 +380,18 @@ Rel_Left(Deployment__Live__BigBankplc__bigbankdb01__OraclePrimary__19fd8f, Deplo
             systemLandscapeView.Relationships
                 .Select(rv => rv.Relationship)
                 .First(r => r.SourceId == emailSystem.Id && r.DestinationId == personalBankingCustomer.Id)
-                .AddTags(C4PlantUmlWriter.Tags.Rel_Up);
+                .SetDirection(DirectionValues.Up);
             systemLandscapeView.Relationships
                 .Select(rv => rv.Relationship)
                 .First(r => r.SourceId == internetBankingSystem.Id && r.DestinationId == emailSystem.Id)
-                .AddTags(C4PlantUmlWriter.Tags.Rel_Right);
+                .SetDirection(DirectionValues.Right);
 
             // but only SystemLandscapeView should use Down relations, therefore add the tags relation view specific (via AddViewTags)
             var mainframeBankingSystem = workspace.Model.GetElementWithCanonicalName("/Mainframe Banking System");
             foreach (var relationshipView in systemLandscapeView.Relationships
                 .Where(rv => rv.Relationship.DestinationId == mainframeBankingSystem.Id))
             {
-                relationshipView.AddViewTags(C4PlantUmlWriter.Tags.Rel_Down);
+                relationshipView.SetDirection(DirectionValues.Down);
             }
 
             // and overwrite the "to generic specified" relation tag "Rel_Right(..." with the view specific "Rel_Down(..." tag
@@ -398,7 +399,7 @@ Rel_Left(Deployment__Live__BigBankplc__bigbankdb01__OraclePrimary__19fd8f, Deplo
             systemLandscapeView.Relationships
                 .First(rv => rv.Relationship.SourceId == internetBankingSystem.Id &&
                              rv.Relationship.DestinationId == emailSystem.Id)
-                .AddViewTags(C4PlantUmlWriter.Tags.Rel_Down);
+                .SetDirection(DirectionValues.Down);
 
             // DynamicView
             //     Rel_Right(InternetBankingSystem__SinglePageApplication, InternetBankingSystem__APIApplication__SignInController, ...)
@@ -409,15 +410,16 @@ Rel_Left(Deployment__Live__BigBankplc__bigbankdb01__OraclePrimary__19fd8f, Deplo
                 workspace.Model.GetElementWithCanonicalName("/Internet Banking System/API Application/Sign In Controller");
             var securityComponent =
                 workspace.Model.GetElementWithCanonicalName("/Internet Banking System/API Application/Security Component");
-            var database = workspace.Model.GetElementWithCanonicalName("/Internet Banking System/Database");
+            var database = workspace.Model.GetElementWithCanonicalName("/Internet Banking System/Database") as Container;
+            database.SetIsDatabase(true);
             var dynamicView = workspace.Views.DynamicViews.First();
             dynamicView.Relationships
                 .First(r => r.Relationship.SourceId == singlePageApplication.Id &&
                             r.Relationship.DestinationId == signInController.Id)
-                .AddViewTags(C4PlantUmlWriter.Tags.Rel_Right);
+                .SetDirection(DirectionValues.Right);
             dynamicView.Relationships
                 .First(r => r.Relationship.SourceId == securityComponent.Id && r.Relationship.DestinationId == database.Id)
-                .AddViewTags(C4PlantUmlWriter.Tags.Rel_Right);
+                .SetDirection(DirectionValues.Right);
 
             // ContainerView
             //     Rel_Up(InternetBankingSystem__WebApplication, InternetBankingSystem__SinglePageApplication, "Delivers to the customer's web browser")
@@ -426,7 +428,7 @@ Rel_Left(Deployment__Live__BigBankplc__bigbankdb01__OraclePrimary__19fd8f, Deplo
             containerView.Relationships
                 .First(r => r.Relationship.SourceId == webApplication.Id &&
                             r.Relationship.DestinationId == singlePageApplication.Id)
-                .AddViewTags(C4PlantUmlWriter.Tags.Rel_Up);
+                .SetDirection(DirectionValues.Up);
 
             // DeploymentView´(with already copied relations): DevelopmentDeployment, LiveDeployment
             //     Rel_Up(InternetBankingSystem__WebApplication1, InternetBankingSystem__SinglePageApplication1, "Delivers to the customer's web browser") 
@@ -447,14 +449,14 @@ Rel_Left(Deployment__Live__BigBankplc__bigbankdb01__OraclePrimary__19fd8f, Deplo
             developmentDeploymentView.Relationships
                 .First(r => r.Relationship.SourceId == webApplication1.Id &&
                             r.Relationship.DestinationId == singlePageApplication1.Id)
-                .AddViewTags(C4PlantUmlWriter.Tags.Rel_Up);
+                .SetDirection(DirectionValues.Up);
             liveDeploymentView.Relationships
                 .First(r => r.Relationship.SourceId == webApplication2.Id &&
                             r.Relationship.DestinationId == singlePageApplication2.Id)
-                .AddViewTags(C4PlantUmlWriter.Tags.Rel_Up);
+                .SetDirection(DirectionValues.Up);
             liveDeploymentView.Relationships
                 .First(r => r.Relationship.SourceId == oraclePrimary.Id && r.Relationship.DestinationId == oracleSecondary.Id)
-                .AddViewTags(C4PlantUmlWriter.Tags.Rel_Left);
+                .SetDirection(DirectionValues.Left);
         }
 
         [Fact]
@@ -979,7 +981,7 @@ Rel(SoftwareSystem__WebApplication1__31f1f25, SoftwareSystem__Database1__bb9c73,
             Container webApplication = softwareSystem.AddContainer("Web Application", "Delivers content", "Java and spring MVC");
             Container database = softwareSystem.AddContainer("Database", "Stores information", "Relational Database Schema");
             // Additional mark it as database
-            database.AddTags(C4PlantUmlWriter.Tags.Database);
+            database.SetIsDatabase(true);
             user.Uses(webApplication, null, "HTTP");
             webApplication.Uses(database, "Reads from and writes to", "JDBC");
             webApplication.Uses(emailSystem, "Sends e-mail using");

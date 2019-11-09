@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Structurizr.IO.C4PlantUML.ModelExtensions;
 
 // Source base version copied from https://gist.github.com/coldacid/465fa8f3a4cd3fdd7b640a65ad5b86f4 (https://github.com/structurizr/dotnet/issues/47) 
 // kirchsth: Extended with dynamic and deployment view
@@ -13,20 +14,6 @@ namespace Structurizr.IO.C4PlantUML
         {
             TopDown,
             LeftRight
-        }
-
-        public sealed class Tags
-        {
-            public const string Database = "Database";
-
-            public const string Rel_Back = "Back Relationship";
-            public const string Rel_Neighbour = "Neighbour Relationship";
-            public const string Rel_Back_Neighbour = "Back Neighbour Relationship";
-
-            public const string Rel_Up = "Relationship Direction Up";
-            public const string Rel_Down = "Relationship Direction Down";
-            public const string Rel_Left = "Relationship Direction Left";
-            public const string Rel_Right = "Relationship Direction Right";
         }
 
         public bool LayoutWithLegend { get; set; } = true;
@@ -464,8 +451,6 @@ namespace Structurizr.IO.C4PlantUML
                 description = element.Description,
                 technology = null;
 
-            var tags = element.GetAllTags();
-
             if (asBoundary)
             {
                 switch (element)
@@ -497,6 +482,7 @@ namespace Structurizr.IO.C4PlantUML
             }
 
             bool external = false;
+            bool isDatabase = false;
 
             if (element is Person p)
             {
@@ -514,25 +500,28 @@ namespace Structurizr.IO.C4PlantUML
                     case Container cnt:
                         macro = "Container";
                         technology = cnt.Technology ?? "";
+                        isDatabase = cnt.GetIsDatabase();
                         break;
                     case Component cmp:
                         macro = "Component";
                         technology = cmp.Technology ?? "";
+                        isDatabase = cmp.GetIsDatabase();
                         break;
-                    case ContainerInstance cntIn: //TODO:
+                    case ContainerInstance cntIn:
                         macro = "ContainerInstance";
                         title = cntIn.Container.Name;
                         description = cntIn.Container.Description;
                         technology = cntIn.Container.Technology;
-                        tags = cntIn.Container.GetAllTags();
+                        isDatabase = cntIn.Container.GetIsDatabase();
                         break;
 
                     default:
                         throw new NotSupportedException($"Unsupported element type {element.GetType()}");
                 }
-                if (tags.Contains(Tags.Database))
-                    macro += "Db";
             }
+
+            if (isDatabase)
+                macro += "Db";
 
             if (external)
                 macro += "_Ext";
@@ -572,8 +561,7 @@ namespace Structurizr.IO.C4PlantUML
                 label = advancedDescription ?? relationship.Description ?? "",
                 tech = !string.IsNullOrWhiteSpace(relationship.Technology) ? relationship.Technology : null;
 
-            var macro = GetTagSpecificLayoutMacro(relationshipView);
-            macro = macro ?? "Rel";
+            var macro = GetSpecificLayoutMacro(relationshipView);
 
             writer.Write($"{macro}({source}, {dest}, \"{EscapeText(label)}\"");
             if (tech != null)
@@ -581,42 +569,22 @@ namespace Structurizr.IO.C4PlantUML
             writer.WriteLine(")");
         }
 
-        private static string GetTagSpecificLayoutMacro(RelationshipView relationshipView)
+        private static string GetSpecificLayoutMacro(RelationshipView relationshipView)
         {
-            string macro = null;
-
-            foreach (var tag in relationshipView.GetAllTags())
+            var direction = relationshipView.GetDirection(out _);
+            switch (direction)
             {
-                switch (tag)
-                {
-                    case Tags.Rel_Back:
-                        macro = "Rel_Back";
-                        break;
-                    case Tags.Rel_Neighbour:
-                        macro = "Rel_Neighbour";
-                        break;
-                    case Tags.Rel_Back_Neighbour:
-                        macro = "Rel_Back_Neighbour";
-                        break;
-                    case Tags.Rel_Up:
-                        macro = "Rel_Up";
-                        break;
-                    case Tags.Rel_Down:
-                        macro = "Rel_Down";
-                        break;
-                    case Tags.Rel_Left:
-                        macro = "Rel_Left";
-                        break;
-                    case Tags.Rel_Right:
-                        macro = "Rel_Right";
-                        break;
-                }
-
-                if (macro != null)
-                    break;
+                case DirectionValues.Back: return "Rel_Back";
+                case DirectionValues.Neighbor: return "Rel_Neighbor";  // C4 PlantUml without u
+                case DirectionValues.Neighbour: return "Rel_Neighbor";  // C4 PlantUml without u
+                case DirectionValues.BackNeighbor: return "Rel_Back_Neighbor"; // C4 PlantUml without u
+                case DirectionValues.BackNeighbour: return "Rel_Back_Neighbor"; // C4 PlantUml without u
+                case DirectionValues.Up: return "Rel_Up";
+                case DirectionValues.Down: return "Rel_Down";
+                case DirectionValues.Left: return "Rel_Left";
+                case DirectionValues.Right: return "Rel_Right";
+                default: return "Rel";
             }
-
-            return macro;
         }
     }
 }
