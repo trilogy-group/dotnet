@@ -104,16 +104,16 @@ System_Boundary(InternetBankingSystem__2aef74c, ""Internet Banking System"") {
   Container(InternetBankingSystem__SinglePageApplication__1414c79, ""Single-Page Application"", ""JavaScript and Angular"", ""Provides all of the Internet banking functionality to customers via their web browser."")
   Container(InternetBankingSystem__WebApplication__1bb919c, ""Web Application"", ""Java and Spring MVC"", ""Delivers the static content and the Internet banking single page application."")
 }
-Rel(InternetBankingSystem__APIApplication__2c36bed, InternetBankingSystem__Database__18307f7, ""Reads from and writes to"", ""JDBC"")
-Rel(InternetBankingSystem__APIApplication__2c36bed, EmailSystem__2908eb9, ""Sends e-mail using"", ""SMTP"")
-Rel(InternetBankingSystem__APIApplication__2c36bed, MainframeBankingSystem__f50ffa, ""Uses"", ""XML/HTTPS"")
+Rel_Left(InternetBankingSystem__APIApplication__2c36bed, InternetBankingSystem__Database__18307f7, ""Reads from and writes to"", ""JDBC"")
+Rel_Up(InternetBankingSystem__APIApplication__2c36bed, EmailSystem__2908eb9, ""Sends e-mail using"", ""SMTP"")
+Rel_Left(InternetBankingSystem__APIApplication__2c36bed, MainframeBankingSystem__f50ffa, ""Uses"", ""XML/HTTPS"")
 Rel_Up(EmailSystem__2908eb9, PersonalBankingCustomer__9bc576, ""Sends e-mails to"")
 Rel(InternetBankingSystem__MobileApp__38a070b, InternetBankingSystem__APIApplication__2c36bed, ""Makes API calls to"", ""JSON/HTTPS"")
 Rel(PersonalBankingCustomer__9bc576, InternetBankingSystem__MobileApp__38a070b, ""Uses"")
 Rel(PersonalBankingCustomer__9bc576, InternetBankingSystem__SinglePageApplication__1414c79, ""Uses"")
 Rel(PersonalBankingCustomer__9bc576, InternetBankingSystem__WebApplication__1bb919c, ""Uses"", ""HTTPS"")
 Rel(InternetBankingSystem__SinglePageApplication__1414c79, InternetBankingSystem__APIApplication__2c36bed, ""Makes API calls to"", ""JSON/HTTPS"")
-Rel_Up(InternetBankingSystem__WebApplication__1bb919c, InternetBankingSystem__SinglePageApplication__1414c79, ""Delivers to the customer's web browser"")
+Rel_Right(InternetBankingSystem__WebApplication__1bb919c, InternetBankingSystem__SinglePageApplication__1414c79, ""Delivers to the customer's web browser"")
 @enduml
 
 @startuml
@@ -154,6 +154,176 @@ Rel(InternetBankingSystem__SinglePageApplication__1414c79, InternetBankingSystem
 
 @startuml
 !include <C4/C4_Component>
+' C4_Dynamic.puml is missing, simulate it with following definitions
+' Scope: Interactions in an enterprise, software system or container.
+' Primary and supporting elements: Depends on the diagram scope - 
+'     enterprise - people and software systems related to the enterprise in scope 
+'     software system - see system context or container diagrams, 
+'     container - see component diagram.
+' Intended audience: Technical and non-technical people, inside and outside of the software development team.
+
+' Dynamic diagram introduces (automatically) numbered interactions: 
+'     Interact(): used automatic calculated index, 
+'     Interact2(): index can be explicit defined,
+'     SetIndex(): set the next index, 
+'     GetIndex(): get the index and automatically increase index
+
+' Index
+' ##################################
+
+!function $inc_($value, $step=1)
+  !return $value + $step
+!endfunction
+
+!$index=1
+
+!function SetIndex($new_index)
+  !$index=$new_index
+!endfunction
+
+!function GetIndex($auto_increase=1)
+  !$old = $index
+  !$index=$inc_($index, $auto_increase)
+  !return $old
+!endfunction
+
+' Interact
+' ##################################
+!define Interact2(e_index, e_from, e_to, e_label) Rel(e_from, e_to, ""e_index: e_label"")
+!define Interact2(e_index, e_from, e_to, e_label, e_techn) Rel(e_from, e_to, ""e_index: e_label"", e_techn)
+
+!define Interact2_Back(e_index, e_from, e_to, e_label) Rel_Back(e_from, e_to, ""e_index: e_label"")
+!define Interact2_Back(e_index, e_from, e_to, e_label, e_techn) Rel_Back(e_from, e_to, ""e_index: e_label"", e_techn)
+
+!define Interact2_Neighbor(e_index, e_from, e_to, e_label) Rel_Neighbor(e_from, e_to, ""e_index: e_label"")
+!define Interact2_Neighbor(e_index, e_from, e_to, e_label, e_techn) Rel_Neighbor(e_from, e_to, ""e_index: e_label"", e_techn)
+
+!define Interact2_Back_Neighbor(e_index, e_from, e_to, e_label) Rel_Back_Neighbor(e_from, e_to, ""e_index: e_label"")
+!define Interact2_Back_Neighbor(e_index, e_from, e_to, e_label, e_techn) Rel_Back_Neighbor(e_from, e_to, ""e_index: e_label"", e_techn)
+
+!define Interact2_D(e_index, e_from, e_to, e_label) Rel_D(e_from, e_to, ""e_index: e_label"")
+!define Interact2_D(e_index, e_from, e_to, e_label, e_techn) Rel_D(e_from, e_to, ""e_index: e_label"", e_techn)
+!define Interact2_Down(e_index, e_from, e_to, e_label) Rel_Down(e_from, e_to, ""e_index: e_label"")
+!define Interact2_Down(e_index, e_from, e_to, e_label, e_techn) Rel_Down(e_from, e_to, ""e_index: e_label"", e_techn)
+
+!define Interact2_U(e_index, e_from, e_to, e_label) Rel_U(e_from, e_to, ""e_index: e_label"")
+!define Interact2_U(e_index, e_from, e_to, e_label, e_techn) Rel_U(e_from, e_to, ""e_index: e_label"", e_techn)
+!define Interact2_Up(e_index, e_from, e_to, e_label) Rel_Up(e_from, e_to, ""e_index: e_label"")
+!define Interact2_Up(e_index, e_from, e_to, e_label, e_techn) Rel_Up(e_from, e_to, ""e_index: e_label"", e_techn)
+
+!define Interact2_L(e_index, e_from, e_to, e_label) Rel_L(e_from, e_to, ""e_index: e_label"")
+!define Interact2_L(e_index, e_from, e_to, e_label, e_techn) Rel_L(e_from, e_to, ""e_index: e_label"", e_techn)
+!define Interact2_Left(e_index, e_from, e_to, e_label) Rel_Left(e_from, e_to, ""e_index: e_label"")
+!define Interact2_Left(e_index, e_from, e_to, e_label, e_techn) Rel_Left(e_from, e_to, ""e_index: e_label"", e_techn)
+
+!define Interact2_R(e_index, e_from, e_to, e_label) Rel_R(e_from, e_to, ""e_index: e_label"")
+!define Interact2_R(e_index, e_from, e_to, e_label, e_techn) Rel_R(e_from, e_to, ""e_index: e_label"", e_techn)
+!define Interact2_Right(e_index, e_from, e_to, e_label) Rel_Right(e_from, e_to, ""e_index: e_label"")
+!define Interact2_Right(e_index, e_from, e_to, e_label, e_techn) Rel_Right(e_from, e_to, ""e_index: e_label"", e_techn)
+
+!unquoted function Interact($e_from, $e_to, $e_label) 
+  Interact2($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact($e_from, $e_to, $e_label, $e_techn) 
+  Interact2($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+
+!unquoted function Interact_Back($e_from, $e_to, $e_label) 
+  Interact2_Back($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Back($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_Back($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+
+!unquoted function Interact_Neighbor($e_from, $e_to, $e_label) 
+  Interact2_Neighbor($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Neighbor($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_Neighbor($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+
+!unquoted function Interact_Back_Neighbor($e_from, $e_to, $e_label) 
+  Interact2_Back_Neighbor($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Back_Neighbor($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_Back_Neighbor($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+
+!unquoted function Interact_D($e_from, $e_to, $e_label) 
+  Interact2_D($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_D($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_D($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Down($e_from, $e_to, $e_label) 
+  Interact2_Down($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Down($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_Down($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+
+!unquoted function Interact_U($e_from, $e_to, $e_label) 
+  Interact2_U($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_U($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_U($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Up($e_from, $e_to, $e_label) 
+  Interact2_Up($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Up($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_Up($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+
+!unquoted function Interact_L($e_from, $e_to, $e_label) 
+  Interact2_L($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_L($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_L($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Left($e_from, $e_to, $e_label) 
+  Interact2_Left($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Left($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_Left($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+
+!unquoted function Interact_R($e_from, $e_to, $e_label) 
+  Interact2_R($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_R($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_R($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Right($e_from, $e_to, $e_label) 
+  Interact2_Right($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Right($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_Right($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
 
 ' Structurizr.DynamicView: SignIn
 title API Application - Dynamic
@@ -166,41 +336,29 @@ Container_Boundary(InternetBankingSystem__APIApplication__2c36bed, ""API Applica
   Component(InternetBankingSystem__APIApplication__SecurityComponent__a4474, ""Security Component"", ""Spring Bean"", ""Provides functionality related to signing in, changing passwords, etc."")
   Component(InternetBankingSystem__APIApplication__SignInController__22cc62b, ""Sign In Controller"", ""Spring MVC Rest Controller"", ""Allows users to sign in to the Internet Banking System."")
 }
-Rel_Right(InternetBankingSystem__SinglePageApplication__1414c79, InternetBankingSystem__APIApplication__SignInController__22cc62b, ""1: Submits credentials to"", ""JSON/HTTPS"")
-Rel(InternetBankingSystem__APIApplication__SignInController__22cc62b, InternetBankingSystem__APIApplication__SecurityComponent__a4474, ""2: Calls isAuthenticated() on"")
-Rel_Right(InternetBankingSystem__APIApplication__SecurityComponent__a4474, InternetBankingSystem__Database__18307f7, ""3: select * from users where username = ?"", ""JDBC"")
+Interact2_Right(""1"", InternetBankingSystem__SinglePageApplication__1414c79, InternetBankingSystem__APIApplication__SignInController__22cc62b, ""Submits credentials to"", ""JSON/HTTPS"")
+Interact2(""2"", InternetBankingSystem__APIApplication__SignInController__22cc62b, InternetBankingSystem__APIApplication__SecurityComponent__a4474, ""Calls isAuthenticated() on"")
+Interact2_Right(""3"", InternetBankingSystem__APIApplication__SecurityComponent__a4474, InternetBankingSystem__Database__18307f7, ""select * from users where username = ?"", ""JDBC"")
 @enduml
 
 @startuml
 !include <C4/C4_Container>
 ' C4_Deployment.puml is missing, simulate it with following definitions
+' Scope: A single software system.
+' Primary elements: Deployment nodes and containers within the software system in scope.
+' Intended audience: Technical people inside and outside of the software development team; including software architects, developers and operations/support staff.
+
 ' Colors
 ' ##################################
-!define INSTANCE_BG_COLOR  #438DD5
-!define NODE_FONT_COLOR    #888888
+!define NODE_FONT_COLOR    #444444
 !define NODE_BG_COLOR      #FFFFFF
 
 ' Styling
 ' ##################################
-skinparam rectangle<<instance>> {
-  roundCorner 10
-  Shadowing true
-  FontColor ELEMENT_FONT_COLOR
-  BackgroundColor INSTANCE_BG_COLOR
-  BorderColor #3C7FC0
-}
-
-skinparam database<<instance>> {
-  roundCorner 10
-  Shadowing true
-  FontColor ELEMENT_FONT_COLOR
-  BackgroundColor INSTANCE_BG_COLOR
-  BorderColor #3C7FC0
-}
 
 skinparam rectangle<<node>> {
-  roundCorner 10
-  Shadowing true
+  Shadowing false
+  StereotypeFontSize 0
   FontColor NODE_FONT_COLOR
   BackgroundColor NODE_BG_COLOR
   BorderColor #444444
@@ -208,48 +366,41 @@ skinparam rectangle<<node>> {
 
 ' Layout
 ' ##################################
+
 !definelong LAYOUT_WITH_LEGEND
 hide stereotype
 legend right
-|=                    |= Type               |
-|<NODE_BG_COLOR>      | deployment node     |
-|<INSTANCE_BG_COLOR>  | deployment instance |
+|=                    |= Type                |
+|<NODE_BG_COLOR>      | deployment node      |
+|<CONTAINER_BG_COLOR> | deployment container |
 endlegend
 !enddefinelong
 
-' Instances
-' ##################################
-!define ContainerInstance(e_alias, e_label, e_techn) rectangle ""==e_label\n//<size:TECHN_FONT_SIZE>Instance: [e_techn]</size>//"" <<instance>> as e_alias
-!define ContainerInstance(e_alias, e_label, e_techn, e_descr) rectangle ""==e_label\n//<size:TECHN_FONT_SIZE>Instance: [e_techn]</size>//\n\n e_descr"" <<instance>> as e_alias
-
-!define ContainerInstanceDb(e_alias, e_label, e_techn) database ""==e_label\n//<size:TECHN_FONT_SIZE>Instance: [e_techn]</size>//"" <<instance>> as e_alias
-!define ContainerInstanceDb(e_alias, e_label, e_techn, e_descr) database ""==e_label\n//<size:TECHN_FONT_SIZE>Instance: [e_techn]</size>//\n\n e_descr"" <<instance>> as e_alias
-
-
 ' Nodes
 ' ##################################
-!define Deployment_Node(e_alias, e_label, e_techn) rectangle ""==e_label\n<size:TECHN_FONT_SIZE>[e_techn]</size>"" <<node>> as e_alias
-
+' PlantUML does not support automatic line breaks of container, if e_techn is very long insert line breaks with 
+' ""</size>\n<size:TECHN_FONT_SIZE>""
+!define Node(e_alias, e_label, e_techn) rectangle ""==e_label\n<size:TECHN_FONT_SIZE>[e_techn]</size>"" <<node>> as e_alias
 
 ' Structurizr.DeploymentView: DevelopmentDeployment
 title Internet Banking System - Deployment
 
 LAYOUT_WITH_LEGEND()
 
-Deployment_Node(Deployment__Development__DeveloperLaptop__389f399, ""Developer Laptop"", ""Microsoft Windows 10 or Apple </size>\n<size:TECHN_FONT_SIZE>macOS"") {
-  Deployment_Node(Deployment__Development__DeveloperLaptop__DockerContainerWebServer__1b73d2e, ""Docker Container - Web Server"", ""Docker"") {
-    Deployment_Node(Deployment__Development__DeveloperLaptop__DockerContainerWebServer__ApacheTomcat__1cc9f55, ""Apache Tomcat"", ""Apache Tomcat 8.x"") {
-      ContainerInstance(InternetBankingSystem__WebApplication1__28f79f6, ""Web Application"", ""Java and Spring MVC"", ""Delivers the static content and the Internet banking single page application."")
-      ContainerInstance(InternetBankingSystem__APIApplication1__1f227f4, ""API Application"", ""Java and Spring MVC"", ""Provides Internet banking functionality via a JSON/HTTPS API."")
+Node(Deployment__Development__DeveloperLaptop__389f399, ""Developer Laptop"", ""Microsoft Windows 10 or Apple </size>\n<size:TECHN_FONT_SIZE>macOS"") {
+  Node(Deployment__Development__DeveloperLaptop__DockerContainerWebServer__1b73d2e, ""Docker Container - Web Server"", ""Docker"") {
+    Node(Deployment__Development__DeveloperLaptop__DockerContainerWebServer__ApacheTomcat__1cc9f55, ""Apache Tomcat"", ""Apache Tomcat 8.x"") {
+      Container(InternetBankingSystem__WebApplication1__28f79f6, ""Web Application"", ""Java and Spring MVC"", ""Delivers the static content and the Internet banking single page application."")
+      Container(InternetBankingSystem__APIApplication1__1f227f4, ""API Application"", ""Java and Spring MVC"", ""Provides Internet banking functionality via a JSON/HTTPS API."")
     }
   }
-  Deployment_Node(Deployment__Development__DeveloperLaptop__DockerContainerDatabaseServer__2eae566, ""Docker Container - Database Server"", ""Docker"") {
-    Deployment_Node(Deployment__Development__DeveloperLaptop__DockerContainerDatabaseServer__DatabaseServer__24d13de, ""Database Server"", ""Oracle 12c"") {
-      ContainerInstanceDb(InternetBankingSystem__Database1__3296ca6, ""Database"", ""Relational Database Schema"", ""Stores user registration information, hashed authentication credentials, access logs, etc."")
+  Node(Deployment__Development__DeveloperLaptop__DockerContainerDatabaseServer__2eae566, ""Docker Container - Database Server"", ""Docker"") {
+    Node(Deployment__Development__DeveloperLaptop__DockerContainerDatabaseServer__DatabaseServer__24d13de, ""Database Server"", ""Oracle 12c"") {
+      ContainerDb(InternetBankingSystem__Database1__3296ca6, ""Database"", ""Relational Database Schema"", ""Stores user registration information, hashed authentication credentials, access logs, etc."")
     }
   }
-  Deployment_Node(Deployment__Development__DeveloperLaptop__WebBrowser__3930fd, ""Web Browser"", ""Google Chrome, Mozilla </size>\n<size:TECHN_FONT_SIZE>Firefox, Apple Safari or </size>\n<size:TECHN_FONT_SIZE>Microsoft Edge"") {
-    ContainerInstance(InternetBankingSystem__SinglePageApplication1__bbe85d, ""Single-Page Application"", ""JavaScript and Angular"", ""Provides all of the Internet banking functionality to customers via their web browser."")
+  Node(Deployment__Development__DeveloperLaptop__WebBrowser__3930fd, ""Web Browser"", ""Google Chrome, Mozilla </size>\n<size:TECHN_FONT_SIZE>Firefox, Apple Safari or </size>\n<size:TECHN_FONT_SIZE>Microsoft Edge"") {
+    Container(InternetBankingSystem__SinglePageApplication1__bbe85d, ""Single-Page Application"", ""JavaScript and Angular"", ""Provides all of the Internet banking functionality to customers via their web browser."")
   }
 }
 Rel(InternetBankingSystem__APIApplication1__1f227f4, InternetBankingSystem__Database1__3296ca6, ""Reads from and writes to"", ""JDBC"")
@@ -260,33 +411,21 @@ Rel_Up(InternetBankingSystem__WebApplication1__28f79f6, InternetBankingSystem__S
 @startuml
 !include <C4/C4_Container>
 ' C4_Deployment.puml is missing, simulate it with following definitions
+' Scope: A single software system.
+' Primary elements: Deployment nodes and containers within the software system in scope.
+' Intended audience: Technical people inside and outside of the software development team; including software architects, developers and operations/support staff.
+
 ' Colors
 ' ##################################
-!define INSTANCE_BG_COLOR  #438DD5
-!define NODE_FONT_COLOR    #888888
+!define NODE_FONT_COLOR    #444444
 !define NODE_BG_COLOR      #FFFFFF
 
 ' Styling
 ' ##################################
-skinparam rectangle<<instance>> {
-  roundCorner 10
-  Shadowing true
-  FontColor ELEMENT_FONT_COLOR
-  BackgroundColor INSTANCE_BG_COLOR
-  BorderColor #3C7FC0
-}
-
-skinparam database<<instance>> {
-  roundCorner 10
-  Shadowing true
-  FontColor ELEMENT_FONT_COLOR
-  BackgroundColor INSTANCE_BG_COLOR
-  BorderColor #3C7FC0
-}
 
 skinparam rectangle<<node>> {
-  roundCorner 10
-  Shadowing true
+  Shadowing false
+  StereotypeFontSize 0
   FontColor NODE_FONT_COLOR
   BackgroundColor NODE_BG_COLOR
   BorderColor #444444
@@ -294,63 +433,56 @@ skinparam rectangle<<node>> {
 
 ' Layout
 ' ##################################
+
 !definelong LAYOUT_WITH_LEGEND
 hide stereotype
 legend right
-|=                    |= Type               |
-|<NODE_BG_COLOR>      | deployment node     |
-|<INSTANCE_BG_COLOR>  | deployment instance |
+|=                    |= Type                |
+|<NODE_BG_COLOR>      | deployment node      |
+|<CONTAINER_BG_COLOR> | deployment container |
 endlegend
 !enddefinelong
 
-' Instances
-' ##################################
-!define ContainerInstance(e_alias, e_label, e_techn) rectangle ""==e_label\n//<size:TECHN_FONT_SIZE>Instance: [e_techn]</size>//"" <<instance>> as e_alias
-!define ContainerInstance(e_alias, e_label, e_techn, e_descr) rectangle ""==e_label\n//<size:TECHN_FONT_SIZE>Instance: [e_techn]</size>//\n\n e_descr"" <<instance>> as e_alias
-
-!define ContainerInstanceDb(e_alias, e_label, e_techn) database ""==e_label\n//<size:TECHN_FONT_SIZE>Instance: [e_techn]</size>//"" <<instance>> as e_alias
-!define ContainerInstanceDb(e_alias, e_label, e_techn, e_descr) database ""==e_label\n//<size:TECHN_FONT_SIZE>Instance: [e_techn]</size>//\n\n e_descr"" <<instance>> as e_alias
-
-
 ' Nodes
 ' ##################################
-!define Deployment_Node(e_alias, e_label, e_techn) rectangle ""==e_label\n<size:TECHN_FONT_SIZE>[e_techn]</size>"" <<node>> as e_alias
-
+' PlantUML does not support automatic line breaks of container, if e_techn is very long insert line breaks with 
+' ""</size>\n<size:TECHN_FONT_SIZE>""
+!define Node(e_alias, e_label, e_techn) rectangle ""==e_label\n<size:TECHN_FONT_SIZE>[e_techn]</size>"" <<node>> as e_alias
 
 ' Structurizr.DeploymentView: LiveDeployment
 title Internet Banking System - Deployment
 
 LAYOUT_WITH_LEGEND()
 
-Deployment_Node(Deployment__Live__BigBankplc__3ffe15e, ""Big Bank plc"", ""Big Bank plc data center"") {
-  Deployment_Node(Deployment__Live__BigBankplc__bigbankweb***__3f92e18, ""bigbank-web*** (x4)"", ""Ubuntu 16.04 LTS"") {
-    Deployment_Node(Deployment__Live__BigBankplc__bigbankweb***__ApacheTomcat__27b4383, ""Apache Tomcat"", ""Apache Tomcat 8.x"") {
-      ContainerInstance(InternetBankingSystem__WebApplication2__1720850, ""Web Application"", ""Java and Spring MVC"", ""Delivers the static content and the Internet banking single page application."")
+Node(Deployment__Live__BigBankplc__3ffe15e, ""Big Bank plc"", ""Big Bank plc data center"") {
+  Node(Deployment__Live__BigBankplc__bigbankweb***__3f92e18, ""bigbank-web*** (x4)"", ""Ubuntu 16.04 LTS"") {
+    Node(Deployment__Live__BigBankplc__bigbankweb***__ApacheTomcat__27b4383, ""Apache Tomcat"", ""Apache Tomcat 8.x"") {
+      Container(InternetBankingSystem__WebApplication2__1720850, ""Web Application"", ""Java and Spring MVC"", ""Delivers the static content and the Internet banking single page application."")
     }
   }
-  Deployment_Node(Deployment__Live__BigBankplc__bigbankapi***__263d9e8, ""bigbank-api*** (x8)"", ""Ubuntu 16.04 LTS"") {
-    Deployment_Node(Deployment__Live__BigBankplc__bigbankapi***__ApacheTomcat__3b84ab, ""Apache Tomcat"", ""Apache Tomcat 8.x"") {
-      ContainerInstance(InternetBankingSystem__APIApplication2__1408a33, ""API Application"", ""Java and Spring MVC"", ""Provides Internet banking functionality via a JSON/HTTPS API."")
+  Node(Deployment__Live__BigBankplc__bigbankapi***__263d9e8, ""bigbank-api*** (x8)"", ""Ubuntu 16.04 LTS"") {
+    Node(Deployment__Live__BigBankplc__bigbankapi***__ApacheTomcat__3b84ab, ""Apache Tomcat"", ""Apache Tomcat 8.x"") {
+      Container(InternetBankingSystem__APIApplication2__1408a33, ""API Application"", ""Java and Spring MVC"", ""Provides Internet banking functionality via a JSON/HTTPS API."")
     }
   }
-  Deployment_Node(Deployment__Live__BigBankplc__bigbankdb01__35ec592, ""bigbank-db01"", ""Ubuntu 16.04 LTS"") {
-    Deployment_Node(Deployment__Live__BigBankplc__bigbankdb01__OraclePrimary__19fd8f, ""Oracle - Primary"", ""Oracle 12c"") {
-      ContainerInstanceDb(InternetBankingSystem__Database2__1c974ec, ""Database"", ""Relational Database Schema"", ""Stores user registration information, hashed authentication credentials, access logs, etc."")
+  Node(Deployment__Live__BigBankplc__bigbankdb01__35ec592, ""bigbank-db01"", ""Ubuntu 16.04 LTS"") {
+    Node(Deployment__Live__BigBankplc__bigbankdb01__OraclePrimary__19fd8f, ""Oracle - Primary"", ""Oracle 12c"") {
+      ContainerDb(InternetBankingSystem__Database2__1c974ec, ""Database"", ""Relational Database Schema"", ""Stores user registration information, hashed authentication credentials, access logs, etc."")
     }
   }
-  Deployment_Node(Deployment__Live__BigBankplc__bigbankdb02__1db08a2, ""bigbank-db02"", ""Ubuntu 16.04 LTS"") {
-    Deployment_Node(Deployment__Live__BigBankplc__bigbankdb02__OracleSecondary__1c4ec22, ""Oracle - Secondary"", ""Oracle 12c"") {
-      ContainerInstanceDb(InternetBankingSystem__Database3__d89394, ""Database"", ""Relational Database Schema"", ""Stores user registration information, hashed authentication credentials, access logs, etc."")
+  Node(Deployment__Live__BigBankplc__bigbankdb02__1db08a2, ""bigbank-db02"", ""Ubuntu 16.04 LTS"") {
+    Node(Deployment__Live__BigBankplc__bigbankdb02__OracleSecondary__1c4ec22, ""Oracle - Secondary"", ""Oracle 12c"") {
+      ContainerDb(InternetBankingSystem__Database3__d89394, ""Database"", ""Relational Database Schema"", ""Stores user registration information, hashed authentication credentials, access logs, etc."")
     }
   }
 }
-Deployment_Node(Deployment__Live__Customer'scomputer__2510bf3, ""Customer's computer"", ""Microsoft Windows or Apple </size>\n<size:TECHN_FONT_SIZE>macOS"") {
-  Deployment_Node(Deployment__Live__Customer'scomputer__WebBrowser__ba951, ""Web Browser"", ""Google Chrome, Mozilla </size>\n<size:TECHN_FONT_SIZE>Firefox, Apple Safari or </size>\n<size:TECHN_FONT_SIZE>Microsoft Edge"") {
-    ContainerInstance(InternetBankingSystem__SinglePageApplication2__298b31c, ""Single-Page Application"", ""JavaScript and Angular"", ""Provides all of the Internet banking functionality to customers via their web browser."")
+Node(Deployment__Live__Customer'scomputer__2510bf3, ""Customer's computer"", ""Microsoft Windows or Apple </size>\n<size:TECHN_FONT_SIZE>macOS"") {
+  Node(Deployment__Live__Customer'scomputer__WebBrowser__ba951, ""Web Browser"", ""Google Chrome, Mozilla </size>\n<size:TECHN_FONT_SIZE>Firefox, Apple Safari or </size>\n<size:TECHN_FONT_SIZE>Microsoft Edge"") {
+    Container(InternetBankingSystem__SinglePageApplication2__298b31c, ""Single-Page Application"", ""JavaScript and Angular"", ""Provides all of the Internet banking functionality to customers via their web browser."")
   }
 }
-Deployment_Node(Deployment__Live__Customer'smobiledevice__1d6bcb6, ""Customer's mobile device"", ""Apple iOS or Android"") {
-  ContainerInstance(InternetBankingSystem__MobileApp1__d004b3, ""Mobile App"", ""Xamarin"", ""Provides a limited subset of the Internet banking functionality to customers via their mobile device."")
+Node(Deployment__Live__Customer'smobiledevice__1d6bcb6, ""Customer's mobile device"", ""Apple iOS or Android"") {
+  Container(InternetBankingSystem__MobileApp1__d004b3, ""Mobile App"", ""Xamarin"", ""Provides a limited subset of the Internet banking functionality to customers via their mobile device."")
 }
 Rel(InternetBankingSystem__APIApplication2__1408a33, InternetBankingSystem__Database2__1c974ec, ""Reads from and writes to"", ""JDBC"")
 Rel(InternetBankingSystem__APIApplication2__1408a33, InternetBankingSystem__Database3__d89394, ""Reads from and writes to"", ""JDBC"")
@@ -423,12 +555,31 @@ Rel_Left(Deployment__Live__BigBankplc__bigbankdb01__OraclePrimary__19fd8f, Deplo
 
             // ContainerView
             //     Rel_Up(InternetBankingSystem__WebApplication, InternetBankingSystem__SinglePageApplication, "Delivers to the customer's web browser")
+            var apiApplication = workspace.Model.GetElementWithCanonicalName("/Internet Banking System/API Application");
             var webApplication = workspace.Model.GetElementWithCanonicalName("/Internet Banking System/Web Application");
+
+
             var containerView = workspace.Views.ContainerViews.First();
+            containerView.Relationships
+                .First(r => r.Relationship.SourceId == apiApplication.Id &&
+                            r.Relationship.DestinationId == database.Id)
+                .SetDirection(DirectionValues.Left);
+            containerView.Relationships
+                .First(r => r.Relationship.SourceId == apiApplication.Id &&
+                            r.Relationship.DestinationId == emailSystem.Id)
+                .SetDirection(DirectionValues.Up);
+            containerView.Relationships
+                .First(r => r.Relationship.SourceId == apiApplication.Id &&
+                            r.Relationship.DestinationId == mainframeBankingSystem.Id)
+                .SetDirection(DirectionValues.Left);
+            containerView.Relationships
+                .First(r => r.Relationship.SourceId == emailSystem.Id &&
+                            r.Relationship.DestinationId == personalBankingCustomer.Id)
+                .SetDirection(DirectionValues.Up);
             containerView.Relationships
                 .First(r => r.Relationship.SourceId == webApplication.Id &&
                             r.Relationship.DestinationId == singlePageApplication.Id)
-                .SetDirection(DirectionValues.Up);
+                .SetDirection(DirectionValues.Right);
 
             // DeploymentView´(with already copied relations): DevelopmentDeployment, LiveDeployment
             //     Rel_Up(InternetBankingSystem__WebApplication1, InternetBankingSystem__SinglePageApplication1, "Delivers to the customer's web browser") 
@@ -460,14 +611,15 @@ Rel_Left(Deployment__Live__BigBankplc__bigbankdb01__OraclePrimary__19fd8f, Deplo
         }
 
         [Fact]
-        public void test_writeWorkspace()
+        public void test_writeWorkspace_WithCustomBaseUrl()
         {
             PopulateWorkspace();
 
+            _plantUMLWriter.CustomBaseUrl = @"https://raw.githubusercontent.com/kirchsth/C4-PlantUML/master/";
             _plantUMLWriter.Write(_workspace, _stringWriter);
             Assert.Equal(
 @"@startuml
-!include <C4/C4_Context>
+!includeurl https://raw.githubusercontent.com/kirchsth/C4-PlantUML/master/C4_Context.puml
 
 ' Structurizr.SystemLandscapeView: enterpriseContext
 title System Landscape for Some Enterprise
@@ -485,7 +637,7 @@ Rel(User__387cc75, SoftwareSystem__31d545b, ""Uses"")
 @enduml
 
 @startuml
-!include <C4/C4_Context>
+!includeurl https://raw.githubusercontent.com/kirchsth/C4-PlantUML/master/C4_Context.puml
 
 ' Structurizr.SystemContextView: systemContext
 title Software System - System Context
@@ -503,7 +655,7 @@ Rel(User__387cc75, SoftwareSystem__31d545b, ""Uses"")
 @enduml
 
 @startuml
-!include <C4/C4_Container>
+!includeurl https://raw.githubusercontent.com/kirchsth/C4-PlantUML/master/C4_Container.puml
 
 ' Structurizr.ContainerView: containers
 title Software System - Containers
@@ -523,7 +675,7 @@ Rel(SoftwareSystem__WebApplication__d2a342, EmailSystem__1127701, ""Sends e-mail
 @enduml
 
 @startuml
-!include <C4/C4_Component>
+!includeurl https://raw.githubusercontent.com/kirchsth/C4-PlantUML/master/C4_Component.puml
 
 ' Structurizr.ComponentView: components
 title Software System - Web Application - Components
@@ -547,7 +699,7 @@ Rel(User__387cc75, SoftwareSystem__WebApplication__SomeController__341621c, ""Us
 @enduml
 
 @startuml
-!include <C4/C4_Component>
+!includeurl https://raw.githubusercontent.com/kirchsth/C4-PlantUML/master/C4_Dynamic.puml
 
 ' Structurizr.DynamicView: dynamic
 title Web Application - Dynamic
@@ -560,84 +712,27 @@ Container_Boundary(SoftwareSystem__WebApplication__d2a342, ""Web Application"") 
   Component(SoftwareSystem__WebApplication__SomeController__341621c, ""SomeController"", ""Spring MVC Controller"")
   Component(SoftwareSystem__WebApplication__SomeRepository__6d9009, ""SomeRepository"", ""Spring Data"")
 }
-Rel(User__387cc75, SoftwareSystem__WebApplication__SomeController__341621c, ""1: Requests /something"", ""HTTP"")
-Rel(SoftwareSystem__WebApplication__SomeController__341621c, SoftwareSystem__WebApplication__SomeRepository__6d9009, ""2: "")
-Rel(SoftwareSystem__WebApplication__SomeRepository__6d9009, SoftwareSystem__Database__39bccb8, ""3: select * from something"", ""JDBC"")
+Interact2(""1"", User__387cc75, SoftwareSystem__WebApplication__SomeController__341621c, ""Requests /something"", ""HTTP"")
+Interact2(""2"", SoftwareSystem__WebApplication__SomeController__341621c, SoftwareSystem__WebApplication__SomeRepository__6d9009, """")
+Interact2(""3"", SoftwareSystem__WebApplication__SomeRepository__6d9009, SoftwareSystem__Database__39bccb8, ""select * from something"", ""JDBC"")
 @enduml
 
 @startuml
-!include <C4/C4_Container>
-' C4_Deployment.puml is missing, simulate it with following definitions
-' Colors
-' ##################################
-!define INSTANCE_BG_COLOR  #438DD5
-!define NODE_FONT_COLOR    #888888
-!define NODE_BG_COLOR      #FFFFFF
-
-' Styling
-' ##################################
-skinparam rectangle<<instance>> {
-  roundCorner 10
-  Shadowing true
-  FontColor ELEMENT_FONT_COLOR
-  BackgroundColor INSTANCE_BG_COLOR
-  BorderColor #3C7FC0
-}
-
-skinparam database<<instance>> {
-  roundCorner 10
-  Shadowing true
-  FontColor ELEMENT_FONT_COLOR
-  BackgroundColor INSTANCE_BG_COLOR
-  BorderColor #3C7FC0
-}
-
-skinparam rectangle<<node>> {
-  roundCorner 10
-  Shadowing true
-  FontColor NODE_FONT_COLOR
-  BackgroundColor NODE_BG_COLOR
-  BorderColor #444444
-}
-
-' Layout
-' ##################################
-!definelong LAYOUT_WITH_LEGEND
-hide stereotype
-legend right
-|=                    |= Type               |
-|<NODE_BG_COLOR>      | deployment node     |
-|<INSTANCE_BG_COLOR>  | deployment instance |
-endlegend
-!enddefinelong
-
-' Instances
-' ##################################
-!define ContainerInstance(e_alias, e_label, e_techn) rectangle ""==e_label\n//<size:TECHN_FONT_SIZE>Instance: [e_techn]</size>//"" <<instance>> as e_alias
-!define ContainerInstance(e_alias, e_label, e_techn, e_descr) rectangle ""==e_label\n//<size:TECHN_FONT_SIZE>Instance: [e_techn]</size>//\n\n e_descr"" <<instance>> as e_alias
-
-!define ContainerInstanceDb(e_alias, e_label, e_techn) database ""==e_label\n//<size:TECHN_FONT_SIZE>Instance: [e_techn]</size>//"" <<instance>> as e_alias
-!define ContainerInstanceDb(e_alias, e_label, e_techn, e_descr) database ""==e_label\n//<size:TECHN_FONT_SIZE>Instance: [e_techn]</size>//\n\n e_descr"" <<instance>> as e_alias
-
-
-' Nodes
-' ##################################
-!define Deployment_Node(e_alias, e_label, e_techn) rectangle ""==e_label\n<size:TECHN_FONT_SIZE>[e_techn]</size>"" <<node>> as e_alias
-
+!includeurl https://raw.githubusercontent.com/kirchsth/C4-PlantUML/master/C4_Deployment.puml
 
 ' Structurizr.DeploymentView: deployment
 title Software System - Deployment
 
 LAYOUT_WITH_LEGEND()
 
-Deployment_Node(Deployment__Default__DatabaseServer__1edef6c, ""Database Server"", ""Ubuntu 12.04 LTS"") {
-  Deployment_Node(Deployment__Default__DatabaseServer__MySQL__1fa4f18, ""MySQL"", ""MySQL 5.5.x"") {
-    ContainerInstanceDb(SoftwareSystem__Database1__bb9c73, ""Database"", ""Relational Database Schema"", ""Stores information"")
+Node(Deployment__Default__DatabaseServer__1edef6c, ""Database Server"", ""Ubuntu 12.04 LTS"") {
+  Node(Deployment__Default__DatabaseServer__MySQL__1fa4f18, ""MySQL"", ""MySQL 5.5.x"") {
+    ContainerDb(SoftwareSystem__Database1__bb9c73, ""Database"", ""Relational Database Schema"", ""Stores information"")
   }
 }
-Deployment_Node(Deployment__Default__WebServer__1e2ffe, ""Web Server"", ""Ubuntu 12.04 LTS"") {
-  Deployment_Node(Deployment__Default__WebServer__ApacheTomcat__2b8afb4, ""Apache Tomcat"", ""Apache Tomcat 8.x"") {
-    ContainerInstance(SoftwareSystem__WebApplication1__31f1f25, ""Web Application"", ""Java and spring MVC"", ""Delivers content"")
+Node(Deployment__Default__WebServer__1e2ffe, ""Web Server"", ""Ubuntu 12.04 LTS"") {
+  Node(Deployment__Default__WebServer__ApacheTomcat__2b8afb4, ""Apache Tomcat"", ""Apache Tomcat 8.x"") {
+    Container(SoftwareSystem__WebApplication1__31f1f25, ""Web Application"", ""Java and spring MVC"", ""Delivers content"")
   }
 }
 Rel(SoftwareSystem__WebApplication1__31f1f25, SoftwareSystem__Database1__bb9c73, ""Reads from and writes to"", ""JDBC"")
@@ -819,6 +914,176 @@ Rel(User__3b843b5, SoftwareSystem__WebApplication__SomeController__327a713, ""Us
             Assert.Equal(
 @"@startuml
 !include <C4/C4_Component>
+' C4_Dynamic.puml is missing, simulate it with following definitions
+' Scope: Interactions in an enterprise, software system or container.
+' Primary and supporting elements: Depends on the diagram scope - 
+'     enterprise - people and software systems related to the enterprise in scope 
+'     software system - see system context or container diagrams, 
+'     container - see component diagram.
+' Intended audience: Technical and non-technical people, inside and outside of the software development team.
+
+' Dynamic diagram introduces (automatically) numbered interactions: 
+'     Interact(): used automatic calculated index, 
+'     Interact2(): index can be explicit defined,
+'     SetIndex(): set the next index, 
+'     GetIndex(): get the index and automatically increase index
+
+' Index
+' ##################################
+
+!function $inc_($value, $step=1)
+  !return $value + $step
+!endfunction
+
+!$index=1
+
+!function SetIndex($new_index)
+  !$index=$new_index
+!endfunction
+
+!function GetIndex($auto_increase=1)
+  !$old = $index
+  !$index=$inc_($index, $auto_increase)
+  !return $old
+!endfunction
+
+' Interact
+' ##################################
+!define Interact2(e_index, e_from, e_to, e_label) Rel(e_from, e_to, ""e_index: e_label"")
+!define Interact2(e_index, e_from, e_to, e_label, e_techn) Rel(e_from, e_to, ""e_index: e_label"", e_techn)
+
+!define Interact2_Back(e_index, e_from, e_to, e_label) Rel_Back(e_from, e_to, ""e_index: e_label"")
+!define Interact2_Back(e_index, e_from, e_to, e_label, e_techn) Rel_Back(e_from, e_to, ""e_index: e_label"", e_techn)
+
+!define Interact2_Neighbor(e_index, e_from, e_to, e_label) Rel_Neighbor(e_from, e_to, ""e_index: e_label"")
+!define Interact2_Neighbor(e_index, e_from, e_to, e_label, e_techn) Rel_Neighbor(e_from, e_to, ""e_index: e_label"", e_techn)
+
+!define Interact2_Back_Neighbor(e_index, e_from, e_to, e_label) Rel_Back_Neighbor(e_from, e_to, ""e_index: e_label"")
+!define Interact2_Back_Neighbor(e_index, e_from, e_to, e_label, e_techn) Rel_Back_Neighbor(e_from, e_to, ""e_index: e_label"", e_techn)
+
+!define Interact2_D(e_index, e_from, e_to, e_label) Rel_D(e_from, e_to, ""e_index: e_label"")
+!define Interact2_D(e_index, e_from, e_to, e_label, e_techn) Rel_D(e_from, e_to, ""e_index: e_label"", e_techn)
+!define Interact2_Down(e_index, e_from, e_to, e_label) Rel_Down(e_from, e_to, ""e_index: e_label"")
+!define Interact2_Down(e_index, e_from, e_to, e_label, e_techn) Rel_Down(e_from, e_to, ""e_index: e_label"", e_techn)
+
+!define Interact2_U(e_index, e_from, e_to, e_label) Rel_U(e_from, e_to, ""e_index: e_label"")
+!define Interact2_U(e_index, e_from, e_to, e_label, e_techn) Rel_U(e_from, e_to, ""e_index: e_label"", e_techn)
+!define Interact2_Up(e_index, e_from, e_to, e_label) Rel_Up(e_from, e_to, ""e_index: e_label"")
+!define Interact2_Up(e_index, e_from, e_to, e_label, e_techn) Rel_Up(e_from, e_to, ""e_index: e_label"", e_techn)
+
+!define Interact2_L(e_index, e_from, e_to, e_label) Rel_L(e_from, e_to, ""e_index: e_label"")
+!define Interact2_L(e_index, e_from, e_to, e_label, e_techn) Rel_L(e_from, e_to, ""e_index: e_label"", e_techn)
+!define Interact2_Left(e_index, e_from, e_to, e_label) Rel_Left(e_from, e_to, ""e_index: e_label"")
+!define Interact2_Left(e_index, e_from, e_to, e_label, e_techn) Rel_Left(e_from, e_to, ""e_index: e_label"", e_techn)
+
+!define Interact2_R(e_index, e_from, e_to, e_label) Rel_R(e_from, e_to, ""e_index: e_label"")
+!define Interact2_R(e_index, e_from, e_to, e_label, e_techn) Rel_R(e_from, e_to, ""e_index: e_label"", e_techn)
+!define Interact2_Right(e_index, e_from, e_to, e_label) Rel_Right(e_from, e_to, ""e_index: e_label"")
+!define Interact2_Right(e_index, e_from, e_to, e_label, e_techn) Rel_Right(e_from, e_to, ""e_index: e_label"", e_techn)
+
+!unquoted function Interact($e_from, $e_to, $e_label) 
+  Interact2($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact($e_from, $e_to, $e_label, $e_techn) 
+  Interact2($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+
+!unquoted function Interact_Back($e_from, $e_to, $e_label) 
+  Interact2_Back($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Back($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_Back($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+
+!unquoted function Interact_Neighbor($e_from, $e_to, $e_label) 
+  Interact2_Neighbor($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Neighbor($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_Neighbor($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+
+!unquoted function Interact_Back_Neighbor($e_from, $e_to, $e_label) 
+  Interact2_Back_Neighbor($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Back_Neighbor($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_Back_Neighbor($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+
+!unquoted function Interact_D($e_from, $e_to, $e_label) 
+  Interact2_D($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_D($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_D($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Down($e_from, $e_to, $e_label) 
+  Interact2_Down($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Down($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_Down($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+
+!unquoted function Interact_U($e_from, $e_to, $e_label) 
+  Interact2_U($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_U($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_U($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Up($e_from, $e_to, $e_label) 
+  Interact2_Up($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Up($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_Up($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+
+!unquoted function Interact_L($e_from, $e_to, $e_label) 
+  Interact2_L($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_L($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_L($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Left($e_from, $e_to, $e_label) 
+  Interact2_Left($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Left($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_Left($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+
+!unquoted function Interact_R($e_from, $e_to, $e_label) 
+  Interact2_R($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_R($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_R($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Right($e_from, $e_to, $e_label) 
+  Interact2_Right($index, ""$e_from"", ""$e_to"", ""$e_label"")
+  !$index=$inc_($index)
+!endfunction
+!unquoted function Interact_Right($e_from, $e_to, $e_label, $e_techn) 
+  Interact2_Right($index, ""$e_from"", ""$e_to"", ""$e_label"", $e_techn)
+  !$index=$inc_($index)
+!endfunction
 
 ' Structurizr.DynamicView: dynamic
 title Web Application - Dynamic
@@ -831,9 +1096,9 @@ Container_Boundary(SoftwareSystem__WebApplication__d2a342, ""Web Application"") 
   Component(SoftwareSystem__WebApplication__SomeController__341621c, ""SomeController"", ""Spring MVC Controller"")
   Component(SoftwareSystem__WebApplication__SomeRepository__6d9009, ""SomeRepository"", ""Spring Data"")
 }
-Rel(User__387cc75, SoftwareSystem__WebApplication__SomeController__341621c, ""1: Requests /something"", ""HTTP"")
-Rel(SoftwareSystem__WebApplication__SomeController__341621c, SoftwareSystem__WebApplication__SomeRepository__6d9009, ""2: "")
-Rel(SoftwareSystem__WebApplication__SomeRepository__6d9009, SoftwareSystem__Database__39bccb8, ""3: select * from something"", ""JDBC"")
+Interact2(""1"", User__387cc75, SoftwareSystem__WebApplication__SomeController__341621c, ""Requests /something"", ""HTTP"")
+Interact2(""2"", SoftwareSystem__WebApplication__SomeController__341621c, SoftwareSystem__WebApplication__SomeRepository__6d9009, """")
+Interact2(""3"", SoftwareSystem__WebApplication__SomeRepository__6d9009, SoftwareSystem__Database__39bccb8, ""select * from something"", ""JDBC"")
 @enduml
 
 ".UnifyNewLine().UnifyHashValues(), _stringWriter.ToString().UnifyHashValues());
@@ -851,33 +1116,21 @@ Rel(SoftwareSystem__WebApplication__SomeRepository__6d9009, SoftwareSystem__Data
 @"@startuml
 !include <C4/C4_Container>
 ' C4_Deployment.puml is missing, simulate it with following definitions
+' Scope: A single software system.
+' Primary elements: Deployment nodes and containers within the software system in scope.
+' Intended audience: Technical people inside and outside of the software development team; including software architects, developers and operations/support staff.
+
 ' Colors
 ' ##################################
-!define INSTANCE_BG_COLOR  #438DD5
-!define NODE_FONT_COLOR    #888888
+!define NODE_FONT_COLOR    #444444
 !define NODE_BG_COLOR      #FFFFFF
 
 ' Styling
 ' ##################################
-skinparam rectangle<<instance>> {
-  roundCorner 10
-  Shadowing true
-  FontColor ELEMENT_FONT_COLOR
-  BackgroundColor INSTANCE_BG_COLOR
-  BorderColor #3C7FC0
-}
-
-skinparam database<<instance>> {
-  roundCorner 10
-  Shadowing true
-  FontColor ELEMENT_FONT_COLOR
-  BackgroundColor INSTANCE_BG_COLOR
-  BorderColor #3C7FC0
-}
 
 skinparam rectangle<<node>> {
-  roundCorner 10
-  Shadowing true
+  Shadowing false
+  StereotypeFontSize 0
   FontColor NODE_FONT_COLOR
   BackgroundColor NODE_BG_COLOR
   BorderColor #444444
@@ -885,42 +1138,35 @@ skinparam rectangle<<node>> {
 
 ' Layout
 ' ##################################
+
 !definelong LAYOUT_WITH_LEGEND
 hide stereotype
 legend right
-|=                    |= Type               |
-|<NODE_BG_COLOR>      | deployment node     |
-|<INSTANCE_BG_COLOR>  | deployment instance |
+|=                    |= Type                |
+|<NODE_BG_COLOR>      | deployment node      |
+|<CONTAINER_BG_COLOR> | deployment container |
 endlegend
 !enddefinelong
 
-' Instances
-' ##################################
-!define ContainerInstance(e_alias, e_label, e_techn) rectangle ""==e_label\n//<size:TECHN_FONT_SIZE>Instance: [e_techn]</size>//"" <<instance>> as e_alias
-!define ContainerInstance(e_alias, e_label, e_techn, e_descr) rectangle ""==e_label\n//<size:TECHN_FONT_SIZE>Instance: [e_techn]</size>//\n\n e_descr"" <<instance>> as e_alias
-
-!define ContainerInstanceDb(e_alias, e_label, e_techn) database ""==e_label\n//<size:TECHN_FONT_SIZE>Instance: [e_techn]</size>//"" <<instance>> as e_alias
-!define ContainerInstanceDb(e_alias, e_label, e_techn, e_descr) database ""==e_label\n//<size:TECHN_FONT_SIZE>Instance: [e_techn]</size>//\n\n e_descr"" <<instance>> as e_alias
-
-
 ' Nodes
 ' ##################################
-!define Deployment_Node(e_alias, e_label, e_techn) rectangle ""==e_label\n<size:TECHN_FONT_SIZE>[e_techn]</size>"" <<node>> as e_alias
-
+' PlantUML does not support automatic line breaks of container, if e_techn is very long insert line breaks with 
+' ""</size>\n<size:TECHN_FONT_SIZE>""
+!define Node(e_alias, e_label, e_techn) rectangle ""==e_label\n<size:TECHN_FONT_SIZE>[e_techn]</size>"" <<node>> as e_alias
 
 ' Structurizr.DeploymentView: deployment
 title Software System - Deployment
 
 LAYOUT_WITH_LEGEND()
 
-Deployment_Node(Deployment__Default__DatabaseServer__1edef6c, ""Database Server"", ""Ubuntu 12.04 LTS"") {
-  Deployment_Node(Deployment__Default__DatabaseServer__MySQL__1fa4f18, ""MySQL"", ""MySQL 5.5.x"") {
-    ContainerInstanceDb(SoftwareSystem__Database1__bb9c73, ""Database"", ""Relational Database Schema"", ""Stores information"")
+Node(Deployment__Default__DatabaseServer__1edef6c, ""Database Server"", ""Ubuntu 12.04 LTS"") {
+  Node(Deployment__Default__DatabaseServer__MySQL__1fa4f18, ""MySQL"", ""MySQL 5.5.x"") {
+    ContainerDb(SoftwareSystem__Database1__bb9c73, ""Database"", ""Relational Database Schema"", ""Stores information"")
   }
 }
-Deployment_Node(Deployment__Default__WebServer__1e2ffe, ""Web Server"", ""Ubuntu 12.04 LTS"") {
-  Deployment_Node(Deployment__Default__WebServer__ApacheTomcat__2b8afb4, ""Apache Tomcat"", ""Apache Tomcat 8.x"") {
-    ContainerInstance(SoftwareSystem__WebApplication1__31f1f25, ""Web Application"", ""Java and spring MVC"", ""Delivers content"")
+Node(Deployment__Default__WebServer__1e2ffe, ""Web Server"", ""Ubuntu 12.04 LTS"") {
+  Node(Deployment__Default__WebServer__ApacheTomcat__2b8afb4, ""Apache Tomcat"", ""Apache Tomcat 8.x"") {
+    Container(SoftwareSystem__WebApplication1__31f1f25, ""Web Application"", ""Java and spring MVC"", ""Delivers content"")
   }
 }
 Rel(SoftwareSystem__WebApplication1__31f1f25, SoftwareSystem__Database1__bb9c73, ""Reads from and writes to"", ""JDBC"")
@@ -947,14 +1193,14 @@ title Software System - Deployment
 
 LAYOUT_WITH_LEGEND()
 
-Deployment_Node(Deployment__Default__DatabaseServer__1edef6c, ""Database Server"", ""Ubuntu 12.04 LTS"") {
-  Deployment_Node(Deployment__Default__DatabaseServer__MySQL__1fa4f18, ""MySQL"", ""MySQL 5.5.x"") {
-    ContainerInstanceDb(SoftwareSystem__Database1__bb9c73, ""Database"", ""Relational Database Schema"", ""Stores information"")
+Node(Deployment__Default__DatabaseServer__1edef6c, ""Database Server"", ""Ubuntu 12.04 LTS"") {
+  Node(Deployment__Default__DatabaseServer__MySQL__1fa4f18, ""MySQL"", ""MySQL 5.5.x"") {
+    ContainerDb(SoftwareSystem__Database1__bb9c73, ""Database"", ""Relational Database Schema"", ""Stores information"")
   }
 }
-Deployment_Node(Deployment__Default__WebServer__1e2ffe, ""Web Server"", ""Ubuntu 12.04 LTS"") {
-  Deployment_Node(Deployment__Default__WebServer__ApacheTomcat__2b8afb4, ""Apache Tomcat"", ""Apache Tomcat 8.x"") {
-    ContainerInstance(SoftwareSystem__WebApplication1__31f1f25, ""Web Application"", ""Java and spring MVC"", ""Delivers content"")
+Node(Deployment__Default__WebServer__1e2ffe, ""Web Server"", ""Ubuntu 12.04 LTS"") {
+  Node(Deployment__Default__WebServer__ApacheTomcat__2b8afb4, ""Apache Tomcat"", ""Apache Tomcat 8.x"") {
+    Container(SoftwareSystem__WebApplication1__31f1f25, ""Web Application"", ""Java and spring MVC"", ""Delivers content"")
   }
 }
 Rel(SoftwareSystem__WebApplication1__31f1f25, SoftwareSystem__Database1__bb9c73, ""Reads from and writes to"", ""JDBC"")
