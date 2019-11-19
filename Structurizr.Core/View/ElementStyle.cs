@@ -122,6 +122,32 @@ namespace Structurizr
         [DataMember(Name="border", EmitDefaultValue=false)]
         public Border Border { get; set; }
 
+        private string _borderColor;
+
+        /// <summary>
+        /// The border colour of the element, as a HTML RGB hex string (e.g.
+        /// </summary>
+        [DataMember(Name = "borderColor", EmitDefaultValue = false)]
+        public string BorderColor
+        {
+            get
+            {
+                return this._borderColor;
+            }
+
+            set
+            {
+                if (Structurizr.Color.IsHexColorCode(value))
+                {
+                    this._borderColor = value.ToLower();
+                }
+                else
+                {
+                    throw new ArgumentException("'" + value + "' is not a valid hex color code.");
+                }
+            }
+        }
+
         private int? _opacity;
 
         /// <summary>
