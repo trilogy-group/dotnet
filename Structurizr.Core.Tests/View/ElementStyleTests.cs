@@ -136,5 +136,34 @@ namespace Structurizr.Core.Tests
             Assert.Null(style.Icon);
         }
 
+        [Fact]
+        public void Test_BorderColor_SetsTheBorderColorProperty_WhenAValidHexColorCodeIsSpecified()
+        {
+            ElementStyle style = new ElementStyle();
+            style.BorderColor = "#ffffff";
+            Assert.Equal("#ffffff", style.BorderColor);
+
+            style.BorderColor = "#FFFFFF";
+            Assert.Equal("#ffffff", style.BorderColor);
+
+            style.BorderColor = "#123456";
+            Assert.Equal("#123456", style.BorderColor);
+        }
+
+        [Fact]
+        public void Test_BorderColor_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified()
+        {
+            try
+            {
+                ElementStyle style = new ElementStyle();
+                style.BorderColor = "white";
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("'white' is not a valid hex color code.", ae.Message);
+            }
+        }
+
     }
 }

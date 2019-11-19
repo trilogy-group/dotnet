@@ -8,6 +8,7 @@
 - Add new C4PlantUmlWriter with C4-PlantUML support (issue #47)
 - Update relationship descriptions and technology in BigBankPlc example
 - Update PlantUMLWriterTests and C4PlantUmlWriterTests that the expected text can be (simpler) reused as PlantUML definition
+- Added support for element border colours.
 
 ## 0.9.2 (16th September 2019)
 
