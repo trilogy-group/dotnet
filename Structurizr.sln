@@ -1,3 +1,4 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.15
@@ -6,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4ED0E8DB-8
 	ProjectSection(SolutionItems) = preProject
 		docs\api-client.md = docs\api-client.md
 		docs\binaries.md = docs\binaries.md
+		docs\c4-plantuml.md = docs\c4-plantuml.md
 		docs\changelog.md = docs\changelog.md
 		docs\client-side-encryption.md = docs\client-side-encryption.md
 		docs\component-diagram.md = docs\component-diagram.md
@@ -61,7 +63,45 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurizr.Client", "Struc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurizr.Client.Tests", "Structurizr.Client.Tests\Structurizr.Client.Tests.csproj", "{833AD46A-DCE2-4D83-9D74-BF67BBE4396E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structurizr.Analysis", "Structurizr.Analysis\Structurizr.Analysis.csproj", "{FADC8E1C-3B18-47B4-ABA3-D76EC648D9DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurizr.Analysis", "Structurizr.Analysis\Structurizr.Analysis.csproj", "{FADC8E1C-3B18-47B4-ABA3-D76EC648D9DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{4FBA617C-1ED8-411B-AE3D-3723BD77A7A2}"
+	ProjectSection(SolutionItems) = preProject
+		docs\images\basic-concepts.png = docs\images\basic-concepts.png
+		docs\images\c4-plantuml-getting-started.png = docs\images\c4-plantuml-getting-started.png
+		docs\images\c4-plantuml-getting-started2.png = docs\images\c4-plantuml-getting-started2.png
+		docs\images\component-diagram-1.png = docs\images\component-diagram-1.png
+		docs\images\container-diagram-1.png = docs\images\container-diagram-1.png
+		docs\images\corporate-branding-1.png = docs\images\corporate-branding-1.png
+		docs\images\corporate-branding-2.png = docs\images\corporate-branding-2.png
+		docs\images\corporate-branding-3.png = docs\images\corporate-branding-3.png
+		docs\images\corporate-branding-4.png = docs\images\corporate-branding-4.png
+		docs\images\deployment-diagram-1.png = docs\images\deployment-diagram-1.png
+		docs\images\documentation-1.png = docs\images\documentation-1.png
+		docs\images\documentation-2.png = docs\images\documentation-2.png
+		docs\images\documentation-3.png = docs\images\documentation-3.png
+		docs\images\dynamic-diagram-1.png = docs\images\dynamic-diagram-1.png
+		docs\images\enterprise-context-diagram-1.png = docs\images\enterprise-context-diagram-1.png
+		docs\images\filtered-views-1.png = docs\images\filtered-views-1.png
+		docs\images\filtered-views-2.png = docs\images\filtered-views-2.png
+		docs\images\getting-started-diagram-key.png = docs\images\getting-started-diagram-key.png
+		docs\images\getting-started.png = docs\images\getting-started.png
+		docs\images\plantuml-getting-started.png = docs\images\plantuml-getting-started.png
+		docs\images\structurizr-annotations-1.png = docs\images\structurizr-annotations-1.png
+		docs\images\structurizr-banner.png = docs\images\structurizr-banner.png
+		docs\images\structurizr-overview.png = docs\images\structurizr-overview.png
+		docs\images\styling-elements-1.png = docs\images\styling-elements-1.png
+		docs\images\styling-elements-2.png = docs\images\styling-elements-2.png
+		docs\images\styling-elements-3.png = docs\images\styling-elements-3.png
+		docs\images\styling-elements-4.png = docs\images\styling-elements-4.png
+		docs\images\styling-elements-5.png = docs\images\styling-elements-5.png
+		docs\images\styling-elements-6.png = docs\images\styling-elements-6.png
+		docs\images\styling-relationships-1.png = docs\images\styling-relationships-1.png
+		docs\images\styling-relationships-2.png = docs\images\styling-relationships-2.png
+		docs\images\styling-relationships-3.png = docs\images\styling-relationships-3.png
+		docs\images\styling-relationships-4.png = docs\images\styling-relationships-4.png
+		docs\images\system-context-diagram-1.png = docs\images\system-context-diagram-1.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -280,6 +320,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4FBA617C-1ED8-411B-AE3D-3723BD77A7A2} = {4ED0E8DB-8A5B-4DF0-9CB1-995D97A04B88}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1C22C0C2-3375-4503-8953-C7E7AF271C25}
