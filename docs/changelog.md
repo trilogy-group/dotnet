@@ -4,10 +4,7 @@
 
 - Fixes a bug that allows relationships to be created between parents and children.
 - Added support for perspectives on elements and relationships.
-- ModelItem returns a list of all tags via GetAllTag()
-- Add new C4PlantUmlWriter with C4-PlantUML support (issue #47)
-- Update relationship descriptions and technology in BigBankPlc example
-- Update PlantUMLWriterTests and C4PlantUmlWriterTests that the expected text can be (simpler) reused as PlantUML definition
+- Add new C4PlantUMLWriter with C4-PlantUML support (issue #47).
 - Added support for element border colours.
 
 ## 0.9.2 (16th September 2019)
