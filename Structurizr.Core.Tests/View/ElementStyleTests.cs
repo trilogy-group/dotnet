@@ -137,26 +137,26 @@ namespace Structurizr.Core.Tests
         }
 
         [Fact]
-        public void Test_BorderColor_SetsTheBorderColorProperty_WhenAValidHexColorCodeIsSpecified()
+        public void Test_Stroke_SetsTheStrokeProperty_WhenAValidHexColorCodeIsSpecified()
         {
             ElementStyle style = new ElementStyle();
-            style.BorderColor = "#ffffff";
-            Assert.Equal("#ffffff", style.BorderColor);
+            style.Stroke = "#ffffff";
+            Assert.Equal("#ffffff", style.Stroke);
 
-            style.BorderColor = "#FFFFFF";
-            Assert.Equal("#ffffff", style.BorderColor);
+            style.Stroke = "#FFFFFF";
+            Assert.Equal("#ffffff", style.Stroke);
 
-            style.BorderColor = "#123456";
-            Assert.Equal("#123456", style.BorderColor);
+            style.Stroke = "#123456";
+            Assert.Equal("#123456", style.Stroke);
         }
 
         [Fact]
-        public void Test_BorderColor_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified()
+        public void Test_Stroke_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified()
         {
             try
             {
                 ElementStyle style = new ElementStyle();
-                style.BorderColor = "white";
+                style.Stroke = "white";
                 throw new TestFailedException();
             }
             catch (ArgumentException ae)
