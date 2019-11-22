@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.9.3 (unreleased)
+## 0.9.3 (22nd November 2019)
 
 - Fixes a bug that allows relationships to be created between parents and children.
 - Added support for perspectives on elements and relationships.
