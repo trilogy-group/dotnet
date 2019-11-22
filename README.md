@@ -2,10 +2,9 @@
 
 # Structurizr for .NET
 
-This GitHub repository is a collection of tooling to help you visualise, document and explore the software architecture of a software system. In summary, it allows you to create a software architecture model based upon Simon Brown's [C4 model](https://structurizr.com/help/c4) using C# code, and then export that model to be visualised using tools such as:
+This GitHub repository is the official client library for the [Structurizr](https://structurizr.com) cloud service and on-premises installation, both of which are web-based publishing platforms for software architecture models based upon the [C4 model](https://c4model.com). __This repository is supported by Structurizr Limited__, as a part of the Structurizr service.
 
-1. [Structurizr](https://structurizr.com): a web-based software as a service and on-premises product to render software architecture diagrams and supplementary Markdown/AsciiDoc documentation.
-1. [PlantUML](docs/plantuml.md): a tool to create UML diagrams using a simple textual domain specific language.
+## A quick example
 
 As an example, the following C# code can be used to create a software architecture model that describes a user using a software system.
 
@@ -27,11 +26,9 @@ styles.Add(new ElementStyle(Tags.SoftwareSystem) { Background = "#1168bd", Color
 styles.Add(new ElementStyle(Tags.Person) { Background = "#08427b", Color = "#ffffff", Shape = Shape.Person });
 ```
 
-If using [Structurizr](https://structurizr.com), the end-result, after adding some styling and positioning the diagram elements, is a system context diagram like this:
+The view can then be exported to be visualised using the [Structurizr service](https://structurizr.com), or other formats including PlantUML, WebSequenceDiagrams and Graphviz via the [Structurizr for .NET extensions](https://github.com/structurizr/dotnet-extensions).
 
-![Getting Started with Structurizr for .NET](docs/images/getting-started.png)
-
-You can see the live workspace at [https://structurizr.com/share/25441](https://structurizr.com/share/25441).
+![Views can be exported and visualised in many ways; e.g. PlantUML, Structurizr and Graphviz](docs/images/readme-1.png)
 
 [![Build status](https://ci.appveyor.com/api/projects/status/t7oph9oynedawkm0?svg=true)](https://ci.appveyor.com/project/structurizr/dotnet)
 
@@ -60,17 +57,12 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [Structurizr](docs/documentation-structurizr.md)
     * [arc42](docs/documentation-arc42.md)
     * [Viewpoints and Perspectives](docs/documentation-viewpoints-and-perspectives.md)
-* Extracting software architecture information from code
-    * [Structurizr annotations](docs/structurizr-annotations.md)
-* Exporting and visualising with other tools
-    * [PlantUML](docs/plantuml.md)
-    * [PlantUML with C4 layout](docs/c4-plantuml.md)
-    * [DGML](https://github.com/merijndejonge/Structurizr.Dgml)
 * Other
 	* [HTTP-based health checks](docs/health-checks.md)
     * [Client-side encryption](docs/client-side-encryption.md)
     * [Corporate branding](docs/corporate-branding.md)
 * Related projects
+    * [dotnet-dotnet-extensions](https://github.com/structurizr/dotnet-core-quickstart): A collection of Structurizr for .NET extensions; including the ability to extract software architecture information from code, export views to PlantUML, etc.
     * [dotnet-core-quickstart](https://github.com/structurizr/dotnet-core-quickstart): A quickstart for .NET Core
     * [dotnet-framework-quickstart](https://github.com/structurizr/dotnet-framework-quickstart): A quickstart for .NET Framework
     * [structurizr-java](https://github.com/structurizr/java): Structurizr for Java
