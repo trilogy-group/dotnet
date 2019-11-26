@@ -1,16 +1,17 @@
 ﻿using Newtonsoft.Json;
 using Structurizr.IO.Json;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Structurizr.Encryption
 {
     public class EncryptedJsonReader
     {
 
-        public EncryptedWorkspace Read(StringReader reader)
+        public async Task<EncryptedWorkspace> ReadAsync(StringReader reader)
         {
             EncryptedWorkspace workspace = JsonConvert.DeserializeObject<EncryptedWorkspace>(
-                reader.ReadToEnd(),
+                await reader.ReadToEndAsync(),
                 new Newtonsoft.Json.Converters.StringEnumConverter(),
                 new PaperSizeJsonConverter(),
                 new EncryptionStrategyJsonConverter());

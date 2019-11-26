@@ -111,21 +111,21 @@ namespace Structurizr
             }
         }
 
-        internal Relationship()
+        public Relationship()
         {
         }
 
-        internal Relationship(Element source, Element destination, string description) :
+        public Relationship(Element source, Element destination, string description) :
             this(source, destination, description, null)
         {
         }
 
-        internal Relationship(Element source, Element destination, string description, string technology) :
+        public Relationship(Element source, Element destination, string description, string technology) :
             this(source, destination, description, technology, InteractionStyle.Synchronous)
         {
         }
 
-        internal Relationship(Element source, Element destination, string description, string technology, InteractionStyle interactionStyle) :
+        public Relationship(Element source, Element destination, string description, string technology, InteractionStyle interactionStyle) :
             this()
         {
             this.Source = source;

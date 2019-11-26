@@ -49,7 +49,7 @@ namespace Structurizr.Examples
 //            styles.Add(new ElementStyle("Database") { Shape = Shape.Cylinder });
 
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
-            structurizrClient.PutWorkspace(WorkspaceId, workspace);
+            structurizrClient.PutWorkspaceAsync(WorkspaceId, workspace).Wait();
         }
 
     }

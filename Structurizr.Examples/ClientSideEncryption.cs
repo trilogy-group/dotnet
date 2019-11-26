@@ -37,7 +37,7 @@ namespace Structurizr.Examples
 
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
             structurizrClient.EncryptionStrategy = new AesEncryptionStrategy("password");
-            structurizrClient.PutWorkspace(WorkspaceId, workspace);
+            structurizrClient.PutWorkspaceAsync(WorkspaceId, workspace).Wait();
         }
 
     }

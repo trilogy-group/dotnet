@@ -85,7 +85,7 @@ namespace Structurizr.Api.Encryption.Tests
 
             try
             {
-                strategy.Decrypt(ciphertext);
+                var result = strategy.Decrypt(ciphertext);
                 throw new TestFailedException();
             }
             catch (CryptographicException ce)

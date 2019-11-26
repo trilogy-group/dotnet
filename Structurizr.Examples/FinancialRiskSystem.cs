@@ -82,7 +82,7 @@ namespace Structurizr.Examples
             template.AddImages(documentationRoot);
 
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
-            structurizrClient.PutWorkspace(WorkspaceId, workspace);
+            structurizrClient.PutWorkspaceAsync(WorkspaceId, workspace).Wait();
         }
     }
 }

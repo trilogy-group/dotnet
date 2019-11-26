@@ -47,7 +47,7 @@ namespace Structurizr.Api.Encryption.Tests
 
             JsonWriter jsonWriter = new JsonWriter(false);
             StringWriter stringWriter = new StringWriter();
-            jsonWriter.Write(_workspace, stringWriter);
+            jsonWriter.WriteAsync(_workspace, stringWriter).Wait();
     
             Assert.Equal(stringWriter.ToString(), _encryptedWorkspace.Plaintext);
             Assert.Equal(_encryptionStrategy.Encrypt(stringWriter.ToString()), _encryptedWorkspace.Ciphertext);
@@ -58,7 +58,7 @@ namespace Structurizr.Api.Encryption.Tests
         {
             JsonWriter jsonWriter = new JsonWriter(false);
             StringWriter stringWriter = new StringWriter();
-            jsonWriter.Write(_workspace, stringWriter);
+            jsonWriter.WriteAsync(_workspace, stringWriter).Wait();
             string expected = stringWriter.ToString();
         
             _encryptedWorkspace = new EncryptedWorkspace();
@@ -68,7 +68,7 @@ namespace Structurizr.Api.Encryption.Tests
             _workspace = _encryptedWorkspace.Workspace;
             Assert.Equal("Name", _workspace.Name);
             stringWriter = new StringWriter();
-            jsonWriter.Write(_workspace, stringWriter);
+            jsonWriter.WriteAsync(_workspace, stringWriter).Wait();
             Assert.Equal(expected, stringWriter.ToString());
         }
 

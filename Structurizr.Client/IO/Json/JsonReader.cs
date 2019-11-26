@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json.Converters;
+using System.Threading.Tasks;
 
 namespace Structurizr.IO.Json
 {
     public class JsonReader
     {
 
-        public Workspace Read(StringReader reader)
+        public async Task<Workspace> ReadAsync(StringReader reader)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
@@ -21,7 +22,7 @@ namespace Structurizr.IO.Json
                 ObjectCreationHandling = ObjectCreationHandling.Replace
             };
 
-            Workspace workspace = JsonConvert.DeserializeObject<Workspace>(reader.ReadToEnd(), settings);
+            Workspace workspace = JsonConvert.DeserializeObject<Workspace>(await reader.ReadToEndAsync(), settings);
             workspace.Hydrate();
 
             return workspace;

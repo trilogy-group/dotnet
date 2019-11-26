@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.IO;
 using Newtonsoft.Json.Converters;
+using System.Threading.Tasks;
 
 namespace Structurizr.IO.Json
 {
@@ -14,7 +15,7 @@ namespace Structurizr.IO.Json
             this.IndentOutput = indentOutput;
         }
 
-        public void Write(Workspace workspace, TextWriter writer)
+        public async Task WriteAsync(Workspace workspace, TextWriter writer)
         {
             string json = JsonConvert.SerializeObject(workspace,
                 IndentOutput ? Formatting.Indented : Formatting.None,
@@ -22,7 +23,7 @@ namespace Structurizr.IO.Json
                 new IsoDateTimeConverter(),
                 new PaperSizeJsonConverter());
 
-            writer.Write(json);
+            await writer.WriteAsync(json);
         }
 
     }

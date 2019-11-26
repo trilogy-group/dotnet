@@ -43,7 +43,7 @@ namespace Structurizr.Examples
             branding.Logo = ImageUtils.GetImageAsDataUri(new FileInfo("structurizr-logo.png"));
     
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
-            structurizrClient.PutWorkspace(WorkspaceId, workspace);
+            structurizrClient.PutWorkspaceAsync(WorkspaceId, workspace).Wait();
         }
 
     }

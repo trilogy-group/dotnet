@@ -124,12 +124,12 @@ namespace Structurizr.Api.Tests
             try
             {
                 _structurizrClient = new StructurizrClient("key", "secret");
-                _structurizrClient.GetWorkspace(0);
+                _structurizrClient.GetWorkspaceAsync(0).Wait();
                 throw new TestFailedException();
             }
-            catch (ArgumentException iae)
+            catch (AggregateException iae)
             {
-                Assert.Equal("The workspace ID must be a positive integer.", iae.Message);
+                Assert.Equal("The workspace ID must be a positive integer.", iae.InnerException.Message);
             }
         }
 
@@ -139,12 +139,12 @@ namespace Structurizr.Api.Tests
             try
             {
                 _structurizrClient = new StructurizrClient("key", "secret");
-                _structurizrClient.PutWorkspace(0, new Workspace("Name", "Description"));
+                _structurizrClient.PutWorkspaceAsync(0, new Workspace("Name", "Description")).Wait();
                 throw new TestFailedException();
             }
-            catch (ArgumentException iae)
+            catch (AggregateException iae)
             {
-                Assert.Equal("The workspace ID must be a positive integer.", iae.Message);
+                Assert.Equal("The workspace ID must be a positive integer.", iae.InnerException.Message);
             }
         }
 
@@ -154,12 +154,12 @@ namespace Structurizr.Api.Tests
             try
             {
                 _structurizrClient = new StructurizrClient("key", "secret");
-                _structurizrClient.PutWorkspace(1234, null);
+                _structurizrClient.PutWorkspaceAsync(1234, null).Wait();
                 throw new TestFailedException();
             }
-            catch (ArgumentException iae)
+            catch (AggregateException iae)
             {
-                Assert.Equal("The workspace must not be null.", iae.Message);
+                Assert.Equal("The workspace must not be null.", iae.InnerException.Message);
             }
         }
     }

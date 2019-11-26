@@ -235,6 +235,19 @@ namespace Structurizr
             return containerInstance;
         }
 
+        internal void DeleteComponent(Component component)
+        {
+            if(component != null && component.Id != null)
+                _elementsById.Remove(component.Id);
+        }
+
+        internal void DeleteRelationship(Relationship relationship)
+        {
+            if (relationship != null && relationship.Id != null)
+                _relationshipsById.Remove(relationship.Id);
+        }
+
+        
         internal Component AddComponent(Container parent, string name, string type, string description, string technology)
         {
             if (parent.GetComponentWithName(name) == null)

@@ -19,7 +19,7 @@ namespace Structurizr
         /// The name of this element.
         /// </summary>
         [DataMember(Name = "name", EmitDefaultValue = false)]
-        public virtual string Name { get; internal set; }
+        public virtual string Name { get; set; }
 
         /// <summary>
         /// A short description of this element.
@@ -65,10 +65,10 @@ namespace Structurizr
         {
             get
             {
-                return new HashSet<Relationship>(_relationships);
+                return _relationships;
             }
 
-            internal set
+            set
             {
                 _relationships = new HashSet<Relationship>(value);
             }
@@ -83,9 +83,22 @@ namespace Structurizr
             _relationships = new HashSet<Relationship>();
         }
 
+        public Relationship AddRelationshipWith(Element target, string description)=> Model.AddRelationship(this, target, description);
+        
+
         internal void AddRelationship(Relationship relationship)
         {
             _relationships.Add(relationship);
+        }
+
+        public void RemoveAllRelaltionshipsWith(string destinationId)
+        {
+            var obsoleteRelationships = _relationships.Where(x => x.DestinationId == destinationId).ToList();
+            foreach (var relationship in obsoleteRelationships)
+            {
+                _relationships.Remove(relationship);
+                Model.DeleteRelationship(relationship);
+            }
         }
 
         public bool Has(Relationship relationship)

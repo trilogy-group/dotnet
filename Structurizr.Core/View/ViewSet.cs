@@ -40,7 +40,7 @@ namespace Structurizr
         {
             get
             {
-                return new HashSet<SystemLandscapeView>(_systemLandscapeViews);
+                return _systemLandscapeViews;
             }
 
             internal set
@@ -59,7 +59,7 @@ namespace Structurizr
         {
             get
             {
-                return new HashSet<SystemContextView>(_systemContextViews);
+                return _systemContextViews;
             }
 
             internal set
@@ -78,7 +78,7 @@ namespace Structurizr
         {
             get
             {
-                return new HashSet<ContainerView>(_containerViews);
+                return _containerViews;
             }
 
             internal set
@@ -97,7 +97,7 @@ namespace Structurizr
         {
             get
             {
-                return new HashSet<ComponentView>(_componentViews);
+                return _componentViews;
             }
 
             internal set
@@ -116,7 +116,7 @@ namespace Structurizr
         {
             get
             {
-                return new HashSet<DynamicView>(_dynamicViews);
+                return _dynamicViews;
             }
 
             internal set
@@ -135,7 +135,7 @@ namespace Structurizr
         {
             get
             {
-                return new HashSet<DeploymentView>(_deploymentViews);
+                return _deploymentViews;
             }
 
             internal set
@@ -154,7 +154,7 @@ namespace Structurizr
         {
             get
             {
-                return new HashSet<FilteredView>(_filteredViews);
+                return _filteredViews;
             }
 
             internal set
@@ -185,6 +185,128 @@ namespace Structurizr
         internal ViewSet(Model model) : this()
         {
             Model = model;
+        }
+
+        public void RemoveRelationshipWith(string destinationId)
+        {
+            foreach (var view in ComponentViews)
+            {
+                view.RemoveRelatipnshipsWith(destinationId);
+            }
+
+            foreach (var view in ContainerViews)
+            {
+                view.RemoveRelatipnshipsWith(destinationId);
+            }
+
+            foreach (var view in DeploymentViews)
+            {
+                view.RemoveRelatipnshipsWith(destinationId);
+            }
+
+            foreach (var view in DynamicViews)
+            {
+                view.RemoveRelatipnshipsWith(destinationId);
+            }
+
+            foreach (var view in FilteredViews)
+            {
+                view.View.RemoveRelatipnshipsWith(destinationId);
+            }
+
+            foreach (var view in SystemContextViews)
+            {
+                view.RemoveRelatipnshipsWith(destinationId);
+            }
+
+            foreach (var view in SystemLandscapeViews)
+            {
+                view.RemoveRelatipnshipsWith(destinationId);
+            }
+        }
+
+        public void Remove(Relationship relationship)
+        {
+            foreach (var view in ComponentViews)
+            {
+                view.Remove(relationship);
+            }
+
+            foreach (var view in ContainerViews)
+            {
+                view.Remove(relationship);
+            }
+
+            foreach (var view in DeploymentViews)
+            {
+                view.Remove(relationship);
+            }
+
+            foreach (var view in DynamicViews)
+            {
+                view.Remove(relationship);
+            }
+
+            foreach (var view in FilteredViews)
+            {
+                view.View.Remove(relationship);
+            }
+
+            foreach (var view in SystemContextViews)
+            {
+                view.Remove(relationship);
+            }
+
+            foreach (var view in SystemLandscapeViews)
+            {
+                view.Remove(relationship);
+            }
+        }
+
+        public void Remove(Component component)
+        {
+            var impactedComponenetViews = ComponentViews.Where(x => x.IsElementInView(component)).ToArray();
+            foreach (var view in impactedComponenetViews)
+            {
+                view.Remove(component);
+            }
+
+            //var impactedContainerViews = ContainerViews.Where(x => x.IsElementInView(component)).ToArray();
+            //foreach (var view in impactedContainerViews)
+            //{
+            //    view.Remove(component);
+            //}
+
+            //var impactedDeploymentViews = DeploymentViews.Where(x => x.IsElementInView(component)).ToArray();
+            //foreach (var view in impactedDeploymentViews)
+            //{
+            //    view.Remove(component);
+            //}
+
+            //var impactedDynamicViews = DynamicViews.Where(x => x.IsElementInView(component)).ToArray();
+            //foreach (var view in impactedDynamicViews)
+            //{
+            //    view.Remove(component);
+            //}
+
+            //var impactedFilteredViews = FilteredViews.Where(x => x.View.IsElementInView(component)).ToArray();
+            //foreach (var view in impactedFilteredViews)
+            //{
+            //    view.View.Remove(component);
+            //}
+
+            //var impactedSystemContextViews = SystemContextViews.Where(x => x.IsElementInView(component)).ToArray();
+            //foreach (var view in impactedSystemContextViews)
+            //{
+            //    view.Remove(component);
+            //}
+
+            //var impactedSystemLandscapeViews = SystemLandscapeViews.Where(x => x.IsElementInView(component)).ToArray();
+            //foreach (var view in impactedSystemLandscapeViews)
+            //{
+            //    view.Remove(component);
+            //}
+
         }
 
         public SystemLandscapeView CreateSystemLandscapeView(string key, string description)
@@ -254,12 +376,13 @@ namespace Structurizr
             _dynamicViews.Add(view);
             return view;
         }
-        
+
         /// <summary>
         /// Creates a deployment view.
         /// </summary>
         /// <returns>a DeploymentView object</returns>
-        public DeploymentView CreateDeploymentView(String key, String description) {
+        public DeploymentView CreateDeploymentView(String key, String description)
+        {
             AssertThatTheViewKeyIsUnique(key);
 
             DeploymentView view = new DeploymentView(Model, key, description);
@@ -274,7 +397,8 @@ namespace Structurizr
         /// <param name="key">the key for the deployment view (must be unique)</param>
         /// <param name="description">a description of the  view</param>
         /// <returns>a DeploymentView object</returns>
-        public DeploymentView CreateDeploymentView(SoftwareSystem softwareSystem, String key, String description) {
+        public DeploymentView CreateDeploymentView(SoftwareSystem softwareSystem, String key, String description)
+        {
             AssertThatTheSoftwareSystemIsNotNull(softwareSystem);
             AssertThatTheViewKeyIsUnique(key);
 
@@ -299,7 +423,7 @@ namespace Structurizr
 
             FilteredView filteredView = new FilteredView(view, key, description, mode, tags);
             _filteredViews.Add(filteredView);
-            
+
             return filteredView;
         }
 
@@ -310,7 +434,7 @@ namespace Structurizr
                 throw new ArgumentException("A view with the key " + key + " already exists.");
             }
         }
-        
+
         private void AssertThatTheSoftwareSystemIsNotNull(SoftwareSystem softwareSystem)
         {
             if (softwareSystem == null)
@@ -359,7 +483,7 @@ namespace Structurizr
                 view.Model = Model;
                 HydrateView(view);
             }
-            
+
             foreach (DeploymentView view in _deploymentViews)
             {
                 if (!String.IsNullOrEmpty(view.SoftwareSystemId))
@@ -369,7 +493,7 @@ namespace Structurizr
                 view.Model = Model;
                 HydrateView(view);
             }
-            
+
             foreach (FilteredView filteredView in _filteredViews)
             {
                 filteredView.View = GetViewWithKey(filteredView.BaseViewKey);
@@ -434,7 +558,7 @@ namespace Structurizr
                     destinationView.CopyLayoutInformationFrom(sourceView);
                 }
             }
-            
+
             foreach (DeploymentView sourceView in source.DeploymentViews)
             {
                 DeploymentView destinationView = FindDeploymentView(sourceView);
@@ -484,7 +608,7 @@ namespace Structurizr
             {
                 throw new ArgumentException("A key must be specified.");
             }
-            
+
             foreach (SystemLandscapeView view in SystemLandscapeViews)
             {
                 if (view.Key.Equals(key))

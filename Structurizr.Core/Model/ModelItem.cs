@@ -31,8 +31,7 @@ namespace Structurizr
         {
             get
             {
-                List<string> listOfTags = new List<string>(GetRequiredTags());
-                listOfTags.AddRange(_tags);
+                List<string> listOfTags = new List<string>(GetRequiredTags().Union(_tags).Distinct());
 
                 if (listOfTags.Count == 0)
                 {
@@ -59,7 +58,7 @@ namespace Structurizr
                     return;
                 }
 
-                this._tags.AddRange(value.Split(','));
+                _tags.AddRange(value.Split(',').Select(x=>x.TrimStart().TrimEnd()).Distinct());
             }
         }
 

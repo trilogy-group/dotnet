@@ -107,8 +107,8 @@ namespace Structurizr.Api
 
             WorkspaceArchiveLocation = new DirectoryInfo(".");
             MergeFromRemote = true;
-            
-            _version = typeof(StructurizrClient).GetTypeInfo().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion; 
+
+            _version = typeof(StructurizrClient).GetTypeInfo().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
         }
 
         /// <summary>
@@ -116,22 +116,20 @@ namespace Structurizr.Api
         /// </summary>
         /// <param name="workspaceId">The workspace ID.</param>
         /// <returns>true if the workspace could be locked, false otherwise.</returns>
-        public bool LockWorkspace(long workspaceId)
-        {
-            return manageLockForWorkspace(workspaceId, true);
-        }
+        public async Task<bool> LockWorkspaceAsync(long workspaceId) =>
+            await manageLockForWorkspaceAsync(workspaceId, true);
+
 
         /// <summary>
         /// Unlocks the specified workspace.
         /// </summary>
         /// <param name="workspaceId">The workspace ID.</param>
         /// <returns>true if the workspace could be unlocked, false otherwise.</returns>
-        public bool UnlockWorkspace(long workspaceId)
-        {
-            return manageLockForWorkspace(workspaceId, false);
-        }
+        public async Task<bool> UnlockWorkspaceAsync(long workspaceId) =>
+            await manageLockForWorkspaceAsync(workspaceId, false);
+        
 
-        private bool manageLockForWorkspace(long workspaceId, bool toBeLocked)
+        private async Task<bool> manageLockForWorkspaceAsync(long workspaceId, bool toBeLocked)
         {
             if (workspaceId <= 0)
             {
@@ -146,23 +144,23 @@ namespace Structurizr.Api
                     string path = WorkspacePath + workspaceId + "/lock?user=" + getUser() + "&agent=" + getAgentName();
                     AddHeaders(httpClient, httpMethod, path, "", "");
 
-                    Task<HttpResponseMessage> response;
+                    HttpResponseMessage response;
 
                     if (toBeLocked)
                     {
                         HttpContent content = new StringContent("", Encoding.UTF8, "application/json");
-                        response = httpClient.PutAsync(Url + path, content);
+                        response = await httpClient.PutAsync(Url + path, content);
                     }
                     else
                     {
-                        response = httpClient.DeleteAsync(Url + path);
+                        response = await httpClient.DeleteAsync(Url + path);
                     }
 
-                    string json = response.Result.Content.ReadAsStringAsync().Result;
+                    string json = await response.Content.ReadAsStringAsync();
                     System.Console.WriteLine(json);
                     ApiResponse apiResponse = ApiResponse.Parse(json);
 
-                    if (response.Result.StatusCode == HttpStatusCode.OK)
+                    if (response.StatusCode == HttpStatusCode.OK)
                     {
                         return apiResponse.Success;
                     }
@@ -183,7 +181,7 @@ namespace Structurizr.Api
         /// </summary>
         /// <param name="workspaceId">The workspace ID.</param>
         /// <returns>A Workspace object.</returns>
-        public Workspace GetWorkspace(long workspaceId)
+        public async Task<Workspace> GetWorkspaceAsync(long workspaceId)
         {
             if (workspaceId <= 0)
             {
@@ -197,24 +195,24 @@ namespace Structurizr.Api
 
                 AddHeaders(httpClient, httpMethod, new Uri(Url + path).AbsolutePath, "", "");
 
-                var response = httpClient.GetAsync(Url + path);
-                if (response.Result.StatusCode != HttpStatusCode.OK)
+                var response = await httpClient.GetAsync(Url + path);
+                if (response.StatusCode != HttpStatusCode.OK)
                 {
-                    string jsonResponse = response.Result.Content.ReadAsStringAsync().Result;
+                    string jsonResponse = response.Content.ReadAsStringAsync().Result;
                     ApiResponse apiResponse = ApiResponse.Parse(jsonResponse);
                     throw new StructurizrClientException(apiResponse.Message);
                 }
 
-                string json = response.Result.Content.ReadAsStringAsync().Result;
+                string json = await response.Content.ReadAsStringAsync();
                 ArchiveWorkspace(workspaceId, json);
 
                 if (EncryptionStrategy == null)
                 {
-                    return new JsonReader().Read(new StringReader(json));
+                    return await new JsonReader().ReadAsync(new StringReader(json));
                 }
                 else
                 {
-                    EncryptedWorkspace encryptedWorkspace = new EncryptedJsonReader().Read(new StringReader(json));
+                    EncryptedWorkspace encryptedWorkspace = await new EncryptedJsonReader().ReadAsync(new StringReader(json));
                     if (encryptedWorkspace.EncryptionStrategy != null)
                     {
                         encryptedWorkspace.EncryptionStrategy.Passphrase = this.EncryptionStrategy.Passphrase;
@@ -223,7 +221,7 @@ namespace Structurizr.Api
                     else
                     {
                         // this workspace isn't encrypted, even though the client has an encryption strategy set
-                        return new JsonReader().Read(new StringReader(json));
+                        return await new JsonReader().ReadAsync(new StringReader(json));
                     }
                 }
             }
@@ -234,7 +232,7 @@ namespace Structurizr.Api
         /// </summary>
         /// <param name="workspaceId">The workspace ID.</param>
         /// <param name="workspace">The workspace to be updated.</param>
-        public void PutWorkspace(long workspaceId, Workspace workspace)
+        public async Task PutWorkspaceAsync(long workspaceId, Workspace workspace)
         {
             if (workspace == null)
             {
@@ -247,7 +245,7 @@ namespace Structurizr.Api
 
             if (MergeFromRemote)
             {
-                Workspace remoteWorkspace = GetWorkspace(workspaceId);
+                Workspace remoteWorkspace = await GetWorkspaceAsync(workspaceId);
                 if (remoteWorkspace != null)
                 {
                     workspace.Views.CopyLayoutInformationFrom(remoteWorkspace.Views);
@@ -273,7 +271,7 @@ namespace Structurizr.Api
                         if (EncryptionStrategy == null)
                         {
                             JsonWriter jsonWriter = new JsonWriter(false);
-                            jsonWriter.Write(workspace, stringWriter);
+                            await jsonWriter.WriteAsync(workspace, stringWriter);
                         }
                         else
                         {
@@ -294,11 +292,11 @@ namespace Structurizr.Api
                     string contentMd5Base64Encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(contentMd5));
                     content.Headers.ContentMD5 = Encoding.UTF8.GetBytes(contentMd5);
 
-                    var response = httpClient.PutAsync(this.Url + path, content);
-                    string responseContent = response.Result.Content.ReadAsStringAsync().Result;
+                    var response = await httpClient.PutAsync(this.Url + path, content);
+                    string responseContent = await response.Content.ReadAsStringAsync();
                     System.Console.WriteLine(responseContent);
 
-                    if (response.Result.StatusCode != HttpStatusCode.OK)
+                    if (response.StatusCode != HttpStatusCode.OK)
                     {
                         ApiResponse apiResponse = ApiResponse.Parse(responseContent);
                         throw new StructurizrClientException(apiResponse.Message);
@@ -357,7 +355,7 @@ namespace Structurizr.Api
         private string CreateArchiveFileName(long workspaceId)
         {
             return Path.Combine(
-                WorkspaceArchiveLocation.FullName, 
+                WorkspaceArchiveLocation.FullName,
                 "structurizr-" + workspaceId + "-" + DateTime.UtcNow.ToString("yyyyMMddHHmmss") + ".json");
         }
 
