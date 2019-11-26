@@ -26,7 +26,7 @@ namespace Structurizr.Examples
         private const string DatabaseTag = "Database";
         private const string FailoverTag = "Failover";
 
-        private static Workspace Create()
+        public static Workspace Create()
         {
                 Workspace workspace = new Workspace("Big Bank plc", "This is an example workspace to illustrate the key features of Structurizr, based around a fictional online banking system.");
                 Model model = workspace.Model;
@@ -76,7 +76,7 @@ namespace Structurizr.Examples
                 customer.Uses(webApplication, "Uses", "HTTPS");
                 customer.Uses(singlePageApplication, "Uses", "");
                 customer.Uses(mobileApp, "Uses", "");
-                webApplication.Uses(singlePageApplication, "Delivers", "");
+                webApplication.Uses(singlePageApplication, "Delivers to the customer's web browser", "");
                 apiApplication.Uses(database, "Reads from and writes to", "JDBC");
                 apiApplication.Uses(mainframeBankingSystem, "Uses", "XML/HTTPS");
                 apiApplication.Uses(emailSystem, "Sends e-mail using", "SMTP");
@@ -91,8 +91,8 @@ namespace Structurizr.Examples
                 Component mainframeBankingSystemFacade = apiApplication.AddComponent("Mainframe Banking System Facade", "A facade onto the mainframe banking system.", "Spring Bean");
                 Component emailComponent = apiApplication.AddComponent("E-mail Component", "Sends e-mails to users.", "Spring Bean");
 
-                apiApplication.Components.Where(c => "Spring MVC Rest Controller".Equals(c.Technology)).ToList().ForEach(c => singlePageApplication.Uses(c, "Uses", "HTTPS"));
-                apiApplication.Components.Where(c => "Spring MVC Rest Controller".Equals(c.Technology)).ToList().ForEach(c => mobileApp.Uses(c, "Uses", "HTTPS"));
+                apiApplication.Components.Where(c => "Spring MVC Rest Controller".Equals(c.Technology)).ToList().ForEach(c => singlePageApplication.Uses(c, "Makes API calls to", "JSON/HTTPS"));
+                apiApplication.Components.Where(c => "Spring MVC Rest Controller".Equals(c.Technology)).ToList().ForEach(c => mobileApp.Uses(c, "Makes API calls to", "JSON/HTTPS"));
                 signinController.Uses(securityComponent, "Uses");
                 accountsSummaryController.Uses(mainframeBankingSystemFacade, "Uses");
                 resetPasswordController.Uses(securityComponent, "Uses");
@@ -261,7 +261,5 @@ namespace Structurizr.Examples
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
             structurizrClient.PutWorkspaceAsync(WorkspaceId, Create()).Wait();
         }
-        
     }
-    
 }

@@ -1,6 +1,8 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 
 namespace Structurizr
 {
@@ -39,23 +41,23 @@ namespace Structurizr
                 this.id = value;
             }
         }
-        
+
         /// <summary>
         /// The order of this relationship (used in dynamic views only; e.g. 1.0, 1.1, 2.0, etc).
         /// </summary>
-        [DataMember(Name="order", EmitDefaultValue=false)]
+        [DataMember(Name = "order", EmitDefaultValue = false)]
         public string Order { get; set; }
-          
+
         /// <summary>
         /// The description of this relationship (used in dynamic views only).
         /// </summary>
-        [DataMember(Name="description", EmitDefaultValue=false)]
+        [DataMember(Name = "description", EmitDefaultValue = false)]
         public string Description { get; set; }
-          
+
         /// <summary>
         /// The set of vertices used to render the relationship.
         /// </summary>
-        [DataMember(Name="vertices", EmitDefaultValue=false)]
+        [DataMember(Name = "vertices", EmitDefaultValue = false)]
         public List<Vertex> Vertices { get; set; }
 
         /// <summary>
@@ -146,6 +148,5 @@ namespace Structurizr
                 this.Position = source.Position;
             }
         }
-
     }
 }

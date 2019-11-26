@@ -136,5 +136,34 @@ namespace Structurizr.Core.Tests
             Assert.Null(style.Icon);
         }
 
+        [Fact]
+        public void Test_Stroke_SetsTheStrokeProperty_WhenAValidHexColorCodeIsSpecified()
+        {
+            ElementStyle style = new ElementStyle();
+            style.Stroke = "#ffffff";
+            Assert.Equal("#ffffff", style.Stroke);
+
+            style.Stroke = "#FFFFFF";
+            Assert.Equal("#ffffff", style.Stroke);
+
+            style.Stroke = "#123456";
+            Assert.Equal("#123456", style.Stroke);
+        }
+
+        [Fact]
+        public void Test_Stroke_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified()
+        {
+            try
+            {
+                ElementStyle style = new ElementStyle();
+                style.Stroke = "white";
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("'white' is not a valid hex color code.", ae.Message);
+            }
+        }
+
     }
 }

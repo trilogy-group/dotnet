@@ -56,6 +56,32 @@ namespace Structurizr
             }
         }
 
+        private string _stroke;
+
+        /// <summary>
+        /// The stroke colour of the element, as a HTML RGB hex string (e.g.
+        /// </summary>
+        [DataMember(Name = "stroke", EmitDefaultValue = false)]
+        public string Stroke
+        {
+            get
+            {
+                return this._stroke;
+            }
+
+            set
+            {
+                if (Structurizr.Color.IsHexColorCode(value))
+                {
+                    this._stroke = value.ToLower();
+                }
+                else
+                {
+                    throw new ArgumentException("'" + value + "' is not a valid hex color code.");
+                }
+            }
+        }
+
         private string _color;
 
         /// <summary>

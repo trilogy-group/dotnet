@@ -3,13 +3,13 @@
   <!-- Update this property group for every regular release -->
   <PropertyGroup>
     <ReleaseNotes></ReleaseNotes>
-    <Version>0.9.2</Version>
+    <Version>0.9.3</Version>
   </PropertyGroup>
 
   <PropertyGroup>
     <Description>The API client for publishing models on the Structurizr cloud service and on-premises installation.</Description>
     <Authors>Structurizr Limited</Authors>
-    <Copyright>Copyright 2017</Copyright>
+    <Copyright>Copyright 2017-2019</Copyright>
     <PackageLicenseUrl>https://opensource.org/licenses/Apache-2.0</PackageLicenseUrl>
     <PackageProjectUrl>https://structurizr.com</PackageProjectUrl>
     <RepositoryUrl>https://github.com/structurizr/dotnet</RepositoryUrl>

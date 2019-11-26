@@ -19,6 +19,13 @@ namespace Structurizr
 
         private List<string> _tags = new List<string>();
 
+        public IEnumerable<string> GetAllTags()
+        {
+            if (String.IsNullOrWhiteSpace(Tags))
+                return Enumerable.Empty<string>();
+            return Tags.Split(new [] { "," }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
         [DataMember(Name = "tags", EmitDefaultValue = false)]
         public virtual string Tags
         {

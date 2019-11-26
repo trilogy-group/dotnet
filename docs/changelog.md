@@ -1,9 +1,11 @@
 # Changelog
 
-## 0.9.3 (unreleased)
+## 0.9.3 (22nd November 2019)
 
 - Fixes a bug that allows relationships to be created between parents and children.
 - Added support for perspectives on elements and relationships.
+- Add new C4PlantUMLWriter with C4-PlantUML support (issue #47).
+- Added support for element stroke colours.
 
 ## 0.9.2 (16th September 2019)
 
