@@ -68,10 +68,18 @@ structurizrClient.PutWorkspace(25441, workspace);
 
 > In order to upload your model to Structurizr using the web API, you'll need to [sign up for free](https://structurizr.com/signup) to get your own API key and secret. See [Workspaces](https://structurizr.com/help/workspaces) for information about finding your workspace ID, API key and secret.
 
-The result is a diagram like this (once you've dragged the boxes around).
+## 6. Open the workspace in Structurizr
 
-![Getting Started with Structurizr for .NET](images/getting-started.png)
+Once you've run your program to create and upload the workspace, you can now sign in to your Structurizr account, and open the workspace from [your dashboard](https://structurizr.com/dashboard). The result should be a diagram like this:
 
-A diagram key is automatically generated based upon the styles in the model. Click the 'i' button on the toolbar (or press the 'i' key) to display the diagram key.
+![Getting Started with Structurizr for .NET](images/getting-started-1.png)
+
+By default, Structurizr does not auto-layout your diagram elements. The diagram layout can be modified by dragging the elements around the diagram canvas in the diagram editor, and the layout saved using the "Save workspace" button. See [Structurizr - Help - Diagram layout](https://structurizr.com/help/diagram-layout) for more information. 
+
+![Getting Started with Structurizr for .NET](images/getting-started-2.png)
+
+A diagram key is automatically generated based upon the styles in the model. Click the "i" button on the toolbar (or press the 'i' key) to display the diagram key.
 
 ![A diagram key](images/getting-started-diagram-key.png)
+
+When you upload a new version of the same workspace, the Structurizr client will try to retain the diagram layout information. See [API client](api-client.md) for more details.
