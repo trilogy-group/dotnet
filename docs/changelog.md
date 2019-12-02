@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.4 (unreleased)
+
+- The automatic layout algorithm can now be configured on individual views.
+
 ## 0.9.3 (22nd November 2019)
 
 - Fixes a bug that allows relationships to be created between parents and children.
