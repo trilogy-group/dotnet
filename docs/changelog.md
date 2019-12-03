@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.9.4 (unreleased)
+## 0.9.4 (3rd December 2019)
 
 - The automatic layout algorithm can now be configured on individual views.
 
