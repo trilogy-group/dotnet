@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.5 (24th December 2019)
+
+- Fixes a deserialization issue with component views.
+
 ## 0.9.4 (3rd December 2019)
 
 - The automatic layout algorithm can now be configured on individual views.
