@@ -349,8 +349,8 @@ namespace Structurizr
 
             foreach (ComponentView view in _componentViews)
             {
-                view.SoftwareSystem = Model.GetSoftwareSystemWithId(view.SoftwareSystemId);
-                view.Container = view.SoftwareSystem.GetContainerWithId(view.ContainerId);
+                view.Container = (Container)Model.GetElement(view.ContainerId);
+                view.SoftwareSystem = view.Container.SoftwareSystem;
                 HydrateView(view);
             }
 
