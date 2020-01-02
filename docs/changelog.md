@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.6 (unreleased)
+
+- Added A1 and A0 paper sizes.
+
 ## 0.9.5 (24th December 2019)
 
 - Fixes a deserialization issue with component views.

@@ -23,6 +23,12 @@ namespace Structurizr
         public static readonly PaperSize A2_Portrait = new PaperSize("A2_Portrait", "A2", Orientation.Portrait, 4961, 7016);
         public static readonly PaperSize A2_Landscape = new PaperSize("A2_Landscape", "A2", Orientation.Landscape, 7016, 4961);
 
+        public static readonly PaperSize A1_Portrait = new PaperSize("A1_Portrait", "A1", Orientation.Portrait, 7016, 9933);
+        public static readonly PaperSize A1_Landscape = new PaperSize("A1_Landscape", "A1", Orientation.Landscape, 9933, 7016);
+
+        public static readonly PaperSize A0_Portrait = new PaperSize("A0_Portrait", "A0", Orientation.Portrait, 9933, 14043);
+        public static readonly PaperSize A0_Landscape = new PaperSize("A0_Landscape", "A0", Orientation.Landscape, 14043, 9933);
+
         public static readonly PaperSize Letter_Portrait = new PaperSize("Letter_Portrait", "Letter", Orientation.Portrait, 2550, 3300);
         public static readonly PaperSize Letter_Landscape = new PaperSize("Letter_Landscape", "Letter", Orientation.Landscape, 3300, 2550);
 
