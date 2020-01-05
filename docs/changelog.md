@@ -3,6 +3,7 @@
 ## 0.9.6 (unreleased)
 
 - Added A1 and A0 paper sizes.
+- Adds support for themes.
 
 ## 0.9.5 (24th December 2019)
 

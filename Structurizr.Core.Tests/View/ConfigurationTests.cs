@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 
 namespace Structurizr.Core.Tests
 {
@@ -33,6 +34,47 @@ namespace Structurizr.Core.Tests
             ViewConfiguration destination = new ViewConfiguration();
             destination.CopyConfigurationFrom(source);
             Assert.Equal("someKey", destination.LastSavedView);
+        } 
+        
+        [Fact]
+        public void Test_SetTheme_WithAUrl()
+        {
+            ViewConfiguration configuration = new ViewConfiguration();
+            configuration.Theme = "https://example.com/theme.json";
+            Assert.Equal("https://example.com/theme.json", configuration.Theme);
+        }
+
+        [Fact]
+        public void Test_SetTheme_WithAUrlThatHasATrailingSpaceCharacter()
+        {
+            ViewConfiguration configuration = new ViewConfiguration();
+            configuration.Theme = "https://example.com/theme.json ";
+            Assert.Equal("https://example.com/theme.json", configuration.Theme);
+        }
+
+        [Fact]
+        public void Test_SetTheme_ThrowsAnIllegalArgumentException_WhenAnInvalidUrlIsSpecified()
+        {
+            ViewConfiguration configuration = new ViewConfiguration();
+            Assert.Throws<ArgumentException>(() =>
+                configuration.Theme = "blah"
+            );
+        }
+
+        [Fact]
+        public void Test_SetTheme_DoesNothing_WhenANullUrlIsSpecified()
+        {
+            ViewConfiguration configuration = new ViewConfiguration();
+            configuration.Theme = null;
+            Assert.Null(configuration.Theme);
+        }
+
+        [Fact]
+        public void Test_SetTheme_DoesNothing_WhenAnEmptyUrlIsSpecified()
+        {
+            ViewConfiguration configuration = new ViewConfiguration();
+            configuration.Theme = " ";
+            Assert.Null(configuration.Theme);
         }
 
     }
