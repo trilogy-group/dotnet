@@ -114,13 +114,13 @@ namespace Structurizr.Examples
                         .AddDeploymentNode("Database Server", "A development database.", "Oracle 12c")
                         .Add(database);
         
-                developerLaptop.AddDeploymentNode("Web Browser", "", "Google Chrome, Mozilla Firefox, Apple Safari or Microsoft Edge").Add(singlePageApplication);
+                developerLaptop.AddDeploymentNode("Web Browser", "", "Chrome, Firefox, Safari, or Edge").Add(singlePageApplication);
         
                 DeploymentNode customerMobileDevice = model.AddDeploymentNode("Live", "Customer's mobile device", "", "Apple iOS or Android");
                 customerMobileDevice.Add(mobileApp);
         
                 DeploymentNode customerComputer = model.AddDeploymentNode("Live", "Customer's computer", "", "Microsoft Windows or Apple macOS");
-                customerComputer.AddDeploymentNode("Web Browser", "", "Google Chrome, Mozilla Firefox, Apple Safari or Microsoft Edge").Add(singlePageApplication);
+                customerComputer.AddDeploymentNode("Web Browser", "", "Chrome, Firefox, Safari, or Edge").Add(singlePageApplication);
         
                 DeploymentNode bigBankDataCenter = model.AddDeploymentNode("Live", "Big Bank plc", "", "Big Bank plc data center");
         
@@ -135,9 +135,11 @@ namespace Structurizr.Examples
                 DeploymentNode primaryDatabaseServer = bigBankDataCenter.AddDeploymentNode("bigbank-db01", "The primary database server.", "Ubuntu 16.04 LTS", 1, DictionaryUtils.Create("Location=London"))
                         .AddDeploymentNode("Oracle - Primary", "The primary, live database server.", "Oracle 12c");
                 primaryDatabaseServer.Add(database);
-        
-                DeploymentNode secondaryDatabaseServer = bigBankDataCenter.AddDeploymentNode("bigbank-db02", "The secondary database server.", "Ubuntu 16.04 LTS", 1, DictionaryUtils.Create("Location=Reading"))
-                        .AddDeploymentNode("Oracle - Secondary", "A secondary, standby database server, used for failover purposes only.", "Oracle 12c");
+
+                DeploymentNode bigBankdb02 = bigBankDataCenter.AddDeploymentNode("bigbank-db02", "The secondary database server.", "Ubuntu 16.04 LTS", 1, DictionaryUtils.Create("Location=Reading"));
+                bigBankdb02.AddTags(FailoverTag);
+                DeploymentNode secondaryDatabaseServer = bigBankdb02.AddDeploymentNode("Oracle - Secondary", "A secondary, standby database server, used for failover purposes only.", "Oracle 12c");
+                secondaryDatabaseServer.AddTags(FailoverTag);
                 ContainerInstance secondaryDatabase = secondaryDatabaseServer.Add(database);
         
                 model.Relationships.Where(r=>r.Destination.Equals(secondaryDatabase)).ToList().ForEach(r=>r.AddTags(FailoverTag));

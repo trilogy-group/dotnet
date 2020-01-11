@@ -4,6 +4,7 @@
 
 - Added A1 and A0 paper sizes.
 - Adds support for themes.
+- Adds support for tags on deployment nodes.
 
 ## 0.9.5 (24th December 2019)
 

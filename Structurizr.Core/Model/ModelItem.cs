@@ -27,7 +27,7 @@ namespace Structurizr
         }
 
         [DataMember(Name = "tags", EmitDefaultValue = false)]
-        public virtual string Tags
+        public string Tags
         {
             get
             {

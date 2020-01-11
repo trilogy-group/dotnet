@@ -84,20 +84,13 @@ namespace Structurizr
             Environment = DefaultDeploymentEnvironment;
         }
 
-        public override string Tags {
-            get
-            {
-                return "";
-            }
-            set
-            {
-                // no-op
-            }
-        }
-        
         public override List<string> GetRequiredTags()
         {
-            return new List<string>();
+            return new List<string>
+            {
+                Structurizr.Tags.Element,
+                Structurizr.Tags.DeploymentNode
+            };
         }
 
         public override string CanonicalName
