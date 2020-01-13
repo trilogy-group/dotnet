@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.9.6 (unreleased)
+
+- Added A1 and A0 paper sizes.
+- Adds support for themes.
+- Adds support for tags on deployment nodes.
+
+## 0.9.5 (24th December 2019)
+
+- Fixes a deserialization issue with component views.
+
+## 0.9.4 (3rd December 2019)
+
+- The automatic layout algorithm can now be configured on individual views.
+
 ## 0.9.3 (22nd November 2019)
 
 - Fixes a bug that allows relationships to be created between parents and children.

@@ -52,9 +52,24 @@ namespace Structurizr.Core.Tests
     public void test_getTags()
     {
         DeploymentNode deploymentNode = new DeploymentNode();
-        Assert.Equal("", deploymentNode.Tags);
+        Assert.Equal("Element,Deployment Node", deploymentNode.Tags);
     }
 
+    
+    [Fact]
+    public void Test_RemoveTags_DoesNotRemoveRequiredTags()
+    {
+        DeploymentNode deploymentNode = new DeploymentNode();
+        Assert.True(deploymentNode.Tags.Contains(Tags.Element));
+        Assert.True(deploymentNode.Tags.Contains(Tags.DeploymentNode));
+
+        deploymentNode.RemoveTag(Tags.DeploymentNode);
+        deploymentNode.RemoveTag(Tags.Element);
+
+        Assert.True(deploymentNode.Tags.Contains(Tags.Element));
+        Assert.True(deploymentNode.Tags.Contains(Tags.DeploymentNode));
+    }
+    
     [Fact]
     public void test_add_ThrowsAnException_WhenAContainerIsNotSpecified()
     {

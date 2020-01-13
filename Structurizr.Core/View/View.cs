@@ -297,5 +297,37 @@ namespace Structurizr
             return null;
         }
 
+        [DataMember(Name = "automaticLayout", EmitDefaultValue = false)]
+        public AutomaticLayout AutomaticLayout { get; internal set; }
+
+        /// <summary>
+        /// Enables automatic layout for this view, with some default settings.
+        /// </summary>
+        public void EnableAutomaticLayout()
+        {
+            EnableAutomaticLayout(RankDirection.TopBottom, 300, 600, 200, false);
+        }
+
+        /// <summary>
+        /// Enables the automatic layout for this view, with the specified settings.
+        /// </summary>
+        /// <param name="rankDirection">the rank direction</param>
+        /// <param name="rankSeparation">the separation between ranks (in pixels, a positive integer)</param>
+        /// <param name="nodeSeparation">the separation between nodes within the same rank (in pixels, a positive integer)</param>
+        /// <param name="edgeSeparation">the separation between edges (in pixels, a positive integer)</param>
+        /// <param name="vertices">whether vertices should be created during automatic layout</param>
+        public void EnableAutomaticLayout(RankDirection rankDirection, int rankSeparation, int nodeSeparation, int edgeSeparation, bool vertices)
+        {
+            AutomaticLayout = new AutomaticLayout(rankDirection, rankSeparation, nodeSeparation, edgeSeparation, vertices);
+        }
+
+        /// <summary>
+        /// Disables automatic layout for this view.
+        /// </summary>
+        public void DisableAutomaticLayout()
+        {
+            AutomaticLayout = null;
+        }
+        
     }
 }

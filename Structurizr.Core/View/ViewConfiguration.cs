@@ -1,5 +1,7 @@
+using System;
 using System.Runtime.Serialization;
 using Structurizr.Core.View;
+using Structurizr.Util;
 
 namespace Structurizr
 {
@@ -21,6 +23,27 @@ namespace Structurizr
         [DataMember(Name = "styles", EmitDefaultValue = false)]
         public Styles Styles { get; internal set; }
 
+        private String _theme;
+        
+        [DataMember(Name = "theme", EmitDefaultValue = false)]
+        public string Theme
+        {
+            get { return _theme; }
+            set
+            {
+                if (value != null && value.Trim().Length > 0)
+                {
+                    if (Url.IsUrl(value))
+                    {
+                        _theme = value.Trim();
+                    }
+                    else {
+                        throw new ArgumentException(value + " is not a valid URL.");
+                    }
+                }
+            }
+        }
+        
         [DataMember(Name = "branding", EmitDefaultValue = false)]
         public Branding Branding { get; internal set; }
 

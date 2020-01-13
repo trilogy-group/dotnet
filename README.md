@@ -64,7 +64,7 @@ The view can then be exported to be visualised using the [Structurizr service](h
     * [Client-side encryption](docs/client-side-encryption.md)
     * [Corporate branding](docs/corporate-branding.md)
 * Related projects
-    * [dotnet-dotnet-extensions](https://github.com/structurizr/dotnet-core-quickstart): A collection of Structurizr for .NET extensions; including the ability to extract software architecture information from code, export views to PlantUML, etc.
+    * [dotnet-extensions](https://github.com/structurizr/dotnet-extensions): A collection of Structurizr for .NET extensions; including the ability to extract software architecture information from code, export views to PlantUML, etc.
     * [dotnet-core-quickstart](https://github.com/structurizr/dotnet-core-quickstart): A quickstart for .NET Core
     * [dotnet-framework-quickstart](https://github.com/structurizr/dotnet-framework-quickstart): A quickstart for .NET Framework
     * [structurizr-java](https://github.com/structurizr/java): Structurizr for Java
