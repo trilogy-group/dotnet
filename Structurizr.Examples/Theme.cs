@@ -33,7 +33,7 @@ namespace Structurizr.Examples
             viewSet.Configuration.Theme = "https://raw.githubusercontent.com/structurizr/dotnet/master/Structurizr.Examples/Theme/theme.json";
 
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
-            structurizrClient.PutWorkspace(WorkspaceId, workspace);
+            structurizrClient.PutWorkspaceAsync(WorkspaceId, workspace).Wait();
         }
 
     }
