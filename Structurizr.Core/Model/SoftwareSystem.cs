@@ -16,7 +16,7 @@ namespace Structurizr
         /// <summary>
         /// The location of this software system.
         /// </summary>
-        [DataMember(Name="location", EmitDefaultValue=false)]
+        [DataMember(Name="location", EmitDefaultValue=true)]
         public Location Location { get; set; }
 
         private HashSet<Container> _containers;
