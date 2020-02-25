@@ -110,6 +110,35 @@ namespace Structurizr
                 _interactionStyle = value;
             }
         }
+        
+        private string _url;
+
+        /// <summary>
+        /// The URL where more information about this relationship can be found.
+        /// </summary>
+        [DataMember(Name = "url", EmitDefaultValue = false)]
+        public string Url
+        {
+            get
+            {
+                return _url;
+            }
+
+            set
+            {
+                if (value != null && value.Trim().Length > 0)
+                {
+                    if (Util.Url.IsUrl(value))
+                    { 
+                        this._url = value;
+                    }
+                    else
+                    {
+                        throw new ArgumentException(value + " is not a valid URL.");
+                    }
+                }
+            }
+        }
 
         internal Relationship()
         {
