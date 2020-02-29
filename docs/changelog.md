@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.9.6 (unreleased)
+## 0.9.6 (29th February 2020)
 
 - Added A1 and A0 paper sizes.
 - Adds support for themes.
