@@ -45,7 +45,7 @@ namespace Structurizr.Core.Tests
     public void test_getRequiredTags()
     {
         DeploymentNode deploymentNode = new DeploymentNode();
-        Assert.Equal(0, deploymentNode.GetRequiredTags().Count);
+        Assert.Equal(2, deploymentNode.GetRequiredTags().Count);
     }
 
     [Fact]

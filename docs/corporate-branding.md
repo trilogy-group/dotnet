@@ -6,7 +6,6 @@ In addition to [styling diagram elements](styling-elements.md) and [relationship
 
 - A font (font name and optional web font stylesheet URL).
 - A logo (a URL to an image file or a data URI).
-- 5 foreground/background colour pairs.
 
 Here's an example diagram that hasn't been styled, aside from setting the shape of the ```Person``` elements.
 
@@ -20,11 +19,6 @@ You can add branding to an existing workspace, as follows:
 
 ```c#
 Branding branding = views.Configuration.Branding;
-branding.Color1 = new ColorPair("#02172c", "#ffffff");
-branding.Color2 = new ColorPair("#08427b", "#ffffff");
-branding.Color3 = new ColorPair("#1168bd", "#ffffff");
-branding.Color4 = new ColorPair("#438dd5", "#ffffff");
-branding.Color5 = new ColorPair("#85bbf0", "#ffffff");
 branding.Logo = ImageUtils.GetImageAsDataUri(new FileInfo("structurizr-logo.png"));
 ```
 
