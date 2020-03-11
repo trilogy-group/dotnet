@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.7 (unreleased)
+
+- Added an ExternalSoftwareSystemBoundariesVisible property to ContainerView, to set whether software system boundaries should be visible for "external" containers (those outside the software system in scope).
+
 ## 0.9.6 (29th February 2020)
 
 - Added A1 and A0 paper sizes.

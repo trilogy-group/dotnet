@@ -18,6 +18,12 @@ namespace Structurizr
             }
         }
 
+        /// <summary>
+        /// Determines whether software system boundaries should be visible for "external" containers (those outside the software system in scope).
+        /// </summary>
+        [DataMember(Name = "externalSoftwareSystemBoundariesVisible", EmitDefaultValue = false)]
+        public bool? ExternalSoftwareSystemBoundariesVisible { get; set; }
+
         internal ContainerView() : base()
         {
         }
