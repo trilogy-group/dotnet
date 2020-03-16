@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 
 namespace Structurizr.Core.Tests
 {
@@ -81,6 +82,43 @@ namespace Structurizr.Core.Tests
             relationship = _softwareSystem1.Uses(_softwareSystem2, "Uses 2", "Technology", InteractionStyle.Asynchronous);
             Assert.False(relationship.Tags.Contains(Tags.Synchronous));
             Assert.True(relationship.Tags.Contains(Tags.Asynchronous));
+        }
+        
+        [Fact]
+        public void Test_SetUrl_DoesNotThrowAnException_WhenANullUrlIsSpecified()
+        {
+            Relationship relationship = _softwareSystem1.Uses(_softwareSystem2, "Uses 1", "Technology");
+            relationship.Url = null;
+        }
+
+        [Fact]
+        public void Test_SetUrl_DoesNotThrowAnException_WhenAnEmptyUrlIsSpecified()
+        {
+            Relationship relationship = _softwareSystem1.Uses(_softwareSystem2, "Uses 1", "Technology");
+            relationship.Url = "";
+        }
+
+        [Fact]
+        public void Test_SetUrl_ThrowsAnException_WhenAnInvalidUrlIsSpecified()
+        {
+            try
+            {
+                Relationship relationship = _softwareSystem1.Uses(_softwareSystem2, "Uses 1", "Technology");
+                relationship.Url = "www.somedomain.com";
+                throw new TestFailedException();
+            }
+            catch (Exception e)
+            {
+                Assert.Equal("www.somedomain.com is not a valid URL.", e.Message);
+            }
+        }
+
+        [Fact]
+        public void Test_SetUrl_DoesNotThrowAnException_WhenAValidUrlIsSpecified()
+        {
+            Relationship relationship = _softwareSystem1.Uses(_softwareSystem2, "Uses 1", "Technology");
+            relationship.Url = "http://www.somedomain.com";
+            Assert.Equal("http://www.somedomain.com", relationship.Url);
         }
 
     }
