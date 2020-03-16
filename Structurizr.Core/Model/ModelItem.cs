@@ -23,7 +23,7 @@ namespace Structurizr
         {
             if (String.IsNullOrWhiteSpace(Tags))
                 return Enumerable.Empty<string>();
-            return Tags.Split(new [] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            return Tags.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
         }
 
         [DataMember(Name = "tags", EmitDefaultValue = false)]
@@ -58,8 +58,20 @@ namespace Structurizr
                     return;
                 }
 
-                _tags.AddRange(value.Split(',').Select(x=>x.TrimStart().TrimEnd()).Distinct());
+                _tags.AddRange(value.Split(',').Select(x => x.TrimStart().TrimEnd()).Distinct());
             }
+        }
+
+        public IEnumerable<Tag> GetTags(string tagName)
+        {
+            if (string.IsNullOrWhiteSpace(tagName))
+                return new List<Tag>();
+
+            return _tags.Where(_ => _.ToUpperInvariant().StartsWith($"{tagName.ToUpperInvariant()}:")).Select(x =>
+              {
+                  var split = x.Split(':');
+                  return new Tag(split[0].Trim(), split[1]?.Trim() ?? string.Empty);
+              }).ToList();
         }
 
         internal ModelItem()
@@ -129,11 +141,13 @@ namespace Structurizr
         /// <exception cref="ArgumentException"></exception>
         public void AddProperty(string name, string value)
         {
-            if (String.IsNullOrWhiteSpace(name)) {
+            if (String.IsNullOrWhiteSpace(name))
+            {
                 throw new ArgumentException("A property name must be specified.");
             }
 
-            if (String.IsNullOrWhiteSpace(value)) {
+            if (String.IsNullOrWhiteSpace(value))
+            {
                 throw new ArgumentException("A property value must be specified.");
             }
 
