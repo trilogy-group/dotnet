@@ -1,10 +1,15 @@
 # Changelog
 
-## 0.9.6 (unreleased)
+## 0.9.7 (unreleased)
+
+- Added an ExternalSoftwareSystemBoundariesVisible property to ContainerView, to set whether software system boundaries should be visible for "external" containers (those outside the software system in scope).
+
+## 0.9.6 (29th February 2020)
 
 - Added A1 and A0 paper sizes.
 - Adds support for themes.
 - Adds support for tags on deployment nodes.
+- Adds support for URLs on relationships.
 
 ## 0.9.5 (24th December 2019)
 
