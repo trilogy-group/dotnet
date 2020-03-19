@@ -37,6 +37,7 @@ namespace Structurizr
 
         public static readonly PaperSize Slide_4_3 = new PaperSize("Slide_4_3", "Slide 4:3", Orientation.Landscape, 3306, 2480);
         public static readonly PaperSize Slide_16_9 = new PaperSize("Slide_16_9", "Slide 16:9", Orientation.Landscape, 3508, 1973);
+        public static readonly PaperSize Slide_16_10 = new PaperSize("Slide_16_10", "Slide 16:10", Orientation.Landscape, 3508, 2193);
 
         public string Key { get; }
         public String Name { get; }
