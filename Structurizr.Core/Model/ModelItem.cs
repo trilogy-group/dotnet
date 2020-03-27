@@ -64,10 +64,10 @@ namespace Structurizr
 
         public IEnumerable<Tag> GetTags(string tagName)
         {
-            if (string.IsNullOrWhiteSpace(tagName))
+            if (string.IsNullOrWhiteSpace(tagName) || _tags==null || _tags.Count==0)
                 return new List<Tag>();
 
-            return _tags.Where(_ => _.ToUpperInvariant().StartsWith($"{tagName.ToUpperInvariant()}:")).Select(x =>
+            return _tags.Where(t => !string.IsNullOrWhiteSpace(t) && t.ToUpperInvariant().StartsWith($"{tagName.ToUpperInvariant()}:")).Select(x =>
               {
                   var split = x.Split(':');
                   return new Tag(split[0].Trim(), split[1]?.Trim() ?? string.Empty);
