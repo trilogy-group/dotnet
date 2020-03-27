@@ -215,13 +215,12 @@ namespace Structurizr.Examples
 
                 // colours, shapes and other diagram styling
                 Styles styles = views.Configuration.Styles;
-                styles.Add(new ElementStyle(Tags.Element) { Color = "#ffffff" });
-                styles.Add(new ElementStyle(Tags.SoftwareSystem) { Background = "#1168bd" });
-                styles.Add(new ElementStyle(Tags.Container) { Background = "#438dd5" });
+                styles.Add(new ElementStyle(Tags.SoftwareSystem) { Background = "#1168bd", Color = "#ffffff" });
+                styles.Add(new ElementStyle(Tags.Container) { Background = "#438dd5", Color = "#ffffff" });
                 styles.Add(new ElementStyle(Tags.Component) { Background = "#85bbf0", Color = "#000000" });
-                styles.Add(new ElementStyle(Tags.Person) { Background = "#08427b", Shape = Shape.Person, FontSize = 22});
-                styles.Add(new ElementStyle(ExistingSystemTag) { Background = "#999999"});
-                styles.Add(new ElementStyle(BankStaffTag) { Background = "#999999" });
+                styles.Add(new ElementStyle(Tags.Person) { Background = "#08427b", Color = "#ffffff", Shape = Shape.Person, FontSize = 22});
+                styles.Add(new ElementStyle(ExistingSystemTag) { Background = "#999999", Color = "#ffffff"});
+                styles.Add(new ElementStyle(BankStaffTag) { Background = "#999999",Color = "#ffffff" });
                 styles.Add(new ElementStyle(WebBrowserTag) { Shape = Shape.WebBrowser });
                 styles.Add(new ElementStyle(MobileAppTag) { Shape = Shape.MobileDeviceLandscape });
                 styles.Add(new ElementStyle(DatabaseTag) { Shape = Shape.Cylinder });
