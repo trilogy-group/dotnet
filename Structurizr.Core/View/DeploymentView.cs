@@ -15,7 +15,7 @@ namespace Structurizr
         /// <summary>
         /// The name of the environment that this deployment view is for (e.g. "Development", "Live", etc).
         /// </summary>
-        [DataMember(Name = "environment", EmitDefaultValue = true)]
+        [DataMember(Name = "environment", EmitDefaultValue = false)]
         public string Environment { get; set; }
 
         DeploymentView()
