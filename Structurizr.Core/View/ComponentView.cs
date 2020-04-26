@@ -101,10 +101,7 @@ namespace Structurizr
         {
             if (component != null)
             {
-                if (Container.Equals(component.Container))
-                {
-                    AddElement(component, true);
-                }
+                AddElement(component, true);
             }
         }
 

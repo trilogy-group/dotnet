@@ -6,6 +6,7 @@
 - Added a 16:10 ratio paper size.
 - Added a "Component" element shape.
 - Added a "Dotted" element border style.
+- Components from any container can now be added to a component view.
 
 ## 0.9.6 (29th February 2020)
 
