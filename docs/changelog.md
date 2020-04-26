@@ -3,6 +3,7 @@
 ## 0.9.7 (unreleased)
 
 - Added an ExternalSoftwareSystemBoundariesVisible property to ContainerView, to set whether software system boundaries should be visible for "external" containers (those outside the software system in scope).
+- Added an ExternalContainersBoundariesVisible property to ComponentView, to set whether container boundaries should be visible for "external" components (those outside the container in scope).
 - Added a 16:10 ratio paper size.
 - Added a "Component" element shape.
 - Added a "Dotted" element border style.

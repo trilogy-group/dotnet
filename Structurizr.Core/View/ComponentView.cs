@@ -42,6 +42,12 @@ namespace Structurizr
                 this.containerId = value;
             }
         }
+        
+        /// <summary>
+        /// Determines whether container boundaries should be visible for "external" components (those outside the container in scope).
+        /// </summary>
+        [DataMember(Name = "externalContainerBoundariesVisible", EmitDefaultValue = false)]
+        public bool? ExternalContainerBoundariesVisible { get; set; }
 
         internal ComponentView() : base()
         {
