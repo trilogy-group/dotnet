@@ -50,6 +50,12 @@ namespace Structurizr
         [DataMember(Name = "terminology", EmitDefaultValue = false)]
         public Terminology Terminology { get; internal set; }
 
+        /// <summary>
+        /// The type of symbols to use when rendering metadata.
+        /// </summary>
+        [DataMember(Name = "metadataSymbols", EmitDefaultValue = false)]
+        public MetadataSymbols? MetadataSymbols { get; set; }
+
         [DataMember(Name = "defaultView", EmitDefaultValue = false)]
         public string DefaultView { get; private set; }
 
