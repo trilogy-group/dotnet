@@ -10,8 +10,8 @@ namespace Structurizr.Core.View
         SquareBrackets,
         RoundBrackets,
         CurlyBrackets,
-        AngledBrackets,
-        DoubleAngledBrackets,
+        AngleBrackets,
+        DoubleAngleBrackets,
         None
 
     }
