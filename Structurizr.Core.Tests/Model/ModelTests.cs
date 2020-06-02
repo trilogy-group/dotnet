@@ -325,6 +325,70 @@ namespace Structurizr.Core.Tests
             Assert.Same(container, Model.GetElementWithCanonicalName("/Software System/Web Application"));
             Assert.Same(container, Model.GetElementWithCanonicalName("Software System/Web Application"));
         }
+        
+        [Fact]
+        public void Test_AddDeploymentNode_ThrowsAnException_WhenAChildDeploymentNodeWithTheSameNameAlreadyExists()
+        {
+            DeploymentNode deploymentNode = Model.AddDeploymentNode("Amazon Web Services");
+            deploymentNode.AddDeploymentNode("AWS Region");
+            try
+            {
+                deploymentNode.AddDeploymentNode("AWS Region");
+                throw new TestFailedException();
+            }
+            catch (ArgumentException iae)
+            {
+                Assert.Equal("A deployment/infrastructure node named 'AWS Region' already exists.", iae.Message);
+            }
+        }
+
+        [Fact]
+        public void Test_AddDeploymentNode_ThrowsAnException_WhenAChildInfrastructureNodeWithTheSameNameAlreadyExists()
+        {
+            DeploymentNode deploymentNode = Model.AddDeploymentNode("Amazon Web Services");
+            deploymentNode.AddInfrastructureNode("Node");
+            try
+            {
+                deploymentNode.AddDeploymentNode("Node");
+                throw new TestFailedException();
+            }
+            catch (ArgumentException iae)
+            {
+                Assert.Equal("A deployment/infrastructure node named 'Node' already exists.", iae.Message);
+            }
+        }
+
+        [Fact]
+        public void Test_AddInfrastructureNode_ThrowsAnException_WhenAChildDeploymentNodeWithTheSameNameAlreadyExists()
+        {
+            DeploymentNode deploymentNode = Model.AddDeploymentNode("Amazon Web Services");
+            deploymentNode.AddDeploymentNode("Node");
+            try
+            {
+                deploymentNode.AddInfrastructureNode("Node");
+                throw new TestFailedException();
+            }
+            catch (ArgumentException iae)
+            {
+                Assert.Equal("A deployment/infrastructure node named 'Node' already exists.", iae.Message);
+            }
+        }
+
+        [Fact]
+        public void Test_AddInfrastructureNode_ThrowsAnException_WhenAChildInfrastructureNodeWithTheSameNameAlreadyExists()
+        {
+            DeploymentNode deploymentNode = Model.AddDeploymentNode("Amazon Web Services");
+            deploymentNode.AddInfrastructureNode("Node");
+            try
+            {
+                deploymentNode.AddInfrastructureNode("Node");
+                throw new TestFailedException();
+            }
+            catch (ArgumentException iae)
+            {
+                Assert.Equal("A deployment/infrastructure node named 'Node' already exists.", iae.Message);
+            }
+        }
 
     }
 }

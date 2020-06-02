@@ -266,6 +266,10 @@ namespace Structurizr
             return AddDeploymentNode(DeploymentElement.DefaultDeploymentEnvironment, name, description, technology);
         }
 
+        public DeploymentNode AddDeploymentNode(string name) {
+            return AddDeploymentNode(DeploymentElement.DefaultDeploymentEnvironment, name, null, null);
+        }
+
         public DeploymentNode AddDeploymentNode(string environment, string name, string description, string technology) {
             return AddDeploymentNode(environment, name, description, technology, 1);
         }
@@ -287,7 +291,11 @@ namespace Structurizr
         }
 
         internal DeploymentNode AddDeploymentNode(DeploymentNode parent, string environment, string name, string description, string technology, int instances, Dictionary<string,string> properties) {
-            if ((parent == null && GetDeploymentNodeWithName(name, environment) == null) || (parent != null && parent.GetDeploymentNodeWithName(name) == null)) {
+            if (name == null || name.Trim().Length == 0) {
+                throw new ArgumentException("A name must be specified.");
+            }
+
+            if ((parent == null && GetDeploymentNodeWithName(name, environment) == null) || (parent != null && parent.GetDeploymentNodeWithName(name) == null && parent.GetInfrastructureNodeWithName(name) == null)) {
                 DeploymentNode deploymentNode = new DeploymentNode
                 {
                     Name = name,
@@ -311,10 +319,38 @@ namespace Structurizr
 
                 return deploymentNode;
             } else {
-                throw new ArgumentException("A deployment node named '" + name + "' already exists.");
+                throw new ArgumentException("A deployment/infrastructure node named '" + name + "' already exists.");
             }
         }
-        
+
+        internal InfrastructureNode AddInfrastructureNode(DeploymentNode parent, string name, string description, string technology, Dictionary<string,string> properties) {
+            if (name == null || name.Trim().Length == 0) {
+                throw new ArgumentException("A name must be specified.");
+            }
+
+            if (parent.GetDeploymentNodeWithName(name) == null && parent.GetInfrastructureNodeWithName(name) == null) {
+                InfrastructureNode infrastructureNode = new InfrastructureNode
+                {
+                    Name = name,
+                    Description = description,
+                    Technology = technology,
+                    Parent = parent,
+                    Environment = parent.Environment
+                };
+                
+                if (properties != null) {
+                    infrastructureNode.Properties = properties;
+                }
+
+                infrastructureNode.Id = _idGenerator.GenerateId(infrastructureNode);
+                AddElementToInternalStructures(infrastructureNode);
+
+                return infrastructureNode;
+            } else {
+                throw new ArgumentException("A deployment/infrastructure node named '" + name + "' already exists.");
+            }
+        }
+
         /// <summary>
         /// Gets the DeploymentNode with the specified name.
         /// </summary>
@@ -506,25 +542,7 @@ namespace Structurizr
             _deploymentNodes.ToList().ForEach(dn => HydrateDeploymentNode(dn, null));
 
             // now hydrate the relationships
-            foreach (Person person in People)
-            {
-                HydrateRelationships(person);
-            }
-
-            foreach (SoftwareSystem softwareSystem in SoftwareSystems)
-            {
-                HydrateRelationships(softwareSystem);
-                foreach (Container container in softwareSystem.Containers)
-                {
-                    HydrateRelationships(container);
-                    foreach (Component component in container.Components)
-                    {
-                        HydrateRelationships(component);
-                    }
-                }
-            }
-            
-            _deploymentNodes.ToList().ForEach(HydrateDeploymentNodeRelationships);
+            GetElements().ToList().ForEach(HydrateRelationships);
         }
 
         private void HydrateDeploymentNode(DeploymentNode deploymentNode, DeploymentNode parent)
@@ -534,6 +552,12 @@ namespace Structurizr
 
             deploymentNode.Children.ToList().ForEach(child => HydrateDeploymentNode(child, deploymentNode));
 
+            foreach (InfrastructureNode infrastructureNode in deploymentNode.InfrastructureNodes)
+            {
+                infrastructureNode.Parent = deploymentNode;
+                AddElementToInternalStructures(infrastructureNode);
+            }
+
             foreach (ContainerInstance containerInstance in deploymentNode.ContainerInstances)
             {
                 containerInstance.Container = (Container)GetElement(containerInstance.ContainerId);
@@ -541,13 +565,6 @@ namespace Structurizr
             }
         }
         
-        private void HydrateDeploymentNodeRelationships(DeploymentNode deploymentNode)
-        {
-            HydrateRelationships(deploymentNode);
-            deploymentNode.Children.ToList().ForEach(HydrateDeploymentNodeRelationships);
-            deploymentNode.ContainerInstances.ToList().ForEach(HydrateRelationships);
-        }
-
         private void HydrateRelationships(Element element)
         {
             foreach (Relationship relationship in element.Relationships)

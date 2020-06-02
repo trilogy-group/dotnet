@@ -9,17 +9,22 @@ namespace Structurizr
     public abstract class StaticView : View
     {
 
+        private IList<Animation> _animations = new List<Animation>();
+
         [DataMember(Name = "animations", EmitDefaultValue = false)]
-        public IList<Animation> Animations { get; internal set; }
+        public IList<Animation> Animations
+        {
+            get { return new List<Animation>(_animations); }
+
+            internal set { _animations = new List<Animation>(value); }
+        }
 
         internal StaticView() : base()
         {
-            Animations = new List<Animation>();
         }
 
         internal StaticView(SoftwareSystem softwareSystem, string key, string description) : base(softwareSystem, key, description)
         {
-            Animations = new List<Animation>();
         }
 
         public abstract void AddAllElements();
@@ -149,7 +154,7 @@ namespace Structurizr
                 }
             }
 
-            Animations.Add(new Animation(Animations.Count + 1, elementsInThisAnimationStep, relationshipsInThisAnimationStep));
+            _animations.Add(new Animation(Animations.Count + 1, elementsInThisAnimationStep, relationshipsInThisAnimationStep));
         }
 
 
