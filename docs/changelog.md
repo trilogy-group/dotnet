@@ -10,6 +10,7 @@
 - Components from any container can now be added to a component view.
 - Added the ability to customize the symbols used when rendering metadata.
 - Adds support for curved relationship routing.
+- Adds support for multiple themes.
 
 ## 0.9.6 (29th February 2020)
 
