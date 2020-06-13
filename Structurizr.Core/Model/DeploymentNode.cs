@@ -56,9 +56,27 @@ namespace Structurizr
             }
         }
 
+        private HashSet<InfrastructureNode> _infrastructureNodes;
+
+        /// <summary>
+        /// The set of infrastructure nodes associated with this deployment node.
+        /// </summary>
+        [DataMember(Name = "infrastructureNodes", EmitDefaultValue = false)]
+        public ISet<InfrastructureNode> InfrastructureNodes
+        {
+            get
+            {
+                return new HashSet<InfrastructureNode>(_infrastructureNodes);
+            }
+
+            internal set
+            {
+                _infrastructureNodes = new HashSet<InfrastructureNode>(value);
+            }
+        }
+        
         private HashSet<ContainerInstance> _containerInstances;
-
-
+        
         /// <summary>
         /// The set of container instances associated with this deployment node.
         /// </summary>
@@ -80,6 +98,7 @@ namespace Structurizr
         {
             Instances = 1;
             _children = new HashSet<DeploymentNode>();
+            _infrastructureNodes = new HashSet<InfrastructureNode>();
             _containerInstances = new HashSet<ContainerInstance>();
             Environment = DefaultDeploymentEnvironment;
         }
@@ -124,6 +143,15 @@ namespace Structurizr
             return containerInstance;
         }
 
+        /// <summary>
+        /// Adds a child deployment node.
+        /// </summary>
+        /// <param name="name">the name of the deployment node</param>
+        /// <returns></returns>
+        public DeploymentNode AddDeploymentNode(string name) {
+            return AddDeploymentNode(name, null, null);
+        }
+    
         /// <summary>
         /// Adds a child deployment node.
         /// </summary>
@@ -180,6 +208,60 @@ namespace Structurizr
             return _children.FirstOrDefault(dn => dn.Name.Equals(name));
         }
 
+        /// <summary>
+        /// Gets the InfrastructureNode with the specified name.
+        /// </summary>
+        /// <param name="name">the name of the infrastructure node</param>
+        /// <returns>the InfrastructureNode instance with the specified name (or null if it doesn't exist)</returns>
+        public InfrastructureNode GetInfrastructureNodeWithName(string name)
+        {
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("A name must be specified.");
+            }
+
+            return _infrastructureNodes.FirstOrDefault(dn => dn.Name.Equals(name));
+        }
+
+        /// <summary>
+        /// Adds a child infrastructure node.
+        /// </summary>
+        /// <param name="name">the name of the infrastructure node</param>
+        /// <returns>an InfrastructureNode object</returns>
+        public InfrastructureNode AddInfrastructureNode(string name)
+        {
+            return AddInfrastructureNode(name, null, null);
+        }
+
+        /// <summary>
+        /// Adds a child infrastructure node.
+        /// </summary>
+        /// <param name="name">the name of the infrastructure node</param>
+        /// <param name="description">a short description</param>
+        /// <param name="technology">the technology</param>
+        /// <returns>an InfrastructureNode object</returns>
+        public InfrastructureNode AddInfrastructureNode(string name, string description, string technology)
+        {
+            return AddInfrastructureNode(name, description, technology, null);
+        }
+
+        /// <summary>
+        /// Adds a child infrastructure node.
+        /// </summary>
+        /// <param name="name">the name of the infrastructure node</param>
+        /// <param name="description">a short description</param>
+        /// <param name="technology">the technology</param>
+        /// <param name="properties">a Dictionary (string,string) describing name=value properties</param>
+        /// <returns>an InfrastructureNode object</returns>
+        public InfrastructureNode AddInfrastructureNode(string name, string description, string technology, Dictionary<string, string> properties)
+        {
+            InfrastructureNode infrastructureNode = Model.AddInfrastructureNode(this, name, description, technology, properties);
+            if (infrastructureNode != null) {
+                _infrastructureNodes.Add(infrastructureNode);
+            }
+            return infrastructureNode;
+        }
+        
         /// <summary>
         /// Adds a relationship between this and another deployment node.
         /// </summary>

@@ -335,7 +335,7 @@ namespace Structurizr.Api
 
         private String getUser()
         {
-            return Environment.GetEnvironmentVariable("USERNAME") ?? Environment.GetEnvironmentVariable("USER");
+            return Environment.UserName ?? Environment.GetEnvironmentVariable("USERNAME") ?? Environment.GetEnvironmentVariable("USER");
         }
 
         private long getCurrentTimeInMilliseconds()
