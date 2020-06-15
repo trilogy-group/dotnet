@@ -31,6 +31,9 @@ namespace Structurizr.Core.View
         [DataMember(Name = "deploymentNode", EmitDefaultValue = false)]
         public string DeploymentNode;
 
+        [DataMember(Name = "infrastructureNode", EmitDefaultValue = false)]
+        public string InfrastructureNode;
+
         [DataMember(Name = "relationship", EmitDefaultValue = false)]
         public string Relationship;
 

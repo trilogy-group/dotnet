@@ -17,6 +17,7 @@ namespace Structurizr
         public const string Asynchronous = "Asynchronous";
 
         public const string DeploymentNode = "Deployment Node";
+        public const string InfrastructureNode = "Infrastructure Node";
         public const string ContainerInstance = "Container Instance";
     }
 
