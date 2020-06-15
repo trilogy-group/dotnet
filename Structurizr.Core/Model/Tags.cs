@@ -26,7 +26,7 @@ namespace Structurizr
         public Tag(string name, string value)
         {
             Name = string.IsNullOrWhiteSpace(name ?? throw new ArgumentNullException(nameof(name))) ? throw new ArgumentException($"Parameter canot be empty string or whitespace", nameof(name)) : name.Trim();
-            Value = string.IsNullOrWhiteSpace(value ?? throw new ArgumentNullException(nameof(value))) ? throw new ArgumentException($"Parameter canot be empty string or whitespace", nameof(value)) : value.Trim();
+            Value = value;
         }
         public string Name { get; }
         public string Value { get; }
