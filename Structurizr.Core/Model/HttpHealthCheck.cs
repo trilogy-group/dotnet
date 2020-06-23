@@ -8,6 +8,7 @@ namespace Structurizr
     /// <summary>
     /// Represents a HTTP-based health check.
     /// </summary>
+    [DataContract]
     public sealed class HttpHealthCheck : IEquatable<HttpHealthCheck>
     {
 
