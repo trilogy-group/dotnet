@@ -121,7 +121,33 @@ namespace Structurizr
         {
             RemoveElement(deploymentNode);
         }
-        
+
+
+        /// <summary>
+        /// Adds an animation step, with the specified container instances and infrastructure nodes.
+        /// </summary>
+        /// <param name="containerInstances">the container instances that should be shown in the animation step</param>
+        /// <param name="infrastructureNodes">the infrastructure nodes that should be shown in the animation step</param>
+        public void addAnimation(ContainerInstance[] containerInstances, InfrastructureNode[] infrastructureNodes)
+        {
+            if ((containerInstances == null || containerInstances.Length == 0) && (infrastructureNodes == null || infrastructureNodes.Length == 0))
+            {
+                throw new ArgumentException("One or more container instances/infrastructure nodes must be specified.");
+            }
+
+            List<Element> elements = new List<Element>();
+            if (containerInstances != null)
+            {
+                elements.AddRange(containerInstances);
+            }
+            if (infrastructureNodes != null)
+            {
+                elements.AddRange(infrastructureNodes);
+            }
+
+            addAnimationStep(elements.ToArray());
+        }
+
         /// <summary>
         /// Adds an animation step, with the specified infrastructure nodes.
         /// </summary>
@@ -133,7 +159,7 @@ namespace Structurizr
                 throw new ArgumentException("One or more infrastructure nodes must be specified.");
             }
 
-            addAnimationStep(infrastructureNodes);
+            addAnimation(new ContainerInstance[0], infrastructureNodes);
         }
 
         /// <summary>
@@ -147,7 +173,7 @@ namespace Structurizr
                 throw new ArgumentException("One or more container instances must be specified.");
             }
 
-            addAnimationStep(containerInstances);
+            addAnimation(containerInstances, new InfrastructureNode[0]);
         }
 
         private void addAnimationStep(params Element[] elements)
