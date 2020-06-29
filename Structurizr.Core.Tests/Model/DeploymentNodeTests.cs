@@ -221,6 +221,45 @@ namespace Structurizr.Core.Tests
             Assert.Same(child, parent.GetInfrastructureNodeWithName("child"));
         }
 
+        [Fact]
+        public void Test_Instances()
+        {
+            DeploymentNode deploymentNode = new DeploymentNode();
+            deploymentNode.Instances = 8;
+
+            Assert.Equal(8, deploymentNode.Instances);
+        }
+
+        [Fact]
+        public void Test_Instances_ThrowsAnException_WhenZeroIsSpecified()
+        {
+            try
+            {
+                DeploymentNode deploymentNode = new DeploymentNode();
+                deploymentNode.Instances = 0;
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("Number of instances must be a positive integer.", ae.Message);
+            }
+        }
+
+        [Fact]
+        public void Test_Instances_ThrowsAnException_WhenANegativeNumberIsSpecified()
+        {
+            try
+            {
+                DeploymentNode deploymentNode = new DeploymentNode();
+                deploymentNode.Instances = -1;
+                throw new TestFailedException();
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.Equal("Number of instances must be a positive integer.", ae.Message);
+            }
+        }
+
     }
-    
+
 }
