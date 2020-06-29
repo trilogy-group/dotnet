@@ -47,11 +47,20 @@ namespace Structurizr
         }
 
         /// <summary>
-        /// Adds all of the top-level deployment nodes to this view. 
+        /// Adds all of the top-level deployment nodes to this view, for the same deployment environment (if set). 
         /// </summary>
         public void AddAllDeploymentNodes()
         {
-            Model.DeploymentNodes.ToList().ForEach(Add);
+            foreach (DeploymentNode deploymentNode in Model.DeploymentNodes)
+            {
+                if (deploymentNode.Parent == null)
+                {
+                    if (this.Environment == null || this.Environment.Equals(deploymentNode.Environment))
+                    {
+                        Add(deploymentNode);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -69,16 +78,18 @@ namespace Structurizr
         /// <param name="deploymentNode">the DeploymentNode to add</param>
         public void Add(DeploymentNode deploymentNode, bool addRelationships)
         {
-            if (deploymentNode != null)
+            if (deploymentNode == null)
             {
-                if (AddContainerInstancesAndDeploymentNodesAndInfrastructureNodes(deploymentNode, addRelationships))
+                throw new ArgumentException("A deployment node must be specified.");
+            }
+
+            if (AddContainerInstancesAndDeploymentNodesAndInfrastructureNodes(deploymentNode, addRelationships))
+            {
+                Element parent = deploymentNode.Parent;
+                while (parent != null)
                 {
-                    Element parent = deploymentNode.Parent;
-                    while (parent != null)
-                    {
-                        AddElement(parent, false);
-                        parent = parent.Parent;
-                    }
+                    AddElement(parent, false);
+                    parent = parent.Parent;
                 }
             }
         }
@@ -116,19 +127,52 @@ namespace Structurizr
         /// <summary>
         /// Removes a deployment node from this view.
         /// </summary>
-        /// <param name="deploymentNode">the DpeloymentNode to remove</param>
+        /// <param name="deploymentNode">the DeploymentNode to remove</param>
         public void Remove(DeploymentNode deploymentNode)
         {
+            foreach (ContainerInstance containerInstance in deploymentNode.ContainerInstances)
+            {
+                Remove(containerInstance);
+            }
+
+            foreach (InfrastructureNode infrastructureNode in deploymentNode.InfrastructureNodes)
+            {
+                Remove(infrastructureNode);
+            }
+
+            foreach (DeploymentNode child in deploymentNode.Children)
+            {
+                Remove(child);
+            }
+
             RemoveElement(deploymentNode);
         }
 
+        /// <summary>
+        /// Removes an infrastructure node from this view.
+        /// </summary>
+        /// <param name="infrastructureNode">the InfrastructureNode to remove</param>
+
+        public void Remove(InfrastructureNode infrastructureNode)
+        {
+            RemoveElement(infrastructureNode);
+        }
+
+        /// <summary>
+        /// Removes an container instance from this view.
+        /// </summary>
+        /// <param name="containerInstance">the ContainerInstance to remove</param>
+        public void Remove(ContainerInstance containerInstance)
+        {
+            RemoveElement(containerInstance);
+        }
 
         /// <summary>
         /// Adds an animation step, with the specified container instances and infrastructure nodes.
         /// </summary>
         /// <param name="containerInstances">the container instances that should be shown in the animation step</param>
         /// <param name="infrastructureNodes">the infrastructure nodes that should be shown in the animation step</param>
-        public void addAnimation(ContainerInstance[] containerInstances, InfrastructureNode[] infrastructureNodes)
+        public void AddAnimation(ContainerInstance[] containerInstances, InfrastructureNode[] infrastructureNodes)
         {
             if ((containerInstances == null || containerInstances.Length == 0) && (infrastructureNodes == null || infrastructureNodes.Length == 0))
             {
@@ -159,7 +203,7 @@ namespace Structurizr
                 throw new ArgumentException("One or more infrastructure nodes must be specified.");
             }
 
-            addAnimation(new ContainerInstance[0], infrastructureNodes);
+            AddAnimation(new ContainerInstance[0], infrastructureNodes);
         }
 
         /// <summary>
@@ -173,7 +217,7 @@ namespace Structurizr
                 throw new ArgumentException("One or more container instances must be specified.");
             }
 
-            addAnimation(containerInstances, new InfrastructureNode[0]);
+            AddAnimation(containerInstances, new InfrastructureNode[0]);
         }
 
         private void addAnimationStep(params Element[] elements)
@@ -263,14 +307,24 @@ namespace Structurizr
         {
             get
             {
+                string name;
+
                 if (SoftwareSystem != null)
                 {
-                    return SoftwareSystem.Name + " - Deployment";
+                    name = SoftwareSystem.Name + " - Deployment";
                 }
                 else
                 {
-                    return "Deployment";
+                    name = "Deployment";
                 }
+
+                if (!String.IsNullOrEmpty(Environment))
+                {
+                    name = name + " - " + Environment;
+                }
+
+                return name;
+
             }
         }
         

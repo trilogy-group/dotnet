@@ -13,6 +13,7 @@
 - Adds support for multiple themes.
 - Adds support for infrastructure nodes.
 - Adds support for animation steps on deployment views.
+- Fixes a bug where all deployment nodes would be added to a deployment view, even if that view had an environment set.
 
 ## 0.9.6 (29th February 2020)
 
