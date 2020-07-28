@@ -4,7 +4,8 @@
     {
 
         Solid,
-        Dashed
+        Dashed,
+        Dotted
 
     }
 }

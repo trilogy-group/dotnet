@@ -15,7 +15,8 @@
         Folder,
         WebBrowser,
         MobileDevicePortrait,
-        MobileDeviceLandscape
+        MobileDeviceLandscape,
+        Component
 
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Structurizr.Core.View;
 using Structurizr.Util;
@@ -23,19 +24,29 @@ namespace Structurizr
         [DataMember(Name = "styles", EmitDefaultValue = false)]
         public Styles Styles { get; internal set; }
 
-        private String _theme;
+        private string[] _themes;
         
-        [DataMember(Name = "theme", EmitDefaultValue = false)]
         public string Theme
         {
-            get { return _theme; }
+            get
+            {
+                if (_themes != null && _themes.Length > 0)
+                {
+                    return _themes[0];
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            
             set
             {
                 if (value != null && value.Trim().Length > 0)
                 {
                     if (Url.IsUrl(value))
                     {
-                        _theme = value.Trim();
+                        _themes = new string[]{ value.Trim() };
                     }
                     else {
                         throw new ArgumentException(value + " is not a valid URL.");
@@ -44,11 +55,45 @@ namespace Structurizr
             }
         }
         
+        [DataMember(Name = "themes", EmitDefaultValue = false)]
+        public string[] Themes
+        {
+            get { return _themes; }
+            set
+            {
+                List<string> list = new List<string>(); 
+                if (value != null)
+                {
+                    foreach (string theme in value)
+                    {
+                        if (value != null && theme.Trim().Length > 0)
+                        {
+                            if (Url.IsUrl(theme))
+                            {
+                                list.Add(theme.Trim());
+                            }
+                            else {
+                                throw new ArgumentException(value + " is not a valid URL.");
+                            }
+                        }
+                    }
+                }
+
+                _themes = list.ToArray();
+            }
+        }
+        
         [DataMember(Name = "branding", EmitDefaultValue = false)]
         public Branding Branding { get; internal set; }
 
         [DataMember(Name = "terminology", EmitDefaultValue = false)]
         public Terminology Terminology { get; internal set; }
+
+        /// <summary>
+        /// The type of symbols to use when rendering metadata.
+        /// </summary>
+        [DataMember(Name = "metadataSymbols", EmitDefaultValue = false)]
+        public MetadataSymbols? MetadataSymbols { get; set; }
 
         [DataMember(Name = "defaultView", EmitDefaultValue = false)]
         public string DefaultView { get; private set; }

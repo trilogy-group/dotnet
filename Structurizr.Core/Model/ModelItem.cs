@@ -89,9 +89,10 @@ namespace Structurizr
             {
                 if (tag != null)
                 {
-                    if (!_tags.Contains(tag))
+                    string t = tag.Trim();
+                    if (!_tags.Contains(t))
                     {
-                        _tags.Add(tag);
+                        _tags.Add(t);
                     }
                 }
             }
@@ -101,7 +102,7 @@ namespace Structurizr
         {
             if (tag != null)
             {
-                this._tags.Remove(tag);
+                this._tags.Remove(tag.Trim());
             }
         }
 
