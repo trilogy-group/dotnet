@@ -29,7 +29,7 @@ namespace Structurizr
         {
             get
             {
-                return new HashSet<Container>(_containers);
+                return _containers;
             }
 
             internal set
