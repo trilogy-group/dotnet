@@ -73,7 +73,7 @@ namespace Structurizr.Examples
             views.Configuration.Theme = "https://raw.githubusercontent.com/structurizr/themes/master/amazon-web-services/theme.json";
 
             StructurizrClient structurizrClient = new StructurizrClient(ApiKey, ApiSecret);
-            structurizrClient.PutWorkspace(WorkspaceId, workspace);
+            //structurizrClient.PutWorkspace(WorkspaceId, workspace);
         }
 
     }

@@ -27,7 +27,7 @@ namespace Structurizr
                 return _description ?? "";
             }
 
-            internal set { _description = value; }
+            set { _description = value; }
         }
 
         private string _sourceId;
@@ -110,7 +110,7 @@ namespace Structurizr
                 _interactionStyle = value;
             }
         }
-        
+
         private string _url;
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace Structurizr
                 if (value != null && value.Trim().Length > 0)
                 {
                     if (Util.Url.IsUrl(value))
-                    { 
+                    {
                         this._url = value;
                     }
                     else
@@ -162,7 +162,7 @@ namespace Structurizr
             this.Description = description;
             this.Technology = technology;
             this.InteractionStyle = interactionStyle;
-            
+
             if (interactionStyle == InteractionStyle.Synchronous)
             {
                 AddTags(Structurizr.Tags.Synchronous);
@@ -175,12 +175,15 @@ namespace Structurizr
 
         public override List<string> GetRequiredTags()
         {
-            if (LinkedRelationshipId == null) {
+            if (LinkedRelationshipId == null)
+            {
                 string[] tags = {
                     Structurizr.Tags.Relationship
                 };
                 return tags.ToList();
-            } else {
+            }
+            else
+            {
                 return new List<string>();
             }
         }
@@ -222,7 +225,7 @@ namespace Structurizr
         {
             int result = SourceId.GetHashCode();
             result = 31 * result + DestinationId.GetHashCode();
-            result = 31*result + Description.GetHashCode();
+            result = 31 * result + Description.GetHashCode();
             return result;
         }
 
