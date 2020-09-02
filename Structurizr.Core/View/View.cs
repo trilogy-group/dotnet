@@ -163,15 +163,17 @@ namespace Structurizr
 
         public virtual RelationshipView Add(Relationship relationship)
         {
-            if (relationship != null)
+            if (relationship == null)
             {
-                if (IsElementInView(relationship.Source) && IsElementInView(relationship.Destination))
-                {
-                    RelationshipView relationshipView = new RelationshipView(relationship);
-                    _relationships.Add(relationshipView);
+                throw new ArgumentException("A relationship must be specified.");
+            }
 
-                    return relationshipView;
-                }
+            if (IsElementInView(relationship.Source) && IsElementInView(relationship.Destination))
+            {
+                RelationshipView relationshipView = new RelationshipView(relationship);
+                _relationships.Add(relationshipView);
+
+                return relationshipView;
             }
 
             return null;

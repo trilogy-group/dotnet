@@ -34,8 +34,26 @@ namespace Structurizr
         [DataMember(Name = "technology", EmitDefaultValue = false)]
         public string Technology { get; set; }
 
+        private int _instances = 1;
+
         [DataMember(Name = "instances", EmitDefaultValue = false)]
-        public int Instances { get; set; }
+        public int Instances
+        {
+            get
+            {
+                return _instances;
+            }
+
+            set
+            {
+                if (value < 1)
+                {
+                    throw new ArgumentException("Number of instances must be a positive integer.");
+                }
+
+                _instances = value;
+            }
+        }
 
         private HashSet<DeploymentNode> _children;
 

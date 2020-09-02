@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.9.7 (unreleased)
+## 0.9.7 (29th June 2020)
 
 - Added an ExternalSoftwareSystemBoundariesVisible property to ContainerView, to set whether software system boundaries should be visible for "external" containers (those outside the software system in scope).
 - Added an ExternalContainersBoundariesVisible property to ComponentView, to set whether container boundaries should be visible for "external" components (those outside the container in scope).
@@ -13,6 +13,7 @@
 - Adds support for multiple themes.
 - Adds support for infrastructure nodes.
 - Adds support for animation steps on deployment views.
+- Fixes a bug where all deployment nodes would be added to a deployment view, even if that view had an environment set.
 
 ## 0.9.6 (29th February 2020)
 
